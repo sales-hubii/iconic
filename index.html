@@ -90,51 +90,6 @@ body{
   max-width: 480px;
 }
 
-.cadence-card{
-  background: var(--card);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 16px 20px;
-  min-width: 190px;
-  text-align:center;
-  box-shadow: 0 8px 24px -14px rgba(99,72,229,0.35);
-}
-.header-cards{ display:flex; gap:12px; flex-wrap:wrap; }
-.cadence-label{
-  font-family:'IBM Plex Mono', monospace;
-  font-size: 10px;
-  text-transform:uppercase;
-  letter-spacing:0.1em;
-  color: var(--ink-soft);
-  margin-bottom: 4px;
-}
-.cadence-value{
-  font-size: 15px;
-  font-weight:700;
-  color: var(--purple-deep);
-}
-.meeting-dates{
-  margin-top: 10px;
-  padding-top: 10px;
-  border-top: 1px solid var(--line);
-  display:grid;
-  grid-template-columns: auto auto;
-  row-gap: 6px;
-  column-gap: 14px;
-}
-.meeting-row{ display:contents; }
-.meeting-row span{ color: var(--ink-soft); text-align:left; font-family:'IBM Plex Mono', monospace; font-size: 12px; }
-.meeting-row b{ color: var(--ink); font-weight:600; text-align:right; font-family:'IBM Plex Mono', monospace; font-size: 12px; }
-.meeting-link{
-  cursor: pointer;
-  color: var(--purple-deep) !important;
-  text-decoration: underline;
-  text-decoration-color: var(--purple-glow);
-  text-underline-offset: 3px;
-  transition: color .15s ease;
-}
-.meeting-link:hover{ color: var(--purple) !important; }
-
 /* MODAL */
 .modal-overlay{
   display:none;
@@ -239,37 +194,6 @@ body{
   gap:6px;
 }
 .modal-link:hover{ text-decoration:underline; }
-
-.progress-block{
-  display:flex;
-  align-items:center;
-  gap:14px;
-  background: var(--card);
-  border:1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 14px 20px;
-  box-shadow: 0 8px 24px -14px rgba(99,72,229,0.35);
-}
-.ring-wrap{ position:relative; width:56px; height:56px; flex:none; }
-.ring-wrap svg{ transform: rotate(-90deg); }
-.ring-bg{ stroke: var(--line); }
-.ring-fg{ stroke: var(--purple); stroke-linecap: round; transition: stroke-dashoffset 0.4s ease; }
-.ring-text{
-  position:absolute; inset:0;
-  display:flex; align-items:center; justify-content:center;
-  font-family:'IBM Plex Mono', monospace;
-  font-weight:600;
-  font-size: 13px;
-  color: var(--purple-deep);
-}
-.progress-copy .num{ font-size:13px; font-weight:700; color: var(--ink); }
-.progress-copy .lbl{
-  font-family:'IBM Plex Mono', monospace;
-  font-size: 10px;
-  text-transform:uppercase;
-  letter-spacing:0.08em;
-  color: var(--ink-soft);
-}
 
 /* TABS */
 .tabs{
@@ -616,6 +540,40 @@ body{
 }
 .footer-note b{ color: var(--purple-deep); }
 
+/* UPDATE BADGE — fixed bottom-right */
+.update-badge{
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 9px 16px;
+  font-family:'IBM Plex Mono', monospace;
+  font-size: 11.5px;
+  color: var(--ink-soft);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 10px 28px -12px rgba(27,23,48,0.25);
+  z-index: 50;
+}
+.update-badge b{ color: var(--ink); font-weight: 600; }
+.update-dot{
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--foco);
+  box-shadow: 0 0 0 3px var(--foco-bg);
+  flex: none;
+}
+@media (max-width: 640px){
+  .update-badge{
+    bottom: 14px; right: 14px;
+    padding: 7px 12px;
+    font-size: 10.5px;
+  }
+}
+
 /* COMPETITIVE PRICE TAB */
 .rationale-row{
   display:grid;
@@ -819,9 +777,6 @@ body{
   .subtitle{ max-width: none; font-size: 13px; }
 
   .header{ flex-direction: column; align-items: stretch; gap: 16px; margin-bottom: 22px; }
-  .header-cards{ flex-direction: column; }
-  .cadence-card, .progress-block{ width: 100%; min-width: 0; }
-  .progress-block{ justify-content: flex-start; }
 
   /* Tabs: horizontal scroll instead of wrapping/overflow */
   .tabs{
@@ -876,30 +831,6 @@ body{
       <div class="eyebrow">Hubii · Comercial</div>
       <div class="title">Projeto <span>Iconic</span></div>
       <div class="subtitle">Resumo executivo e acompanhamento das atividades e conversas entre Iconic e Hubii.</div>
-    </div>
-    <div class="header-cards">
-      <div class="cadence-card">
-        <div class="cadence-label">Cadência</div>
-        <div class="cadence-value">Alinhamento semanal</div>
-        <div class="meeting-dates">
-          <div class="meeting-row"><span>Última</span><b class="meeting-link" data-meeting="m3">07/ago ↗</b></div>
-          <div class="meeting-row"><span>Próxima</span><b>14/ago</b></div>
-        </div>
-      </div>
-      <div class="progress-block">
-        <div class="ring-wrap">
-          <svg width="56" height="56" viewBox="0 0 56 56">
-            <circle class="ring-bg" cx="28" cy="28" r="24" fill="none" stroke-width="5"/>
-            <circle id="ringFg" class="ring-fg" cx="28" cy="28" r="24" fill="none" stroke-width="5"
-              stroke-dasharray="150.8" stroke-dashoffset="150.8"/>
-          </svg>
-          <div class="ring-text" id="ringText">0/6</div>
-        </div>
-        <div class="progress-copy">
-          <div class="num" id="progressNum">0 de 6 concluídas</div>
-          <div class="lbl">Itens em aberto</div>
-        </div>
-      </div>
     </div>
   </div>
 
@@ -1466,8 +1397,11 @@ body{
 
   </div>
 
-  <div class="footer-note">Atualizado a cada reunião de alinhamento · <b>Hubii</b> × Iconic</div>
+  </div>
 
+<div class="update-badge" id="updateBadge">
+  <span class="update-dot"></span>
+  Atualizado em <b id="updateDate">—</b>
 </div>
 
 <!-- MODAL: RESUMO DA REUNIÃO -->
@@ -1501,21 +1435,13 @@ body{
     });
   });
 
-  // Checklist + progress ring
+  // Checklist progress (still tracked in the Tarefas tab counter)
   const tasks = document.querySelectorAll('[data-task]');
   const total = tasks.length;
-  const ringFg = document.getElementById('ringFg');
-  const ringText = document.getElementById('ringText');
-  const progressNum = document.getElementById('progressNum');
   const tabCount = document.getElementById('tabCount');
-  const circumference = 2 * Math.PI * 24;
 
   function updateProgress(){
     const done = document.querySelectorAll('[data-task].done').length;
-    const pct = done / total;
-    ringFg.style.strokeDashoffset = circumference * (1 - pct);
-    ringText.textContent = done + '/' + total;
-    progressNum.textContent = done + ' de ' + total + ' concluídas';
     tabCount.textContent = done + '/' + total;
   }
 
@@ -1527,6 +1453,17 @@ body{
   });
 
   updateProgress();
+
+  // Last updated badge — uses the file's own last-modified timestamp
+  const updateDate = document.getElementById('updateDate');
+  if(updateDate){
+    const lm = new Date(document.lastModified);
+    if(!isNaN(lm)){
+      const formatted = lm.toLocaleDateString('pt-BR', { day:'2-digit', month:'2-digit', year:'numeric' })
+        + ' às ' + lm.toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' });
+      updateDate.textContent = formatted;
+    }
+  }
 
   // Meeting summaries
   const MEETINGS = {
