@@ -714,6 +714,8 @@ body{
 .legend-own::before{ background: var(--purple); }
 .legend-comp{ color: var(--ink-soft); background: var(--paper); border: 1px solid var(--line); }
 .legend-comp::before{ background: var(--potencial); }
+.legend-price{ color: var(--ink-soft); background: none; padding: 4px 0; font-weight: 500; }
+.legend-price::before{ display:none; }
 
 .compare-panel{ padding: 6px 22px; }
 .compare-item{
@@ -768,6 +770,25 @@ body{
 .compare-chip.own span{ color: var(--purple-deep); font-weight:700; }
 .compare-chip.empty{ color: var(--potencial); font-style: italic; }
 .compare-chip.empty span{ color: var(--potencial); }
+.chip-prices{
+  display:flex;
+  gap: 6px;
+  margin-top: 7px;
+  padding-top: 7px;
+  border-top: 1px solid var(--line);
+}
+.compare-chip.own .chip-prices{ border-top-color: var(--purple-glow); }
+.chip-price{
+  font-family:'IBM Plex Mono', monospace;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.chip-price.price-med{ color: var(--purple-deep); background: var(--hubii-bg); }
+.chip-price.price-min{ color: var(--foco); background: var(--foco-bg); }
+.compare-chip.own .chip-price.price-med{ background: #ffffff; }
 
 /* ============ MOBILE ============ */
 @media (max-width: 640px){
@@ -1247,70 +1268,71 @@ body{
     <div class="compare-legend">
       <span class="legend-chip legend-own">Marca própria (Iconic)</span>
       <span class="legend-chip legend-comp">Concorrente</span>
+      <span class="legend-chip legend-price">Méd / Mín = preço de mercado pesquisado</span>
     </div>
     <div class="panel compare-panel">
 
       <details class="compare-item">
         <summary>F1 Master Protection 20W50 SL <span class="compare-arrow">▾</span></summary>
         <div class="compare-grid">
-          <div class="compare-chip own"><span>Texaco</span>Havoline Superior SL SAE 20W50</div>
-          <div class="compare-chip"><span>Mobil</span>Mobil Super 20W50 Mineral</div>
-          <div class="compare-chip"><span>Vibra</span>Lubrax Essencial SL</div>
-          <div class="compare-chip"><span>Petronas</span>Petronas Syntium 300 20W-50</div>
-          <div class="compare-chip"><span>Shell</span>Shell Helix HX3 20W50</div>
-          <div class="compare-chip"><span>Castrol</span>Castrol GTX 20W-50</div>
-          <div class="compare-chip"><span>YPF</span>Elaion MI 2050</div>
+          <div class="compare-chip own"><span>Texaco</span>Havoline Superior SL SAE 20W50<div class="chip-prices"><span class="chip-price price-med">Méd R$ 32,80</span><span class="chip-price price-min">Mín R$ 27,45</span></div></div>
+          <div class="compare-chip"><span>Mobil</span>Mobil Super 20W50 Mineral<div class="chip-prices"><span class="chip-price price-med">Méd R$ 30,36</span><span class="chip-price price-min">Mín R$ 21,60</span></div></div>
+          <div class="compare-chip"><span>Vibra</span>Lubrax Essencial SL<div class="chip-prices"><span class="chip-price price-med">Méd R$ 34,88</span><span class="chip-price price-min">Mín R$ 28,96</span></div></div>
+          <div class="compare-chip"><span>Petronas</span>Petronas Syntium 300 20W-50<div class="chip-prices"><span class="chip-price price-med">Méd R$ 23,61</span><span class="chip-price price-min">Mín R$ 22,36</span></div></div>
+          <div class="compare-chip"><span>Shell</span>Shell Helix HX3 20W50<div class="chip-prices"><span class="chip-price price-med">Méd R$ 31,58</span><span class="chip-price price-min">Mín R$ 31,58</span></div></div>
+          <div class="compare-chip"><span>Castrol</span>Castrol GTX 20W-50<div class="chip-prices"><span class="chip-price price-med">Méd R$ 31,91</span><span class="chip-price price-min">Mín R$ 31,91</span></div></div>
+          <div class="compare-chip"><span>YPF</span>Elaion MI 2050<div class="chip-prices"><span class="chip-price price-med">Méd R$ 38,76</span><span class="chip-price price-min">Mín R$ 35,90</span></div></div>
         </div>
       </details>
 
       <details class="compare-item">
         <summary>F1 Master Performance 15W40 SL <span class="compare-arrow">▾</span></summary>
         <div class="compare-grid">
-          <div class="compare-chip own"><span>Texaco</span>Havoline Semissint SL 15W40</div>
-          <div class="compare-chip"><span>Mobil</span>Mobil Super 15W40 Semissintético</div>
-          <div class="compare-chip"><span>Vibra</span>Lubrax Tecno SL</div>
-          <div class="compare-chip"><span>Petronas</span>Petronas Syntium 800 AM 15W-40</div>
-          <div class="compare-chip"><span>Shell</span>Shell Helix HX6 Flex 15W40</div>
-          <div class="compare-chip"><span>Castrol</span>Castrol GTX Ultraclean 15W-40</div>
-          <div class="compare-chip"><span>YPF</span>Elaion MI 1540</div>
+          <div class="compare-chip own"><span>Texaco</span>Havoline Semissint SL 15W40<div class="chip-prices"><span class="chip-price price-med">Méd R$ 36,48</span><span class="chip-price price-min">Mín R$ 31,90</span></div></div>
+          <div class="compare-chip"><span>Mobil</span>Mobil Super 15W40 Semissintético<div class="chip-prices"><span class="chip-price price-med">Méd R$ 35,03</span><span class="chip-price price-min">Mín R$ 33,99</span></div></div>
+          <div class="compare-chip"><span>Vibra</span>Lubrax Tecno SL<div class="chip-prices"><span class="chip-price price-med">Méd R$ 26,91</span><span class="chip-price price-min">Mín R$ 22,85</span></div></div>
+          <div class="compare-chip"><span>Petronas</span>Petronas Syntium 800 AM 15W-40<div class="chip-prices"><span class="chip-price price-med">Méd R$ 44,28</span><span class="chip-price price-min">Mín R$ 44,28</span></div></div>
+          <div class="compare-chip"><span>Shell</span>Shell Helix HX6 Flex 15W40<div class="chip-prices"><span class="chip-price price-med">Méd R$ 43,46</span><span class="chip-price price-min">Mín R$ 34,92</span></div></div>
+          <div class="compare-chip"><span>Castrol</span>Castrol GTX Ultraclean 15W-40<div class="chip-prices"><span class="chip-price price-med">Méd R$ 34,92</span><span class="chip-price price-min">Mín R$ 34,92</span></div></div>
+          <div class="compare-chip"><span>YPF</span>Elaion MI 1540<div class="chip-prices"><span class="chip-price price-med">Méd R$ 44,80</span><span class="chip-price price-min">Mín R$ 42,00</span></div></div>
         </div>
       </details>
 
       <details class="compare-item">
         <summary>F1 Master Sintético 5W30 SQ <span class="compare-arrow">▾</span></summary>
         <div class="compare-grid">
-          <div class="compare-chip own"><span>Texaco</span>Havoline Prods Fullsyn SQ 5W30</div>
-          <div class="compare-chip"><span>Mobil</span>Mobil Super 5W-30 Sintético D1</div>
-          <div class="compare-chip"><span>Vibra</span>Lubrax Supera Premium 5W-30</div>
-          <div class="compare-chip"><span>Petronas</span>Petronas Syntium 3000 AM 5W-30 SP</div>
-          <div class="compare-chip"><span>Shell</span>Shell Helix HX8 SP 5W30</div>
-          <div class="compare-chip"><span>Castrol</span>Magnatec 5W-30</div>
-          <div class="compare-chip"><span>YPF</span>Elaion FS 530</div>
+          <div class="compare-chip own"><span>Texaco</span>Havoline Prods Fullsyn SQ 5W30<div class="chip-prices"><span class="chip-price price-med">Méd R$ 39,59</span><span class="chip-price price-min">Mín R$ 36,86</span></div></div>
+          <div class="compare-chip"><span>Mobil</span>Mobil Super 5W-30 Sintético D1<div class="chip-prices"><span class="chip-price price-med">Méd R$ 63,05</span><span class="chip-price price-min">Mín R$ 63,05</span></div></div>
+          <div class="compare-chip"><span>Vibra</span>Lubrax Supera Premium 5W-30<div class="chip-prices"><span class="chip-price price-med">Méd R$ 50,38</span><span class="chip-price price-min">Mín R$ 50,38</span></div></div>
+          <div class="compare-chip"><span>Petronas</span>Petronas Syntium 3000 AM 5W-30 SP<div class="chip-prices"><span class="chip-price price-med">Méd R$ 44,35</span><span class="chip-price price-min">Mín R$ 39,42</span></div></div>
+          <div class="compare-chip"><span>Shell</span>Shell Helix HX8 SP 5W30<div class="chip-prices"><span class="chip-price price-med">Méd R$ 55,97</span><span class="chip-price price-min">Mín R$ 41,90</span></div></div>
+          <div class="compare-chip"><span>Castrol</span>Magnatec 5W-30<div class="chip-prices"><span class="chip-price price-med">Méd R$ 52,28</span><span class="chip-price price-min">Mín R$ 52,28</span></div></div>
+          <div class="compare-chip"><span>YPF</span>Elaion FS 530<div class="chip-prices"><span class="chip-price price-med">Méd R$ 50,00</span><span class="chip-price price-min">Mín R$ 44,98</span></div></div>
         </div>
       </details>
 
       <details class="compare-item">
         <summary>F1 Master Sintético SP 5W40 <span class="compare-arrow">▾</span></summary>
         <div class="compare-grid">
-          <div class="compare-chip own"><span>Texaco</span>Havoline Ultra W SAE 5W40</div>
-          <div class="compare-chip"><span>Mobil</span>Mobil Super 5W40 Sintético</div>
-          <div class="compare-chip"><span>Vibra</span>Lubrax Supera Flex</div>
-          <div class="compare-chip"><span>Petronas</span>Petronas Syntium 3000 BV 5W40</div>
-          <div class="compare-chip"><span>Shell</span>Shell Helix HX8 Professional AV 5W40</div>
-          <div class="compare-chip"><span>Castrol</span>Castrol Magnatec 5W-40</div>
-          <div class="compare-chip"><span>YPF</span>Elaion Auro Plus 540</div>
+          <div class="compare-chip own"><span>Texaco</span>Havoline Ultra W SAE 5W40<div class="chip-prices"><span class="chip-price price-med">Méd R$ 68,56</span><span class="chip-price price-min">Mín R$ 39,90</span></div></div>
+          <div class="compare-chip"><span>Mobil</span>Mobil Super 5W40 Sintético<div class="chip-prices"><span class="chip-price price-med">Méd R$ 63,46</span><span class="chip-price price-min">Mín R$ 49,55</span></div></div>
+          <div class="compare-chip"><span>Vibra</span>Lubrax Supera Flex<div class="chip-prices"><span class="chip-price price-med">Méd R$ 83,30</span><span class="chip-price price-min">Mín R$ 83,30</span></div></div>
+          <div class="compare-chip"><span>Petronas</span>Petronas Syntium 3000 BV 5W40<div class="chip-prices"><span class="chip-price price-med">Méd R$ 67,37</span><span class="chip-price price-min">Mín R$ 62,64</span></div></div>
+          <div class="compare-chip"><span>Shell</span>Shell Helix HX8 Professional AV 5W40<div class="chip-prices"><span class="chip-price price-med">Méd R$ 77,23</span><span class="chip-price price-min">Mín R$ 69,57</span></div></div>
+          <div class="compare-chip"><span>Castrol</span>Castrol Magnatec 5W-40<div class="chip-prices"><span class="chip-price price-med">Méd R$ 67,70</span><span class="chip-price price-min">Mín R$ 64,50</span></div></div>
+          <div class="compare-chip"><span>YPF</span>Elaion Auro Plus 540<div class="chip-prices"><span class="chip-price price-med">Méd R$ 45,76</span><span class="chip-price price-min">Mín R$ 44,90</span></div></div>
         </div>
       </details>
 
       <details class="compare-item">
         <summary>F1 Master Sintético 0W20 SQ <span class="compare-arrow">▾</span></summary>
         <div class="compare-grid">
-          <div class="compare-chip own"><span>Texaco</span>Havoline Prods Fullsyn SP 0W20</div>
-          <div class="compare-chip"><span>Mobil</span>Mobil Super 0W20 Hybrid</div>
-          <div class="compare-chip"><span>Vibra</span>Lubrax Supera Premium 0W-20</div>
-          <div class="compare-chip"><span>Petronas</span>Petronas Syntium Hybrid 0W-20 SP</div>
-          <div class="compare-chip"><span>Shell</span>Shell Helix HX8 Professional AG 0W-20</div>
-          <div class="compare-chip"><span>Castrol</span>Castrol Magnatec 0W-20 DX</div>
+          <div class="compare-chip own"><span>Texaco</span>Havoline Prods Fullsyn SP 0W20<div class="chip-prices"><span class="chip-price price-med">Méd R$ 46,82</span><span class="chip-price price-min">Mín R$ 36,00</span></div></div>
+          <div class="compare-chip"><span>Mobil</span>Mobil Super 0W20 Hybrid<div class="chip-prices"><span class="chip-price price-med">Méd R$ 102,17</span><span class="chip-price price-min">Mín R$ 95,30</span></div></div>
+          <div class="compare-chip"><span>Vibra</span>Lubrax Supera Premium 0W-20<div class="chip-prices"><span class="chip-price price-med">Méd R$ 83,04</span><span class="chip-price price-min">Mín R$ 79,99</span></div></div>
+          <div class="compare-chip"><span>Petronas</span>Petronas Syntium Hybrid 0W-20 SP<div class="chip-prices"><span class="chip-price price-med">Méd R$ 53,33</span><span class="chip-price price-min">Mín R$ 47,56</span></div></div>
+          <div class="compare-chip"><span>Shell</span>Shell Helix HX8 Professional AG 0W-20<div class="chip-prices"><span class="chip-price price-med">Méd R$ 50,80</span><span class="chip-price price-min">Mín R$ 46,05</span></div></div>
+          <div class="compare-chip"><span>Castrol</span>Castrol Magnatec 0W-20 DX<div class="chip-prices"><span class="chip-price price-med">Méd R$ 73,65</span><span class="chip-price price-min">Mín R$ 72,78</span></div></div>
           <div class="compare-chip empty"><span>YPF</span>Sem equivalente</div>
         </div>
       </details>
@@ -1318,10 +1340,10 @@ body{
       <details class="compare-item">
         <summary>F1 Master Sintético C2 0W30 <span class="compare-arrow">▾</span></summary>
         <div class="compare-grid">
-          <div class="compare-chip empty own"><span>Texaco</span>Sem equivalente</div>
-          <div class="compare-chip"><span>Mobil</span>Mobil Super 0W-30 Sintético</div>
+          <div class="compare-chip own empty"><span>Texaco</span>Sem equivalente</div>
+          <div class="compare-chip"><span>Mobil</span>Mobil Super 0W-30 Sintético<div class="chip-prices"><span class="chip-price price-med">Méd R$ 70,72</span><span class="chip-price price-min">Mín R$ 66,80</span></div></div>
           <div class="compare-chip empty"><span>Vibra</span>Sem equivalente</div>
-          <div class="compare-chip"><span>Petronas</span>Petronas Syntium 7000 E 0W30</div>
+          <div class="compare-chip"><span>Petronas</span>Petronas Syntium 7000 E 0W30<div class="chip-prices"><span class="chip-price price-med">Méd R$ 72,91</span><span class="chip-price price-min">Mín R$ 57,13</span></div></div>
           <div class="compare-chip empty"><span>Shell</span>Sem equivalente</div>
           <div class="compare-chip empty"><span>Castrol</span>Sem equivalente</div>
           <div class="compare-chip empty"><span>YPF</span>Sem equivalente</div>
@@ -1331,38 +1353,38 @@ body{
       <details class="compare-item">
         <summary>Moto Performance 10W30 SL <span class="compare-arrow">▾</span></summary>
         <div class="compare-grid">
-          <div class="compare-chip own"><span>Texaco</span>Havoline 4T Semissint 10W30</div>
-          <div class="compare-chip"><span>Mobil</span>Mobil Super Moto 10W30 MX</div>
-          <div class="compare-chip"><span>Vibra</span>Lubrax Moto 4T Profissional 10W-30</div>
-          <div class="compare-chip"><span>Petronas</span>Petronas Sprinta F500 10W30</div>
-          <div class="compare-chip"><span>Shell</span>Shell Advance 4T AX7</div>
-          <div class="compare-chip"><span>Castrol</span>Actevo Stop-Start 4T 10W-30</div>
-          <div class="compare-chip"><span>YPF</span>Rod 4T 10W30</div>
+          <div class="compare-chip own"><span>Texaco</span>Havoline 4T Semissint 10W30<div class="chip-prices"><span class="chip-price price-med">Méd R$ 39,26</span><span class="chip-price price-min">Mín R$ 28,00</span></div></div>
+          <div class="compare-chip"><span>Mobil</span>Mobil Super Moto 10W30 MX<div class="chip-prices"><span class="chip-price price-med">Méd R$ 51,87</span><span class="chip-price price-min">Mín R$ 33,83</span></div></div>
+          <div class="compare-chip"><span>Vibra</span>Lubrax Moto 4T Profissional 10W-30<div class="chip-prices"><span class="chip-price price-med">Méd R$ 42,81</span><span class="chip-price price-min">Mín R$ 38,54</span></div></div>
+          <div class="compare-chip"><span>Petronas</span>Petronas Sprinta F500 10W30<div class="chip-prices"><span class="chip-price price-med">Méd R$ 41,40</span><span class="chip-price price-min">Mín R$ 36,90</span></div></div>
+          <div class="compare-chip"><span>Shell</span>Shell Advance 4T AX7<div class="chip-prices"><span class="chip-price price-med">Méd R$ 45,28</span><span class="chip-price price-min">Mín R$ 39,90</span></div></div>
+          <div class="compare-chip"><span>Castrol</span>Actevo Stop-Start 4T 10W-30<div class="chip-prices"><span class="chip-price price-med">Méd R$ 52,27</span><span class="chip-price price-min">Mín R$ 46,93</span></div></div>
+          <div class="compare-chip"><span>YPF</span>Rod 4T 10W30<div class="chip-prices"><span class="chip-price price-med">Méd R$ 60,67</span><span class="chip-price price-min">Mín R$ 56,34</span></div></div>
         </div>
       </details>
 
       <details class="compare-item">
         <summary>Moto Protection 20W50 SL <span class="compare-arrow">▾</span></summary>
         <div class="compare-grid">
-          <div class="compare-chip own"><span>Texaco</span>Havoline 4T SAE 20W50</div>
-          <div class="compare-chip"><span>Mobil</span>Mobil Super Moto 4T 20W50</div>
-          <div class="compare-chip"><span>Vibra</span>Lubrax Moto 4T</div>
-          <div class="compare-chip"><span>Petronas</span>Petronas Sprinta F300 20W50 API SL</div>
-          <div class="compare-chip"><span>Shell</span>Shell Advance AX5</div>
-          <div class="compare-chip"><span>Castrol</span>Actevo Essential 4T 20W50</div>
-          <div class="compare-chip"><span>YPF</span>Rod 4T 20W50</div>
+          <div class="compare-chip own"><span>Texaco</span>Havoline 4T SAE 20W50<div class="chip-prices"><span class="chip-price price-med">Méd R$ 39,90</span><span class="chip-price price-min">Mín R$ 39,90</span></div></div>
+          <div class="compare-chip"><span>Mobil</span>Mobil Super Moto 4T 20W50<div class="chip-prices"><span class="chip-price price-med">Méd R$ 36,76</span><span class="chip-price price-min">Mín R$ 36,76</span></div></div>
+          <div class="compare-chip"><span>Vibra</span>Lubrax Moto 4T<div class="chip-prices"><span class="chip-price price-med">Méd R$ 29,19</span><span class="chip-price price-min">Mín R$ 24,70</span></div></div>
+          <div class="compare-chip"><span>Petronas</span>Petronas Sprinta F300 20W50 API SL<div class="chip-prices"><span class="chip-price price-med">Méd R$ 25,70</span><span class="chip-price price-min">Mín R$ 22,95</span></div></div>
+          <div class="compare-chip"><span>Shell</span>Shell Advance AX5<div class="chip-prices"><span class="chip-price price-med">Méd R$ 33,15</span><span class="chip-price price-min">Mín R$ 31,03</span></div></div>
+          <div class="compare-chip"><span>Castrol</span>Actevo Essential 4T 20W50<div class="chip-prices"><span class="chip-price price-med">Méd R$ 30,21</span><span class="chip-price price-min">Mín R$ 28,49</span></div></div>
+          <div class="compare-chip empty"><span>YPF</span>Rod 4T 20W50</div>
         </div>
       </details>
 
       <details class="compare-item">
         <summary>Brutus Performance CI 15W40 <span class="compare-arrow">▾</span></summary>
         <div class="compare-grid">
-          <div class="compare-chip own"><span>Texaco</span>Ursa Premium TDS 15W40</div>
-          <div class="compare-chip"><span>Mobil</span>Mobil Delvac Legend 15W-40 Protection</div>
-          <div class="compare-chip"><span>Vibra</span>Lubrax Top Turbo Essencial</div>
-          <div class="compare-chip"><span>Petronas</span>Urania 1000E</div>
-          <div class="compare-chip"><span>Shell</span>Rimula R3 Extra 15W-40</div>
-          <div class="compare-chip"><span>Castrol</span>CRB Multi 15W-40 CI-4</div>
+          <div class="compare-chip own"><span>Texaco</span>Ursa Premium TDS 15W40<div class="chip-prices"><span class="chip-price price-med">Méd R$ 30,52</span><span class="chip-price price-min">Mín R$ 25,15</span></div></div>
+          <div class="compare-chip"><span>Mobil</span>Mobil Delvac Legend 15W-40 Protection<div class="chip-prices"><span class="chip-price price-med">Méd R$ 25,18</span><span class="chip-price price-min">Mín R$ 25,18</span></div></div>
+          <div class="compare-chip"><span>Vibra</span>Lubrax Top Turbo Essencial<div class="chip-prices"><span class="chip-price price-med">Méd R$ 25,45</span><span class="chip-price price-min">Mín R$ 24,55</span></div></div>
+          <div class="compare-chip"><span>Petronas</span>Urania 1000E<div class="chip-prices"><span class="chip-price price-med">Méd R$ 42,90</span><span class="chip-price price-min">Mín R$ 37,90</span></div></div>
+          <div class="compare-chip"><span>Shell</span>Rimula R3 Extra 15W-40<div class="chip-prices"><span class="chip-price price-med">Méd R$ 25,00</span><span class="chip-price price-min">Mín R$ 25,00</span></div></div>
+          <div class="compare-chip"><span>Castrol</span>CRB Multi 15W-40 CI-4<div class="chip-prices"><span class="chip-price price-med">Méd R$ 29,04</span><span class="chip-price price-min">Mín R$ 27,67</span></div></div>
           <div class="compare-chip empty"><span>YPF</span>Sem equivalente</div>
         </div>
       </details>
@@ -1370,26 +1392,26 @@ body{
       <details class="compare-item">
         <summary>Brutus AP 15W40 CI-4 <span class="compare-arrow">▾</span></summary>
         <div class="compare-grid">
-          <div class="compare-chip own"><span>Texaco</span>Ursa Premium TDX</div>
-          <div class="compare-chip"><span>Mobil</span>Mobil Delvac Modern 15W-40 Super Defense V3</div>
-          <div class="compare-chip"><span>Vibra</span>Lubrax Top Turbo</div>
-          <div class="compare-chip"><span>Petronas</span>Urania 3000</div>
-          <div class="compare-chip"><span>Shell</span>Rimula RT4X</div>
-          <div class="compare-chip"><span>Castrol</span>CRB Turbomax 15W-40 CI-4</div>
-          <div class="compare-chip"><span>YPF</span>Extravida XV200 15W-40</div>
+          <div class="compare-chip own"><span>Texaco</span>Ursa Premium TDX<div class="chip-prices"><span class="chip-price price-med">Méd R$ 23,09</span><span class="chip-price price-min">Mín R$ 22,50</span></div></div>
+          <div class="compare-chip"><span>Mobil</span>Mobil Delvac Modern 15W-40 Super Defense V3<div class="chip-prices"><span class="chip-price price-med">Méd R$ 32,96</span><span class="chip-price price-min">Mín R$ 31,75</span></div></div>
+          <div class="compare-chip"><span>Vibra</span>Lubrax Top Turbo<div class="chip-prices"><span class="chip-price price-med">Méd R$ 50,22</span><span class="chip-price price-min">Mín R$ 50,22</span></div></div>
+          <div class="compare-chip"><span>Petronas</span>Urania 3000<div class="chip-prices"><span class="chip-price price-med">Méd R$ 24,50</span><span class="chip-price price-min">Mín R$ 24,50</span></div></div>
+          <div class="compare-chip"><span>Shell</span>Rimula RT4X<div class="chip-prices"><span class="chip-price price-med">Méd R$ 20,45</span><span class="chip-price price-min">Mín R$ 20,45</span></div></div>
+          <div class="compare-chip"><span>Castrol</span>CRB Turbomax 15W-40 CI-4<div class="chip-prices"><span class="chip-price price-med">Méd R$ 21,74</span><span class="chip-price price-min">Mín R$ 18,49</span></div></div>
+          <div class="compare-chip"><span>YPF</span>Extravida XV200 15W-40<div class="chip-prices"><span class="chip-price price-med">Méd R$ 24,70</span><span class="chip-price price-min">Mín R$ 24,70</span></div></div>
         </div>
       </details>
 
       <details class="compare-item">
         <summary>Brutus Protection T5 15W40 CH-4 <span class="compare-arrow">▾</span></summary>
         <div class="compare-grid">
-          <div class="compare-chip own"><span>Texaco</span>Ursa Super TD SAE 15W40 CH-4</div>
-          <div class="compare-chip"><span>Mobil</span>Mobil Delvac Legend</div>
-          <div class="compare-chip"><span>Vibra</span>Lubrax Extra Turbo SAE 15W-40</div>
-          <div class="compare-chip"><span>Petronas</span>Urania 1000 CH-4 15W-40</div>
-          <div class="compare-chip"><span>Shell</span>Rimula R3 Multi 15W-40</div>
-          <div class="compare-chip"><span>Castrol</span>CRB Multi 15W-40</div>
-          <div class="compare-chip"><span>YPF</span>Extravida XV 100</div>
+          <div class="compare-chip own"><span>Texaco</span>Ursa Super TD SAE 15W40 CH-4<div class="chip-prices"><span class="chip-price price-med">Méd R$ 23,56</span><span class="chip-price price-min">Mín R$ 18,45</span></div></div>
+          <div class="compare-chip"><span>Mobil</span>Mobil Delvac Legend<div class="chip-prices"><span class="chip-price price-med">Méd R$ 25,18</span><span class="chip-price price-min">Mín R$ 25,18</span></div></div>
+          <div class="compare-chip"><span>Vibra</span>Lubrax Extra Turbo SAE 15W-40<div class="chip-prices"><span class="chip-price price-med">Méd R$ 33,55</span><span class="chip-price price-min">Mín R$ 28,98</span></div></div>
+          <div class="compare-chip"><span>Petronas</span>Urania 1000 CH-4 15W-40<div class="chip-prices"><span class="chip-price price-med">Méd R$ 38,19</span><span class="chip-price price-min">Mín R$ 34,20</span></div></div>
+          <div class="compare-chip"><span>Shell</span>Rimula R3 Multi 15W-40<div class="chip-prices"><span class="chip-price price-med">Méd R$ 39,52</span><span class="chip-price price-min">Mín R$ 39,52</span></div></div>
+          <div class="compare-chip"><span>Castrol</span>CRB Multi 15W-40<div class="chip-prices"><span class="chip-price price-med">Méd R$ 18,77</span><span class="chip-price price-min">Mín R$ 15,50</span></div></div>
+          <div class="compare-chip"><span>YPF</span>Extravida XV 100<div class="chip-prices"><span class="chip-price price-med">Méd R$ 38,25</span><span class="chip-price price-min">Mín R$ 34,50</span></div></div>
         </div>
       </details>
 
