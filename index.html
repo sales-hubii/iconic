@@ -99,6 +99,7 @@ body{
   text-align:center;
   box-shadow: 0 8px 24px -14px rgba(99,72,229,0.35);
 }
+.header-cards{ display:flex; gap:12px; flex-wrap:wrap; }
 .cadence-label{
   font-family:'IBM Plex Mono', monospace;
   font-size: 10px;
@@ -606,6 +607,7 @@ body{
 .ata-teaser{ font-size: 12.5px; color: var(--ink-soft); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 .ata-arrow{ color: var(--purple); font-size: 16px; flex:none; }
 
+.footer-note{
   margin-top: 28px;
   font-family:'IBM Plex Mono', monospace;
   font-size: 11px;
@@ -613,6 +615,257 @@ body{
   text-align:center;
 }
 .footer-note b{ color: var(--purple-deep); }
+
+/* COMPETITIVE PRICE TAB */
+.rationale-row{
+  display:grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+@media (max-width: 900px){ .rationale-row{ grid-template-columns: repeat(2, 1fr); } }
+.rationale-step{
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+.rationale-num{
+  width: 26px; height:26px;
+  border-radius: 8px;
+  background: var(--hubii-bg);
+  color: var(--purple-deep);
+  font-family:'IBM Plex Mono', monospace;
+  font-weight: 700;
+  font-size: 13px;
+  display:flex; align-items:center; justify-content:center;
+  margin-bottom: 10px;
+}
+.rationale-title{ font-weight:700; font-size: 13.5px; margin-bottom: 6px; }
+.rationale-text{ font-size: 12.5px; color: var(--ink-soft); line-height:1.5; }
+
+.scenario-row{
+  display:grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin-bottom: 14px;
+}
+@media (max-width: 600px){ .scenario-row{ grid-template-columns: 1fr; } }
+.scenario-card{
+  border-radius: var(--radius);
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+}
+.scenario-card.conservative{ background: var(--potencial-bg); border-color: var(--line); }
+.scenario-card.base{ background: var(--hubii-bg); border-color: var(--purple-glow); }
+.scenario-tag{
+  font-family:'IBM Plex Mono', monospace;
+  font-size: 11px;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:0.05em;
+  margin-bottom: 8px;
+}
+.scenario-card.conservative .scenario-tag{ color: var(--potencial); }
+.scenario-card.base .scenario-tag{ color: var(--purple-deep); }
+.scenario-desc{ font-size: 13px; color: var(--ink); line-height:1.5; }
+.scenario-desc b{ font-weight:700; }
+
+.insight-callout{
+  display:flex;
+  align-items:center;
+  gap: 16px;
+  background: var(--amber-bg);
+  border: 1px solid #f0d9a6;
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  margin-bottom: 4px;
+}
+.insight-num{
+  font-family:'IBM Plex Mono', monospace;
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--amber);
+  flex: none;
+}
+.insight-text{ font-size: 13.5px; color: var(--ink); line-height:1.5; }
+.insight-text b{ font-weight:700; }
+
+.pricing-panel{ padding: 0; overflow: hidden; }
+.pricing-table-wrap{ overflow-x: auto; }
+.pricing-table{
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.pricing-table th{
+  font-family:'IBM Plex Mono', monospace;
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink-soft);
+  text-align: left;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--line);
+  white-space: nowrap;
+}
+.pricing-table td{
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--line);
+  white-space: nowrap;
+}
+.pricing-table tr:last-child td{ border-bottom: none; }
+.pricing-table tr.row-highlight{ background: var(--hubii-bg); }
+.prod-cell{ font-weight: 600; white-space: normal; min-width: 180px; }
+.emb-cell{ font-family:'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink-soft); }
+.price-cell{ font-family:'IBM Plex Mono', monospace; font-size: 13px; }
+.read-pill{
+  font-family:'IBM Plex Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.read-ok{ color: var(--foco); background: var(--foco-bg); }
+.read-watch{ color: var(--amber); background: var(--amber-bg); }
+.read-up{ color: var(--purple-deep); background: var(--hubii-bg); }
+.read-na{ color: var(--potencial); background: var(--potencial-bg); }
+.pricing-footnote{
+  font-family:'IBM Plex Mono', monospace;
+  font-size: 11px;
+  color: var(--ink-soft);
+  padding: 14px 16px;
+  line-height: 1.5;
+}
+@media (max-width: 640px){
+  .pricing-table th, .pricing-table td{ padding: 10px 12px; font-size: 12px; }
+}
+
+/* COMPARE BY SKU */
+.compare-legend{ display:flex; gap:10px; margin-bottom: 12px; }
+.legend-chip{
+  font-family:'IBM Plex Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 999px;
+  display:inline-flex; align-items:center; gap:6px;
+}
+.legend-chip::before{ content:''; width:7px; height:7px; border-radius:50%; }
+.legend-own{ color: var(--purple-deep); background: var(--hubii-bg); }
+.legend-own::before{ background: var(--purple); }
+.legend-comp{ color: var(--ink-soft); background: var(--paper); border: 1px solid var(--line); }
+.legend-comp::before{ background: var(--potencial); }
+
+.compare-panel{ padding: 6px 22px; }
+.compare-item{
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+}
+.compare-item:last-of-type{ border-bottom: none; }
+.compare-item summary{
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 14px;
+  list-style: none;
+  display:flex;
+  align-items:center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.compare-item summary::-webkit-details-marker{ display:none; }
+.compare-arrow{
+  font-size: 11px;
+  color: var(--purple);
+  transition: transform .2s ease;
+  flex: none;
+}
+.compare-item[open] .compare-arrow{ transform: rotate(180deg); }
+.compare-grid{
+  display:grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-top: 14px;
+}
+@media (max-width: 820px){ .compare-grid{ grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px){ .compare-grid{ grid-template-columns: 1fr; } }
+.compare-chip{
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 8px 10px;
+  font-size: 12px;
+  color: var(--ink);
+}
+.compare-chip span{
+  display:block;
+  font-family:'IBM Plex Mono', monospace;
+  font-size: 9.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--potencial);
+  margin-bottom: 3px;
+}
+.compare-chip.own{ background: var(--hubii-bg); border-color: var(--purple-glow); }
+.compare-chip.own span{ color: var(--purple-deep); font-weight:700; }
+.compare-chip.empty{ color: var(--potencial); font-style: italic; }
+.compare-chip.empty span{ color: var(--potencial); }
+
+/* ============ MOBILE ============ */
+@media (max-width: 640px){
+  body{ padding: 24px 16px 56px; }
+
+  .title{ font-size: 26px; }
+  .subtitle{ max-width: none; font-size: 13px; }
+
+  .header{ flex-direction: column; align-items: stretch; gap: 16px; margin-bottom: 22px; }
+  .header-cards{ flex-direction: column; }
+  .cadence-card, .progress-block{ width: 100%; min-width: 0; }
+  .progress-block{ justify-content: flex-start; }
+
+  /* Tabs: horizontal scroll instead of wrapping/overflow */
+  .tabs{
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    margin-left: -16px;
+    margin-right: -16px;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  .tabs::-webkit-scrollbar{ display:none; }
+  .tab-btn{ padding: 10px 12px; font-size: 11.5px; flex: none; white-space: nowrap; }
+
+  .section-label{ margin: 22px 0 10px; }
+  .panel{ padding: 16px; }
+
+  .praca-foco{ flex-wrap: wrap; }
+  .praca-tag{ margin-left: auto; }
+
+  .stat{ min-width: 128px; padding: 12px; }
+  .stat-num{ font-size: 17px; }
+
+  .opp-card{ padding: 14px 16px; }
+
+  .store-panel{ gap: 16px; }
+  .sku-list{ grid-template-columns: 1fr; }
+
+  .ata-card{ padding: 12px; gap: 12px; }
+  .ata-date{ min-width: 46px; font-size: 11px; padding: 6px 8px; }
+  .ata-title{ font-size: 13.5px; }
+  .ata-teaser{ font-size: 11.5px; }
+
+  .modal-overlay{ padding: 0; align-items: flex-end; }
+  .modal-box{
+    max-width: none;
+    width: 100%;
+    max-height: 88vh;
+    border-radius: 20px 20px 0 0;
+    padding: 22px 18px 24px;
+  }
+  .modal-title{ font-size: 17px; }
+}
 </style>
 </head>
 <body>
@@ -624,7 +877,7 @@ body{
       <div class="title">Projeto <span>Iconic</span></div>
       <div class="subtitle">Resumo executivo e acompanhamento das atividades e conversas entre Iconic e Hubii.</div>
     </div>
-    <div style="display:flex; gap:12px; flex-wrap:wrap;">
+    <div class="header-cards">
       <div class="cadence-card">
         <div class="cadence-label">Cadência</div>
         <div class="cadence-value">Alinhamento semanal</div>
@@ -655,6 +908,7 @@ body{
     <button class="tab-btn" data-tab="oportunidades">Oportunidades</button>
     <button class="tab-btn" data-tab="tarefas">Tarefas <span class="tab-count" id="tabCount">0/6</span></button>
     <button class="tab-btn" data-tab="atas">Atas</button>
+    <button class="tab-btn" data-tab="pricing">Competitive Price</button>
   </div>
 
   <!-- ESCOPO -->
@@ -903,6 +1157,313 @@ body{
         <div class="ata-arrow">→</div>
       </div>
     </div>
+  </div>
+
+  <!-- COMPETITIVE PRICE -->
+  <div class="tab-panel" id="panel-pricing">
+
+    <div class="section-label first">Racional</div>
+    <div class="rationale-row">
+      <div class="rationale-step">
+        <div class="rationale-num">1</div>
+        <div class="rationale-title">Benchmark de concorrentes</div>
+        <div class="rationale-text">Para cada SKU Ipiranga, foram mapeados produtos equivalentes de 7 concorrentes (Texaco, Mobil, Vibra, Petronas, Shell, Castrol, YPF) por viscosidade e especificação.</div>
+      </div>
+      <div class="rationale-step">
+        <div class="rationale-num">2</div>
+        <div class="rationale-title">Preço médio de mercado</div>
+        <div class="rationale-text">O preço de cada concorrente foi pesquisado em duas leituras: preço médio praticado e menor preço encontrado — gerando a média por SKU em cada cenário.</div>
+      </div>
+      <div class="rationale-step">
+        <div class="rationale-num">3</div>
+        <div class="rationale-title">Fator de repasse (82%)</div>
+        <div class="rationale-text">Sobre a média dos concorrentes aplica-se um fator de 0,82 — os 18% restantes representam a margem de canal — chegando ao repasse sugerido (atacado).</div>
+      </div>
+      <div class="rationale-step">
+        <div class="rationale-num">4</div>
+        <div class="rationale-title">Comparação com o atual</div>
+        <div class="rationale-text">O repasse sugerido é comparado ao repasse hoje praticado, apontando onde há espaço de reajuste e onde o preço já está bem posicionado.</div>
+      </div>
+    </div>
+
+    <div class="section-label">Estratégia</div>
+    <div class="scenario-row">
+      <div class="scenario-card conservative">
+        <div class="scenario-tag">Cenário conservador</div>
+        <div class="scenario-desc">Usa o <b>menor preço</b> encontrado entre os concorrentes por SKU. Funciona como piso competitivo — a referência mais defensiva para negociação.</div>
+      </div>
+      <div class="scenario-card base">
+        <div class="scenario-tag">Cenário base</div>
+        <div class="scenario-desc">Usa a <b>média de preços</b> observada no mercado. Captura melhor o valor percebido da categoria — referência para o repasse ideal.</div>
+      </div>
+    </div>
+
+    <div class="insight-callout">
+      <div class="insight-num">3</div>
+      <div class="insight-text">de 8 SKUs com repasse atual têm preço <b>abaixo do piso sugerido</b> mesmo no cenário conservador — oportunidade clara de reajuste (F1 Master Sintético 5W30, SP 5W40 e 0W20).</div>
+    </div>
+
+    <div class="section-label">Preços sugestão</div>
+    <div class="panel pricing-panel">
+      <div class="pricing-table-wrap">
+        <table class="pricing-table">
+          <thead>
+            <tr>
+              <th>Produto</th>
+              <th>Embalagem</th>
+              <th>Atual</th>
+              <th>Sugerido (mín.)</th>
+              <th>Sugerido (média)</th>
+              <th>Leitura</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="prod-cell">F1 Master Protection 20W50 SL</td>
+              <td class="emb-cell">1L</td>
+              <td class="price-cell">R$ 26,39</td>
+              <td class="price-cell">R$ 23,40</td>
+              <td class="price-cell">R$ 26,23</td>
+              <td><span class="read-pill read-ok">Bem posicionado</span></td>
+            </tr>
+            <tr>
+              <td class="prod-cell">F1 Master Performance 15W40 SL</td>
+              <td class="emb-cell">1L</td>
+              <td class="price-cell">R$ 28,90</td>
+              <td class="price-cell">R$ 28,68</td>
+              <td class="price-cell">R$ 31,14</td>
+              <td><span class="read-pill read-watch">No limite do piso</span></td>
+            </tr>
+            <tr class="row-highlight">
+              <td class="prod-cell">F1 Master Sintético 5W30 SQ</td>
+              <td class="emb-cell">1L</td>
+              <td class="price-cell">R$ 33,39</td>
+              <td class="price-cell">R$ 38,52</td>
+              <td class="price-cell">R$ 41,66</td>
+              <td><span class="read-pill read-up">Reajustar · +13% a +25%</span></td>
+            </tr>
+            <tr class="row-highlight">
+              <td class="prod-cell">F1 Master Sintético SP 5W40</td>
+              <td class="emb-cell">1L</td>
+              <td class="price-cell">R$ 43,98</td>
+              <td class="price-cell">R$ 48,54</td>
+              <td class="price-cell">R$ 55,46</td>
+              <td><span class="read-pill read-up">Reajustar · +10% a +26%</span></td>
+            </tr>
+            <tr class="row-highlight">
+              <td class="prod-cell">F1 Master Sintético 0W20 SQ</td>
+              <td class="emb-cell">1L</td>
+              <td class="price-cell">R$ 44,90</td>
+              <td class="price-cell">R$ 51,62</td>
+              <td class="price-cell">R$ 56,01</td>
+              <td><span class="read-pill read-up">Reajustar · +15% a +25%</span></td>
+            </tr>
+            <tr>
+              <td class="prod-cell">F1 Master Sintético C2 0W30</td>
+              <td class="emb-cell">1L</td>
+              <td class="price-cell">—</td>
+              <td class="price-cell">R$ 50,82</td>
+              <td class="price-cell">R$ 58,89</td>
+              <td><span class="read-pill read-na">Sem repasse atual</span></td>
+            </tr>
+            <tr>
+              <td class="prod-cell">Moto Performance 10W30 SL</td>
+              <td class="emb-cell">1L</td>
+              <td class="price-cell">R$ 37,19</td>
+              <td class="price-cell">R$ 32,85</td>
+              <td class="price-cell">R$ 39,07</td>
+              <td><span class="read-pill read-watch">Dentro da banda</span></td>
+            </tr>
+            <tr>
+              <td class="prod-cell">Moto Protection 20W50 SL</td>
+              <td class="emb-cell">1L</td>
+              <td class="price-cell">R$ 31,40</td>
+              <td class="price-cell">R$ 25,12</td>
+              <td class="price-cell">R$ 26,64</td>
+              <td><span class="read-pill read-ok">Acima da banda</span></td>
+            </tr>
+            <tr>
+              <td class="prod-cell">Brutus Performance CI 15W40</td>
+              <td class="emb-cell">20L (R$/L)</td>
+              <td class="price-cell">—</td>
+              <td class="price-cell">R$ 22,61</td>
+              <td class="price-cell">R$ 24,34</td>
+              <td><span class="read-pill read-na">Sem repasse atual</span></td>
+            </tr>
+            <tr>
+              <td class="prod-cell">Brutus AP 15W40 CI-4</td>
+              <td class="emb-cell">20L (R$/L)</td>
+              <td class="price-cell">—</td>
+              <td class="price-cell">R$ 22,56</td>
+              <td class="price-cell">R$ 23,15</td>
+              <td><span class="read-pill read-na">Sem repasse atual</span></td>
+            </tr>
+            <tr>
+              <td class="prod-cell">Brutus Protection T5 15W40 CH-4</td>
+              <td class="emb-cell">20L (R$/L)</td>
+              <td class="price-cell">—</td>
+              <td class="price-cell">R$ 23,00</td>
+              <td class="price-cell">R$ 25,42</td>
+              <td><span class="read-pill read-na">Sem repasse atual</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="pricing-footnote">Repasse sugerido = média dos concorrentes × 0,82 (fator de repasse/margem de canal) · para diesel (BB-20), valores expressos por litro · leitura calculada sobre o repasse atualmente praticado, quando disponível.</div>
+    </div>
+
+    <div class="section-label">Produtos comparados por SKU</div>
+    <div class="compare-legend">
+      <span class="legend-chip legend-own">Marca própria (Iconic)</span>
+      <span class="legend-chip legend-comp">Concorrente</span>
+    </div>
+    <div class="panel compare-panel">
+
+      <details class="compare-item">
+        <summary>F1 Master Protection 20W50 SL <span class="compare-arrow">▾</span></summary>
+        <div class="compare-grid">
+          <div class="compare-chip own"><span>Texaco</span>Havoline Superior SL SAE 20W50</div>
+          <div class="compare-chip"><span>Mobil</span>Mobil Super 20W50 Mineral</div>
+          <div class="compare-chip"><span>Vibra</span>Lubrax Essencial SL</div>
+          <div class="compare-chip"><span>Petronas</span>Petronas Syntium 300 20W-50</div>
+          <div class="compare-chip"><span>Shell</span>Shell Helix HX3 20W50</div>
+          <div class="compare-chip"><span>Castrol</span>Castrol GTX 20W-50</div>
+          <div class="compare-chip"><span>YPF</span>Elaion MI 2050</div>
+        </div>
+      </details>
+
+      <details class="compare-item">
+        <summary>F1 Master Performance 15W40 SL <span class="compare-arrow">▾</span></summary>
+        <div class="compare-grid">
+          <div class="compare-chip own"><span>Texaco</span>Havoline Semissint SL 15W40</div>
+          <div class="compare-chip"><span>Mobil</span>Mobil Super 15W40 Semissintético</div>
+          <div class="compare-chip"><span>Vibra</span>Lubrax Tecno SL</div>
+          <div class="compare-chip"><span>Petronas</span>Petronas Syntium 800 AM 15W-40</div>
+          <div class="compare-chip"><span>Shell</span>Shell Helix HX6 Flex 15W40</div>
+          <div class="compare-chip"><span>Castrol</span>Castrol GTX Ultraclean 15W-40</div>
+          <div class="compare-chip"><span>YPF</span>Elaion MI 1540</div>
+        </div>
+      </details>
+
+      <details class="compare-item">
+        <summary>F1 Master Sintético 5W30 SQ <span class="compare-arrow">▾</span></summary>
+        <div class="compare-grid">
+          <div class="compare-chip own"><span>Texaco</span>Havoline Prods Fullsyn SQ 5W30</div>
+          <div class="compare-chip"><span>Mobil</span>Mobil Super 5W-30 Sintético D1</div>
+          <div class="compare-chip"><span>Vibra</span>Lubrax Supera Premium 5W-30</div>
+          <div class="compare-chip"><span>Petronas</span>Petronas Syntium 3000 AM 5W-30 SP</div>
+          <div class="compare-chip"><span>Shell</span>Shell Helix HX8 SP 5W30</div>
+          <div class="compare-chip"><span>Castrol</span>Magnatec 5W-30</div>
+          <div class="compare-chip"><span>YPF</span>Elaion FS 530</div>
+        </div>
+      </details>
+
+      <details class="compare-item">
+        <summary>F1 Master Sintético SP 5W40 <span class="compare-arrow">▾</span></summary>
+        <div class="compare-grid">
+          <div class="compare-chip own"><span>Texaco</span>Havoline Ultra W SAE 5W40</div>
+          <div class="compare-chip"><span>Mobil</span>Mobil Super 5W40 Sintético</div>
+          <div class="compare-chip"><span>Vibra</span>Lubrax Supera Flex</div>
+          <div class="compare-chip"><span>Petronas</span>Petronas Syntium 3000 BV 5W40</div>
+          <div class="compare-chip"><span>Shell</span>Shell Helix HX8 Professional AV 5W40</div>
+          <div class="compare-chip"><span>Castrol</span>Castrol Magnatec 5W-40</div>
+          <div class="compare-chip"><span>YPF</span>Elaion Auro Plus 540</div>
+        </div>
+      </details>
+
+      <details class="compare-item">
+        <summary>F1 Master Sintético 0W20 SQ <span class="compare-arrow">▾</span></summary>
+        <div class="compare-grid">
+          <div class="compare-chip own"><span>Texaco</span>Havoline Prods Fullsyn SP 0W20</div>
+          <div class="compare-chip"><span>Mobil</span>Mobil Super 0W20 Hybrid</div>
+          <div class="compare-chip"><span>Vibra</span>Lubrax Supera Premium 0W-20</div>
+          <div class="compare-chip"><span>Petronas</span>Petronas Syntium Hybrid 0W-20 SP</div>
+          <div class="compare-chip"><span>Shell</span>Shell Helix HX8 Professional AG 0W-20</div>
+          <div class="compare-chip"><span>Castrol</span>Castrol Magnatec 0W-20 DX</div>
+          <div class="compare-chip empty"><span>YPF</span>Sem equivalente</div>
+        </div>
+      </details>
+
+      <details class="compare-item">
+        <summary>F1 Master Sintético C2 0W30 <span class="compare-arrow">▾</span></summary>
+        <div class="compare-grid">
+          <div class="compare-chip empty own"><span>Texaco</span>Sem equivalente</div>
+          <div class="compare-chip"><span>Mobil</span>Mobil Super 0W-30 Sintético</div>
+          <div class="compare-chip empty"><span>Vibra</span>Sem equivalente</div>
+          <div class="compare-chip"><span>Petronas</span>Petronas Syntium 7000 E 0W30</div>
+          <div class="compare-chip empty"><span>Shell</span>Sem equivalente</div>
+          <div class="compare-chip empty"><span>Castrol</span>Sem equivalente</div>
+          <div class="compare-chip empty"><span>YPF</span>Sem equivalente</div>
+        </div>
+      </details>
+
+      <details class="compare-item">
+        <summary>Moto Performance 10W30 SL <span class="compare-arrow">▾</span></summary>
+        <div class="compare-grid">
+          <div class="compare-chip own"><span>Texaco</span>Havoline 4T Semissint 10W30</div>
+          <div class="compare-chip"><span>Mobil</span>Mobil Super Moto 10W30 MX</div>
+          <div class="compare-chip"><span>Vibra</span>Lubrax Moto 4T Profissional 10W-30</div>
+          <div class="compare-chip"><span>Petronas</span>Petronas Sprinta F500 10W30</div>
+          <div class="compare-chip"><span>Shell</span>Shell Advance 4T AX7</div>
+          <div class="compare-chip"><span>Castrol</span>Actevo Stop-Start 4T 10W-30</div>
+          <div class="compare-chip"><span>YPF</span>Rod 4T 10W30</div>
+        </div>
+      </details>
+
+      <details class="compare-item">
+        <summary>Moto Protection 20W50 SL <span class="compare-arrow">▾</span></summary>
+        <div class="compare-grid">
+          <div class="compare-chip own"><span>Texaco</span>Havoline 4T SAE 20W50</div>
+          <div class="compare-chip"><span>Mobil</span>Mobil Super Moto 4T 20W50</div>
+          <div class="compare-chip"><span>Vibra</span>Lubrax Moto 4T</div>
+          <div class="compare-chip"><span>Petronas</span>Petronas Sprinta F300 20W50 API SL</div>
+          <div class="compare-chip"><span>Shell</span>Shell Advance AX5</div>
+          <div class="compare-chip"><span>Castrol</span>Actevo Essential 4T 20W50</div>
+          <div class="compare-chip"><span>YPF</span>Rod 4T 20W50</div>
+        </div>
+      </details>
+
+      <details class="compare-item">
+        <summary>Brutus Performance CI 15W40 <span class="compare-arrow">▾</span></summary>
+        <div class="compare-grid">
+          <div class="compare-chip own"><span>Texaco</span>Ursa Premium TDS 15W40</div>
+          <div class="compare-chip"><span>Mobil</span>Mobil Delvac Legend 15W-40 Protection</div>
+          <div class="compare-chip"><span>Vibra</span>Lubrax Top Turbo Essencial</div>
+          <div class="compare-chip"><span>Petronas</span>Urania 1000E</div>
+          <div class="compare-chip"><span>Shell</span>Rimula R3 Extra 15W-40</div>
+          <div class="compare-chip"><span>Castrol</span>CRB Multi 15W-40 CI-4</div>
+          <div class="compare-chip empty"><span>YPF</span>Sem equivalente</div>
+        </div>
+      </details>
+
+      <details class="compare-item">
+        <summary>Brutus AP 15W40 CI-4 <span class="compare-arrow">▾</span></summary>
+        <div class="compare-grid">
+          <div class="compare-chip own"><span>Texaco</span>Ursa Premium TDX</div>
+          <div class="compare-chip"><span>Mobil</span>Mobil Delvac Modern 15W-40 Super Defense V3</div>
+          <div class="compare-chip"><span>Vibra</span>Lubrax Top Turbo</div>
+          <div class="compare-chip"><span>Petronas</span>Urania 3000</div>
+          <div class="compare-chip"><span>Shell</span>Rimula RT4X</div>
+          <div class="compare-chip"><span>Castrol</span>CRB Turbomax 15W-40 CI-4</div>
+          <div class="compare-chip"><span>YPF</span>Extravida XV200 15W-40</div>
+        </div>
+      </details>
+
+      <details class="compare-item">
+        <summary>Brutus Protection T5 15W40 CH-4 <span class="compare-arrow">▾</span></summary>
+        <div class="compare-grid">
+          <div class="compare-chip own"><span>Texaco</span>Ursa Super TD SAE 15W40 CH-4</div>
+          <div class="compare-chip"><span>Mobil</span>Mobil Delvac Legend</div>
+          <div class="compare-chip"><span>Vibra</span>Lubrax Extra Turbo SAE 15W-40</div>
+          <div class="compare-chip"><span>Petronas</span>Urania 1000 CH-4 15W-40</div>
+          <div class="compare-chip"><span>Shell</span>Rimula R3 Multi 15W-40</div>
+          <div class="compare-chip"><span>Castrol</span>CRB Multi 15W-40</div>
+          <div class="compare-chip"><span>YPF</span>Extravida XV 100</div>
+        </div>
+      </details>
+
+    </div>
+
   </div>
 
   <div class="footer-note">Atualizado a cada reunião de alinhamento · <b>Hubii</b> × Iconic</div>
