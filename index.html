@@ -593,22 +593,13 @@ body{
 .uf-da-name{ font-weight: 700; font-size: 15px; }
 .uf-count{ font-family:'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--ink-soft); }
 
-.mini-map{ width: 100%; height: auto; display:block; margin-bottom: 14px; }
-.map-bg{ fill: var(--paper); }
-.map-line{ stroke: var(--line); stroke-width: 1.5; stroke-dasharray: 3 3; }
-.city-dot circle.dot-main{ fill: var(--purple); opacity: 0.85; }
-.city-dot circle:not(.dot-main){ fill: var(--potencial); opacity: 0.6; }
-.city-label{
-  font-family:'IBM Plex Mono', monospace;
-  font-size: 9px;
-  fill: var(--ink-soft);
-  font-weight: 600;
-}
-.city-count{
-  font-family:'IBM Plex Mono', monospace;
-  font-size: 10px;
-  fill: #ffffff;
-  font-weight: 700;
+.mini-map-embed{
+  width: 100%;
+  height: 220px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  margin-bottom: 14px;
+  display: block;
 }
 
 .seg-breakdown{ display:flex; flex-wrap:wrap; gap: 6px; }
@@ -1523,26 +1514,7 @@ body{
             <div class="uf-count">29 hubs</div>
           </div>
         </div>
-        <svg viewBox="0 0 300 160" class="mini-map">
-    <rect x="0" y="0" width="300" height="160" rx="14" class="map-bg"/>
-    <line x1="30" y1="30" x2="145" y2="43" class="map-line"/>
-    <line x1="145" y1="43" x2="270" y2="130" class="map-line"/>
-    <g class="city-dot">
-      <circle cx="30" cy="30" r="12" class="dot-main"/>
-      <text x="30" y="12" class="city-label" text-anchor="middle">Osasco</text>
-      <text x="30" y="34" class="city-count" text-anchor="middle">2</text>
-    </g>
-    <g class="city-dot">
-      <circle cx="145" cy="55" r="20" class="dot-main"/>
-      <text x="145" y="29" class="city-label" text-anchor="middle">São Paulo</text>
-      <text x="145" y="59" class="city-count" text-anchor="middle">27</text>
-    </g>
-    <g class="city-dot">
-      <circle cx="270" cy="130" r="11" class="dot-main"/>
-      <text x="270" y="113" class="city-label" text-anchor="middle">Mauá</text>
-      <text x="270" y="134" class="city-count" text-anchor="middle">1</text>
-    </g>
-  </svg>
+        <iframe src="https://www.google.com/maps/d/embed?mid=1T7_A4zb-NpL9-g0CjFWNoUTTGNHRHNg&ll=-23.55%2C-46.68&z=10" class="mini-map-embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         <div class="seg-breakdown">
           <span class="seg-chip seg-gasolina">Gasolina · 14</span>
           <span class="seg-chip seg-diesel">Diesel · 6</span>
@@ -1558,14 +1530,7 @@ body{
             <div class="uf-count">30 hubs</div>
           </div>
         </div>
-        <svg viewBox="0 0 300 160" class="mini-map">
-    <rect x="0" y="0" width="300" height="160" rx="14" class="map-bg"/>
-    <g class="city-dot">
-      <circle cx="150" cy="80" r="24" class="dot-main"/>
-      <text x="150" y="50" class="city-label" text-anchor="middle">Belo Horizonte</text>
-      <text x="150" y="84" class="city-count" text-anchor="middle">30</text>
-    </g>
-  </svg>
+        <iframe src="https://www.google.com/maps/d/embed?mid=1T7_A4zb-NpL9-g0CjFWNoUTTGNHRHNg&ll=-19.9167%2C-43.9345&z=11" class="mini-map-embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         <div class="seg-breakdown">
           <span class="seg-chip seg-gasolina">Gasolina · 10</span>
           <span class="seg-chip seg-diesel">Diesel · 10</span>
@@ -1581,26 +1546,7 @@ body{
             <div class="uf-count">29 hubs</div>
           </div>
         </div>
-        <svg viewBox="0 0 300 160" class="mini-map">
-    <rect x="0" y="0" width="300" height="160" rx="14" class="map-bg"/>
-    <line x1="30" y1="120" x2="126" y2="90" class="map-line"/>
-    <line x1="126" y1="90" x2="260" y2="40" class="map-line"/>
-    <g class="city-dot">
-      <circle cx="30" cy="120" r="19" class="dot-main"/>
-      <text x="30" y="95" class="city-label" text-anchor="middle">Porto Alegre</text>
-      <text x="30" y="124" class="city-count" text-anchor="middle">24</text>
-    </g>
-    <g class="city-dot">
-      <circle cx="126" cy="90" r="12" class="dot-main"/>
-      <text x="126" y="72" class="city-label" text-anchor="middle">Canoas</text>
-      <text x="126" y="94" class="city-count" text-anchor="middle">1</text>
-    </g>
-    <g class="city-dot">
-      <circle cx="260" cy="40" r="13" class="dot-main"/>
-      <text x="260" y="21" class="city-label" text-anchor="middle">Novo Hamburgo</text>
-      <text x="260" y="44" class="city-count" text-anchor="middle">4</text>
-    </g>
-  </svg>
+        <iframe src="https://www.google.com/maps/d/embed?mid=1T7_A4zb-NpL9-g0CjFWNoUTTGNHRHNg&ll=-29.9%2C-51.15&z=10" class="mini-map-embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         <div class="seg-breakdown">
           <span class="seg-chip seg-gasolina">Gasolina · 16</span>
           <span class="seg-chip seg-diesel">Diesel · 8</span>
