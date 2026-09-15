@@ -2360,6 +2360,7 @@ body{
           try{
             await fetch('/api/complete-task', {
               method: 'POST',
+              credentials: 'same-origin',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({ pageId, done: nowDone }),
             });
@@ -2463,10 +2464,18 @@ body{
     try{
       const resp = await fetch('/api/add-update', {
         method: 'POST',
+        credentials: 'same-origin',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ pageId, date, text }),
       });
-      const data = await resp.json();
+      const ct = resp.headers.get('content-type') || '';
+      let data;
+      if(ct.includes('application/json')){
+        data = await resp.json();
+      } else {
+        const raw = await resp.text();
+        throw new Error(`resposta inesperada do servidor (HTTP ${resp.status}): ${raw.slice(0,150)}`);
+      }
       if(!resp.ok){
         throw new Error((data && data.error && (data.error.message || JSON.stringify(data.error))) || 'Erro desconhecido');
       }
