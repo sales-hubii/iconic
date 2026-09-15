@@ -87,7 +87,7 @@ body{
   font-size: 14px;
   color: var(--ink-soft);
   margin-top: 6px;
-  max-width: 480px;
+  max-width: none;
 }
 
 /* MODAL */
@@ -1622,12 +1622,17 @@ body{
         </div>
         <svg viewBox="0 0 300 160" class="mini-map">
     <defs>
-      <pattern id="mapGrid" width="16" height="16" patternUnits="userSpaceOnUse">
+      <pattern id="mapGrid-sp" width="16" height="16" patternUnits="userSpaceOnUse">
         <circle cx="1" cy="1" r="1" class="grid-dot"/>
       </pattern>
+      <radialGradient id="mapGlow-sp" cx="50%" cy="50%" r="60%">
+        <stop offset="0%" stop-color="var(--purple)" stop-opacity="0.16"/>
+        <stop offset="100%" stop-color="var(--purple)" stop-opacity="0"/>
+      </radialGradient>
     </defs>
     <rect x="0" y="0" width="300" height="160" rx="14" class="map-bg"/>
-    <rect x="0" y="0" width="300" height="160" rx="14" fill="url(#mapGrid)"/>
+    <rect x="0" y="0" width="300" height="160" rx="14" fill="url(#mapGrid-sp)"/>
+    <circle cx="145" cy="55" r="70" fill="url(#mapGlow-sp)"/>
     <line x1="30" y1="30" x2="145" y2="55" class="map-line"/>
     <line x1="145" y1="55" x2="270" y2="130" class="map-line"/>
     <g class="city-dot">
@@ -1663,12 +1668,17 @@ body{
         </div>
         <svg viewBox="0 0 300 160" class="mini-map">
     <defs>
-      <pattern id="mapGrid" width="16" height="16" patternUnits="userSpaceOnUse">
+      <pattern id="mapGrid-mg" width="16" height="16" patternUnits="userSpaceOnUse">
         <circle cx="1" cy="1" r="1" class="grid-dot"/>
       </pattern>
+      <radialGradient id="mapGlow-mg" cx="50%" cy="50%" r="60%">
+        <stop offset="0%" stop-color="var(--purple)" stop-opacity="0.16"/>
+        <stop offset="100%" stop-color="var(--purple)" stop-opacity="0"/>
+      </radialGradient>
     </defs>
     <rect x="0" y="0" width="300" height="160" rx="14" class="map-bg"/>
-    <rect x="0" y="0" width="300" height="160" rx="14" fill="url(#mapGrid)"/>
+    <rect x="0" y="0" width="300" height="160" rx="14" fill="url(#mapGrid-mg)"/>
+    <circle cx="150" cy="80" r="75" fill="url(#mapGlow-mg)"/>
     <g class="city-dot">
       <circle cx="150" cy="80" r="26" class="dot-main"/>
       <text x="150" y="48" class="city-label" text-anchor="middle">Belo Horizonte</text>
@@ -1692,12 +1702,17 @@ body{
         </div>
         <svg viewBox="0 0 300 160" class="mini-map">
     <defs>
-      <pattern id="mapGrid" width="16" height="16" patternUnits="userSpaceOnUse">
+      <pattern id="mapGrid-rs" width="16" height="16" patternUnits="userSpaceOnUse">
         <circle cx="1" cy="1" r="1" class="grid-dot"/>
       </pattern>
+      <radialGradient id="mapGlow-rs" cx="50%" cy="50%" r="60%">
+        <stop offset="0%" stop-color="var(--purple)" stop-opacity="0.16"/>
+        <stop offset="100%" stop-color="var(--purple)" stop-opacity="0"/>
+      </radialGradient>
     </defs>
     <rect x="0" y="0" width="300" height="160" rx="14" class="map-bg"/>
-    <rect x="0" y="0" width="300" height="160" rx="14" fill="url(#mapGrid)"/>
+    <rect x="0" y="0" width="300" height="160" rx="14" fill="url(#mapGrid-rs)"/>
+    <circle cx="30" cy="120" r="65" fill="url(#mapGlow-rs)"/>
     <line x1="30" y1="120" x2="126" y2="90" class="map-line"/>
     <line x1="126" y1="90" x2="260" y2="40" class="map-line"/>
     <g class="city-dot">
