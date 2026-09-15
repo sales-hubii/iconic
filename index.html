@@ -195,6 +195,52 @@ body{
 }
 .modal-link:hover{ text-decoration:underline; }
 
+.modal-add-update{
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+.modal-update-input{
+  width: 100%;
+  margin-top: 6px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  font-family: 'Onest', sans-serif;
+  font-size: 13.5px;
+  color: var(--ink);
+  background: var(--paper);
+  resize: vertical;
+}
+.modal-update-input:focus{ outline: none; border-color: var(--purple); }
+.modal-update-row{
+  display:flex;
+  align-items:center;
+  gap: 12px;
+  margin-top: 10px;
+}
+.modal-update-btn{
+  font-family:'IBM Plex Mono', monospace;
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--purple);
+  border: none;
+  padding: 8px 16px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background .15s ease;
+}
+.modal-update-btn:hover{ background: var(--purple-deep); }
+.modal-update-btn:disabled{ background: var(--potencial); cursor: default; }
+.modal-update-feedback{
+  font-family:'IBM Plex Mono', monospace;
+  font-size: 11.5px;
+  color: var(--ink-soft);
+}
+.modal-update-feedback.success{ color: var(--foco); }
+.modal-update-feedback.error{ color: #b3435c; }
+
 /* TABS */
 .tabs{
   display:flex;
@@ -2252,6 +2298,14 @@ body{
     </div>
     <div class="modal-sub" id="modalSub">—</div>
     <div id="modalBody"></div>
+    <div class="modal-add-update" id="modalAddUpdate" style="display:none;">
+      <div class="modal-section-label">Adicionar atualização</div>
+      <textarea id="modalUpdateText" class="modal-update-input" rows="2" placeholder="Ex: cliente confirmou reunião para sexta-feira"></textarea>
+      <div class="modal-update-row">
+        <button id="modalUpdateSave" class="modal-update-btn">Salvar no Notion</button>
+        <span id="modalUpdateFeedback" class="modal-update-feedback"></span>
+      </div>
+    </div>
     <div class="modal-footer">
       <a class="modal-link" id="modalLink" href="#" target="_blank" rel="noopener">Abrir no Notion ↗</a>
     </div>
@@ -2281,12 +2335,39 @@ body{
     tabCount.textContent = done + '/' + total;
   }
 
+  function notionPageIdFromUrl(url){
+    const match = url.match(/([a-f0-9]{32})/i);
+    if(!match) return null;
+    const hex = match[1];
+    return `${hex.slice(0,8)}-${hex.slice(8,12)}-${hex.slice(12,16)}-${hex.slice(16,20)}-${hex.slice(20)}`;
+  }
+
   tasks.forEach(t => {
     const checkEl = t.querySelector('[data-check]');
-    checkEl.addEventListener('click', (e) => {
+    checkEl.addEventListener('click', async (e) => {
       e.stopPropagation();
-      t.classList.toggle('done');
+      const wasDone = t.classList.contains('done');
+      const nowDone = !wasDone;
+      t.classList.toggle('done', nowDone);
       updateProgress();
+
+      const key = t.dataset.status;
+      const taskData = TASKS[key];
+      if(taskData){
+        taskData.done = nowDone;
+        const pageId = notionPageIdFromUrl(taskData.url);
+        if(pageId){
+          try{
+            await fetch('/api/complete-task', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ pageId, done: nowDone }),
+            });
+          }catch(err){
+            console.error('Falha ao atualizar status no Notion:', err);
+          }
+        }
+      }
     });
     t.addEventListener('click', () => {
       openTaskStatus(t.dataset.status);
@@ -2322,9 +2403,22 @@ body{
     t_ritos: { title:"Criar os ritos", owner:"hubii", done:true, url:"https://app.notion.com/3bbef5854ef3806190fae55eeab396a3", updates:[{date:"28-ago",text:"aguardando contrato para primeira reunião"}] },
   };
 
+  const modalAddUpdate = document.getElementById('modalAddUpdate');
+  const modalUpdateText = document.getElementById('modalUpdateText');
+  const modalUpdateSave = document.getElementById('modalUpdateSave');
+  const modalUpdateFeedback = document.getElementById('modalUpdateFeedback');
+  let currentTaskKey = null;
+
+  function todayLabel(){
+    const meses = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+    const now = new Date();
+    return String(now.getDate()).padStart(2,'0') + '-' + meses[now.getMonth()];
+  }
+
   function openTaskStatus(key){
     const t = TASKS[key];
     if(!t) return;
+    currentTaskKey = key;
     modalEyebrow.textContent = 'Tarefa · Notion';
     modalTitle.textContent = t.title;
     const ownerLabel = t.owner === 'iconic' ? 'Iconic' : 'Hubii';
@@ -2337,8 +2431,60 @@ body{
       const items = t.updates.slice().reverse().map(u => `<li><b>${u.date}:</b> ${u.text}</li>`).join('');
       modalBody.innerHTML = `<div class="modal-section"><div class="modal-section-label">Histórico</div><ul>${items}</ul></div>`;
     }
+    modalAddUpdate.style.display = 'block';
+    modalUpdateText.value = '';
+    modalUpdateFeedback.textContent = '';
+    modalUpdateFeedback.className = 'modal-update-feedback';
+    modalUpdateSave.disabled = false;
+    modalUpdateSave.textContent = 'Salvar no Notion';
     modal.classList.add('open');
   }
+
+  modalUpdateSave.addEventListener('click', async () => {
+    const key = currentTaskKey;
+    const t = TASKS[key];
+    if(!t) return;
+    const text = modalUpdateText.value.trim();
+    if(!text){
+      modalUpdateFeedback.textContent = 'Escreva algo antes de salvar.';
+      modalUpdateFeedback.className = 'modal-update-feedback error';
+      return;
+    }
+    const pageId = notionPageIdFromUrl(t.url);
+    if(!pageId){
+      modalUpdateFeedback.textContent = 'Não foi possível identificar a página no Notion.';
+      modalUpdateFeedback.className = 'modal-update-feedback error';
+      return;
+    }
+    const date = todayLabel();
+    modalUpdateSave.disabled = true;
+    modalUpdateSave.textContent = 'Salvando...';
+    modalUpdateFeedback.textContent = '';
+    try{
+      const resp = await fetch('/api/add-update', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ pageId, date, text }),
+      });
+      const data = await resp.json();
+      if(!resp.ok){
+        throw new Error((data && data.error && (data.error.message || JSON.stringify(data.error))) || 'Erro desconhecido');
+      }
+      t.updates.push({ date, text });
+      modalUpdateFeedback.textContent = 'Salvo com sucesso!';
+      modalUpdateFeedback.className = 'modal-update-feedback success';
+      modalUpdateText.value = '';
+      // Re-render histórico
+      const items = t.updates.slice().reverse().map(u => `<li><b>${u.date}:</b> ${u.text}</li>`).join('');
+      modalBody.innerHTML = `<div class="modal-section"><div class="modal-section-label">Histórico</div><ul>${items}</ul></div>`;
+    }catch(err){
+      modalUpdateFeedback.textContent = 'Falha ao salvar: ' + err.message;
+      modalUpdateFeedback.className = 'modal-update-feedback error';
+    }finally{
+      modalUpdateSave.disabled = false;
+      modalUpdateSave.textContent = 'Salvar no Notion';
+    }
+  });
 
   // Meeting summaries
   const MEETINGS = {
@@ -2424,6 +2570,7 @@ body{
   function openMeeting(key){
     const m = MEETINGS[key];
     if(!m) return;
+    currentTaskKey = null;
     modalEyebrow.textContent = 'Meeting Notes · Notion';
     modalTitle.textContent = m.title;
     modalSub.textContent = m.sub;
@@ -2434,6 +2581,7 @@ body{
         <ul>${sec.items.map(it => `<li>${it}</li>`).join('')}</ul>
       </div>
     `).join('');
+    modalAddUpdate.style.display = 'none';
     modal.classList.add('open');
   }
 
