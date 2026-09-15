@@ -420,13 +420,25 @@ body{
   margin-top: 2px;
   display:flex; align-items:center; justify-content:center;
   transition: all .15s ease;
+  cursor: pointer;
 }
+.check:hover{ border-color: var(--purple); }
 .check svg{ opacity:0; width:12px; height:12px; }
 .task.done .check{ background: var(--purple); border-color: var(--purple); }
 .task.done .check svg{ opacity:1; }
 .task.done .task-text{ color: var(--ink-soft); text-decoration: line-through; }
 .task-text{ font-size: 14px; color: var(--ink); }
-.task-note{ display:block; font-family:'IBM Plex Mono', monospace; font-size: 11px; color: var(--purple); margin-top: 3px; }
+.task-text::after{
+  content: '· ver histórico';
+  font-family:'IBM Plex Mono', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--purple);
+  margin-left: 8px;
+  opacity: 0.7;
+  display: inline-block;
+}
+.task.done .task-text::after{ color: var(--potencial); }
 
 /* OPORTUNIDADES */
 .opp-grid{
@@ -871,7 +883,7 @@ body{
     <button class="tab-btn" data-tab="portfolio">Portfólio</button>
     <button class="tab-btn" data-tab="resultados">Resultados</button>
     <button class="tab-btn" data-tab="rede-revendas">Rede de Revendas</button>
-    <button class="tab-btn" data-tab="tarefas">Tarefas <span class="tab-count" id="tabCount">0/8</span></button>
+    <button class="tab-btn" data-tab="tarefas">Tarefas <span class="tab-count" id="tabCount">0/13</span></button>
   </div>
 
   <!-- ESCOPO -->
@@ -1388,41 +1400,34 @@ body{
       <div class="owner-group">
         <div class="owner-header"><span class="owner-badge iconic">ICONIC</span></div>
 
-        <div class="task done" data-task>
-          <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M4 12l5 5L20 6"/></svg></div>
+        <div class="task" data-task data-status="t_contrato">
+          <div class="check" data-check><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M4 12l5 5L20 6"/></svg></div>
+          <div class="task-text">Assinar contrato</div>
+        </div>
+
+        <div class="task" data-task data-status="t_50k">
+          <div class="check" data-check><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M4 12l5 5L20 6"/></svg></div>
+          <div class="task-text">50k de Iconic + cadastro</div>
+        </div>
+
+        <div class="task" data-task data-status="t_portfolio_completar">
+          <div class="check" data-check><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M4 12l5 5L20 6"/></svg></div>
+          <div class="task-text">Portfólio completar (náuticos, moto, agro)</div>
+        </div>
+
+        <div class="task done" data-task data-status="t_lista_produtos">
+          <div class="check" data-check><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M4 12l5 5L20 6"/></svg></div>
           <div class="task-text">Enviar lista de produtos</div>
         </div>
 
-        <div class="task" data-task>
-          <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M4 12l5 5L20 6"/></svg></div>
-          <div>
-            <div class="task-text">Reunião inicial com Makena</div>
-            <span class="task-note">28-ago.: aguardando contrato para primeira reunião</span>
-          </div>
+        <div class="task done" data-task data-status="t_millenium">
+          <div class="check" data-check><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M4 12l5 5L20 6"/></svg></div>
+          <div class="task-text">Peneirar lista de posto Millenium</div>
         </div>
 
-        <div class="task" data-task>
-          <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M4 12l5 5L20 6"/></svg></div>
-          <div>
-            <div class="task-text">Reunião inicial com BelLub</div>
-            <span class="task-note">28-ago.: aguardando contrato para primeira reunião</span>
-          </div>
-        </div>
-
-        <div class="task" data-task>
-          <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M4 12l5 5L20 6"/></svg></div>
-          <div>
-            <div class="task-text">Peneirar lista de posto Millenium</div>
-            <span class="task-note">28-ago.: tivemos alguns desencontros de agenda, reunião com time millenium irá ocorrer semana que vem</span>
-          </div>
-        </div>
-
-        <div class="task" data-task>
-          <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M4 12l5 5L20 6"/></svg></div>
-          <div>
-            <div class="task-text">Receber a short list dos hubs</div>
-            <span class="task-note">28-ago.: time Iconic informou que pela arquitetura já tem definido os parceiros iniciais, premium partner</span>
-          </div>
+        <div class="task done" data-task data-status="t_shortlist">
+          <div class="check" data-check><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M4 12l5 5L20 6"/></svg></div>
+          <div class="task-text">Receber a short list dos hubs</div>
         </div>
 
       </div>
@@ -1430,34 +1435,46 @@ body{
       <div class="owner-group">
         <div class="owner-header"><span class="owner-badge hubii">HUBII</span></div>
 
-        <div class="task done" data-task>
-          <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M4 12l5 5L20 6"/></svg></div>
-          <div>
-            <div class="task-text">Reunião com Temu sobre a Iconic</div>
-            <span class="task-note">11-ago.: fizemos reunião com a Temu e eles disseram que Óleo é uma categoria que faz sentido</span>
-          </div>
+        <div class="task" data-task data-status="t_bh">
+          <div class="check" data-check><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M4 12l5 5L20 6"/></svg></div>
+          <div class="task-text">Agendar rota BH (BelLub + Victor)</div>
         </div>
 
-        <div class="task done" data-task>
-          <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M4 12l5 5L20 6"/></svg></div>
+        <div class="task" data-task data-status="t_poa">
+          <div class="check" data-check><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M4 12l5 5L20 6"/></svg></div>
+          <div class="task-text">Agendar rotas POA (Makena + Gui)</div>
+        </div>
+
+        <div class="task" data-task data-status="t_cadastro_produtos">
+          <div class="check" data-check><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M4 12l5 5L20 6"/></svg></div>
+          <div class="task-text">Cadastro do produtos</div>
+        </div>
+
+        <div class="task" data-task data-status="t_sp">
+          <div class="check" data-check><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M4 12l5 5L20 6"/></svg></div>
+          <div class="task-text">Agendar rota SP (Trevilub + Moabe)</div>
+        </div>
+
+        <div class="task done" data-task data-status="t_temu">
+          <div class="check" data-check><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M4 12l5 5L20 6"/></svg></div>
+          <div class="task-text">Reunião com Temu sobre a Iconic</div>
+        </div>
+
+        <div class="task done" data-task data-status="t_pricing">
+          <div class="check" data-check><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M4 12l5 5L20 6"/></svg></div>
           <div class="task-text">Enviar o estudo de pricing</div>
         </div>
 
-        <div class="task" data-task>
-          <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M4 12l5 5L20 6"/></svg></div>
-          <div>
-            <div class="task-text">Assinar contrato</div>
-            <span class="task-note">28-ago.: Jurídico da Ipiranga já aprovou a parte da segurança // se possível tentar liberar Iconic compartilhar a base de varejos</span>
-          </div>
+        <div class="task done" data-task data-status="t_ritos">
+          <div class="check" data-check><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M4 12l5 5L20 6"/></svg></div>
+          <div class="task-text">Criar os ritos</div>
         </div>
 
       </div>
 
     </div>
-  
 
     <div class="section-label">Atas</div>
-    <div class="section-label first">Histórico de reuniões</div>
     <div class="panel">
       <div class="ata-card" data-meeting="m3">
         <div class="ata-date">07<span>AGO</span></div>
@@ -1497,7 +1514,7 @@ body{
   <div class="modal-box">
     <div class="modal-head">
       <div>
-        <div class="modal-eyebrow">Meeting Notes · Notion</div>
+        <div class="modal-eyebrow" id="modalEyebrow">Meeting Notes · Notion</div>
         <div class="modal-title" id="modalTitle">—</div>
       </div>
       <button class="modal-close" data-close>✕</button>
@@ -1523,7 +1540,7 @@ body{
     });
   });
 
-  // Checklist progress (still tracked in the Tarefas tab counter)
+  // Checklist + status modal
   const tasks = document.querySelectorAll('[data-task]');
   const total = tasks.length;
   const tabCount = document.getElementById('tabCount');
@@ -1534,9 +1551,14 @@ body{
   }
 
   tasks.forEach(t => {
-    t.addEventListener('click', () => {
+    const checkEl = t.querySelector('[data-check]');
+    checkEl.addEventListener('click', (e) => {
+      e.stopPropagation();
       t.classList.toggle('done');
       updateProgress();
+    });
+    t.addEventListener('click', () => {
+      openTaskStatus(t.dataset.status);
     });
   });
 
@@ -1551,6 +1573,40 @@ body{
         + ' às ' + lm.toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' });
       updateDate.textContent = formatted;
     }
+  }
+
+  const TASKS = {
+    t_contrato: { title:"Assinar contrato", owner:"iconic", done:false, url:"https://app.notion.com/3bbef5854ef3809aa08fe6c9aca4e012", updates:[{date:"07-ago",text:"ainda em validação do time jurídico"}, {date:"13-ago",text:"contrato enviado para time Passinato analisar"}, {date:"28-ago",text:"Jurídico da Ipiranga já aprovou a parte da segurança // se possível tentar liberar Iconic compartilhar a base de varejos"}] },
+    t_50k: { title:"50k de Iconic + cadastro", owner:"iconic", done:false, url:"https://app.notion.com/3d1ef5854ef3800d9a80ca83776d3fe4", updates:[] },
+    t_portfolio_completar: { title:"Portfólio completar (náuticos, moto, agro)", owner:"iconic", done:false, url:"https://app.notion.com/3dbef5854ef3802299e3c35e28281b72", updates:[] },
+    t_lista_produtos: { title:"Enviar lista de produtos", owner:"iconic", done:true, url:"https://app.notion.com/3bbef5854ef380f38113da5607d7c0b3", updates:[] },
+    t_millenium: { title:"Peneirar lista de posto Millenium", owner:"iconic", done:true, url:"https://app.notion.com/3bbef5854ef38064b087d9cc8498b43e", updates:[{date:"09-ago",text:"reunião com a Marina, ela irá fazer a short list"}, {date:"28-ago",text:"tivemos alguns desencontros de agenda, reunião com time millenium irá ocorrer semana que vem"}, {date:"04-set",text:"pré-selecionado loja Raposo Tavares"}] },
+    t_shortlist: { title:"Receber a short list dos hubs", owner:"iconic", done:true, url:"https://app.notion.com/3b9ef5854ef3807f9559ee800ba634b8", updates:[] },
+    t_bh: { title:"Agendar rota BH (BelLub + Victor)", owner:"hubii", done:false, url:"https://app.notion.com/3caef5854ef38039b3d2f9a427ea18c2", updates:[{date:"28-ago",text:"aguardando contrato para primeira reunião"}] },
+    t_poa: { title:"Agendar rotas POA (Makena + Gui)", owner:"hubii", done:false, url:"https://app.notion.com/3d6ef5854ef3801fa4b8c2822185893a", updates:[{date:"28-ago",text:"aguardando contrato para primeira reunião"}] },
+    t_cadastro_produtos: { title:"Cadastro do produtos", owner:"hubii", done:false, url:"https://app.notion.com/3d6ef5854ef38028bfffc3aaacb7b0b5", updates:[] },
+    t_sp: { title:"Agendar rota SP (Trevilub + Moabe)", owner:"hubii", done:false, url:"https://app.notion.com/3d6ef5854ef3806e9425dc6d861ffb2a", updates:[] },
+    t_temu: { title:"Reunião com Temu sobre a Iconic", owner:"hubii", done:true, url:"https://app.notion.com/3bbef5854ef3804aac67d75fd3652c0f", updates:[{date:"11-ago",text:"fizemos reunião com a Temu e eles disseram que Óleo é uma categoria que faz sentido"}] },
+    t_pricing: { title:"Enviar o estudo de pricing", owner:"hubii", done:true, url:"https://app.notion.com/3bbef5854ef380ba9cdcc54f7081080f", updates:[] },
+    t_ritos: { title:"Criar os ritos", owner:"hubii", done:true, url:"https://app.notion.com/3bbef5854ef3806190fae55eeab396a3", updates:[{date:"28-ago",text:"aguardando contrato para primeira reunião"}] },
+  };
+
+  function openTaskStatus(key){
+    const t = TASKS[key];
+    if(!t) return;
+    modalEyebrow.textContent = 'Tarefa · Notion';
+    modalTitle.textContent = t.title;
+    const ownerLabel = t.owner === 'iconic' ? 'Iconic' : 'Hubii';
+    const statusLabel = t.done ? 'Concluída' : 'Em aberto';
+    modalSub.textContent = ownerLabel + ' · ' + statusLabel;
+    modalLink.href = t.url;
+    if(t.updates.length === 0){
+      modalBody.innerHTML = '<div class="modal-section"><div class="modal-section-label">Histórico</div><ul><li>Nenhuma atualização registrada ainda.</li></ul></div>';
+    } else {
+      const items = t.updates.slice().reverse().map(u => `<li><b>${u.date}:</b> ${u.text}</li>`).join('');
+      modalBody.innerHTML = `<div class="modal-section"><div class="modal-section-label">Histórico</div><ul>${items}</ul></div>`;
+    }
+    modal.classList.add('open');
   }
 
   // Meeting summaries
@@ -1628,6 +1684,7 @@ body{
   };
 
   const modal = document.getElementById('meetingModal');
+  const modalEyebrow = document.getElementById('modalEyebrow');
   const modalTitle = document.getElementById('modalTitle');
   const modalSub = document.getElementById('modalSub');
   const modalBody = document.getElementById('modalBody');
@@ -1636,6 +1693,7 @@ body{
   function openMeeting(key){
     const m = MEETINGS[key];
     if(!m) return;
+    modalEyebrow.textContent = 'Meeting Notes · Notion';
     modalTitle.textContent = m.title;
     modalSub.textContent = m.sub;
     modalLink.href = m.url;
