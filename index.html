@@ -687,6 +687,7 @@ body{
 .phase-seg:not(:last-child){ border-right: 2px solid rgba(255,255,255,0.4); }
 .phase-seg-name{ font-weight: 700; font-size: 13px; }
 .phase-seg-sub{ font-family:'IBM Plex Mono', monospace; font-size: 10px; opacity: 0.85; margin-top: 2px; }
+.phase-seg-setup{ background: var(--foco); }
 .phase-seg-1{ background: var(--purple); }
 .phase-seg-2{ background: var(--purple-deep); }
 .phase-seg-3{ background: #362a80; }
@@ -2255,23 +2256,27 @@ body{
     <div class="section-label">Expansão de praças</div>
     <div class="panel gantt-panel">
       <div class="gantt-axis">
-        <span>Dia 0</span><span>Dia 30</span><span>Dia 60</span><span>Dia 90</span>
+        <span>Set</span><span>Out</span><span>Nov</span><span>Dez</span>
       </div>
       <div class="phase-track">
-        <div class="phase-seg phase-seg-1" style="width:33.33%;">
+        <div class="phase-seg phase-seg-setup" style="width:25%;">
+          <span class="phase-seg-name">Setup</span>
+          <span class="phase-seg-sub">Setembro</span>
+        </div>
+        <div class="phase-seg phase-seg-1" style="width:25%;">
           <span class="phase-seg-name">Grande São Paulo</span>
-          <span class="phase-seg-sub">Mês 1</span>
+          <span class="phase-seg-sub">Outubro · Mês 1</span>
         </div>
-        <div class="phase-seg phase-seg-2" style="width:33.33%;">
+        <div class="phase-seg phase-seg-2" style="width:25%;">
           <span class="phase-seg-name">Porto Alegre</span>
-          <span class="phase-seg-sub">Mês 2</span>
+          <span class="phase-seg-sub">Novembro · Mês 2</span>
         </div>
-        <div class="phase-seg phase-seg-3" style="width:33.34%;">
+        <div class="phase-seg phase-seg-3" style="width:25%;">
           <span class="phase-seg-name">Belo Horizonte</span>
-          <span class="phase-seg-sub">Mês 3</span>
+          <span class="phase-seg-sub">Dezembro · Mês 3</span>
         </div>
       </div>
-      <div class="gantt-note">Ordem de priorização para organização da rede de varejistas (onboarding local), praça a praça.</div>
+      <div class="gantt-note">Setembro é o mês de setup interno; a partir de outubro começa a organização da rede de varejistas (onboarding local), praça a praça.</div>
     </div>
 
     <div class="section-label">Ativação de canais por praça</div>
