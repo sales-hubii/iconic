@@ -16,19 +16,25 @@ function getPlainText(block) {
 }
 
 module.exports = async function handler(req, res) {
+  console.log('[add-update] invoked', { method: req.method });
+
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST');
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
   const { pageId, date, text } = req.body || {};
+  console.log('[add-update] body', { pageId, date, textLength: text ? text.length : 0 });
 
   if (!pageId || !date || !text) {
     return res.status(400).json({ error: 'pageId, date e text são obrigatórios' });
   }
 
   const token = process.env.NOTION_TOKEN;
+  console.log('[add-update] NOTION_TOKEN presente?', !!token, 'tamanho:', token ? token.length : 0);
+
   if (!token) {
+    console.error('[add-update] NOTION_TOKEN ausente no ambiente');
     return res.status(500).json({ error: 'NOTION_TOKEN não configurado no ambiente da Vercel' });
   }
 
@@ -45,8 +51,10 @@ module.exports = async function handler(req, res) {
       { headers }
     );
     const listData = await listRes.json();
+    console.log('[add-update] list blocks status', listRes.status);
 
     if (!listRes.ok) {
+      console.error('[add-update] erro ao listar blocos', JSON.stringify(listData).slice(0, 500));
       return res.status(listRes.status).json({ error: listData });
     }
 
@@ -104,13 +112,16 @@ module.exports = async function handler(req, res) {
       }
     );
     const appendData = await appendRes.json();
+    console.log('[add-update] append status', appendRes.status);
 
     if (!appendRes.ok) {
+      console.error('[add-update] erro ao adicionar bloco', JSON.stringify(appendData).slice(0, 500));
       return res.status(appendRes.status).json({ error: appendData });
     }
 
     return res.status(200).json({ success: true });
   } catch (err) {
+    console.error('[add-update] exception', err.message);
     return res.status(500).json({ error: err.message });
   }
 }
