@@ -657,6 +657,123 @@ body{
   text-align: center;
 }
 
+/* GANTT / ROADMAP REAL */
+.gantt-panel{ padding: 22px; margin-bottom: 4px; }
+.gantt-axis{
+  display:flex;
+  justify-content: space-between;
+  font-family:'IBM Plex Mono', monospace;
+  font-size: 10.5px;
+  color: var(--ink-soft);
+  margin-bottom: 8px;
+  padding: 0 2px;
+}
+
+.phase-track{
+  display:flex;
+  height: 56px;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  margin-bottom: 14px;
+}
+.phase-seg{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  position: relative;
+}
+.phase-seg:not(:last-child){ border-right: 2px solid rgba(255,255,255,0.4); }
+.phase-seg-name{ font-weight: 700; font-size: 13px; }
+.phase-seg-sub{ font-family:'IBM Plex Mono', monospace; font-size: 10px; opacity: 0.85; margin-top: 2px; }
+.phase-seg-1{ background: var(--purple); }
+.phase-seg-2{ background: var(--purple-deep); }
+.phase-seg-3{ background: #362a80; }
+
+.gantt-note{
+  font-size: 11.5px;
+  color: var(--ink-soft);
+  margin-top: 4px;
+}
+
+.gantt-group{ margin-top: 20px; }
+.gantt-group:first-of-type{ margin-top: 6px; }
+.gantt-group-title{
+  display:flex;
+  align-items:center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 13.5px;
+  margin-bottom: 10px;
+}
+.gantt-group-title .uf-tag{ border-radius: 7px; }
+
+.gantt-row{
+  display:flex;
+  align-items:center;
+  gap: 10px;
+  margin-bottom: 7px;
+}
+.gantt-label{
+  width: 130px;
+  flex: none;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.gantt-bar-track{
+  flex: 1;
+  height: 16px;
+  background: var(--paper);
+  border-radius: 999px;
+  position: relative;
+  overflow: hidden;
+}
+.gantt-bar{
+  position: absolute;
+  left: 0; top:0; bottom:0;
+  border-radius: 999px;
+}
+.gantt-fast{ background: var(--foco); }
+.gantt-mid{ background: var(--amber); }
+.gantt-slow{ background: var(--purple-deep); }
+.gantt-days{
+  width: 74px;
+  flex: none;
+  text-align: right;
+  font-family:'IBM Plex Mono', monospace;
+  font-size: 11.5px;
+  color: var(--ink-soft);
+}
+.gantt-row-na .gantt-label{ color: var(--potencial); }
+.gantt-row-na .gantt-bar-track{ background: none; }
+.gantt-row-na .gantt-days{ color: var(--potencial); font-style: italic; }
+
+.gantt-legend{
+  display:flex;
+  gap: 16px;
+  margin-top: 20px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+}
+.legend-chip{
+  display:flex;
+  align-items:center;
+  gap: 6px;
+  font-family:'IBM Plex Mono', monospace;
+  font-size: 11px;
+  color: var(--ink-soft);
+}
+.legend-dot{ width:9px; height:9px; border-radius:50%; display:inline-block; }
+
+@media (max-width: 640px){
+  .gantt-label{ width: 90px; font-size: 11.5px; }
+  .gantt-days{ width: 60px; font-size: 10.5px; }
+  .gantt-axis{ font-size: 9px; }
+  .phase-seg-name{ font-size: 11px; }
+}
+
 /* REVENDAS TAB */
 .uf-grid{
   display:grid;
@@ -2133,54 +2250,72 @@ body{
   <!-- ROADMAP -->
   <div class="tab-panel" id="panel-roadmap">
     <div class="section-label first">Roadmap gerencial</div>
-    <div class="roadmap-intro">Visão de médio prazo dos próximos plugs de canal e de rede de revendas — atualizado a cada reunião de alinhamento.</div>
+    <div class="roadmap-intro">Visão de médio prazo do faseamento de praças e do tempo estimado para ativação de cada canal — atualizado a cada reunião de alinhamento.</div>
 
-    <div class="section-label">Canais que vamos plugar</div>
-    <div class="panel roadmap-panel">
-      <div class="roadmap-track">
-        <div class="roadmap-phase">
-          <div class="roadmap-phase-label">Agora</div>
-          <div class="roadmap-phase-items">
-            <div class="roadmap-placeholder">A definir</div>
-          </div>
+    <div class="section-label">Expansão de praças</div>
+    <div class="panel gantt-panel">
+      <div class="gantt-axis">
+        <span>Dia 0</span><span>Dia 30</span><span>Dia 60</span><span>Dia 90</span>
+      </div>
+      <div class="phase-track">
+        <div class="phase-seg phase-seg-1" style="width:33.33%;">
+          <span class="phase-seg-name">Grande São Paulo</span>
+          <span class="phase-seg-sub">Mês 1</span>
         </div>
-        <div class="roadmap-phase">
-          <div class="roadmap-phase-label">Próximo trimestre</div>
-          <div class="roadmap-phase-items">
-            <div class="roadmap-placeholder">A definir</div>
-          </div>
+        <div class="phase-seg phase-seg-2" style="width:33.33%;">
+          <span class="phase-seg-name">Porto Alegre</span>
+          <span class="phase-seg-sub">Mês 2</span>
         </div>
-        <div class="roadmap-phase">
-          <div class="roadmap-phase-label">Backlog</div>
-          <div class="roadmap-phase-items">
-            <div class="roadmap-placeholder">A definir</div>
-          </div>
+        <div class="phase-seg phase-seg-3" style="width:33.34%;">
+          <span class="phase-seg-name">Belo Horizonte</span>
+          <span class="phase-seg-sub">Mês 3</span>
         </div>
       </div>
+      <div class="gantt-note">Ordem de priorização para organização da rede de varejistas (onboarding local), praça a praça.</div>
     </div>
 
-    <div class="section-label">Varejos que vamos plugar</div>
-    <div class="panel roadmap-panel">
-      <div class="roadmap-track">
-        <div class="roadmap-phase">
-          <div class="roadmap-phase-label">Agora</div>
-          <div class="roadmap-phase-items">
-            <div class="roadmap-placeholder">A definir</div>
-          </div>
-        </div>
-        <div class="roadmap-phase">
-          <div class="roadmap-phase-label">Próximo trimestre</div>
-          <div class="roadmap-phase-items">
-            <div class="roadmap-placeholder">A definir</div>
-          </div>
-        </div>
-        <div class="roadmap-phase">
-          <div class="roadmap-phase-label">Backlog</div>
-          <div class="roadmap-phase-items">
-            <div class="roadmap-placeholder">A definir</div>
-          </div>
-        </div>
+    <div class="section-label">Ativação de canais por praça</div>
+    <div class="panel gantt-panel">
+      <div class="gantt-axis">
+        <span>Dia 0</span><span>Dia 30</span><span>Dia 60</span><span>Dia 90</span><span>Dia 120</span>
       </div>
+
+      <div class="gantt-group">
+        <div class="gantt-group-title"><span class="uf-tag uf-sp" style="width:28px;height:28px;font-size:11px;">SP</span> Grande São Paulo</div>
+        <div class="gantt-row"><div class="gantt-label">Shopee</div><div class="gantt-bar-track"><div class="gantt-bar gantt-fast" style="width:5.8%;"></div></div><div class="gantt-days">7 dias</div></div>
+        <div class="gantt-row"><div class="gantt-label">Mercado Livre</div><div class="gantt-bar-track"><div class="gantt-bar gantt-fast" style="width:12.5%;"></div></div><div class="gantt-days">15 dias</div></div>
+        <div class="gantt-row"><div class="gantt-label">Shopee Turbo</div><div class="gantt-bar-track"><div class="gantt-bar gantt-fast" style="width:12.5%;"></div></div><div class="gantt-days">15 dias</div></div>
+        <div class="gantt-row"><div class="gantt-label">iFood</div><div class="gantt-bar-track"><div class="gantt-bar gantt-mid" style="width:16.7%;"></div></div><div class="gantt-days">20 dias</div></div>
+        <div class="gantt-row"><div class="gantt-label">99</div><div class="gantt-bar-track"><div class="gantt-bar gantt-slow" style="width:100%;"></div></div><div class="gantt-days">120 dias</div></div>
+        <div class="gantt-row gantt-row-na"><div class="gantt-label">Magalu Delivery</div><div class="gantt-bar-track"></div><div class="gantt-days">não disponível</div></div>
+      </div>
+
+      <div class="gantt-group">
+        <div class="gantt-group-title"><span class="uf-tag uf-rs" style="width:28px;height:28px;font-size:11px;">RS</span> Porto Alegre</div>
+        <div class="gantt-row"><div class="gantt-label">Shopee</div><div class="gantt-bar-track"><div class="gantt-bar gantt-fast" style="width:5.8%;"></div></div><div class="gantt-days">7 dias</div></div>
+        <div class="gantt-row"><div class="gantt-label">iFood</div><div class="gantt-bar-track"><div class="gantt-bar gantt-mid" style="width:33.3%;"></div></div><div class="gantt-days">40 dias</div></div>
+        <div class="gantt-row gantt-row-na"><div class="gantt-label">Mercado Livre</div><div class="gantt-bar-track"></div><div class="gantt-days">não disponível</div></div>
+        <div class="gantt-row gantt-row-na"><div class="gantt-label">Shopee Turbo</div><div class="gantt-bar-track"></div><div class="gantt-days">não disponível</div></div>
+        <div class="gantt-row gantt-row-na"><div class="gantt-label">99</div><div class="gantt-bar-track"></div><div class="gantt-days">não disponível</div></div>
+        <div class="gantt-row gantt-row-na"><div class="gantt-label">Magalu Delivery</div><div class="gantt-bar-track"></div><div class="gantt-days">não disponível</div></div>
+      </div>
+
+      <div class="gantt-group">
+        <div class="gantt-group-title"><span class="uf-tag uf-mg" style="width:28px;height:28px;font-size:11px;">MG</span> Belo Horizonte</div>
+        <div class="gantt-row"><div class="gantt-label">Shopee</div><div class="gantt-bar-track"><div class="gantt-bar gantt-fast" style="width:5.8%;"></div></div><div class="gantt-days">7 dias</div></div>
+        <div class="gantt-row"><div class="gantt-label">Shopee Turbo</div><div class="gantt-bar-track"><div class="gantt-bar gantt-fast" style="width:12.5%;"></div></div><div class="gantt-days">15 dias</div></div>
+        <div class="gantt-row"><div class="gantt-label">iFood</div><div class="gantt-bar-track"><div class="gantt-bar gantt-mid" style="width:33.3%;"></div></div><div class="gantt-days">40 dias</div></div>
+        <div class="gantt-row gantt-row-na"><div class="gantt-label">Mercado Livre</div><div class="gantt-bar-track"></div><div class="gantt-days">não disponível</div></div>
+        <div class="gantt-row gantt-row-na"><div class="gantt-label">99</div><div class="gantt-bar-track"></div><div class="gantt-days">não disponível</div></div>
+        <div class="gantt-row gantt-row-na"><div class="gantt-label">Magalu Delivery</div><div class="gantt-bar-track"></div><div class="gantt-days">não disponível</div></div>
+      </div>
+
+      <div class="gantt-legend">
+        <span class="legend-chip"><span class="legend-dot gantt-fast"></span>Até 15 dias</span>
+        <span class="legend-chip"><span class="legend-dot gantt-mid"></span>16 a 40 dias</span>
+        <span class="legend-chip"><span class="legend-dot gantt-slow"></span>Acima de 40 dias</span>
+      </div>
+      <div class="gantt-note">Dias corridos a partir de hoje até a praça estar apta a vender em cada canal. Magalu Delivery ainda sem previsão para as três praças prioritárias.</div>
     </div>
   </div>
 
