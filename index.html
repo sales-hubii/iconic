@@ -816,6 +816,27 @@ body{
   padding: 18px;
 }
 .uf-card-head{ display:flex; align-items:center; gap:12px; margin-bottom: 14px; }
+.uf-card{ border-top: 3px solid transparent; }
+.uf-card-phase1{ border-top-color: var(--purple); }
+.uf-card-phase2{ border-top-color: var(--purple-deep); }
+.uf-card-phase3{ border-top-color: #362a80; }
+.phase-badge{
+  margin-left: auto;
+  font-family:'IBM Plex Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+  flex: none;
+}
+.phase-badge-1{ background: var(--purple); }
+.phase-badge-2{ background: var(--purple-deep); }
+.phase-badge-3{ background: #362a80; }
+@media (max-width: 640px){
+  .phase-badge{ font-size: 9px; padding: 3px 8px; }
+}
 .uf-tag{
   font-family:'IBM Plex Mono', monospace;
   font-weight: 800;
@@ -1788,13 +1809,14 @@ body{
     <div class="section-label first">Mapa por UF</div>
     <div class="uf-grid">
 
-      <div class="uf-card">
+      <div class="uf-card uf-card-phase1">
         <div class="uf-card-head">
           <span class="uf-tag uf-sp">SP</span>
           <div class="uf-card-info">
             <div class="uf-da-name">Trevilub</div>
             <div class="uf-count">29 hubs</div>
           </div>
+          <span class="phase-badge phase-badge-1">Próximo foco · Out</span>
         </div>
         <svg viewBox="0 0 300 160" class="mini-map">
     <defs>
@@ -1834,13 +1856,14 @@ body{
         </div>
       </div>
 
-      <div class="uf-card">
+      <div class="uf-card uf-card-phase3">
         <div class="uf-card-head">
           <span class="uf-tag uf-mg">MG</span>
           <div class="uf-card-info">
             <div class="uf-da-name">Bel Lube</div>
             <div class="uf-count">30 hubs</div>
           </div>
+          <span class="phase-badge phase-badge-3">Mês 3 · Dez</span>
         </div>
         <svg viewBox="0 0 300 160" class="mini-map">
     <defs>
@@ -1868,13 +1891,14 @@ body{
         </div>
       </div>
 
-      <div class="uf-card">
+      <div class="uf-card uf-card-phase2">
         <div class="uf-card-head">
           <span class="uf-tag uf-rs">RS</span>
           <div class="uf-card-info">
             <div class="uf-da-name">Makena</div>
             <div class="uf-count">29 hubs</div>
           </div>
+          <span class="phase-badge phase-badge-2">Mês 2 · Nov</span>
         </div>
         <svg viewBox="0 0 300 160" class="mini-map">
     <defs>
