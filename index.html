@@ -912,27 +912,49 @@ body{
   border-radius: var(--radius-sm);
 }
 .hub-row{
-  display:flex;
+  display:grid;
+  grid-template-columns: 1.6fr 1fr 1.1fr 90px;
   align-items:center;
   gap: 10px;
   padding: 9px 12px;
   border-bottom: 1px solid var(--line);
 }
 .hub-row:last-child{ border-bottom: none; }
-.hub-name{ font-size: 12.5px; font-weight: 600; flex: 1; min-width: 0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-.hub-name-block{ flex: 1; min-width: 0; }
-.hub-name-block .hub-name{ white-space: normal; }
-.hub-contact{
-  font-family:'IBM Plex Mono', monospace;
-  font-size: 10.5px;
-  color: var(--ink-soft);
-  margin-top: 2px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+.hub-row-header{
+  padding: 8px 12px;
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
 }
+.hub-row-header .hub-col-name,
+.hub-row-header .hub-col-contact,
+.hub-row-header .hub-col-phone,
+.hub-row-header .hub-col-status{
+  font-family:'IBM Plex Mono', monospace;
+  font-size: 9.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink-soft);
+  font-weight: 700;
+}
+.hub-col-name{ font-size: 12.5px; font-weight: 600; min-width: 0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.hub-col-contact{ font-size: 11.5px; color: var(--ink); min-width: 0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.hub-col-phone{
+  font-family:'IBM Plex Mono', monospace;
+  font-size: 11px;
+  color: var(--ink-soft);
+  min-width: 0;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.hub-col-status{ text-align: right; }
+.hub-row-na-contact .hub-col-contact,
+.hub-row-na-contact .hub-col-phone{ color: var(--potencial); }
 @media (max-width: 640px){
-  .hub-name{ font-size: 12px; }
+  .hub-row{ grid-template-columns: 1.3fr 0.8fr 90px; }
+  .hub-col-phone{ display: none; }
+  .hub-row-header .hub-col-phone{ display: none; }
+  .hub-col-name{ font-size: 12px; }
 }
 
 /* UPDATE BADGE — fixed bottom-right */
@@ -1909,151 +1931,185 @@ body{
           <span class="compare-arrow">▾</span>
         </summary>
         <div class="hub-list">
-        <div class="hub-row">
-          <div class="hub-name">Brother S Moto Pecas Ltda</div>
-          <span class="status-pill status-backlog">Backlog</span>
+        <div class="hub-row hub-row-header">
+          <div class="hub-col-name">Hub</div>
+          <div class="hub-col-contact">Contato</div>
+          <div class="hub-col-phone">WhatsApp</div>
+          <div class="hub-col-status">Status</div>
         </div>
         <div class="hub-row">
-          <div class="hub-name">Auto Center Mercurio Ltda</div>
-          <span class="status-pill status-backlog">Backlog</span>
+          <div class="hub-col-name">Anna Paula Bischoff</div>
+          <div class="hub-col-contact">Anna</div>
+          <div class="hub-col-phone">11 952-861-659</div>
+          <div class="hub-col-status"><span class="status-pill status-prospect">Prospect</span></div>
         </div>
         <div class="hub-row">
-          <div class="hub-name">Jf2 Comercio De Produtos Automotivos Ltda Me</div>
-          <span class="status-pill status-backlog">Backlog</span>
+          <div class="hub-col-name">Auto Pecas 2000 Ltda Epp</div>
+          <div class="hub-col-contact">Dida</div>
+          <div class="hub-col-phone">11 940-266-204</div>
+          <div class="hub-col-status"><span class="status-pill status-prospect">Prospect</span></div>
         </div>
         <div class="hub-row">
-          <div class="hub-name-block">
-            <div class="hub-name">Anna Paula Bischoff</div>
-            <div class="hub-contact">Anna · 11 952-861-659</div>
-          </div>
-          <span class="status-pill status-prospect">Prospect</span>
+          <div class="hub-col-name">Lubrificantes Moema Produtos Automotivos E Industriais Ltda</div>
+          <div class="hub-col-contact">Vanderlei</div>
+          <div class="hub-col-phone">11 997-138-437</div>
+          <div class="hub-col-status"><span class="status-pill status-prospect">Prospect</span></div>
         </div>
         <div class="hub-row">
-          <div class="hub-name-block">
-            <div class="hub-name">Auto Pecas 2000 Ltda Epp</div>
-            <div class="hub-contact">Dida · 11 940-266-204</div>
-          </div>
-          <span class="status-pill status-prospect">Prospect</span>
+          <div class="hub-col-name">Auto Pecas Ouro Ltda Me</div>
+          <div class="hub-col-contact">Luciano</div>
+          <div class="hub-col-phone">11 947-722-353</div>
+          <div class="hub-col-status"><span class="status-pill status-prospect">Prospect</span></div>
         </div>
         <div class="hub-row">
-          <div class="hub-name-block">
-            <div class="hub-name">Lubrificantes Moema Produtos Automotivos E Industriais Ltda</div>
-            <div class="hub-contact">Vanderlei · 11 997-138-437</div>
-          </div>
-          <span class="status-pill status-prospect">Prospect</span>
+          <div class="hub-col-name">Sim Pneus Ltda</div>
+          <div class="hub-col-contact">Bruno/Vinicius</div>
+          <div class="hub-col-phone">11 987-790-319 | 11 982-626-691</div>
+          <div class="hub-col-status"><span class="status-pill status-prospect">Prospect</span></div>
         </div>
         <div class="hub-row">
-          <div class="hub-name">13 Radial Moto Pecas Ltda</div>
-          <span class="status-pill status-backlog">Backlog</span>
+          <div class="hub-col-name">Comercial Zanao Ltda</div>
+          <div class="hub-col-contact">Felipe</div>
+          <div class="hub-col-phone">11 958-720-032</div>
+          <div class="hub-col-status"><span class="status-pill status-prospect">Prospect</span></div>
         </div>
         <div class="hub-row">
-          <div class="hub-name">Bio Parts Ltda</div>
-          <span class="status-pill status-backlog">Backlog</span>
+          <div class="hub-col-name">Jcar Auto Pecas E Acessorios Ltda</div>
+          <div class="hub-col-contact">José</div>
+          <div class="hub-col-phone">11 969-770-381</div>
+          <div class="hub-col-status"><span class="status-pill status-prospect">Prospect</span></div>
         </div>
         <div class="hub-row">
-          <div class="hub-name">Opcion Moto Pecas Eireli   Me</div>
-          <span class="status-pill status-backlog">Backlog</span>
+          <div class="hub-col-name">Pefil Comercial Ltda</div>
+          <div class="hub-col-contact">Felipe</div>
+          <div class="hub-col-phone">11 994-859-391</div>
+          <div class="hub-col-status"><span class="status-pill status-prospect">Prospect</span></div>
         </div>
         <div class="hub-row">
-          <div class="hub-name">Galpao Moto Parts Sm Ltda</div>
-          <span class="status-pill status-backlog">Backlog</span>
+          <div class="hub-col-name">Piqueri Comercio E Distribuidora De Auto Pecas Ltda</div>
+          <div class="hub-col-contact">Ronie</div>
+          <div class="hub-col-phone">11 947-863-844</div>
+          <div class="hub-col-status"><span class="status-pill status-prospect">Prospect</span></div>
         </div>
         <div class="hub-row">
-          <div class="hub-name">Gilvani Maria Batista Do Carmo Me</div>
-          <span class="status-pill status-backlog">Backlog</span>
+          <div class="hub-col-name">Qualith Lub Do Brasil Comercio Ltda</div>
+          <div class="hub-col-contact">João</div>
+          <div class="hub-col-phone">11 999-332-611</div>
+          <div class="hub-col-status"><span class="status-pill status-prospect">Prospect</span></div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name">Iron Lub Ltda</div>
-          <span class="status-pill status-backlog">Backlog</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Brother S Moto Pecas Ltda</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name">Scandiesel Comercio De Autopecas Ltda Me</div>
-          <span class="status-pill status-backlog">Backlog</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Auto Center Mercurio Ltda</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name">Automil Comercio E Distribuicao De Pecas Automotivas Eireli</div>
-          <span class="status-pill status-backlog">Backlog</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Jf2 Comercio De Produtos Automotivos Ltda Me</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name">Elu Auto Pecas Ltda</div>
-          <span class="status-pill status-backlog">Backlog</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">13 Radial Moto Pecas Ltda</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name">Tokio Comercial De Auto Pecas Ltda   Epp</div>
-          <span class="status-pill status-backlog">Backlog</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Bio Parts Ltda</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name-block">
-            <div class="hub-name">Auto Pecas Ouro Ltda Me</div>
-            <div class="hub-contact">Luciano · 11 947-722-353</div>
-          </div>
-          <span class="status-pill status-prospect">Prospect</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Opcion Moto Pecas Eireli   Me</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name-block">
-            <div class="hub-name">Sim Pneus Ltda</div>
-            <div class="hub-contact">Bruno/Vinicius · 11 987-790-319 | 11 982-626-691</div>
-          </div>
-          <span class="status-pill status-prospect">Prospect</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Galpao Moto Parts Sm Ltda</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name">Motosupri Distribuidora De Moto Pecas Ltda Epp</div>
-          <span class="status-pill status-backlog">Backlog</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Gilvani Maria Batista Do Carmo Me</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name">Via Motos Com. De Pecas Aces. E Serv P Moto Ltda Me</div>
-          <span class="status-pill status-backlog">Backlog</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Iron Lub Ltda</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name">Willys Moto Pecas Ltda Me</div>
-          <span class="status-pill status-backlog">Backlog</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Scandiesel Comercio De Autopecas Ltda Me</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name-block">
-            <div class="hub-name">Comercial Zanao Ltda</div>
-            <div class="hub-contact">Felipe · 11 958-720-032</div>
-          </div>
-          <span class="status-pill status-prospect">Prospect</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Automil Comercio E Distribuicao De Pecas Automotivas Eireli</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name">W.A. Moto Pecas E Acessorios Ltda</div>
-          <span class="status-pill status-backlog">Backlog</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Elu Auto Pecas Ltda</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name-block">
-            <div class="hub-name">Jcar Auto Pecas E Acessorios Ltda</div>
-            <div class="hub-contact">José · 11 969-770-381</div>
-          </div>
-          <span class="status-pill status-prospect">Prospect</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Tokio Comercial De Auto Pecas Ltda   Epp</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name">Atlanta Auto Pecas E Acessorios Ltda</div>
-          <span class="status-pill status-backlog">Backlog</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Motosupri Distribuidora De Moto Pecas Ltda Epp</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name">Koga Koga  Cia Ltda</div>
-          <span class="status-pill status-backlog">Backlog</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Via Motos Com. De Pecas Aces. E Serv P Moto Ltda Me</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name-block">
-            <div class="hub-name">Pefil Comercial Ltda</div>
-            <div class="hub-contact">Felipe · 11 994-859-391</div>
-          </div>
-          <span class="status-pill status-prospect">Prospect</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Willys Moto Pecas Ltda Me</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name-block">
-            <div class="hub-name">Piqueri Comercio E Distribuidora De Auto Pecas Ltda</div>
-            <div class="hub-contact">Ronie · 11 947-863-844</div>
-          </div>
-          <span class="status-pill status-prospect">Prospect</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">W.A. Moto Pecas E Acessorios Ltda</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name-block">
-            <div class="hub-name">Qualith Lub Do Brasil Comercio Ltda</div>
-            <div class="hub-contact">João · 11 999-332-611</div>
-          </div>
-          <span class="status-pill status-prospect">Prospect</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Atlanta Auto Pecas E Acessorios Ltda</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
+        </div>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Koga Koga  Cia Ltda</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
         </div>
       </details>
@@ -2064,125 +2120,191 @@ body{
           <span class="compare-arrow">▾</span>
         </summary>
         <div class="hub-list">
-        <div class="hub-row">
-          <div class="hub-name">Quintinocar Centro Automotivo Ltda</div>
-          <span class="status-pill status-backlog">Backlog</span>
+        <div class="hub-row hub-row-header">
+          <div class="hub-col-name">Hub</div>
+          <div class="hub-col-contact">Contato</div>
+          <div class="hub-col-phone">WhatsApp</div>
+          <div class="hub-col-status">Status</div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name">Renaumec Reparacao Automotiva Ltda</div>
-          <span class="status-pill status-backlog">Backlog</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Apail Diesel Autopecas Ltda</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name">Auto Pecas Auto Car Ltda</div>
-          <span class="status-pill status-backlog">Backlog</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Atual Comercio De Autopecas Ltda</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name">Lubrimarques Lubrificantes Ltda</div>
-          <span class="status-pill status-backlog">Backlog</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Auto Pecas Auto Car Ltda</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name">Atual Comercio De Autopecas Ltda</div>
-          <span class="status-pill status-backlog">Backlog</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Bartolomeu Marcio De Araujo Costa 15674711615</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name">Virtual Comercio De Auto Pecas Ltda</div>
-          <span class="status-pill status-backlog">Backlog</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Bezanga Moto Pecas Ltda</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name">Centro Automotivo Club Car Ltda</div>
-          <span class="status-pill status-backlog">Backlog</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Casa Do Lubrificante Ltda</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name">Chr Autopecas Ltda</div>
-          <span class="status-pill status-backlog">Backlog</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Centro Automotivo Club Car Ltda</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name">Bartolomeu Marcio De Araujo Costa 15674711615</div>
-          <span class="status-pill status-backlog">Backlog</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Chr Autopecas Ltda</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name">Jb Distribuicao De Produtos Ltda</div>
-          <span class="status-pill status-backlog">Backlog</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Claudimar Moto Pecas Ltda Me</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name">Sion Lubrificantes Ltda</div>
-          <span class="status-pill status-backlog">Backlog</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Comercio De Lubrificantes E Troca De Oleo Marcio Ltda.</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name">Rodag Distribuidora De Auto Pecas Ltda</div>
-          <span class="status-pill status-backlog">Backlog</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Gemeos Motos Com Pec E Serv De Reparacao Em Motocicletas</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name">Lubrificantes Horta Ltda</div>
-          <span class="status-pill status-backlog">Backlog</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Industria, Comercio E Distribuidora Jdf De Pecas Ltda</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name">Comercio De Lubrificantes E Troca De Oleo Marcio Ltda.</div>
-          <span class="status-pill status-backlog">Backlog</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Jb Distribuicao De Produtos Ltda</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name">Ll Pecas Diesel Ltda</div>
-          <span class="status-pill status-backlog">Backlog</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Ll Pecas Diesel Ltda</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name">Industria, Comercio E Distribuidora Jdf De Pecas Ltda</div>
-          <span class="status-pill status-backlog">Backlog</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Lubrificantes Horta Ltda</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name">Triangulo Pecas E Filtros Ltda</div>
-          <span class="status-pill status-backlog">Backlog</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Lubrimarques Lubrificantes Ltda</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name">Apail Diesel Autopecas Ltda</div>
-          <span class="status-pill status-backlog">Backlog</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Markim Motos Ltda</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name">Sudepecas Diesel Ltda</div>
-          <span class="status-pill status-backlog">Backlog</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Moto Pecas E Acessorios Ltda</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name">Casa Do Lubrificante Ltda</div>
-          <span class="status-pill status-backlog">Backlog</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Moto Pecas Mg 5  Ltda</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name">Motoalfa Ltda</div>
-          <span class="status-pill status-backlog">Backlog</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Motoalfa Ltda</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name">Markim Motos Ltda</div>
-          <span class="status-pill status-backlog">Backlog</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Motoart Comercio E Servicos Ltda Me</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name">Moto Pecas E Acessorios Ltda</div>
-          <span class="status-pill status-backlog">Backlog</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Quintinocar Centro Automotivo Ltda</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name">Gemeos Motos Com Pec E Serv De Reparacao Em Motocicletas</div>
-          <span class="status-pill status-backlog">Backlog</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Rayos Motopecas Ltda</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name">Rayos Motopecas Ltda</div>
-          <span class="status-pill status-backlog">Backlog</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Renaumec Reparacao Automotiva Ltda</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name">Moto Pecas Mg 5  Ltda</div>
-          <span class="status-pill status-backlog">Backlog</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Rodag Distribuidora De Auto Pecas Ltda</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name">Bezanga Moto Pecas Ltda</div>
-          <span class="status-pill status-backlog">Backlog</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Sion Lubrificantes Ltda</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name">Superstar Motopecas Curvelo Ltda.</div>
-          <span class="status-pill status-backlog">Backlog</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Sudepecas Diesel Ltda</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name">Claudimar Moto Pecas Ltda Me</div>
-          <span class="status-pill status-backlog">Backlog</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Superstar Motopecas Curvelo Ltda.</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name">Motoart Comercio E Servicos Ltda Me</div>
-          <span class="status-pill status-backlog">Backlog</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Triangulo Pecas E Filtros Ltda</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
+        </div>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Virtual Comercio De Auto Pecas Ltda</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
         </div>
       </details>
@@ -2193,121 +2315,185 @@ body{
           <span class="compare-arrow">▾</span>
         </summary>
         <div class="hub-list">
-        <div class="hub-row">
-          <div class="hub-name">Canaa Motos Ltda</div>
-          <span class="status-pill status-backlog">Backlog</span>
+        <div class="hub-row hub-row-header">
+          <div class="hub-col-name">Hub</div>
+          <div class="hub-col-contact">Contato</div>
+          <div class="hub-col-phone">WhatsApp</div>
+          <div class="hub-col-status">Status</div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name">Comercio De Auto Pecas Passini Ltda''''</div>
-          <span class="status-pill status-backlog">Backlog</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Alos &amp; Morais Comercio De Pecas E Servicos Para Motocicletas Ltda</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name">Ducar Autopecas Ltda</div>
-          <span class="status-pill status-backlog">Backlog</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Auto Pecas Belloli Ltda Me</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name">Ef Auto Pecas Ltda</div>
-          <span class="status-pill status-backlog">Backlog</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Budelon Auto Pecas Ltda</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name">Hp - Distribuidora De Pecas E Acessorios Automotivos Ltda</div>
-          <span class="status-pill status-backlog">Backlog</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Canaa Motos Ltda</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name">J L Winter Auto Pecas Ltda</div>
-          <span class="status-pill status-backlog">Backlog</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Comercio De Auto Pecas Passini Ltda''''</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name">Librelato Auto Pecas Ltda</div>
-          <span class="status-pill status-backlog">Backlog</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Daniel Da Silva Oliveira 95357890072</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name">Max Centro Automotivo Ltda</div>
-          <span class="status-pill status-backlog">Backlog</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Djuan &amp; Ana Autopecas Ltda</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name">Mokao Pecas E Acessorios Automotivos Ltda</div>
-          <span class="status-pill status-backlog">Backlog</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Dracar Autopecas Ltda - Me</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name">Novolubri Comercio De Lubrificantes Ltda</div>
-          <span class="status-pill status-backlog">Backlog</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Ducar Autopecas Ltda</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name">Pardaleco Auto Pecas Center Ltda</div>
-          <span class="status-pill status-backlog">Backlog</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Ef Auto Pecas Ltda</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name">Ratki Distribuidora De Pecas Automotivas Ltda</div>
-          <span class="status-pill status-backlog">Backlog</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Guilherme Veber Moises Da Silva - Me</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name">Ravena Distribuidora De Auto Pecas Ltda</div>
-          <span class="status-pill status-backlog">Backlog</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Hp - Distribuidora De Pecas E Acessorios Automotivos Ltda</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name">Rkl Componentes Automotivos Ltda</div>
-          <span class="status-pill status-backlog">Backlog</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">J L Winter Auto Pecas Ltda</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name">Rl Motos Comercial Ltda - Me</div>
-          <span class="status-pill status-backlog">Backlog</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Kuskoski Comercio De Lubrificantes Ltda</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name">Schutz Comercio De Pecas E Servicos Ltda</div>
-          <span class="status-pill status-backlog">Backlog</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Librelato Auto Pecas Ltda</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name">Terra Materiais P Const E Ferragens Ltda</div>
-          <span class="status-pill status-backlog">Backlog</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Lubrificantes Santa Rita Ltda. - Me</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name">Alos & Morais Comercio De Pecas E Servicos Para Motocicletas Ltda</div>
-          <span class="status-pill status-backlog">Backlog</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Max Centro Automotivo Ltda</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name">Dracar Autopecas Ltda - Me</div>
-          <span class="status-pill status-backlog">Backlog</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Mokao Pecas E Acessorios Automotivos Ltda</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name">Multfiltros E Pecas Ltda</div>
-          <span class="status-pill status-backlog">Backlog</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Moto Pecas Konig Ltda</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name">Budelon Auto Pecas Ltda</div>
-          <span class="status-pill status-backlog">Backlog</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Multfiltros E Pecas Ltda</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name">Guilherme Veber Moises Da Silva - Me</div>
-          <span class="status-pill status-backlog">Backlog</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Novolubri Comercio De Lubrificantes Ltda</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name">Kuskoski Comercio De Lubrificantes Ltda</div>
-          <span class="status-pill status-backlog">Backlog</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Pardaleco Auto Pecas Center Ltda</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name">Djuan & Ana Autopecas Ltda</div>
-          <span class="status-pill status-backlog">Backlog</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Ratki Distribuidora De Pecas Automotivas Ltda</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name">Auto Pecas Belloli Ltda Me</div>
-          <span class="status-pill status-backlog">Backlog</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Ravena Distribuidora De Auto Pecas Ltda</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name">Moto Pecas Konig Ltda</div>
-          <span class="status-pill status-backlog">Backlog</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Rkl Componentes Automotivos Ltda</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name">Daniel Da Silva Oliveira 95357890072</div>
-          <span class="status-pill status-backlog">Backlog</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Rl Motos Comercial Ltda - Me</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name">Rodrigo Velho</div>
-          <span class="status-pill status-backlog">Backlog</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Rodrigo Velho</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
-        <div class="hub-row">
-          <div class="hub-name">Lubrificantes Santa Rita Ltda. - Me</div>
-          <span class="status-pill status-backlog">Backlog</span>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Schutz Comercio De Pecas E Servicos Ltda</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
+        </div>
+        <div class="hub-row hub-row-na-contact">
+          <div class="hub-col-name">Terra Materiais P Const E Ferragens Ltda</div>
+          <div class="hub-col-contact">—</div>
+          <div class="hub-col-phone">—</div>
+          <div class="hub-col-status"><span class="status-pill status-backlog">Backlog</span></div>
         </div>
         </div>
       </details>
