@@ -872,6 +872,8 @@ body{
 }
 
 .seg-breakdown{ display:flex; flex-wrap:wrap; gap: 6px; }
+.status-breakdown{ display:flex; flex-wrap:wrap; gap: 6px; }
+.status-breakdown .status-pill{ font-size: 11px; padding: 5px 11px; }
 .seg-chip{
   font-family:'IBM Plex Mono', monospace;
   font-size: 10.5px;
@@ -1872,45 +1874,9 @@ body{
       <text x="270" y="134" class="city-count" text-anchor="middle">1</text>
     </g>
   </svg>
-        <div class="seg-breakdown">
-          <span class="seg-chip seg-gasolina">Gasolina · 14</span>
-          <span class="seg-chip seg-diesel">Diesel · 6</span>
-          <span class="seg-chip seg-moto">Moto · 9</span>
-        </div>
-      </div>
-
-      <div class="uf-card uf-card-phase3">
-        <div class="uf-card-head">
-          <span class="uf-tag uf-mg">MG</span>
-          <div class="uf-card-info">
-            <div class="uf-da-name">Bel Lube</div>
-            <div class="uf-count">30 hubs</div>
-          </div>
-          <span class="phase-badge phase-badge-3">Mês 3 · Dez</span>
-        </div>
-        <svg viewBox="0 0 300 160" class="mini-map">
-    <defs>
-      <pattern id="mapGrid-mg" width="16" height="16" patternUnits="userSpaceOnUse">
-        <circle cx="1" cy="1" r="1" class="grid-dot"/>
-      </pattern>
-      <radialGradient id="mapGlow-mg" cx="50%" cy="50%" r="60%">
-        <stop offset="0%" stop-color="var(--purple)" stop-opacity="0.16"/>
-        <stop offset="100%" stop-color="var(--purple)" stop-opacity="0"/>
-      </radialGradient>
-    </defs>
-    <rect x="0" y="0" width="300" height="160" rx="14" class="map-bg"/>
-    <rect x="0" y="0" width="300" height="160" rx="14" fill="url(#mapGrid-mg)"/>
-    <circle cx="150" cy="80" r="75" fill="url(#mapGlow-mg)"/>
-    <g class="city-dot">
-      <circle cx="150" cy="80" r="26" class="dot-main"/>
-      <text x="150" y="48" class="city-label" text-anchor="middle">Belo Horizonte</text>
-      <text x="150" y="84" class="city-count" text-anchor="middle">30</text>
-    </g>
-  </svg>
-        <div class="seg-breakdown">
-          <span class="seg-chip seg-gasolina">Gasolina · 10</span>
-          <span class="seg-chip seg-diesel">Diesel · 10</span>
-          <span class="seg-chip seg-moto">Moto · 10</span>
+        <div class="status-breakdown">
+          <span class="status-pill status-prospect">10 Prospect</span>
+          <span class="status-pill status-backlog">19 Backlog</span>
         </div>
       </div>
 
@@ -1954,10 +1920,41 @@ body{
       <text x="260" y="44" class="city-count" text-anchor="middle">4</text>
     </g>
   </svg>
-        <div class="seg-breakdown">
-          <span class="seg-chip seg-gasolina">Gasolina · 16</span>
-          <span class="seg-chip seg-diesel">Diesel · 8</span>
-          <span class="seg-chip seg-moto">Moto · 5</span>
+        <div class="status-breakdown">
+          <span class="status-pill status-backlog">29 Backlog</span>
+        </div>
+      </div>
+
+      <div class="uf-card uf-card-phase3">
+        <div class="uf-card-head">
+          <span class="uf-tag uf-mg">MG</span>
+          <div class="uf-card-info">
+            <div class="uf-da-name">Bel Lube</div>
+            <div class="uf-count">30 hubs</div>
+          </div>
+          <span class="phase-badge phase-badge-3">Mês 3 · Dez</span>
+        </div>
+        <svg viewBox="0 0 300 160" class="mini-map">
+    <defs>
+      <pattern id="mapGrid-mg" width="16" height="16" patternUnits="userSpaceOnUse">
+        <circle cx="1" cy="1" r="1" class="grid-dot"/>
+      </pattern>
+      <radialGradient id="mapGlow-mg" cx="50%" cy="50%" r="60%">
+        <stop offset="0%" stop-color="var(--purple)" stop-opacity="0.16"/>
+        <stop offset="100%" stop-color="var(--purple)" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <rect x="0" y="0" width="300" height="160" rx="14" class="map-bg"/>
+    <rect x="0" y="0" width="300" height="160" rx="14" fill="url(#mapGrid-mg)"/>
+    <circle cx="150" cy="80" r="75" fill="url(#mapGlow-mg)"/>
+    <g class="city-dot">
+      <circle cx="150" cy="80" r="26" class="dot-main"/>
+      <text x="150" y="48" class="city-label" text-anchor="middle">Belo Horizonte</text>
+      <text x="150" y="84" class="city-count" text-anchor="middle">30</text>
+    </g>
+  </svg>
+        <div class="status-breakdown">
+          <span class="status-pill status-backlog">30 Backlog</span>
         </div>
       </div>
 
