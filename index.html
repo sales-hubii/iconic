@@ -995,7 +995,10 @@ body{
   gap: 8px;
   box-shadow: 0 10px 28px -12px rgba(27,23,48,0.25);
   z-index: 50;
+  cursor: pointer;
+  transition: box-shadow .15s ease, border-color .15s ease;
 }
+.update-badge:hover{ border-color: var(--purple-glow); box-shadow: 0 12px 32px -12px rgba(99,72,229,0.35); }
 .update-badge b{ color: var(--ink); font-weight: 600; }
 .update-dot{
   width: 7px; height: 7px;
@@ -1003,6 +1006,26 @@ body{
   background: var(--foco);
   box-shadow: 0 0 0 3px var(--foco-bg);
   flex: none;
+}
+.update-dot.syncing{
+  background: var(--purple);
+  box-shadow: 0 0 0 3px var(--purple-glow);
+  animation: update-pulse 0.9s ease-in-out infinite;
+}
+@keyframes update-pulse{
+  0%, 100%{ opacity: 1; }
+  50%{ opacity: 0.35; }
+}
+.update-refresh-icon{
+  font-size: 13px;
+  color: var(--purple);
+  line-height: 1;
+  transition: transform .4s ease;
+}
+.update-refresh-icon.spinning{ animation: update-spin 0.8s linear infinite; }
+@keyframes update-spin{
+  from{ transform: rotate(0deg); }
+  to{ transform: rotate(360deg); }
 }
 @media (max-width: 640px){
   .update-badge{
@@ -2716,9 +2739,10 @@ body{
   
   </div>
 
-<div class="update-badge" id="updateBadge">
-  <span class="update-dot"></span>
-  Atualizado em <b id="updateDate">—</b>
+<div class="update-badge" id="updateBadge" title="Clique para sincronizar com o Notion">
+  <span class="update-dot" id="updateDot"></span>
+  <span id="updateLabel">Atualizado em <b id="updateDate">—</b></span>
+  <span class="update-refresh-icon" id="updateRefreshIcon">↻</span>
 </div>
 
 <!-- MODAL: RESUMO DA REUNIÃO -->
@@ -2838,6 +2862,72 @@ body{
     t_pricing: { title:"Enviar o estudo de pricing", owner:"hubii", done:true, url:"https://app.notion.com/3bbef5854ef380ba9cdcc54f7081080f", updates:[] },
     t_ritos: { title:"Criar os ritos", owner:"hubii", done:true, url:"https://app.notion.com/3bbef5854ef3806190fae55eeab396a3", updates:[{date:"28-ago",text:"aguardando contrato para primeira reunião"}] },
   };
+
+  // Botão "Atualizado em" — sincroniza status/owner das tarefas ao vivo com o Notion
+  const updateBadgeEl = document.getElementById('updateBadge');
+  const updateDot = document.getElementById('updateDot');
+  const updateRefreshIcon = document.getElementById('updateRefreshIcon');
+  const updateLabel = document.getElementById('updateLabel');
+
+  function keyFromPageId(pageId){
+    const hex = pageId.replace(/-/g, '');
+    for(const [key, t] of Object.entries(TASKS)){
+      const tHex = notionPageIdFromUrl(t.url).replace(/-/g, '');
+      if(tHex === hex) return key;
+    }
+    return null;
+  }
+
+  async function syncWithNotion(){
+    if(updateBadgeEl.classList.contains('syncing')) return;
+    updateBadgeEl.classList.add('syncing');
+    updateDot.classList.add('syncing');
+    updateRefreshIcon.classList.add('spinning');
+    const originalLabel = updateLabel.innerHTML;
+    updateLabel.textContent = 'Sincronizando com o Notion...';
+
+    try{
+      const resp = await fetch('/api/refresh-tasks', { method: 'GET', credentials: 'same-origin' });
+      const ct = resp.headers.get('content-type') || '';
+      if(!ct.includes('application/json')){
+        const raw = await resp.text();
+        throw new Error(`resposta inesperada (HTTP ${resp.status}): ${raw.slice(0,150)}`);
+      }
+      const data = await resp.json();
+      if(!resp.ok){
+        throw new Error((data && data.error && (data.error.message || JSON.stringify(data.error))) || 'Erro desconhecido');
+      }
+
+      let changed = 0;
+      (data.tasks || []).forEach(remote => {
+        const key = keyFromPageId(remote.pageId);
+        if(!key) return;
+        const t = TASKS[key];
+        const nowDone = remote.status === 'Done';
+        if(t.done !== nowDone){
+          t.done = nowDone;
+          changed++;
+          const el = document.querySelector(`[data-status="${key}"]`);
+          if(el) el.classList.toggle('done', nowDone);
+        }
+      });
+      updateProgress();
+
+      const now = new Date();
+      const formatted = now.toLocaleDateString('pt-BR', { day:'2-digit', month:'2-digit', year:'numeric' })
+        + ' às ' + now.toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' });
+      updateLabel.innerHTML = 'Sincronizado em <b>' + formatted + '</b>' + (changed ? ` · ${changed} atualização${changed>1?'ões':''}` : '');
+    }catch(err){
+      updateLabel.textContent = 'Falha ao sincronizar — tente novamente';
+      console.error('[syncWithNotion]', err.message);
+    }finally{
+      updateBadgeEl.classList.remove('syncing');
+      updateDot.classList.remove('syncing');
+      updateRefreshIcon.classList.remove('spinning');
+    }
+  }
+
+  updateBadgeEl.addEventListener('click', syncWithNotion);
 
   const modalAddUpdate = document.getElementById('modalAddUpdate');
   const modalUpdateText = document.getElementById('modalUpdateText');
