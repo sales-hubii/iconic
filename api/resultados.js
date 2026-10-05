@@ -31,7 +31,8 @@ const cleanUrl = (v) => {
   const raw = cleanEnv(v);
   const m = raw.match(/https?:\/\/[^\s)\]"']+/i);
   const url = m ? m[0] : (raw ? 'https://' + raw.replace(/^\/+/, '') : '');
-  return url.replace(/\/+$/, '');
+  // a API do Metabase fica na raiz do domínio: ignora caminhos colados (ex.: /collection/175-...)
+  try { return new URL(url).origin; } catch (e) { return url.replace(/\/+$/, ''); }
 };
 
 module.exports = async function handler(req, res) {
