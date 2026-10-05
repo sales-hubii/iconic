@@ -2750,7 +2750,7 @@ body{
           <div class="task-text">50k de Iconic + cadastro</div>
         </div>
 
-        <div class="task" data-task data-status="t_portfolio_completar">
+        <div class="task done" data-task data-status="t_portfolio_completar">
           <div class="check" data-check><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M4 12l5 5L20 6"/></svg></div>
           <div class="task-text">Portfólio completar (náuticos, moto, agro)</div>
         </div>
@@ -2785,7 +2785,7 @@ body{
           <div class="task-text">Agendar rotas POA (Makena + Gui)</div>
         </div>
 
-        <div class="task" data-task data-status="t_cadastro_produtos">
+        <div class="task done" data-task data-status="t_cadastro_produtos">
           <div class="check" data-check><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M4 12l5 5L20 6"/></svg></div>
           <div class="task-text">Cadastro do produtos</div>
         </div>
@@ -2961,16 +2961,16 @@ body{
   }
 
   const TASKS = {
-    t_contrato: { title:"Assinar contrato", owner:"iconic", done:false, url:"https://app.notion.com/3bbef5854ef3809aa08fe6c9aca4e012", updates:[{date:"07-ago",text:"ainda em validação do time jurídico"}, {date:"13-ago",text:"contrato enviado para time Passinato analisar"}, {date:"28-ago",text:"Jurídico da Ipiranga já aprovou a parte da segurança // se possível tentar liberar Iconic compartilhar a base de varejos"}] },
-    t_50k: { title:"50k de Iconic + cadastro", owner:"iconic", done:false, url:"https://app.notion.com/3d1ef5854ef3800d9a80ca83776d3fe4", updates:[] },
-    t_portfolio_completar: { title:"Portfólio completar (náuticos, moto, agro)", owner:"iconic", done:false, url:"https://app.notion.com/3dbef5854ef3802299e3c35e28281b72", updates:[] },
+    t_contrato: { title:"Assinar contrato", owner:"iconic", done:false, url:"https://app.notion.com/3bbef5854ef3809aa08fe6c9aca4e012", updates:[{date:"07-ago",text:"ainda em validação do time jurídico"}, {date:"13-ago",text:"contrato enviado para time Passinato analisar"}, {date:"28-ago",text:"Jurídico da Ipiranga já aprovou a parte da segurança // se possível tentar liberar Iconic compartilhar a base de varejos"}, {date:"18-set",text:"iremos enviar ainda hoje o ok nas cáusulas assim como o sugestão de texto referente a multa"}, {date:"24-set",text:"enviado para a Iconic o contrato com ok nas cláusulas e sugestão da multa"}, {date:"01-out",text:"falta apenas o Marcos"}] },
+    t_50k: { title:"50k de Iconic + cadastro", owner:"iconic", done:false, url:"https://app.notion.com/3d1ef5854ef3800d9a80ca83776d3fe4", updates:[{date:"18-set",text:"essa semana evoluimos do preenchimento de documentos para Thaty agilizar internamente"}] },
+    t_portfolio_completar: { title:"Portfólio completar (náuticos, moto, agro)", owner:"iconic", done:true, url:"https://app.notion.com/3dbef5854ef3802299e3c35e28281b72", updates:[{date:"18-set",text:"Rodrigo está em semana de rota, não conseguiu compartilhar as informações ainda"}] },
     t_lista_produtos: { title:"Enviar lista de produtos", owner:"iconic", done:true, url:"https://app.notion.com/3bbef5854ef380f38113da5607d7c0b3", updates:[] },
     t_millenium: { title:"Peneirar lista de posto Millenium", owner:"iconic", done:true, url:"https://app.notion.com/3bbef5854ef38064b087d9cc8498b43e", updates:[{date:"09-ago",text:"reunião com a Marina, ela irá fazer a short list"}, {date:"28-ago",text:"tivemos alguns desencontros de agenda, reunião com time millenium irá ocorrer semana que vem"}, {date:"04-set",text:"pré-selecionado loja Raposo Tavares"}] },
-    t_shortlist: { title:"Receber a short list dos hubs", owner:"iconic", done:true, url:"https://app.notion.com/3b9ef5854ef3807f9559ee800ba634b8", updates:[] },
-    t_bh: { title:"Agendar rota BH (BelLub + Victor)", owner:"hubii", done:false, url:"https://app.notion.com/3caef5854ef38039b3d2f9a427ea18c2", updates:[{date:"28-ago",text:"aguardando contrato para primeira reunião"}] },
-    t_poa: { title:"Agendar rotas POA (Makena + Gui)", owner:"hubii", done:false, url:"https://app.notion.com/3d6ef5854ef3801fa4b8c2822185893a", updates:[{date:"28-ago",text:"aguardando contrato para primeira reunião"}] },
-    t_cadastro_produtos: { title:"Cadastro do produtos", owner:"hubii", done:false, url:"https://app.notion.com/3d6ef5854ef38028bfffc3aaacb7b0b5", updates:[] },
-    t_sp: { title:"Agendar rota SP (Trevilub + Moabe)", owner:"hubii", done:false, url:"https://app.notion.com/3d6ef5854ef3806e9425dc6d861ffb2a", updates:[] },
+    t_shortlist: { title:"Receber a short list dos hubs", owner:"iconic", done:true, url:"https://app.notion.com/3b9ef5854ef3807f9559ee800ba634b8", updates:[{date:"28-ago",text:"time Iconic informou que pela arquitetura já tem definido os parceiros inicias, premium partner"}] },
+    t_bh: { title:"Agendar rota BH (BelLub + Victor)", owner:"hubii", done:false, url:"https://app.notion.com/3caef5854ef38039b3d2f9a427ea18c2", updates:[{date:"28-ago",text:"aguardando contrato para primeira reunião"}, {date:"18-set",text:"atividade em backlog // prioziração lançamento da praça W3"}] },
+    t_poa: { title:"Agendar rotas POA (Makena + Gui)", owner:"hubii", done:false, url:"https://app.notion.com/3d6ef5854ef3801fa4b8c2822185893a", updates:[{date:"28-ago",text:"aguardando contrato para primeira reunião"}, {date:"18-set",text:"atividade em backlog // prioziração lançamento da praça W2"}] },
+    t_cadastro_produtos: { title:"Cadastro do produtos", owner:"hubii", done:true, url:"https://app.notion.com/3d6ef5854ef38028bfffc3aaacb7b0b5", updates:[{date:"18-set",text:"em andamento, deve finalizar semana que vem"}, {date:"24-set",text:"cadastro finalizado"}] },
+    t_sp: { title:"Agendar rota SP (Trevilub + Moabe)", owner:"hubii", done:false, url:"https://app.notion.com/3d6ef5854ef3806e9425dc6d861ffb2a", updates:[{date:"18-set",text:"praça W1, estamos buscando o telefone contato dos clientes para abordagem mais assertiva"}] },
     t_temu: { title:"Reunião com Temu sobre a Iconic", owner:"hubii", done:true, url:"https://app.notion.com/3bbef5854ef3804aac67d75fd3652c0f", updates:[{date:"11-ago",text:"fizemos reunião com a Temu e eles disseram que Óleo é uma categoria que faz sentido"}] },
     t_pricing: { title:"Enviar o estudo de pricing", owner:"hubii", done:true, url:"https://app.notion.com/3bbef5854ef380ba9cdcc54f7081080f", updates:[] },
     t_ritos: { title:"Criar os ritos", owner:"hubii", done:true, url:"https://app.notion.com/3bbef5854ef3806190fae55eeab396a3", updates:[{date:"28-ago",text:"aguardando contrato para primeira reunião"}] },
