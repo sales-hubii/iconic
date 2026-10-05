@@ -25,9 +25,18 @@ const clean = (v) => {
   return v === undefined ? null : v;
 };
 
+// Tolerante a valores colados com espaços, aspas ou em formato de link markdown.
+const cleanEnv = (v) => String(v || '').trim().replace(/^["']+|["']+$/g, '').trim();
+const cleanUrl = (v) => {
+  const raw = cleanEnv(v);
+  const m = raw.match(/https?:\/\/[^\s)\]"']+/i);
+  const url = m ? m[0] : (raw ? 'https://' + raw.replace(/^\/+/, '') : '');
+  return url.replace(/\/+$/, '');
+};
+
 module.exports = async function handler(req, res) {
-  const base = (process.env.METABASE_URL || '').replace(/\/+$/, '');
-  const key = process.env.METABASE_API_KEY;
+  const base = cleanUrl(process.env.METABASE_URL);
+  const key = cleanEnv(process.env.METABASE_API_KEY);
 
   if (!base || !key) {
     return res.status(503).json({ error: 'METABASE_URL / METABASE_API_KEY não configurados' });
@@ -38,11 +47,20 @@ module.exports = async function handler(req, res) {
     await Promise.all(Object.entries(CARDS).map(async ([name, { id, cols }]) => {
       const r = await fetch(`${base}/api/card/${id}/query/json`, {
         method: 'POST',
-        headers: { 'x-api-key': key, 'Content-Type': 'application/json' },
+        redirect: 'manual',
+        headers: { 'x-api-key': key, 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: '{}',
       });
-      if (!r.ok) throw new Error(`card ${id}: HTTP ${r.status}`);
-      const rows = await r.json();
-      if (!Array.isArray(rows)) throw new Error(`card ${id}: resposta inesperada`);
+      const text = await r.text();
+      let rows;
+      try { rows = JSON.parse(text); } catch (e) { rows = null; }
+      if (!r.ok || !Array.isArray(rows)) {
+        const loc = r.headers.get('location');
+        throw new Error(
+          `card ${id} (${base}): HTTP ${r.status}, content-type ${r.headers.get('content-type') || '-'}` +
+          (loc ? `, location ${loc}` : '') + `, corpo(${text.length}): ${text.slice(0, 160).replace(/\s+/g, ' ')}`
+        );
+      }
       out[name] = { c: cols, r: rows.map((o) => cols.map((k) => clean(o[k]))) };
     }));
 
