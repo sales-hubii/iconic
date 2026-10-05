@@ -314,12 +314,12 @@ body{
   padding: 22px;
 }
 
-/* RESULTADOS: CARDS E GRIDS */
+/* RESULTADOS: IPIRANGA */
 .grid-4{
   display:grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 16px;
-  margin-bottom: 24px;
+  margin-bottom: 8px;
 }
 @media (max-width: 1200px){ .grid-4{ grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 640px){ .grid-4{ grid-template-columns: 1fr; } }
@@ -331,6 +331,8 @@ body{
   padding: 18px;
   text-align: center;
 }
+.metric-card.clickable{ cursor:pointer; transition: all .15s ease; }
+.metric-card.clickable:hover{ border-color: var(--purple); box-shadow: 0 8px 20px rgba(99,72,229,0.12); transform: translateY(-2px); }
 .metric-label{
   font-family:'IBM Plex Mono', monospace;
   font-size: 11px;
@@ -340,156 +342,87 @@ body{
   font-weight: 600;
   margin-bottom: 8px;
 }
-.metric-value{
-  font-size: 24px;
-  font-weight: 800;
-  color: var(--purple);
-  margin-bottom: 6px;
-}
-.metric-sub{
-  font-size: 12px;
-  color: var(--ink-soft);
-  line-height: 1.3;
-}
+.metric-value{ font-size: 26px; font-weight: 800; color: var(--purple); margin-bottom: 6px; }
+.metric-value.warn{ color: var(--amber); }
+.metric-sub{ font-size: 12px; color: var(--ink-soft); line-height: 1.3; }
 
-/* HUB CARDS */
-.hub-cards{
-  display:grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 16px;
-}
-.hub-card{
-  background: var(--card);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 18px;
-  cursor: pointer;
-  transition: all .15s ease;
-}
-.hub-card:hover{
-  border-color: var(--purple);
-  box-shadow: 0 8px 20px rgba(99,72,229,0.12);
-  transform: translateY(-2px);
-}
-.hub-card-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-start;
-  margin-bottom: 12px;
-}
-.hub-card-name{
-  font-weight: 700;
-  font-size: 15px;
-  color: var(--ink);
-  flex: 1;
-}
-.hub-card-da{
-  font-family:'IBM Plex Mono', monospace;
-  font-size: 10px;
-  font-weight:600;
-  text-transform: uppercase;
-  color: var(--purple);
-  background: var(--hubii-bg);
-  padding: 4px 10px;
-  border-radius: 999px;
-  white-space: nowrap;
-}
-.hub-card-city{
-  font-size: 12px;
-  color: var(--ink-soft);
-  margin-bottom: 12px;
-}
-.hub-card-stat{
-  display:flex;
-  justify-content:space-between;
-  padding: 8px 0;
-  border-bottom: 1px solid var(--line);
-  font-size: 13px;
-}
-.hub-card-stat:last-child{ border-bottom: none; }
-.hub-card-stat-val{
-  font-weight: 700;
-  color: var(--ink);
-}
-
-/* DA RESULTS */
-.da-results{ }
-.da-section{
-  background: var(--card);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 18px;
-  margin-bottom: 16px;
-  cursor: pointer;
-  transition: all .15s ease;
-}
-.da-section:hover{
-  border-color: var(--purple);
-  background: var(--hubii-bg);
-}
-.da-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap: 16px;
-}
-.da-name{
-  font-weight: 700;
-  font-size: 16px;
-  color: var(--ink);
-  flex: 1;
-}
-.da-gmv{
-  font-weight: 700;
-  font-size: 18px;
-  color: var(--purple);
-  text-align: right;
-}
-.da-toggle{
-  width: 24px;
-  height: 24px;
-  border: none;
-  background: var(--line);
-  border-radius: 6px;
-  cursor: pointer;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color: var(--ink);
-  font-weight: 700;
-  transition: all .15s ease;
-  flex-shrink: 0;
-}
-.da-toggle:hover{ background: var(--purple); color: white; }
-.da-details{
-  display: none;
-  margin-top: 16px;
-  padding-top: 16px;
-  border-top: 1px solid var(--line);
-}
-.da-details.open{ display: block; }
-.da-table{
-  width: 100%;
-  font-size: 13px;
-  border-collapse: collapse;
-}
-.da-table th{
-  text-align: left;
-  padding: 8px 0;
-  border-bottom: 1px solid var(--line);
-  font-weight: 700;
-  color: var(--ink);
+.res-src{
   font-family:'IBM Plex Mono', monospace;
   font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-.da-table td{
-  padding: 8px 0;
-  border-bottom: 1px solid var(--line);
   color: var(--ink-soft);
+  display:flex; align-items:center; gap:8px;
+  margin: -4px 0 18px;
 }
-.da-table tr:last-child td{ border-bottom: none; }
+.res-dot{ width:7px; height:7px; border-radius:50%; background: var(--potencial); display:inline-block; }
+.res-dot.live{ background: var(--foco); box-shadow: 0 0 0 3px var(--foco-bg); }
+
+.res-row{ display:grid; grid-template-columns: 90px 1fr 130px; gap: 14px; align-items:center; padding: 8px 0; font-size: 13px; }
+.res-row + .res-row{ border-top: 1px solid var(--line); }
+.res-row-lbl{ font-family:'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink-soft); }
+.res-bar{ height: 10px; background: var(--paper); border-radius: 999px; overflow:hidden; }
+.res-bar > i{ display:block; height:100%; background: var(--purple); border-radius: 999px; }
+.res-row-val{ text-align:right; font-weight:700; }
+.res-prod{ display:grid; grid-template-columns: 1fr 120px; gap: 6px 14px; padding: 10px 0; }
+.res-prod + .res-prod{ border-top: 1px solid var(--line); }
+.res-prod-name{ font-size: 13px; font-weight:600; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.res-prod-val{ text-align:right; font-weight:700; font-size:13px; }
+.res-prod .res-bar{ grid-column: 1 / -1; height: 6px; }
+.res-prod-meta{ grid-column: 1 / -1; font-family:'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); }
+
+.res-btn{
+  font-family:'IBM Plex Mono', monospace; font-size: 12px; font-weight:700;
+  color: var(--purple); background: var(--hubii-bg); border: none;
+  padding: 8px 14px; border-radius: 999px; cursor:pointer; margin-top: 12px;
+}
+.res-btn:hover{ background: var(--purple); color:#fff; }
+
+.hub-cards{ display:grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+.hub-card{ background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; cursor:pointer; transition: all .15s ease; }
+.hub-card:hover{ border-color: var(--purple); box-shadow: 0 8px 20px rgba(99,72,229,0.12); transform: translateY(-2px); }
+.hub-card-header{ display:flex; justify-content:space-between; align-items:flex-start; gap:10px; margin-bottom: 8px; }
+.hub-card-name{ font-weight:700; font-size:15px; color: var(--ink); flex:1; }
+.hub-card-da{
+  font-family:'IBM Plex Mono', monospace; font-size: 10px; font-weight:600; text-transform: uppercase;
+  color: var(--purple); background: var(--hubii-bg); padding: 4px 10px; border-radius: 999px; white-space: nowrap;
+}
+.hub-card-city{ font-size: 12px; color: var(--ink-soft); margin-bottom: 10px; }
+.hub-card-stat{ display:flex; justify-content:space-between; padding: 7px 0; border-bottom: 1px solid var(--line); font-size: 13px; }
+.hub-card-stat:last-child{ border-bottom:none; }
+.hub-card-stat-val{ font-weight:700; color: var(--ink); }
+
+.da-section{ background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); margin-bottom: 14px; overflow:hidden; }
+.da-header{ display:flex; justify-content:space-between; align-items:center; gap: 16px; padding: 16px 20px; cursor:pointer; }
+.da-header:hover{ background: var(--hubii-bg); }
+.da-name{ font-weight:700; font-size:16px; color: var(--ink); }
+.da-meta{ font-size:12px; color: var(--ink-soft); margin-top:2px; font-family:'IBM Plex Mono', monospace; }
+.da-gmv{ font-weight:700; font-size:18px; color: var(--purple); text-align:right; }
+.da-gmv small{ display:block; font-size:11px; font-weight:500; color: var(--ink-soft); }
+.da-toggle{ width:24px; height:24px; border:none; background: var(--line); border-radius:6px; display:flex; align-items:center; justify-content:center; color: var(--ink); font-weight:700; flex:none; pointer-events:none; }
+.da-body{ display:none; padding: 0 20px 20px; border-top: 1px solid var(--line); }
+.da-section.open .da-body{ display:block; }
+.kpi-grid{ display:grid; grid-template-columns: repeat(auto-fit, minmax(135px, 1fr)); gap: 10px; margin: 16px 0; }
+.kpi{ background: var(--paper); border-radius: var(--radius-sm); padding: 10px 12px; }
+.kpi b{ display:block; font-size: 18px; margin-top: 2px; }
+.kpi span{ font-family:'IBM Plex Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: .05em; color: var(--ink-soft); }
+.res-scroll{ overflow-x:auto; }
+.da-table{ width:100%; font-size: 13px; border-collapse: collapse; }
+.da-table th{
+  text-align:left; padding: 8px 12px 8px 0; border-bottom: 1px solid var(--line); font-weight:700; color: var(--ink);
+  font-family:'IBM Plex Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: .05em; white-space:nowrap;
+}
+.da-table td{ padding: 8px 12px 8px 0; border-bottom: 1px solid var(--line); color: var(--ink-soft); }
+.da-table td:first-child{ color: var(--ink); font-weight:600; }
+.da-table th.num, .da-table td.num{ text-align:right; }
+.da-table tr:last-child td{ border-bottom:none; }
+.da-table tbody tr[data-act]{ cursor:pointer; }
+.da-table tbody tr[data-act]:hover td{ background: var(--hubii-bg); }
+.det-col{ display:none; }
+.da-section.detail .det-col{ display:table-cell; }
+.res-note{ font-size: 12px; color: var(--ink-soft); margin-top: 10px; }
+.res-insights{ list-style:none; }
+.res-insights li{ font-size: 13.5px; padding: 8px 0 8px 16px; position:relative; line-height:1.45; }
+.res-insights li + li{ border-top: 1px solid var(--line); }
+.res-insights li::before{ content:'—'; position:absolute; left:0; color: var(--purple); }
 
 /* ESCOPO: PRAÇAS */
 .praca-foco{
@@ -2000,46 +1933,7 @@ body{
 
   <!-- RESULTADOS -->
   <div class="tab-panel" id="panel-resultados">
-    <!-- RESUMO EXECUTIVO -->
-    <div class="section-label first">IPIRANGA · Resumo Jul/2026 — Out/2026</div>
-    <div class="grid-4">
-      <div class="metric-card">
-        <div class="metric-label">GMV Total</div>
-        <div class="metric-value" id="gmv-total">R$ 0,00</div>
-        <div class="metric-sub">período completo</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-label">Hubs ativos</div>
-        <div class="metric-value" id="hub-count">0</div>
-        <div class="metric-sub">com movimento</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-label">Transações</div>
-        <div class="metric-value" id="transaction-count">0</div>
-        <div class="metric-sub">compras únicas</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-label">Top 3 hubs</div>
-        <div class="metric-value" id="concentration">0%</div>
-        <div class="metric-sub">concentração</div>
-      </div>
-    </div>
-
-    <!-- PRINCIPAIS HUBS -->
-    <div class="section-label">Principais Hubs (Clicável para detalhes)</div>
-    <div class="panel">
-      <div id="hub-cards-container" class="hub-cards">
-        <!-- Preenchido por JavaScript -->
-      </div>
-    </div>
-
-    <!-- RESULTADOS POR DA -->
-    <div class="section-label">Resultados por Distribuidor Autorizado</div>
-    <div class="panel">
-      <div id="da-results-container" class="da-results">
-        <!-- Preenchido por JavaScript -->
-      </div>
-    </div>
+    <div id="res-root"><div class="placeholder-note">Carregando resultados…</div></div>
   </div>
 
   <!-- REDE DE REVENDAS -->
@@ -3380,193 +3274,374 @@ body{
     if(e.key === 'Escape') modal.classList.remove('open');
   });
 
-  // ===== RESULTADOS: IPIRANGA =====
-  
-  // Mapeamento estado → DA
-  const hubStateMap = {
-    'SP': 'Trevilbub',
-    'RS': 'Makena',
-    'MG': 'BelLub',
-    'RJ': 'RioLub',
-    'PR': 'Trevilbub', // aproximação
-    'SC': 'Makena',     // aproximação
-  };
-  
-  // Dados mock de hubs IPIRANGA (substituir por API quando disponível)
-  const ipiranga_hubs = [
-    { name: 'Hub São Paulo 1', city: 'São Paulo', state: 'SP', gmv: 125000, transactions: 342, customers: 89 },
-    { name: 'Hub Campinas', city: 'Campinas', state: 'SP', gmv: 87500, transactions: 215, customers: 56 },
-    { name: 'Hub Porto Alegre', city: 'Porto Alegre', state: 'RS', gmv: 65000, transactions: 178, customers: 47 },
-    { name: 'Hub Belo Horizonte', city: 'Belo Horizonte', state: 'MG', gmv: 54000, transactions: 142, customers: 38 },
-    { name: 'Hub São Paulo 2', city: 'São Paulo', state: 'SP', gmv: 45000, transactions: 120, customers: 32 },
-    { name: 'Hub Curitiba', city: 'Curitiba', state: 'PR', gmv: 42500, transactions: 118, customers: 29 },
-    { name: 'Hub Rio de Janeiro', city: 'Rio de Janeiro', state: 'RJ', gmv: 38000, transactions: 105, customers: 25 },
-  ];
+  // ===== RESULTADOS: IPIRANGA (Metabase · Redshift Datalake, perguntas #3609–#3613) =====
+  (function(){
+    const root = document.getElementById('res-root');
+    if(!root) return;
 
-  // Agrupar por DA
-  function groupByDA(hubs){
-    const da_map = {};
-    hubs.forEach(h => {
-      const da = hubStateMap[h.state] || 'Outro';
-      if(!da_map[da]) da_map[da] = [];
-      da_map[da].push(h);
-    });
-    return da_map;
-  }
+    // Rótulos exibidos para o card de "pontos de atenção". Mude para false para ocultar para o cliente.
+    const SHOW_INSIGHTS = true;
+    // DAs do escopo do projeto (regra: UF do hub → DA).
+    const DA_SCOPE = [
+      { da: 'Trevilhub', uf: 'SP' },
+      { da: 'Makena',    uf: 'RS' },
+      { da: 'BelLub',    uf: 'MG' },
+    ];
 
-  // Calcular métricas
-  function calculateMetrics(hubs){
-    const gmv_total = hubs.reduce((s, h) => s + h.gmv, 0);
-    const num_hubs = hubs.length;
-    const num_transactions = hubs.reduce((s, h) => s + h.transactions, 0);
-    const top3_gmv = hubs.sort((a, b) => b.gmv - a.gmv).slice(0, 3).reduce((s, h) => s + h.gmv, 0);
-    const concentration = Math.round((top3_gmv / gmv_total) * 100);
-    return { gmv_total, num_hubs, num_transactions, concentration };
-  }
+    const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    const nf0 = new Intl.NumberFormat('pt-BR', { maximumFractionDigits: 0 });
+    const nf1 = new Intl.NumberFormat('pt-BR', { maximumFractionDigits: 1 });
+    const nf2 = new Intl.NumberFormat('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const brl  = v => v == null ? '—' : 'R$ ' + nf2.format(v);
+    const brlC = v => {
+      if(v == null) return '—';
+      const a = Math.abs(v);
+      if(a >= 1e6) return 'R$ ' + nf2.format(v / 1e6) + ' mi';
+      if(a >= 1e3) return 'R$ ' + nf1.format(v / 1e3) + ' mil';
+      return 'R$ ' + nf0.format(v);
+    };
+    const pct = v => v == null ? '—' : nf1.format(v) + '%';
+    const num = v => v == null ? '—' : nf0.format(v);
+    const hrs = min => min == null ? '—' : nf1.format(min / 60) + ' h';
+    const MESES = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+    const mesLabel = m => m === 'TOTAL' ? 'Total' : MESES[+m.slice(5, 7) - 1] + '/' + m.slice(2, 4);
+    const dateBR = s => s ? s.slice(8, 10) + '/' + s.slice(5, 7) + '/' + s.slice(0, 4) : '—';
+    const norm = s => String(s || '').replace(/^\d+\s*-\s*/, '').trim();
+    const toRows = t => ((t && t.r) || []).map(a => Object.fromEntries(t.c.map((k, i) => [k, a[i]])));
 
-  // Renderizar Resultados
-  function renderResultados(hubs){
-    const metrics = calculateMetrics(hubs);
-    
-    // Cards de métricas
-    document.getElementById('gmv-total').textContent = 'R$ ' + (metrics.gmv_total / 1000).toFixed(0) + 'k';
-    document.getElementById('hub-count').textContent = metrics.num_hubs;
-    document.getElementById('transaction-count').textContent = metrics.num_transactions;
-    document.getElementById('concentration').textContent = metrics.concentration + '%';
+    // ---- modal (reaproveita o modal global do dashboard) ----
+    const box = modal.querySelector('.modal-box');
+    const footer = modal.querySelector('.modal-footer');
+    new MutationObserver(() => {
+      if(!modal.classList.contains('open')){ box.style.maxWidth = ''; if(footer) footer.style.display = ''; }
+    }).observe(modal, { attributes: true, attributeFilter: ['class'] });
+    function openRes(eyebrow, title, sub, html, wide){
+      currentTaskKey = null;
+      modalEyebrow.textContent = eyebrow;
+      modalTitle.textContent = title;
+      modalSub.textContent = sub;
+      modalBody.innerHTML = html;
+      modalAddUpdate.style.display = 'none';
+      if(footer) footer.style.display = 'none';
+      box.style.maxWidth = wide ? '980px' : '';
+      modal.classList.add('open');
+    }
 
-    // Cards de hubs
-    const container = document.getElementById('hub-cards-container');
-    container.innerHTML = '';
-    const sorted_hubs = hubs.sort((a, b) => b.gmv - a.gmv);
-    sorted_hubs.forEach((h, idx) => {
-      const da = hubStateMap[h.state] || 'Outro';
-      const card = document.createElement('div');
-      card.className = 'hub-card';
-      card.innerHTML = `
-        <div class="hub-card-header">
-          <div class="hub-card-name">${h.name}</div>
-          <div class="hub-card-da">${da}</div>
-        </div>
-        <div class="hub-card-city">${h.city}, ${h.state}</div>
-        <div class="hub-card-stat">
-          <span>GMV</span>
-          <span class="hub-card-stat-val">R$ ${(h.gmv/1000).toFixed(0)}k</span>
-        </div>
-        <div class="hub-card-stat">
-          <span>Transações</span>
-          <span class="hub-card-stat-val">${h.transactions}</span>
-        </div>
-        <div class="hub-card-stat">
-          <span>Clientes</span>
-          <span class="hub-card-stat-val">${h.customers}</span>
-        </div>
-      `;
-      card.addEventListener('click', () => {
-        modalEyebrow.textContent = 'Hub · Detalhes';
-        modalTitle.textContent = h.name;
-        modalSub.textContent = `${h.city}, ${h.state} · ${da}`;
-        modalLink.href = '#';
-        modalBody.innerHTML = `
-          <div class="modal-section">
-            <div class="modal-section-label">Performace</div>
-            <ul>
-              <li><b>GMV Total:</b> R$ ${(h.gmv/1000).toFixed(0)}k</li>
-              <li><b>Transações:</b> ${h.transactions}</li>
-              <li><b>Clientes únicos:</b> ${h.customers}</li>
-            </ul>
+    // ---- carga: API ao vivo (se configurada) → snapshot versionado ----
+    async function loadData(){
+      try{
+        const r = await fetch('/api/resultados', { credentials: 'same-origin' });
+        if(r.ok){
+          const d = await r.json();
+          if(d && d.mensal) return { d, live: true };
+        }
+      }catch(e){ /* sem API ao vivo: usa snapshot */ }
+      const r2 = await fetch('/resultados-data.json', { credentials: 'same-origin', cache: 'no-cache' });
+      if(!r2.ok) throw new Error('snapshot indisponível (HTTP ' + r2.status + ')');
+      return { d: await r2.json(), live: false };
+    }
+
+    function prep(d){
+      const mensalAll = toRows(d.mensal);
+      const daRows = toRows(d.da);
+      const sla = toRows(d.sla);
+      const hubs = toRows(d.hub).sort((a, b) => b.gmv_valido - a.gmv_valido);
+      const slaTotals = {};
+      sla.filter(r => String(r.hub).startsWith('>>>') && r.da).forEach(r => { slaTotals[r.da] = r; });
+      const slaHubs = sla.filter(r => !String(r.hub).startsWith('>>>'));
+      const hubInfo = {};
+      hubs.forEach(h => { hubInfo[norm(h.hub_nome)] = h; });
+      return {
+        meses: mensalAll.filter(r => r.mes !== 'TOTAL'),
+        total: mensalAll.find(r => r.mes === 'TOTAL'),
+        produtos: toRows(d.produto).sort((a, b) => b.gmv_valido - a.gmv_valido),
+        daTotal: Object.fromEntries(daRows.filter(r => r.mes === 'TOTAL').map(r => [r.da, r])),
+        daRows, hubs, hubInfo, slaTotals, slaHubs,
+        generatedAt: d.generatedAt || d.refreshedAt || null,
+      };
+    }
+
+    let S = null;
+
+    // ---- seções ----
+    function cards(){
+      const t = S.total;
+      const un = S.daTotal['Sem hub alocado'];
+      const cancelPct = t.gmv_todos_status ? 100 * t.gmv_cancelado / t.gmv_todos_status : null;
+      return `
+        <div class="grid-4">
+          <div class="metric-card clickable" data-act="mensal">
+            <div class="metric-label">GMV válido</div>
+            <div class="metric-value">${brlC(t.gmv_valido)}</div>
+            <div class="metric-sub">${esc(mesLabel(S.meses[0].mes))} a ${esc(mesLabel(S.meses[S.meses.length - 1].mes))} · ver por mês</div>
           </div>
-          <div class="modal-section">
-            <div class="modal-section-label">Principais parceiros (mock)</div>
-            <ul>
-              <li>Auto Posto XYZ (R$ 25k GMV)</li>
-              <li>Pet Shop ABC (R$ 18k GMV)</li>
-              <li>Supermercado DEF (R$ 12k GMV)</li>
-            </ul>
+          <div class="metric-card">
+            <div class="metric-label">Pedidos</div>
+            <div class="metric-value">${num(t.pedidos)}</div>
+            <div class="metric-sub">${num(t.unidades)} unidades</div>
           </div>
-          <div class="modal-section">
-            <div class="modal-section-label">Problemas identificados (mock)</div>
-            <ul>
-              <li>Ruptura de estoque em 3 SKUs (ago/2026)</li>
-              <li>Taxa de devolução 2.5% acima da média</li>
-              <li>Tempo de resposta 24h - meta é 12h</li>
-            </ul>
+          <div class="metric-card">
+            <div class="metric-label">GMV cancelado</div>
+            <div class="metric-value">${brlC(t.gmv_cancelado)}</div>
+            <div class="metric-sub">${pct(cancelPct)} do GMV bruto (todos os status)</div>
           </div>
-        `;
-        modalAddUpdate.style.display = 'none';
-        modal.classList.add('open');
+          <div class="metric-card">
+            <div class="metric-label">Sem hub alocado</div>
+            <div class="metric-value ${un && un.gmv_valido > 0 ? 'warn' : ''}">${brlC(un ? un.gmv_valido : 0)}</div>
+            <div class="metric-sub">${un ? pct(un.pct_gmv_no_periodo) + ' do GMV válido do período' : 'nenhum GMV sem alocação'}</div>
+          </div>
+        </div>`;
+    }
+
+    function monthBars(){
+      const max = Math.max(...S.meses.map(m => m.gmv_valido), 1);
+      const last = S.meses.length - 1;
+      return `<div class="panel">` + S.meses.map((m, i) => `
+        <div class="res-row">
+          <div class="res-row-lbl">${esc(mesLabel(m.mes))}${i === last ? ' · em curso' : ''}</div>
+          <div class="res-bar"><i style="width:${(100 * m.gmv_valido / max).toFixed(1)}%"></i></div>
+          <div class="res-row-val">${brlC(m.gmv_valido)}</div>
+        </div>`).join('') + `</div>`;
+    }
+
+    function produtos(){
+      const top = S.produtos.slice(0, 5);
+      const max = Math.max(...top.map(p => p.gmv_valido), 1);
+      return `<div class="panel">` + top.map(p => `
+        <div class="res-prod">
+          <div class="res-prod-name" title="${esc(p.produto)}">${esc(p.produto)}</div>
+          <div class="res-prod-val">${brlC(p.gmv_valido)}</div>
+          <div class="res-bar"><i style="width:${(100 * p.gmv_valido / max).toFixed(1)}%"></i></div>
+          <div class="res-prod-meta">${pct(p.pct_gmv)} do GMV · ${num(p.unidades)} un. · ${num(p.pedidos_validos)} pedidos · ${num(p.hubs_que_venderam)} hub(s)</div>
+        </div>`).join('') +
+        `<button class="res-btn" data-act="produtos">Ver todos os ${S.produtos.length} produtos →</button></div>`;
+    }
+
+    function hubCards(){
+      const list = S.hubs.slice(0, 6);
+      return `<div class="hub-cards">` + list.map((h, i) => `
+        <div class="hub-card" data-act="hub" data-key="${esc(norm(h.hub_nome))}">
+          <div class="hub-card-header">
+            <div class="hub-card-name">${i + 1}. ${esc(h.hub_nome)}</div>
+            <div class="hub-card-da">${esc(h.da)}</div>
+          </div>
+          <div class="hub-card-city">${esc(h.cidade)}, ${esc(h.uf)}</div>
+          <div class="hub-card-stat"><span>GMV válido</span><span class="hub-card-stat-val">${brlC(h.gmv_valido)}</span></div>
+          <div class="hub-card-stat"><span>% do GMV</span><span class="hub-card-stat-val">${pct(h.pct_gmv)}</span></div>
+          <div class="hub-card-stat"><span>Transações</span><span class="hub-card-stat-val">${num(h.transacoes)}</span></div>
+          <div class="hub-card-stat"><span>Ticket médio</span><span class="hub-card-stat-val">${brl(h.ticket_medio)}</span></div>
+        </div>`).join('') + `</div>` +
+        (S.hubs.length > list.length ? `<button class="res-btn" data-act="hubs">Ver todos os ${S.hubs.length} hubs →</button>` : '');
+    }
+
+    function slaCells(r, withName){
+      return `
+        <td class="num">${num(r.pedidos)}</td>
+        <td class="num">${pct(r.pct_aceite)}</td>
+        <td class="num">${pct(r.pct_recusa)}</td>
+        <td class="num">${pct(r.pct_cancelamento)}</td>
+        <td class="num det-col">${num(r.recusas_ruptura)}</td>
+        <td class="num det-col">${num(r.recusas_preco)}</td>
+        <td class="num det-col">${num(r.recusas_fora_portfolio)}</td>
+        <td class="num det-col">${num(r.broadcasts_recebidos)}</td>
+        <td class="num det-col">${pct(r.pct_no_prazo)}</td>
+        <td class="num det-col">${hrs(r.min_medio_ate_despacho)}</td>`;
+    }
+
+    function daSection(cfg){
+      const tot = S.daTotal[cfg.da];
+      const st = S.slaTotals[cfg.da];
+      const rows = S.slaHubs.filter(r => r.da === cfg.da)
+        .sort((a, b) => (b.gmv_valido - a.gmv_valido) || (b.broadcasts_recebidos - a.broadcasts_recebidos));
+      const gmv = tot ? tot.gmv_valido : 0;
+      const comVendas = rows.filter(r => r.gmv_valido > 0).length;
+      const meta = rows.length
+        ? `${cfg.uf} · ${comVendas} de ${rows.length} hubs com vendas`
+        : `${cfg.uf} · sem hubs nas consultas`;
+      const kpis = st ? `
+        <div class="kpi-grid">
+          <div class="kpi"><span>Pedidos</span><b>${num(st.pedidos)}</b></div>
+          <div class="kpi"><span>Aceite</span><b>${pct(st.pct_aceite)}</b></div>
+          <div class="kpi"><span>Recusa</span><b>${pct(st.pct_recusa)}</b></div>
+          <div class="kpi"><span>Ignorado</span><b>${pct(st.pct_ignorado)}</b></div>
+          <div class="kpi"><span>Cancelamento</span><b>${pct(st.pct_cancelamento)}</b></div>
+          <div class="kpi"><span>No prazo</span><b>${pct(st.pct_no_prazo)}</b></div>
+          <div class="kpi"><span>Recusa por ruptura</span><b>${num(st.recusas_ruptura)}</b></div>
+          <div class="kpi"><span>Broadcasts recebidos</span><b>${num(st.broadcasts_recebidos)}</b></div>
+        </div>` : `<div class="res-note" style="margin-top:16px">Sem registros desta DA nas consultas do período.</div>`;
+      const table = rows.length ? `
+        <div class="res-scroll"><table class="da-table">
+          <thead><tr>
+            <th>Hub</th><th class="num">GMV válido</th><th class="num">Pedidos</th><th class="num">Aceite</th><th class="num">Recusa</th><th class="num">Cancel.</th>
+            <th class="num det-col">Rupt.</th><th class="num det-col">Preço</th><th class="num det-col">Fora port.</th><th class="num det-col">Broadc.</th><th class="num det-col">No prazo</th><th class="num det-col">Despacho</th>
+          </tr></thead>
+          <tbody>${rows.map(r => `
+            <tr data-act="hub" data-key="${esc(norm(r.hub))}">
+              <td>${esc(norm(r.hub))}</td>
+              <td class="num">${brl(r.gmv_valido)}</td>
+              ${slaCells(r)}
+            </tr>`).join('')}</tbody>
+        </table></div>
+        <button class="res-btn" data-act="det">Análise detalhada ⇅</button>
+        <div class="res-note">Ordenado por GMV válido. Clique em um hub para ver o detalhe.</div>` : '';
+      return `
+        <div class="da-section" data-da="${esc(cfg.da)}">
+          <div class="da-header" data-act="da">
+            <div>
+              <div class="da-name">${esc(cfg.da)}</div>
+              <div class="da-meta">${esc(meta)}</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:16px">
+              <div class="da-gmv">${brlC(gmv)}<small>${tot ? pct(tot.pct_gmv_no_periodo) + ' do GMV' : 'sem vendas'}</small></div>
+              <button class="da-toggle" tabindex="-1">+</button>
+            </div>
+          </div>
+          <div class="da-body">${kpis}${table}</div>
+        </div>`;
+    }
+
+    function foraEscopo(){
+      const st = S.slaTotals['Fora do escopo'];
+      if(!st) return '';
+      const n = S.slaHubs.filter(r => r.da === 'Fora do escopo').length;
+      return `<div class="res-note">Fora do escopo do projeto: ${num(n)} hubs receberam ${num(st.broadcasts_recebidos)} broadcasts (${pct(st.pct_recusa)} recusados, ${pct(st.pct_ignorado)} ignorados) e não registraram vendas.</div>`;
+    }
+
+    function insights(){
+      const out = [];
+      const top = S.hubs[0];
+      if(top && top.pct_gmv >= 50) out.push(`<b>Concentração:</b> ${esc(top.hub_nome)} responde por ${pct(top.pct_gmv)} do GMV válido atribuído a hubs.`);
+      const last = S.meses[S.meses.length - 1];
+      const unLast = S.daRows.find(r => r.mes === last.mes && r.da === 'Sem hub alocado');
+      if(unLast && unLast.gmv_valido > 0) out.push(`<b>Alocação:</b> em ${esc(mesLabel(last.mes))}, ${pct(unLast.pct_gmv_no_periodo)} do GMV válido (${brl(unLast.gmv_valido)}) ainda não está alocado a um hub/DA.`);
+      const ref = S.hubs.reduce((m, h) => h.ultima_compra > m ? h.ultima_compra : m, '');
+      if(ref){
+        const dormentes = S.hubs.filter(h => (new Date(ref) - new Date(h.ultima_compra)) / 864e5 > 14);
+        if(dormentes.length) out.push(`<b>Hubs sem compras recentes:</b> ${dormentes.length} de ${S.hubs.length} hubs com vendas não compram há mais de 14 dias (última compra geral em ${dateBR(ref)}).`);
+      }
+      DA_SCOPE.forEach(cfg => {
+        const tot = S.daTotal[cfg.da];
+        if(tot && tot.gmv_valido > 0) return;
+        const st = S.slaTotals[cfg.da];
+        out.push(st
+          ? `<b>${esc(cfg.da)}:</b> sem vendas; ${num(st.broadcasts_recebidos)} broadcasts recebidos, ${pct(st.pct_recusa)} recusados (${num(st.recusas_ruptura)} por ruptura).`
+          : `<b>${esc(cfg.da)}:</b> sem hubs nem vendas nas consultas do período.`);
       });
-      container.appendChild(card);
+      if(!out.length) return '';
+      return `<div class="section-label">Pontos de atenção</div><div class="panel"><ul class="res-insights">${out.map(i => `<li>${i}</li>`).join('')}</ul></div>`;
+    }
+
+    function render(live){
+      const src = live
+        ? `<span class="res-dot live"></span>Ao vivo · Metabase (Redshift Datalake)`
+        : `<span class="res-dot"></span>Snapshot do Metabase (Redshift Datalake)${S.generatedAt ? ' · gerado em ' + dateBR(S.generatedAt) : ''}`;
+      root.innerHTML = `
+        <div class="section-label first">IPIRANGA · desde ${esc(mesLabel(S.meses[0].mes))}</div>
+        <div class="res-src">${src}</div>
+        ${cards()}
+        <div class="section-label">GMV válido por mês</div>
+        ${monthBars()}
+        <div class="section-label">GMV por produto</div>
+        ${produtos()}
+        <div class="section-label">Principais hubs</div>
+        ${hubCards()}
+        <div class="section-label">Resultados por Distribuidor Autorizado</div>
+        ${DA_SCOPE.map(daSection).join('')}
+        ${foraEscopo()}
+        ${SHOW_INSIGHTS ? insights() : ''}`;
+    }
+
+    // ---- modais ----
+    function modalMensal(){
+      const rows = S.meses.concat([S.total]);
+      openRes('Resultados · IPIRANGA', 'GMV por mês', 'GMV válido exclui pedidos cancelados; "todos os status" inclui cancelados', `
+        <div class="res-scroll"><table class="da-table">
+          <thead><tr><th>Mês</th><th class="num">GMV válido</th><th class="num">GMV todos os status</th><th class="num">Cancelado</th><th class="num">% cancel.</th><th class="num">Pedidos</th><th class="num">Unidades</th></tr></thead>
+          <tbody>${rows.map(r => `<tr><td>${esc(mesLabel(r.mes))}</td><td class="num">${brl(r.gmv_valido)}</td><td class="num">${brl(r.gmv_todos_status)}</td><td class="num">${brl(r.gmv_cancelado)}</td><td class="num">${r.gmv_todos_status ? pct(100 * r.gmv_cancelado / r.gmv_todos_status) : '—'}</td><td class="num">${num(r.pedidos)}</td><td class="num">${num(r.unidades)}</td></tr>`).join('')}</tbody>
+        </table></div>`, true);
+    }
+
+    function modalProdutos(){
+      openRes('Resultados · IPIRANGA', 'GMV por produto', S.produtos.length + ' produtos, ordenados por GMV válido', `
+        <div class="res-scroll"><table class="da-table">
+          <thead><tr><th>Produto</th><th class="num">GMV válido</th><th class="num">% GMV</th><th class="num">% acum.</th><th class="num">Unid.</th><th class="num">Pedidos</th><th class="num">Hubs</th></tr></thead>
+          <tbody>${S.produtos.map(p => `<tr><td>${esc(p.produto)}</td><td class="num">${brl(p.gmv_valido)}</td><td class="num">${pct(p.pct_gmv)}</td><td class="num">${pct(p.pct_acumulado)}</td><td class="num">${num(p.unidades)}</td><td class="num">${num(p.pedidos_validos)}</td><td class="num">${num(p.hubs_que_venderam)}</td></tr>`).join('')}</tbody>
+        </table></div>`, true);
+    }
+
+    function modalHubs(){
+      openRes('Resultados · IPIRANGA', 'Hubs com vendas', S.hubs.length + ' hubs, ordenados por GMV válido', `
+        <div class="res-scroll"><table class="da-table">
+          <thead><tr><th>Hub</th><th>Cidade/UF</th><th>DA</th><th class="num">GMV válido</th><th class="num">% GMV</th><th class="num">Ticket</th><th class="num">Transações</th><th class="num">Última compra</th></tr></thead>
+          <tbody>${S.hubs.map(h => `<tr data-act="hub" data-key="${esc(norm(h.hub_nome))}"><td>${esc(h.hub_nome)}</td><td>${esc(h.cidade)}/${esc(h.uf)}</td><td>${esc(h.da)}</td><td class="num">${brl(h.gmv_valido)}</td><td class="num">${pct(h.pct_gmv)}</td><td class="num">${brl(h.ticket_medio)}</td><td class="num">${num(h.transacoes)}</td><td class="num">${dateBR(h.ultima_compra)}</td></tr>`).join('')}</tbody>
+        </table></div>`, true);
+    }
+
+    function modalHub(key){
+      const h = S.hubInfo[key];
+      const s = S.slaHubs.find(r => norm(r.hub) === key);
+      if(!h && !s) return;
+      const li = (l, v) => `<li><b>${l}:</b> ${v}</li>`;
+      let html = '';
+      if(h){
+        html += `<div class="modal-section"><div class="modal-section-label">Performance</div><ul>
+          ${li('GMV válido', brl(h.gmv_valido) + ' (' + pct(h.pct_gmv) + ' do total)')}
+          ${li('Transações', num(h.transacoes))}${li('Unidades', num(h.unidades))}
+          ${li('Ticket médio', brl(h.ticket_medio))}${li('Consumidores', num(h.consumidores))}${li('Mix de SKUs', num(h.mix_skus))}
+        </ul></div>
+        <div class="modal-section"><div class="modal-section-label">Recorrência</div><ul>
+          ${li('Primeira compra', dateBR(h.primeira_compra))}${li('Última compra', dateBR(h.ultima_compra))}
+          ${li('Intervalo médio entre compras', nf1.format(h.intervalo_medio_dias) + ' dia(s)')}${li('Transações por semana', nf1.format(h.transacoes_por_semana))}
+        </ul></div>
+        <div class="modal-section"><div class="modal-section-label">Cancelamentos e recusas</div><ul>
+          ${li('Cancelados', num(h.cancelados) + ' (' + pct(h.pct_cancelamento) + ')')}
+          ${li('Recusas por ruptura', num(h.recusas_ruptura))}${li('Recusas por preço', num(h.recusas_preco))}${li('Recusas fora do portfólio', num(h.recusas_fora_portfolio))}
+        </ul></div>`;
+      }
+      if(s){
+        html += `<div class="modal-section"><div class="modal-section-label">Eficiência operacional</div><ul>
+          ${li('Pedidos (todos os status)', num(s.pedidos))}
+          ${li('Aceite / recusa / ignorado', pct(s.pct_aceite) + ' / ' + pct(s.pct_recusa) + ' / ' + pct(s.pct_ignorado))}
+          ${li('Entregues no prazo', pct(s.pct_no_prazo))}
+          ${li('Tempo médio até despacho', hrs(s.min_medio_ate_despacho))}
+          ${li('Broadcasts recebidos', num(s.broadcasts_recebidos))}
+          ${li('Reencaminhados', pct(s.pct_reencaminhados))}
+          ${!h ? li('Recusas (ruptura / preço / fora do portfólio)', num(s.recusas_ruptura) + ' / ' + num(s.recusas_preco) + ' / ' + num(s.recusas_fora_portfolio)) : ''}
+        </ul></div>`;
+      }
+      const sub = h ? h.cidade + ', ' + h.uf + ' · ' + h.da : (s.da + ' · sem vendas no período');
+      openRes('Hub · detalhes', h ? h.hub_nome : norm(s.hub), sub, html, false);
+    }
+
+    root.addEventListener('click', e => {
+      const t = e.target.closest('[data-act]');
+      if(!t || !S) return;
+      const act = t.dataset.act;
+      if(act === 'mensal') modalMensal();
+      else if(act === 'produtos') modalProdutos();
+      else if(act === 'hubs') modalHubs();
+      else if(act === 'hub') modalHub(t.dataset.key);
+      else if(act === 'da'){
+        const sec = t.closest('.da-section');
+        sec.classList.toggle('open');
+        sec.querySelector('.da-toggle').textContent = sec.classList.contains('open') ? '−' : '+';
+      }
+      else if(act === 'det') t.closest('.da-section').classList.toggle('detail');
+    });
+    // linhas clicadas dentro do modal "todos os hubs"
+    modalBody.addEventListener('click', e => {
+      const t = e.target.closest('tr[data-act="hub"]');
+      if(t && S) modalHub(t.dataset.key);
     });
 
-    // Resultados por DA
-    const da_data = groupByDA(hubs);
-    const da_container = document.getElementById('da-results-container');
-    da_container.innerHTML = '';
-    
-    Object.keys(da_data).sort().forEach(da_name => {
-      const da_hubs = da_data[da_name];
-      const da_gmv = da_hubs.reduce((s, h) => s + h.gmv, 0);
-      const da_section = document.createElement('div');
-      da_section.className = 'da-section';
-      
-      const da_header = document.createElement('div');
-      da_header.className = 'da-header';
-      da_header.innerHTML = `
-        <div>
-          <div class="da-name">${da_name}</div>
-          <div style="font-size: 12px; color: var(--ink-soft); margin-top: 2px;">${da_hubs.length} hubs ativos</div>
-        </div>
-        <div class="da-gmv">R$ ${(da_gmv/1000).toFixed(0)}k</div>
-        <button class="da-toggle">+</button>
-      `;
-      da_section.appendChild(da_header);
-      
-      const da_details = document.createElement('div');
-      da_details.className = 'da-details';
-      da_details.innerHTML = `
-        <table class="da-table">
-          <thead>
-            <tr><th>Hub</th><th>Cidade</th><th>GMV</th><th>Transações</th></tr>
-          </thead>
-          <tbody>
-            ${da_hubs.sort((a, b) => b.gmv - a.gmv).map(h => `
-              <tr>
-                <td>${h.name}</td>
-                <td>${h.city}</td>
-                <td>R$ ${(h.gmv/1000).toFixed(0)}k</td>
-                <td>${h.transactions}</td>
-              </tr>
-            `).join('')}
-          </tbody>
-        </table>
-      `;
-      da_section.appendChild(da_details);
-      
-      // Toggle
-      da_header.addEventListener('click', () => {
-        da_details.classList.toggle('open');
-        const toggle = da_header.querySelector('.da-toggle');
-        toggle.textContent = da_details.classList.contains('open') ? '−' : '+';
-      });
-      
-      da_container.appendChild(da_section);
+    loadData().then(({ d, live }) => {
+      S = prep(d);
+      render(live);
+    }).catch(err => {
+      console.error('[resultados]', err);
+      root.innerHTML = '<div class="panel"><div class="placeholder-note">Não foi possível carregar os dados de Resultados agora. Tente novamente em instantes.</div></div>';
     });
-  }
-
-  // Inicializar
-  renderResultados(ipiranga_hubs);
-
-  // TODO: Substituir por fetch real quando APIs estiverem prontas
-  // async function loadResultados(){
-  //   try {
-  //     const resp = await fetch('/api/ipiranga-results?month=2026-10');
-  //     const data = await resp.json();
-  //     renderResultados(data.hubs);
-  //   } catch(err) {
-  //     console.error('Erro ao carregar Resultados:', err);
-  //   }
-  // }
-  // loadResultados();
+  })();
 </script>
 </body>
 </html>
