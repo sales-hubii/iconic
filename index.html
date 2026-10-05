@@ -314,6 +314,183 @@ body{
   padding: 22px;
 }
 
+/* RESULTADOS: CARDS E GRIDS */
+.grid-4{
+  display:grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+@media (max-width: 1200px){ .grid-4{ grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 640px){ .grid-4{ grid-template-columns: 1fr; } }
+
+.metric-card{
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 18px;
+  text-align: center;
+}
+.metric-label{
+  font-family:'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.metric-value{
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--purple);
+  margin-bottom: 6px;
+}
+.metric-sub{
+  font-size: 12px;
+  color: var(--ink-soft);
+  line-height: 1.3;
+}
+
+/* HUB CARDS */
+.hub-cards{
+  display:grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+.hub-card{
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 18px;
+  cursor: pointer;
+  transition: all .15s ease;
+}
+.hub-card:hover{
+  border-color: var(--purple);
+  box-shadow: 0 8px 20px rgba(99,72,229,0.12);
+  transform: translateY(-2px);
+}
+.hub-card-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  margin-bottom: 12px;
+}
+.hub-card-name{
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--ink);
+  flex: 1;
+}
+.hub-card-da{
+  font-family:'IBM Plex Mono', monospace;
+  font-size: 10px;
+  font-weight:600;
+  text-transform: uppercase;
+  color: var(--purple);
+  background: var(--hubii-bg);
+  padding: 4px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.hub-card-city{
+  font-size: 12px;
+  color: var(--ink-soft);
+  margin-bottom: 12px;
+}
+.hub-card-stat{
+  display:flex;
+  justify-content:space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 13px;
+}
+.hub-card-stat:last-child{ border-bottom: none; }
+.hub-card-stat-val{
+  font-weight: 700;
+  color: var(--ink);
+}
+
+/* DA RESULTS */
+.da-results{ }
+.da-section{
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 18px;
+  margin-bottom: 16px;
+  cursor: pointer;
+  transition: all .15s ease;
+}
+.da-section:hover{
+  border-color: var(--purple);
+  background: var(--hubii-bg);
+}
+.da-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap: 16px;
+}
+.da-name{
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--ink);
+  flex: 1;
+}
+.da-gmv{
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--purple);
+  text-align: right;
+}
+.da-toggle{
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: var(--line);
+  border-radius: 6px;
+  cursor: pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color: var(--ink);
+  font-weight: 700;
+  transition: all .15s ease;
+  flex-shrink: 0;
+}
+.da-toggle:hover{ background: var(--purple); color: white; }
+.da-details{
+  display: none;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+.da-details.open{ display: block; }
+.da-table{
+  width: 100%;
+  font-size: 13px;
+  border-collapse: collapse;
+}
+.da-table th{
+  text-align: left;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--line);
+  font-weight: 700;
+  color: var(--ink);
+  font-family:'IBM Plex Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.da-table td{
+  padding: 8px 0;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink-soft);
+}
+.da-table tr:last-child td{ border-bottom: none; }
+
 /* ESCOPO: PRAÇAS */
 .praca-foco{
   display:flex;
@@ -1823,9 +2000,45 @@ body{
 
   <!-- RESULTADOS -->
   <div class="tab-panel" id="panel-resultados">
-    <div class="section-label first">Resultados</div>
+    <!-- RESUMO EXECUTIVO -->
+    <div class="section-label first">IPIRANGA · Resumo Jul/2026 — Out/2026</div>
+    <div class="grid-4">
+      <div class="metric-card">
+        <div class="metric-label">GMV Total</div>
+        <div class="metric-value" id="gmv-total">R$ 0,00</div>
+        <div class="metric-sub">período completo</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Hubs ativos</div>
+        <div class="metric-value" id="hub-count">0</div>
+        <div class="metric-sub">com movimento</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Transações</div>
+        <div class="metric-value" id="transaction-count">0</div>
+        <div class="metric-sub">compras únicas</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Top 3 hubs</div>
+        <div class="metric-value" id="concentration">0%</div>
+        <div class="metric-sub">concentração</div>
+      </div>
+    </div>
+
+    <!-- PRINCIPAIS HUBS -->
+    <div class="section-label">Principais Hubs (Clicável para detalhes)</div>
     <div class="panel">
-      <div class="placeholder-note">Conteúdo em construção — aguardando dados de performance (GMV, vendas, conversão) para preencher esta aba.</div>
+      <div id="hub-cards-container" class="hub-cards">
+        <!-- Preenchido por JavaScript -->
+      </div>
+    </div>
+
+    <!-- RESULTADOS POR DA -->
+    <div class="section-label">Resultados por Distribuidor Autorizado</div>
+    <div class="panel">
+      <div id="da-results-container" class="da-results">
+        <!-- Preenchido por JavaScript -->
+      </div>
     </div>
   </div>
 
@@ -3166,6 +3379,195 @@ body{
   document.addEventListener('keydown', (e) => {
     if(e.key === 'Escape') modal.classList.remove('open');
   });
+
+  // ===== RESULTADOS: IPIRANGA =====
+  
+  // Mapeamento estado → DA
+  const hubStateMap = {
+    'SP': 'Trevilbub',
+    'RS': 'Makena',
+    'MG': 'BelLub',
+    'RJ': 'RioLub',
+    'PR': 'Trevilbub', // aproximação
+    'SC': 'Makena',     // aproximação
+  };
+  
+  // Dados mock de hubs IPIRANGA (substituir por API quando disponível)
+  const ipiranga_hubs = [
+    { name: 'Hub São Paulo 1', city: 'São Paulo', state: 'SP', gmv: 125000, transactions: 342, customers: 89 },
+    { name: 'Hub Campinas', city: 'Campinas', state: 'SP', gmv: 87500, transactions: 215, customers: 56 },
+    { name: 'Hub Porto Alegre', city: 'Porto Alegre', state: 'RS', gmv: 65000, transactions: 178, customers: 47 },
+    { name: 'Hub Belo Horizonte', city: 'Belo Horizonte', state: 'MG', gmv: 54000, transactions: 142, customers: 38 },
+    { name: 'Hub São Paulo 2', city: 'São Paulo', state: 'SP', gmv: 45000, transactions: 120, customers: 32 },
+    { name: 'Hub Curitiba', city: 'Curitiba', state: 'PR', gmv: 42500, transactions: 118, customers: 29 },
+    { name: 'Hub Rio de Janeiro', city: 'Rio de Janeiro', state: 'RJ', gmv: 38000, transactions: 105, customers: 25 },
+  ];
+
+  // Agrupar por DA
+  function groupByDA(hubs){
+    const da_map = {};
+    hubs.forEach(h => {
+      const da = hubStateMap[h.state] || 'Outro';
+      if(!da_map[da]) da_map[da] = [];
+      da_map[da].push(h);
+    });
+    return da_map;
+  }
+
+  // Calcular métricas
+  function calculateMetrics(hubs){
+    const gmv_total = hubs.reduce((s, h) => s + h.gmv, 0);
+    const num_hubs = hubs.length;
+    const num_transactions = hubs.reduce((s, h) => s + h.transactions, 0);
+    const top3_gmv = hubs.sort((a, b) => b.gmv - a.gmv).slice(0, 3).reduce((s, h) => s + h.gmv, 0);
+    const concentration = Math.round((top3_gmv / gmv_total) * 100);
+    return { gmv_total, num_hubs, num_transactions, concentration };
+  }
+
+  // Renderizar Resultados
+  function renderResultados(hubs){
+    const metrics = calculateMetrics(hubs);
+    
+    // Cards de métricas
+    document.getElementById('gmv-total').textContent = 'R$ ' + (metrics.gmv_total / 1000).toFixed(0) + 'k';
+    document.getElementById('hub-count').textContent = metrics.num_hubs;
+    document.getElementById('transaction-count').textContent = metrics.num_transactions;
+    document.getElementById('concentration').textContent = metrics.concentration + '%';
+
+    // Cards de hubs
+    const container = document.getElementById('hub-cards-container');
+    container.innerHTML = '';
+    const sorted_hubs = hubs.sort((a, b) => b.gmv - a.gmv);
+    sorted_hubs.forEach((h, idx) => {
+      const da = hubStateMap[h.state] || 'Outro';
+      const card = document.createElement('div');
+      card.className = 'hub-card';
+      card.innerHTML = `
+        <div class="hub-card-header">
+          <div class="hub-card-name">${h.name}</div>
+          <div class="hub-card-da">${da}</div>
+        </div>
+        <div class="hub-card-city">${h.city}, ${h.state}</div>
+        <div class="hub-card-stat">
+          <span>GMV</span>
+          <span class="hub-card-stat-val">R$ ${(h.gmv/1000).toFixed(0)}k</span>
+        </div>
+        <div class="hub-card-stat">
+          <span>Transações</span>
+          <span class="hub-card-stat-val">${h.transactions}</span>
+        </div>
+        <div class="hub-card-stat">
+          <span>Clientes</span>
+          <span class="hub-card-stat-val">${h.customers}</span>
+        </div>
+      `;
+      card.addEventListener('click', () => {
+        modalEyebrow.textContent = 'Hub · Detalhes';
+        modalTitle.textContent = h.name;
+        modalSub.textContent = `${h.city}, ${h.state} · ${da}`;
+        modalLink.href = '#';
+        modalBody.innerHTML = `
+          <div class="modal-section">
+            <div class="modal-section-label">Performace</div>
+            <ul>
+              <li><b>GMV Total:</b> R$ ${(h.gmv/1000).toFixed(0)}k</li>
+              <li><b>Transações:</b> ${h.transactions}</li>
+              <li><b>Clientes únicos:</b> ${h.customers}</li>
+            </ul>
+          </div>
+          <div class="modal-section">
+            <div class="modal-section-label">Principais parceiros (mock)</div>
+            <ul>
+              <li>Auto Posto XYZ (R$ 25k GMV)</li>
+              <li>Pet Shop ABC (R$ 18k GMV)</li>
+              <li>Supermercado DEF (R$ 12k GMV)</li>
+            </ul>
+          </div>
+          <div class="modal-section">
+            <div class="modal-section-label">Problemas identificados (mock)</div>
+            <ul>
+              <li>Ruptura de estoque em 3 SKUs (ago/2026)</li>
+              <li>Taxa de devolução 2.5% acima da média</li>
+              <li>Tempo de resposta 24h - meta é 12h</li>
+            </ul>
+          </div>
+        `;
+        modalAddUpdate.style.display = 'none';
+        modal.classList.add('open');
+      });
+      container.appendChild(card);
+    });
+
+    // Resultados por DA
+    const da_data = groupByDA(hubs);
+    const da_container = document.getElementById('da-results-container');
+    da_container.innerHTML = '';
+    
+    Object.keys(da_data).sort().forEach(da_name => {
+      const da_hubs = da_data[da_name];
+      const da_gmv = da_hubs.reduce((s, h) => s + h.gmv, 0);
+      const da_section = document.createElement('div');
+      da_section.className = 'da-section';
+      
+      const da_header = document.createElement('div');
+      da_header.className = 'da-header';
+      da_header.innerHTML = `
+        <div>
+          <div class="da-name">${da_name}</div>
+          <div style="font-size: 12px; color: var(--ink-soft); margin-top: 2px;">${da_hubs.length} hubs ativos</div>
+        </div>
+        <div class="da-gmv">R$ ${(da_gmv/1000).toFixed(0)}k</div>
+        <button class="da-toggle">+</button>
+      `;
+      da_section.appendChild(da_header);
+      
+      const da_details = document.createElement('div');
+      da_details.className = 'da-details';
+      da_details.innerHTML = `
+        <table class="da-table">
+          <thead>
+            <tr><th>Hub</th><th>Cidade</th><th>GMV</th><th>Transações</th></tr>
+          </thead>
+          <tbody>
+            ${da_hubs.sort((a, b) => b.gmv - a.gmv).map(h => `
+              <tr>
+                <td>${h.name}</td>
+                <td>${h.city}</td>
+                <td>R$ ${(h.gmv/1000).toFixed(0)}k</td>
+                <td>${h.transactions}</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      `;
+      da_section.appendChild(da_details);
+      
+      // Toggle
+      da_header.addEventListener('click', () => {
+        da_details.classList.toggle('open');
+        const toggle = da_header.querySelector('.da-toggle');
+        toggle.textContent = da_details.classList.contains('open') ? '−' : '+';
+      });
+      
+      da_container.appendChild(da_section);
+    });
+  }
+
+  // Inicializar
+  renderResultados(ipiranga_hubs);
+
+  // TODO: Substituir por fetch real quando APIs estiverem prontas
+  // async function loadResultados(){
+  //   try {
+  //     const resp = await fetch('/api/ipiranga-results?month=2026-10');
+  //     const data = await resp.json();
+  //     renderResultados(data.hubs);
+  //   } catch(err) {
+  //     console.error('Erro ao carregar Resultados:', err);
+  //   }
+  // }
+  // loadResultados();
 </script>
 </body>
 </html>
+
