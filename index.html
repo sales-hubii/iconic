@@ -314,6 +314,50 @@ body{
   padding: 22px;
 }
 
+/* TAREFAS E ATAS (editáveis) */
+.section-head{ display:flex; align-items:center; justify-content:space-between; gap:12px; margin: 28px 0 12px; }
+.section-head.first{ margin-top:0; }
+.section-head .section-label{ margin:0; }
+.btn-pill{
+  font-family:'IBM Plex Mono', monospace; font-size:12px; font-weight:700;
+  color:#fff; background: var(--purple); border:none; padding:8px 14px; border-radius:999px; cursor:pointer;
+  transition: background .15s ease;
+}
+.btn-pill:hover{ background: var(--purple-deep); }
+.btn-pill[disabled]{ opacity:.55; cursor:default; }
+.hidden{ display:none !important; }
+.task-chip{
+  margin-left:auto; align-self:center; flex:none; white-space:nowrap;
+  font-family:'IBM Plex Mono', monospace; font-size:10px; font-weight:600; letter-spacing:.03em;
+  padding:3px 9px; border-radius:999px; background:#eeeef3; color:#6b6b7b;
+}
+.task-chip.st-ongoing{ background: rgba(99,72,229,.12); color: var(--purple); }
+.task-chip.st-waiting{ background: rgba(217,119,6,.12); color:#b45309; }
+.task-chip.st-done{ background: rgba(16,185,129,.12); color:#047857; }
+.pills{ display:flex; flex-wrap:wrap; gap:8px; }
+.pill{
+  font-family:'IBM Plex Mono', monospace; font-size:12px; padding:6px 12px; border-radius:999px;
+  border:1px solid var(--line); background: var(--paper); color: var(--ink-soft); cursor:pointer;
+}
+.pill:hover{ border-color: var(--purple); }
+.pill.on{ background: var(--purple); border-color: var(--purple); color:#fff; }
+.f-input{
+  width:100%; padding:10px 12px; border:1px solid var(--line); border-radius: var(--radius-sm);
+  font-family:'Onest', sans-serif; font-size:13.5px; color: var(--ink); background: var(--paper);
+}
+.f-input:focus{ outline:none; border-color: var(--purple); }
+textarea.f-input{ resize: vertical; }
+.f-row{ display:flex; align-items:center; gap:12px; margin-top:12px; }
+.f-msg{ font-size:12.5px; color: var(--ink-soft); }
+.f-msg.error{ color:#b91c1c; }
+.f-hint{ font-size:11.5px; color: var(--ink-soft); margin-top:4px; }
+.toast{
+  position:fixed; left:50%; bottom:28px; transform: translateX(-50%) translateY(20px);
+  background: var(--ink); color:#fff; font-size:13px; padding:10px 16px; border-radius:999px;
+  opacity:0; pointer-events:none; transition: all .2s ease; z-index:99;
+}
+.toast.show{ opacity:1; transform: translateX(-50%) translateY(0); }
+
 /* RESULTADOS: IPIRANGA */
 .grid-4{
   display:grid;
@@ -2734,125 +2778,20 @@ body{
 
   <!-- TAREFAS -->
   <div class="tab-panel" id="panel-tarefas">
-    <div class="section-label first">Pendências</div>
-    <div class="panel">
-
-      <div class="owner-group">
-        <div class="owner-header"><span class="owner-badge iconic">ICONIC</span></div>
-
-        <div class="task" data-task data-status="t_contrato">
-          <div class="check" data-check><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M4 12l5 5L20 6"/></svg></div>
-          <div class="task-text">Assinar contrato</div>
-        </div>
-
-        <div class="task" data-task data-status="t_50k">
-          <div class="check" data-check><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M4 12l5 5L20 6"/></svg></div>
-          <div class="task-text">50k de Iconic + cadastro</div>
-        </div>
-
-        <div class="task done" data-task data-status="t_portfolio_completar">
-          <div class="check" data-check><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M4 12l5 5L20 6"/></svg></div>
-          <div class="task-text">Portfólio completar (náuticos, moto, agro)</div>
-        </div>
-
-        <div class="task done" data-task data-status="t_lista_produtos">
-          <div class="check" data-check><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M4 12l5 5L20 6"/></svg></div>
-          <div class="task-text">Enviar lista de produtos</div>
-        </div>
-
-        <div class="task done" data-task data-status="t_millenium">
-          <div class="check" data-check><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M4 12l5 5L20 6"/></svg></div>
-          <div class="task-text">Peneirar lista de posto Millenium</div>
-        </div>
-
-        <div class="task done" data-task data-status="t_shortlist">
-          <div class="check" data-check><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M4 12l5 5L20 6"/></svg></div>
-          <div class="task-text">Receber a short list dos hubs</div>
-        </div>
-
-      </div>
-
-      <div class="owner-group">
-        <div class="owner-header"><span class="owner-badge hubii">HUBII</span></div>
-
-        <div class="task" data-task data-status="t_bh">
-          <div class="check" data-check><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M4 12l5 5L20 6"/></svg></div>
-          <div class="task-text">Agendar rota BH (BelLub + Victor)</div>
-        </div>
-
-        <div class="task" data-task data-status="t_poa">
-          <div class="check" data-check><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M4 12l5 5L20 6"/></svg></div>
-          <div class="task-text">Agendar rotas POA (Makena + Gui)</div>
-        </div>
-
-        <div class="task done" data-task data-status="t_cadastro_produtos">
-          <div class="check" data-check><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M4 12l5 5L20 6"/></svg></div>
-          <div class="task-text">Cadastro do produtos</div>
-        </div>
-
-        <div class="task" data-task data-status="t_sp">
-          <div class="check" data-check><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M4 12l5 5L20 6"/></svg></div>
-          <div class="task-text">Agendar rota SP (Trevilub + Moabe)</div>
-        </div>
-
-        <div class="task done" data-task data-status="t_temu">
-          <div class="check" data-check><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M4 12l5 5L20 6"/></svg></div>
-          <div class="task-text">Reunião com Temu sobre a Iconic</div>
-        </div>
-
-        <div class="task done" data-task data-status="t_pricing">
-          <div class="check" data-check><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M4 12l5 5L20 6"/></svg></div>
-          <div class="task-text">Enviar o estudo de pricing</div>
-        </div>
-
-        <div class="task done" data-task data-status="t_ritos">
-          <div class="check" data-check><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M4 12l5 5L20 6"/></svg></div>
-          <div class="task-text">Criar os ritos</div>
-        </div>
-
-      </div>
-
+    <div class="section-head first">
+      <div class="section-label first">Pendências</div>
+      <button class="btn-pill hidden" id="btnAddTask" type="button">+ Nova tarefa</button>
     </div>
+    <div class="panel"><div id="tasks-root"></div></div>
 
-    <div class="section-label">Atas</div>
-    <div class="panel">
-      <div class="ata-card" data-meeting="m4">
-        <div class="ata-date">29<span>SET</span></div>
-        <div class="ata-info">
-          <div class="ata-title">Incentivos Comerciais</div>
-          <div class="ata-teaser">Governança de verba, performance dos R$50k de setembro e planejamento Q4</div>
-        </div>
-        <div class="ata-arrow">→</div>
-      </div>
-      <div class="ata-card" data-meeting="m3">
-        <div class="ata-date">07<span>AGO</span></div>
-        <div class="ata-info">
-          <div class="ata-title">Alinhamento Semanal (07/08)</div>
-          <div class="ata-teaser">Decisão de início por SP e POA · take rate via proposta comercial</div>
-        </div>
-        <div class="ata-arrow">→</div>
-      </div>
-      <div class="ata-card" data-meeting="m2">
-        <div class="ata-date">31<span>JUL</span></div>
-        <div class="ata-info">
-          <div class="ata-title">Hubii & Iconic — Estratégia Digital GTM</div>
-          <div class="ata-teaser">Transição para Máxima Tech · territorialidade dos DAs · piloto com varejistas não-sócios</div>
-        </div>
-        <div class="ata-arrow">→</div>
-      </div>
-      <div class="ata-card" data-meeting="m1">
-        <div class="ata-date">29<span>JUL</span></div>
-        <div class="ata-info">
-          <div class="ata-title">Pré alinhamento Iconic</div>
-          <div class="ata-teaser">Estratégia de e-commerce · lojas oficiais Ipiranga/Texaco · conflito de canal</div>
-        </div>
-        <div class="ata-arrow">→</div>
-      </div>
+    <div class="section-head">
+      <div class="section-label">Atas</div>
+      <button class="btn-pill hidden" id="btnAddAta" type="button">+ Adicionar ata</button>
     </div>
-  
+    <div class="panel"><div id="atas-root"></div></div>
   </div>
 
-<div class="update-badge" id="updateBadge" title="Clique para sincronizar com o Notion">
+<div class="update-badge" id="updateBadge" title="Clique para recarregar tarefas e atas">
   <span class="update-dot" id="updateDot"></span>
   <span id="updateLabel">Atualizado em <b id="updateDate">—</b></span>
   <span class="update-refresh-icon" id="updateRefreshIcon">↻</span>
@@ -2897,58 +2836,6 @@ body{
     });
   });
 
-  // Checklist + status modal
-  const tasks = document.querySelectorAll('[data-task]');
-  const total = tasks.length;
-  const tabCount = document.getElementById('tabCount');
-
-  function updateProgress(){
-    const done = document.querySelectorAll('[data-task].done').length;
-    tabCount.textContent = done + '/' + total;
-  }
-
-  function notionPageIdFromUrl(url){
-    const match = url.match(/([a-f0-9]{32})/i);
-    if(!match) return null;
-    const hex = match[1];
-    return `${hex.slice(0,8)}-${hex.slice(8,12)}-${hex.slice(12,16)}-${hex.slice(16,20)}-${hex.slice(20)}`;
-  }
-
-  tasks.forEach(t => {
-    const checkEl = t.querySelector('[data-check]');
-    checkEl.addEventListener('click', async (e) => {
-      e.stopPropagation();
-      const wasDone = t.classList.contains('done');
-      const nowDone = !wasDone;
-      t.classList.toggle('done', nowDone);
-      updateProgress();
-
-      const key = t.dataset.status;
-      const taskData = TASKS[key];
-      if(taskData){
-        taskData.done = nowDone;
-        const pageId = notionPageIdFromUrl(taskData.url);
-        if(pageId){
-          try{
-            await fetch('/api/complete-task', {
-              method: 'POST',
-              credentials: 'same-origin',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ pageId, done: nowDone }),
-            });
-          }catch(err){
-            console.error('Falha ao atualizar status no Notion:', err);
-          }
-        }
-      }
-    });
-    t.addEventListener('click', () => {
-      openTaskStatus(t.dataset.status);
-    });
-  });
-
-  updateProgress();
-
   // Last updated badge — uses the file's own last-modified timestamp
   const updateDate = document.getElementById('updateDate');
   if(updateDate){
@@ -2960,178 +2847,8 @@ body{
     }
   }
 
-  const TASKS = {
-    t_contrato: { title:"Assinar contrato", owner:"iconic", done:false, url:"https://app.notion.com/3bbef5854ef3809aa08fe6c9aca4e012", updates:[{date:"07-ago",text:"ainda em validação do time jurídico"}, {date:"13-ago",text:"contrato enviado para time Passinato analisar"}, {date:"28-ago",text:"Jurídico da Ipiranga já aprovou a parte da segurança // se possível tentar liberar Iconic compartilhar a base de varejos"}, {date:"18-set",text:"iremos enviar ainda hoje o ok nas cáusulas assim como o sugestão de texto referente a multa"}, {date:"24-set",text:"enviado para a Iconic o contrato com ok nas cláusulas e sugestão da multa"}, {date:"01-out",text:"falta apenas o Marcos"}] },
-    t_50k: { title:"50k de Iconic + cadastro", owner:"iconic", done:false, url:"https://app.notion.com/3d1ef5854ef3800d9a80ca83776d3fe4", updates:[{date:"18-set",text:"essa semana evoluimos do preenchimento de documentos para Thaty agilizar internamente"}] },
-    t_portfolio_completar: { title:"Portfólio completar (náuticos, moto, agro)", owner:"iconic", done:true, url:"https://app.notion.com/3dbef5854ef3802299e3c35e28281b72", updates:[{date:"18-set",text:"Rodrigo está em semana de rota, não conseguiu compartilhar as informações ainda"}] },
-    t_lista_produtos: { title:"Enviar lista de produtos", owner:"iconic", done:true, url:"https://app.notion.com/3bbef5854ef380f38113da5607d7c0b3", updates:[] },
-    t_millenium: { title:"Peneirar lista de posto Millenium", owner:"iconic", done:true, url:"https://app.notion.com/3bbef5854ef38064b087d9cc8498b43e", updates:[{date:"09-ago",text:"reunião com a Marina, ela irá fazer a short list"}, {date:"28-ago",text:"tivemos alguns desencontros de agenda, reunião com time millenium irá ocorrer semana que vem"}, {date:"04-set",text:"pré-selecionado loja Raposo Tavares"}] },
-    t_shortlist: { title:"Receber a short list dos hubs", owner:"iconic", done:true, url:"https://app.notion.com/3b9ef5854ef3807f9559ee800ba634b8", updates:[{date:"28-ago",text:"time Iconic informou que pela arquitetura já tem definido os parceiros inicias, premium partner"}] },
-    t_bh: { title:"Agendar rota BH (BelLub + Victor)", owner:"hubii", done:false, url:"https://app.notion.com/3caef5854ef38039b3d2f9a427ea18c2", updates:[{date:"28-ago",text:"aguardando contrato para primeira reunião"}, {date:"18-set",text:"atividade em backlog // prioziração lançamento da praça W3"}] },
-    t_poa: { title:"Agendar rotas POA (Makena + Gui)", owner:"hubii", done:false, url:"https://app.notion.com/3d6ef5854ef3801fa4b8c2822185893a", updates:[{date:"28-ago",text:"aguardando contrato para primeira reunião"}, {date:"18-set",text:"atividade em backlog // prioziração lançamento da praça W2"}] },
-    t_cadastro_produtos: { title:"Cadastro do produtos", owner:"hubii", done:true, url:"https://app.notion.com/3d6ef5854ef38028bfffc3aaacb7b0b5", updates:[{date:"18-set",text:"em andamento, deve finalizar semana que vem"}, {date:"24-set",text:"cadastro finalizado"}] },
-    t_sp: { title:"Agendar rota SP (Trevilub + Moabe)", owner:"hubii", done:false, url:"https://app.notion.com/3d6ef5854ef3806e9425dc6d861ffb2a", updates:[{date:"18-set",text:"praça W1, estamos buscando o telefone contato dos clientes para abordagem mais assertiva"}] },
-    t_temu: { title:"Reunião com Temu sobre a Iconic", owner:"hubii", done:true, url:"https://app.notion.com/3bbef5854ef3804aac67d75fd3652c0f", updates:[{date:"11-ago",text:"fizemos reunião com a Temu e eles disseram que Óleo é uma categoria que faz sentido"}] },
-    t_pricing: { title:"Enviar o estudo de pricing", owner:"hubii", done:true, url:"https://app.notion.com/3bbef5854ef380ba9cdcc54f7081080f", updates:[] },
-    t_ritos: { title:"Criar os ritos", owner:"hubii", done:true, url:"https://app.notion.com/3bbef5854ef3806190fae55eeab396a3", updates:[{date:"28-ago",text:"aguardando contrato para primeira reunião"}] },
-  };
-
-  // Botão "Atualizado em" — sincroniza status/owner das tarefas ao vivo com o Notion
-  const updateBadgeEl = document.getElementById('updateBadge');
-  const updateDot = document.getElementById('updateDot');
-  const updateRefreshIcon = document.getElementById('updateRefreshIcon');
-  const updateLabel = document.getElementById('updateLabel');
-
-  function keyFromPageId(pageId){
-    const hex = pageId.replace(/-/g, '');
-    for(const [key, t] of Object.entries(TASKS)){
-      const tHex = notionPageIdFromUrl(t.url).replace(/-/g, '');
-      if(tHex === hex) return key;
-    }
-    return null;
-  }
-
-  async function syncWithNotion(){
-    if(updateBadgeEl.classList.contains('syncing')) return;
-    updateBadgeEl.classList.add('syncing');
-    updateDot.classList.add('syncing');
-    updateRefreshIcon.classList.add('spinning');
-    const originalLabel = updateLabel.innerHTML;
-    updateLabel.textContent = 'Sincronizando com o Notion...';
-
-    try{
-      const resp = await fetch('/api/refresh-tasks', { method: 'GET', credentials: 'same-origin' });
-      const ct = resp.headers.get('content-type') || '';
-      if(!ct.includes('application/json')){
-        const raw = await resp.text();
-        throw new Error(`resposta inesperada (HTTP ${resp.status}): ${raw.slice(0,150)}`);
-      }
-      const data = await resp.json();
-      if(!resp.ok){
-        throw new Error((data && data.error && (data.error.message || JSON.stringify(data.error))) || 'Erro desconhecido');
-      }
-
-      let changed = 0;
-      (data.tasks || []).forEach(remote => {
-        const key = keyFromPageId(remote.pageId);
-        if(!key) return;
-        const t = TASKS[key];
-        const nowDone = remote.status === 'Done';
-        if(t.done !== nowDone){
-          t.done = nowDone;
-          changed++;
-          const el = document.querySelector(`[data-status="${key}"]`);
-          if(el) el.classList.toggle('done', nowDone);
-        }
-      });
-      updateProgress();
-
-      const now = new Date();
-      const formatted = now.toLocaleDateString('pt-BR', { day:'2-digit', month:'2-digit', year:'numeric' })
-        + ' às ' + now.toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' });
-      updateLabel.innerHTML = 'Sincronizado em <b>' + formatted + '</b>' + (changed ? ` · ${changed} atualização${changed>1?'ões':''}` : '');
-    }catch(err){
-      updateLabel.textContent = 'Falha ao sincronizar — tente novamente';
-      console.error('[syncWithNotion]', err.message);
-    }finally{
-      updateBadgeEl.classList.remove('syncing');
-      updateDot.classList.remove('syncing');
-      updateRefreshIcon.classList.remove('spinning');
-    }
-  }
-
-  updateBadgeEl.addEventListener('click', syncWithNotion);
-
   const modalAddUpdate = document.getElementById('modalAddUpdate');
-  const modalUpdateText = document.getElementById('modalUpdateText');
-  const modalUpdateSave = document.getElementById('modalUpdateSave');
-  const modalUpdateFeedback = document.getElementById('modalUpdateFeedback');
   let currentTaskKey = null;
-
-  function todayLabel(){
-    const meses = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
-    const now = new Date();
-    return String(now.getDate()).padStart(2,'0') + '-' + meses[now.getMonth()];
-  }
-
-  function openTaskStatus(key){
-    const t = TASKS[key];
-    if(!t) return;
-    currentTaskKey = key;
-    modalEyebrow.textContent = 'Tarefa · Notion';
-    modalTitle.textContent = t.title;
-    const ownerLabel = t.owner === 'iconic' ? 'Iconic' : 'Hubii';
-    const statusLabel = t.done ? 'Concluída' : 'Em aberto';
-    modalSub.textContent = ownerLabel + ' · ' + statusLabel;
-    modalLink.href = t.url;
-    if(t.updates.length === 0){
-      modalBody.innerHTML = '<div class="modal-section"><div class="modal-section-label">Histórico</div><ul><li>Nenhuma atualização registrada ainda.</li></ul></div>';
-    } else {
-      const items = t.updates.slice().reverse().map(u => `<li><b>${u.date}:</b> ${u.text}</li>`).join('');
-      modalBody.innerHTML = `<div class="modal-section"><div class="modal-section-label">Histórico</div><ul>${items}</ul></div>`;
-    }
-    modalAddUpdate.style.display = 'block';
-    modalUpdateText.value = '';
-    modalUpdateFeedback.textContent = '';
-    modalUpdateFeedback.className = 'modal-update-feedback';
-    modalUpdateSave.disabled = false;
-    modalUpdateSave.textContent = 'Salvar no Notion';
-    modal.classList.add('open');
-  }
-
-  modalUpdateSave.addEventListener('click', async () => {
-    const key = currentTaskKey;
-    const t = TASKS[key];
-    if(!t) return;
-    const text = modalUpdateText.value.trim();
-    if(!text){
-      modalUpdateFeedback.textContent = 'Escreva algo antes de salvar.';
-      modalUpdateFeedback.className = 'modal-update-feedback error';
-      return;
-    }
-    const pageId = notionPageIdFromUrl(t.url);
-    if(!pageId){
-      modalUpdateFeedback.textContent = 'Não foi possível identificar a página no Notion.';
-      modalUpdateFeedback.className = 'modal-update-feedback error';
-      return;
-    }
-    const date = todayLabel();
-    modalUpdateSave.disabled = true;
-    modalUpdateSave.textContent = 'Salvando...';
-    modalUpdateFeedback.textContent = '';
-    try{
-      const resp = await fetch('/api/add-update', {
-        method: 'POST',
-        credentials: 'same-origin',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ pageId, date, text }),
-      });
-      const ct = resp.headers.get('content-type') || '';
-      let data;
-      if(ct.includes('application/json')){
-        data = await resp.json();
-      } else {
-        const raw = await resp.text();
-        throw new Error(`resposta inesperada do servidor (HTTP ${resp.status}): ${raw.slice(0,150)}`);
-      }
-      if(!resp.ok){
-        throw new Error((data && data.error && (data.error.message || JSON.stringify(data.error))) || 'Erro desconhecido');
-      }
-      t.updates.push({ date, text });
-      modalUpdateFeedback.textContent = 'Salvo com sucesso!';
-      modalUpdateFeedback.className = 'modal-update-feedback success';
-      modalUpdateText.value = '';
-      // Re-render histórico
-      const items = t.updates.slice().reverse().map(u => `<li><b>${u.date}:</b> ${u.text}</li>`).join('');
-      modalBody.innerHTML = `<div class="modal-section"><div class="modal-section-label">Histórico</div><ul>${items}</ul></div>`;
-    }catch(err){
-      modalUpdateFeedback.textContent = 'Falha ao salvar: ' + err.message;
-      modalUpdateFeedback.className = 'modal-update-feedback error';
-    }finally{
-      modalUpdateSave.disabled = false;
-      modalUpdateSave.textContent = 'Salvar no Notion';
-    }
-  });
 
   // Meeting summaries
   const MEETINGS = {
@@ -3643,6 +3360,285 @@ body{
     });
   })();
 </script>
+
+<script>
+// ===== TAREFAS E ATAS: salvas no servidor (Redis via /api/state) =====
+(function(){
+  const $ = id => document.getElementById(id);
+  const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const MESES = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+  const STATUS = {
+    backlog: { label: 'Backlog' },
+    waiting: { label: 'Aguardando' },
+    ongoing: { label: 'Em andamento' },
+    done:    { label: 'Concluída' },
+  };
+  const OWNER = { iconic: 'Iconic', hubii: 'Hubii' };
+  const CHECK_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M4 12l5 5L20 6"/></svg>';
+
+  // Semente: usada para popular o servidor na primeira vez e como visão somente leitura se ele estiver indisponível.
+  const SEED = {"t_contrato": {"title": "Assinar contrato", "owner": "iconic", "status": "waiting", "order": 10, "updates": [{"date": "07-ago", "text": "ainda em validação do time jurídico"}, {"date": "13-ago", "text": "contrato enviado para time Passinato analisar"}, {"date": "28-ago", "text": "Jurídico da Ipiranga já aprovou a parte da segurança // se possível tentar liberar Iconic compartilhar a base de varejos"}, {"date": "18-set", "text": "iremos enviar ainda hoje o ok nas cáusulas assim como o sugestão de texto referente a multa"}, {"date": "24-set", "text": "enviado para a Iconic o contrato com ok nas cláusulas e sugestão da multa"}, {"date": "01-out", "text": "falta apenas o Marcos"}]}, "t_50k": {"title": "50k de Iconic + cadastro", "owner": "iconic", "status": "ongoing", "order": 20, "updates": [{"date": "18-set", "text": "essa semana evoluimos do preenchimento de documentos para Thaty agilizar internamente"}]}, "t_portfolio_completar": {"title": "Portfólio completar (náuticos, moto, agro)", "owner": "iconic", "status": "done", "order": 30, "updates": [{"date": "18-set", "text": "Rodrigo está em semana de rota, não conseguiu compartilhar as informações ainda"}]}, "t_lista_produtos": {"title": "Enviar lista de produtos", "owner": "iconic", "status": "done", "order": 40, "updates": []}, "t_millenium": {"title": "Peneirar lista de posto Millenium", "owner": "iconic", "status": "done", "order": 50, "updates": [{"date": "09-ago", "text": "reunião com a Marina, ela irá fazer a short list"}, {"date": "28-ago", "text": "tivemos alguns desencontros de agenda, reunião com time millenium irá ocorrer semana que vem"}, {"date": "04-set", "text": "pré-selecionado loja Raposo Tavares"}]}, "t_shortlist": {"title": "Receber a short list dos hubs", "owner": "iconic", "status": "done", "order": 60, "updates": [{"date": "28-ago", "text": "time Iconic informou que pela arquitetura já tem definido os parceiros inicias, premium partner"}]}, "t_bh": {"title": "Agendar rota BH (BelLub + Victor)", "owner": "hubii", "status": "backlog", "order": 70, "updates": [{"date": "28-ago", "text": "aguardando contrato para primeira reunião"}, {"date": "18-set", "text": "atividade em backlog // prioziração lançamento da praça W3"}]}, "t_poa": {"title": "Agendar rotas POA (Makena + Gui)", "owner": "hubii", "status": "backlog", "order": 80, "updates": [{"date": "28-ago", "text": "aguardando contrato para primeira reunião"}, {"date": "18-set", "text": "atividade em backlog // prioziração lançamento da praça W2"}]}, "t_cadastro_produtos": {"title": "Cadastro do produtos", "owner": "hubii", "status": "done", "order": 90, "updates": [{"date": "18-set", "text": "em andamento, deve finalizar semana que vem"}, {"date": "24-set", "text": "cadastro finalizado"}]}, "t_sp": {"title": "Agendar rota SP (Trevilub + Moabe)", "owner": "hubii", "status": "waiting", "order": 100, "updates": [{"date": "18-set", "text": "praça W1, estamos buscando o telefone contato dos clientes para abordagem mais assertiva"}]}, "t_temu": {"title": "Reunião com Temu sobre a Iconic", "owner": "hubii", "status": "done", "order": 110, "updates": [{"date": "11-ago", "text": "fizemos reunião com a Temu e eles disseram que Óleo é uma categoria que faz sentido"}]}, "t_pricing": {"title": "Enviar o estudo de pricing", "owner": "hubii", "status": "done", "order": 120, "updates": []}, "t_ritos": {"title": "Criar os ritos", "owner": "hubii", "status": "done", "order": 130, "updates": [{"date": "28-ago", "text": "aguardando contrato para primeira reunião"}]}};
+  const STATIC_ATAS = [{"id": "m4", "date": "2026-09-29", "title": "Incentivos Comerciais", "teaser": "Governança de verba, performance dos R$50k de setembro e planejamento Q4"}, {"id": "m3", "date": "2026-08-07", "title": "Alinhamento Semanal (07/08)", "teaser": "Decisão de início por SP e POA · take rate via proposta comercial"}, {"id": "m2", "date": "2026-07-31", "title": "Hubii & Iconic — Estratégia Digital GTM", "teaser": "Transição para Máxima Tech · territorialidade dos DAs · piloto com varejistas não-sócios"}, {"id": "m1", "date": "2026-07-29", "title": "Pré alinhamento Iconic", "teaser": "Estratégia de e-commerce · lojas oficiais Ipiranga/Texaco · conflito de canal"}];
+
+  const state = { tasks: JSON.parse(JSON.stringify(SEED)), atas: {}, updatedAt: null, canEdit: false };
+  let ctx = null; // o que o modal compartilhado está mostrando
+
+  const todayLabel = () => { const d = new Date(); return String(d.getDate()).padStart(2,'0') + '-' + MESES[d.getMonth()]; };
+  const todayIso = () => { const d = new Date(); return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0'); };
+  const dateBR = iso => iso ? iso.slice(8,10) + '/' + iso.slice(5,7) + '/' + iso.slice(0,4) : '';
+
+  let toastTimer = null;
+  function toast(msg){
+    let el = $('appToast');
+    if(!el){ el = document.createElement('div'); el.id = 'appToast'; el.className = 'toast'; document.body.appendChild(el); }
+    el.textContent = msg; el.classList.add('show');
+    clearTimeout(toastTimer); toastTimer = setTimeout(() => el.classList.remove('show'), 2600);
+  }
+
+  async function api(method, body){
+    const r = await fetch('/api/state', {
+      method, credentials: 'same-origin', cache: 'no-store',
+      headers: body ? { 'Content-Type': 'application/json' } : undefined,
+      body: body ? JSON.stringify(body) : undefined,
+    });
+    let j = null; try { j = await r.json(); } catch(e) {}
+    if(!r.ok){ const e = new Error((j && j.error) || ('HTTP ' + r.status)); e.status = r.status; throw e; }
+    return j;
+  }
+  function applyState(s){
+    state.tasks = s.tasks || {}; state.atas = s.atas || {}; state.updatedAt = s.updatedAt || null; state.canEdit = true;
+    renderAll();
+  }
+
+  // ---------- render ----------
+  function taskRow(key, t){
+    const st = STATUS[t.status] ? t.status : 'backlog';
+    return `<div class="task${st === 'done' ? ' done' : ''}" data-task data-status="${esc(key)}">
+      <div class="check" data-check>${CHECK_SVG}</div>
+      <div class="task-text">${esc(t.title)}</div>
+      <span class="task-chip st-${st}">${STATUS[st].label}</span>
+    </div>`;
+  }
+  function renderTasks(){
+    const list = Object.entries(state.tasks);
+    const html = [['iconic','ICONIC'], ['hubii','HUBII']].map(([own, label]) => {
+      const items = list.filter(([, t]) => t.owner === own).sort((a, b) => (a[1].order || 0) - (b[1].order || 0));
+      if(!items.length) return '';
+      return `<div class="owner-group"><div class="owner-header"><span class="owner-badge ${own}">${label}</span></div>${items.map(([k, t]) => taskRow(k, t)).join('')}</div>`;
+    }).join('');
+    $('tasks-root').innerHTML = html || '<div class="placeholder-note">Nenhuma tarefa cadastrada.</div>';
+    const done = list.filter(([, t]) => t.status === 'done').length;
+    $('tabCount').textContent = done + '/' + list.length;
+  }
+  function renderAtas(){
+    const items = STATIC_ATAS.map(a => ({ id: a.id, date: a.date, title: a.title, teaser: a.teaser }))
+      .concat(Object.entries(state.atas).map(([id, a]) => ({
+        id, date: a.date, title: a.title,
+        teaser: a.sub || ((a.sections && a.sections[0] && a.sections[0].items[0]) || ''),
+      })));
+    items.sort((x, y) => String(y.date).localeCompare(String(x.date)));
+    $('atas-root').innerHTML = items.map(a => `<div class="ata-card" data-ata="${esc(a.id)}">
+      <div class="ata-date">${esc(a.date.slice(8,10))}<span>${esc(MESES[+a.date.slice(5,7) - 1].toUpperCase())}</span></div>
+      <div class="ata-info"><div class="ata-title">${esc(a.title)}</div><div class="ata-teaser">${esc(a.teaser)}</div></div>
+      <div class="ata-arrow">→</div></div>`).join('');
+  }
+  function renderBadge(){
+    const el = $('updateDate'); if(!el) return;
+    const d = state.updatedAt ? new Date(state.updatedAt) : new Date(document.lastModified);
+    if(isNaN(d)) return;
+    el.textContent = d.toLocaleDateString('pt-BR', { day:'2-digit', month:'2-digit', year:'numeric' }) + ' às ' + d.toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' });
+  }
+  function renderAll(){
+    renderTasks(); renderAtas(); renderBadge();
+    $('btnAddTask').classList.toggle('hidden', !state.canEdit);
+    $('btnAddAta').classList.toggle('hidden', !state.canEdit);
+  }
+
+  // ---------- carga ----------
+  async function load(){
+    try{
+      let s = await api('GET');
+      if(!Object.keys(s.tasks || {}).length) s = await api('POST', { action: 'seed', tasks: SEED });
+      applyState(s);
+    }catch(e){
+      console.warn('[tarefas] armazenamento indisponível, abrindo em modo leitura:', e.message);
+      state.canEdit = false; renderAll();
+    }
+  }
+
+  // ---------- modal compartilhado ----------
+  const footer = modal.querySelector('.modal-footer');
+  new MutationObserver(() => {
+    if(!modal.classList.contains('open')){ ctx = null; if(footer) footer.style.display = ''; }
+  }).observe(modal, { attributes: true, attributeFilter: ['class'] });
+  function openModal(eyebrow, title, sub, html){
+    currentTaskKey = null;
+    modalEyebrow.textContent = eyebrow; modalTitle.textContent = title; modalSub.textContent = sub; modalBody.innerHTML = html;
+    modalAddUpdate.style.display = 'none';
+    if(footer) footer.style.display = 'none';
+    modal.classList.add('open');
+  }
+  const pills = (name, options, current) => `<div class="pills" data-pills="${name}">${options.map(([v, l]) => `<button type="button" class="pill${v === current ? ' on' : ''}" data-app="${name}" data-v="${v}">${l}</button>`).join('')}</div>`;
+  const STATUS_OPTS = Object.entries(STATUS).map(([v, o]) => [v, o.label]);
+  const OWNER_OPTS = Object.entries(OWNER);
+
+  function historyHtml(t){
+    const ups = (t.updates || []).slice().reverse();
+    return ups.length ? ups.map(u => `<li><b>${esc(u.date)}:</b> ${esc(u.text)}</li>`).join('') : '<li>Nenhuma atualização registrada ainda.</li>';
+  }
+  function openTask(key){
+    const t = state.tasks[key]; if(!t) return;
+    ctx = { type: 'task', key };
+    const edit = state.canEdit;
+    const html = `
+      ${edit ? `<div class="modal-section"><div class="modal-section-label">Status</div>${pills('st', STATUS_OPTS, t.status)}</div>
+      <div class="modal-section"><div class="modal-section-label">Responsável</div>${pills('own', OWNER_OPTS, t.owner)}</div>` : ''}
+      <div class="modal-section"><div class="modal-section-label">Histórico</div><ul id="tkHistory">${historyHtml(t)}</ul></div>
+      ${edit ? `<div class="modal-section"><div class="modal-section-label">Adicionar atualização</div>
+        <textarea id="tkNote" class="f-input" rows="2" placeholder="Ex.: cliente confirmou reunião para sexta-feira"></textarea>
+        <div class="f-row"><button type="button" class="btn-pill" data-app="tk-save">Salvar</button><span class="f-msg" id="tkMsg"></span></div></div>` : ''}`;
+    openModal('Tarefa', t.title, OWNER[t.owner] + ' · ' + STATUS[t.status].label, html);
+  }
+  function openNewTask(){
+    ctx = { type: 'newtask', owner: 'hubii', status: 'backlog' };
+    openModal('Nova tarefa', 'Adicionar tarefa', 'Aparece para todos que abrirem o dashboard', `
+      <div class="modal-section"><div class="modal-section-label">Tarefa</div>
+        <input id="ntTitle" class="f-input" maxlength="160" placeholder="Ex.: Enviar proposta de rota para Curitiba"></div>
+      <div class="modal-section"><div class="modal-section-label">Responsável</div>${pills('own', OWNER_OPTS, 'hubii')}</div>
+      <div class="modal-section"><div class="modal-section-label">Status</div>${pills('st', STATUS_OPTS, 'backlog')}</div>
+      <div class="modal-section"><div class="modal-section-label">Primeira atualização (opcional)</div>
+        <textarea id="ntNote" class="f-input" rows="2" placeholder="Contexto ou próximo passo"></textarea>
+        <div class="f-row"><button type="button" class="btn-pill" data-app="nt-save">Criar tarefa</button><span class="f-msg" id="ntMsg"></span></div></div>`);
+    setTimeout(() => { const i = $('ntTitle'); if(i) i.focus(); }, 50);
+  }
+  function openNewAta(){
+    ctx = { type: 'newata' };
+    openModal('Nova ata', 'Adicionar ata de reunião', 'Um item por linha em cada campo', `
+      <div class="modal-section"><div class="modal-section-label">Título</div>
+        <input id="naTitle" class="f-input" maxlength="160" placeholder="Ex.: Alinhamento semanal"></div>
+      <div class="modal-section"><div class="modal-section-label">Data</div>
+        <input id="naDate" class="f-input" type="date" value="${todayIso()}"></div>
+      <div class="modal-section"><div class="modal-section-label">Participantes / contexto (opcional)</div>
+        <input id="naSub" class="f-input" maxlength="300" placeholder="Ex.: Hubii, Marcos e Camila (Iconic)"></div>
+      <div class="modal-section"><div class="modal-section-label">Resumo</div><textarea id="naResumo" class="f-input" rows="3"></textarea></div>
+      <div class="modal-section"><div class="modal-section-label">Decisões</div><textarea id="naDecisoes" class="f-input" rows="3"></textarea></div>
+      <div class="modal-section"><div class="modal-section-label">Próximos passos</div><textarea id="naProx" class="f-input" rows="3"></textarea>
+        <div class="f-row"><button type="button" class="btn-pill" data-app="na-save">Salvar ata</button><span class="f-msg" id="naMsg"></span></div></div>`);
+    setTimeout(() => { const i = $('naTitle'); if(i) i.focus(); }, 50);
+  }
+  function openAta(id){
+    if(typeof MEETINGS !== 'undefined' && MEETINGS[id]){ openMeeting(id); return; }
+    const a = state.atas[id]; if(!a) return;
+    ctx = { type: 'ata', id };
+    openModal('Ata de reunião', a.title, dateBR(a.date) + (a.sub ? ' · ' + a.sub : ''),
+      (a.sections || []).map(s => `<div class="modal-section"><div class="modal-section-label">${esc(s.label)}</div><ul>${s.items.map(i => `<li>${esc(i)}</li>`).join('')}</ul></div>`).join(''));
+  }
+
+  // ---------- ações ----------
+  async function patchTask(key, patch, note){
+    const t = state.tasks[key]; if(!t || !state.canEdit) return false;
+    const prev = JSON.parse(JSON.stringify(t));
+    if(patch.status) t.status = patch.status;
+    if(patch.owner) t.owner = patch.owner;
+    if(note) t.updates = (t.updates || []).concat([{ date: todayLabel(), text: note }]);
+    renderTasks();
+    try{
+      applyState(await api('POST', { action: 'update_task', key, status: patch.status, owner: patch.owner, note }));
+      return true;
+    }catch(e){
+      state.tasks[key] = prev; renderTasks();
+      toast('Não foi possível salvar. Tente novamente.');
+      console.error('[tarefas]', e.message);
+      return false;
+    }
+  }
+  function setMsg(id, text, isError){
+    const el = $(id); if(!el) return; el.textContent = text; el.className = 'f-msg' + (isError ? ' error' : '');
+  }
+  async function submit(btn, fn){
+    btn.disabled = true;
+    try{ await fn(); } finally { btn.disabled = false; }
+  }
+  const lines = v => String(v || '').split('\n').map(s => s.trim().replace(/^[-•*]\s*/, '')).filter(Boolean);
+
+  modalBody.addEventListener('click', async (e) => {
+    const b = e.target.closest('[data-app]'); if(!b || !ctx) return;
+    const act = b.dataset.app;
+
+    if(act === 'st' || act === 'own'){
+      b.parentElement.querySelectorAll('.pill').forEach(p => p.classList.toggle('on', p === b));
+      if(ctx.type === 'newtask'){ ctx[act === 'st' ? 'status' : 'owner'] = b.dataset.v; return; }
+      if(ctx.type === 'task'){
+        const key = ctx.key;
+        const ok = await patchTask(key, act === 'st' ? { status: b.dataset.v } : { owner: b.dataset.v });
+        if(ok && ctx && ctx.key === key){ const t = state.tasks[key]; modalSub.textContent = OWNER[t.owner] + ' · ' + STATUS[t.status].label; }
+        else if(!ok && ctx) openTask(key);
+      }
+      return;
+    }
+    if(act === 'tk-save'){
+      const key = ctx.key, note = ($('tkNote').value || '').trim();
+      if(!note){ setMsg('tkMsg', 'Escreva algo antes de salvar.', true); return; }
+      await submit(b, async () => {
+        setMsg('tkMsg', 'Salvando...');
+        if(await patchTask(key, {}, note)){ const t = state.tasks[key]; $('tkHistory').innerHTML = historyHtml(t); $('tkNote').value = ''; setMsg('tkMsg', 'Salvo.'); }
+        else setMsg('tkMsg', 'Falha ao salvar.', true);
+      });
+      return;
+    }
+    if(act === 'nt-save'){
+      const title = ($('ntTitle').value || '').trim();
+      if(!title){ setMsg('ntMsg', 'Dê um nome para a tarefa.', true); return; }
+      await submit(b, async () => {
+        setMsg('ntMsg', 'Salvando...');
+        try{
+          applyState(await api('POST', { action: 'add_task', title, owner: ctx.owner, status: ctx.status, note: ($('ntNote').value || '').trim() }));
+          modal.classList.remove('open'); toast('Tarefa criada.');
+        }catch(err){ setMsg('ntMsg', 'Falha ao salvar: ' + err.message, true); }
+      });
+      return;
+    }
+    if(act === 'na-save'){
+      const title = ($('naTitle').value || '').trim(), date = $('naDate').value;
+      const sections = [['Resumo', lines($('naResumo').value)], ['Decisões', lines($('naDecisoes').value)], ['Próximos passos', lines($('naProx').value)]]
+        .filter(([, items]) => items.length).map(([label, items]) => ({ label, items }));
+      if(!title || !date){ setMsg('naMsg', 'Preencha título e data.', true); return; }
+      if(!sections.length){ setMsg('naMsg', 'Escreva pelo menos um item em Resumo, Decisões ou Próximos passos.', true); return; }
+      await submit(b, async () => {
+        setMsg('naMsg', 'Salvando...');
+        try{
+          applyState(await api('POST', { action: 'add_ata', title, date, sub: ($('naSub').value || '').trim(), sections }));
+          modal.classList.remove('open'); toast('Ata salva.');
+        }catch(err){ setMsg('naMsg', 'Falha ao salvar: ' + err.message, true); }
+      });
+    }
+  });
+
+  // delegação na lista de tarefas e atas
+  $('tasks-root').addEventListener('click', (e) => {
+    const row = e.target.closest('[data-task]'); if(!row) return;
+    const key = row.dataset.status;
+    if(e.target.closest('[data-check]')){
+      e.stopPropagation();
+      if(!state.canEdit){ openTask(key); return; }
+      patchTask(key, { status: state.tasks[key].status === 'done' ? 'ongoing' : 'done' });
+      return;
+    }
+    openTask(key);
+  });
+  $('atas-root').addEventListener('click', (e) => {
+    const card = e.target.closest('[data-ata]'); if(card) openAta(card.dataset.ata);
+  });
+  $('btnAddTask').addEventListener('click', openNewTask);
+  $('btnAddAta').addEventListener('click', openNewAta);
+  const badge = $('updateBadge');
+  if(badge){ badge.title = 'Clique para recarregar tarefas e atas'; badge.addEventListener('click', () => { load().then(() => toast('Atualizado.')); }); }
+
+  renderAll();
+  load();
+})();
+</script>
+
 </body>
 </html>
 
