@@ -13,15 +13,17 @@ const STATUSES = ['backlog', 'waiting', 'ongoing', 'done'];
 const OWNERS = ['iconic', 'hubii'];
 const MESES = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
 
-// Aceita os nomes padrão e também com prefixo (ex.: STORAGE_KV_REST_API_URL), caso o instalador adicione um.
-function findEnv(suffixes) {
-  for (const name of suffixes) if (process.env[name]) return process.env[name];
-  const key = Object.keys(process.env).find((k) => suffixes.some((s) => k.endsWith('_' + s)) && process.env[k]);
+// Aceita os nomes padrão e qualquer prefixo que o instalador da Vercel aplique
+// (ex.: KV_REST_API_URL, STORAGE_REST_API_URL, UPSTASH_REDIS_REST_URL). O token somente-leitura
+// (..._READ_ONLY_TOKEN) não casa com os padrões e nunca é usado.
+function findEnv(exact, pattern) {
+  for (const name of exact) if (process.env[name]) return process.env[name];
+  const key = Object.keys(process.env).find((k) => pattern.test(k) && process.env[k]);
   return key ? process.env[key] : undefined;
 }
 function cfg() {
-  const url = findEnv(['UPSTASH_REDIS_REST_URL', 'KV_REST_API_URL']);
-  const token = findEnv(['UPSTASH_REDIS_REST_TOKEN', 'KV_REST_API_TOKEN']);
+  const url = findEnv(['UPSTASH_REDIS_REST_URL', 'KV_REST_API_URL'], /REST(_API)?_URL$/);
+  const token = findEnv(['UPSTASH_REDIS_REST_TOKEN', 'KV_REST_API_TOKEN'], /REST(_API)?_TOKEN$/);
   if (!url || !token) return null;
   return { url: String(url).trim().replace(/\/+$/, ''), token: String(token).trim() };
 }
