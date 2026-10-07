@@ -84,7 +84,8 @@ function badRequest(res, msg) { return res.status(400).json({ error: msg }); }
 module.exports = async function handler(req, res) {
   res.setHeader('Cache-Control', 'no-store');
   const c = cfg();
-  if (!c) return res.status(503).json({ error: 'armazenamento não configurado' });
+  // DIAGNÓSTICO TEMPORÁRIO: só nomes de variáveis, nunca valores
+  if (!c) return res.status(503).json({ error: 'armazenamento não configurado', envNames: Object.keys(process.env).filter((k) => /REDIS|REST|KV|STORAGE|UPSTASH/i.test(k)).sort() });
 
   try {
     if (req.method === 'GET') return res.status(200).json(await readState(c));
