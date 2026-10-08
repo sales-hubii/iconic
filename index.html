@@ -3100,10 +3100,13 @@ textarea.f-input{ resize: vertical; }
     const SHOW_INSIGHTS = true;
     // DAs do escopo (regra: UF do hub -> DA)
     const DA_SCOPE = [
-      { da: 'Trevilhub', uf: 'SP', mg: 'TH' },
-      { da: 'Makena',    uf: 'RS', mg: 'MK' },
-      { da: 'BelLub',    uf: 'MG', mg: 'BL' },
+      { da: 'Trevilhub', uf: 'SP' },
+      { da: 'Makena',    uf: 'RS' },
+      { da: 'BelLub',    uf: 'MG' },
     ];
+    // Nome exibido na tela (a base de dados escreve "Trevilhub"; a chave interna continua igual)
+    const DA_LABEL = { 'Trevilhub': 'TreviLub' };
+    const dn = da => DA_LABEL[da] || da;
     const DA_COLOR = { 'Trevilhub': '#6348e5', 'Makena': '#746bff', 'BelLub': '#9a9a9a', 'Sem hub alocado': '#f5a524' };
 
     // ---------- formatação (pt-BR) ----------
@@ -3290,10 +3293,10 @@ textarea.f-input{ resize: vertical; }
       const total = S.total.gmv_valido, un = S.daTotal['Sem hub alocado'];
       const card = (da, mg, name, val, chip, share, extra) => `<button type="button" class="rc ${extra || ''}" data-act="da" data-da="${esc(da)}" aria-pressed="${ui.da === da}">
         <span class="mg">${mg}</span><span class="nm">${esc(name)}</span><span class="vl">${val} ${chip}</span><span class="sh"><i style="width:${Math.min(100, share || 0)}%"></i></span></button>`;
-      const cards = [card('all', 'ALL', 'Todas as DAs', brlK(total), `<span class="chip flat">${S.hubs.length} hubs</span>`, 100, 'all')];
+      const cards = [card('all', 'BR', 'Todas as DAs', brlK(total), `<span class="chip flat">${S.hubs.length} hubs</span>`, 100, 'all')];
       DA_SCOPE.forEach(d => {
         const t = S.daTotal[d.da], g = t ? t.gmv_valido : 0;
-        cards.push(card(d.da, d.mg, d.da + ' · ' + d.uf, brlK(g), g > 0 ? `<span class="chip flat">${pct(t.pct_gmv_no_periodo)}</span>` : '<span class="chip flat">sem vendas</span>', t ? t.pct_gmv_no_periodo : 0));
+        cards.push(card(d.da, d.uf, dn(d.da), brlK(g), g > 0 ? `<span class="chip flat">${pct(t.pct_gmv_no_periodo)}</span>` : '<span class="chip flat">sem vendas</span>', t ? t.pct_gmv_no_periodo : 0));
       });
       if(un && un.gmv_valido > 0){
         cards.push(`<div class="rc static warn"><span class="mg">SH</span><span class="nm">Sem hub alocado</span><span class="vl">${brlK(un.gmv_valido)} <span class="chip warn">${pct(un.pct_gmv_no_periodo)}</span></span><span class="sh"><i style="width:${Math.min(100, un.pct_gmv_no_periodo)}%"></i></span></div>`);
@@ -3305,7 +3308,7 @@ textarea.f-input{ resize: vertical; }
     function barHtml(){
       const first = S.meses[0], last = S.meses[S.meses.length - 1];
       const chips = ui.da !== 'all'
-        ? `<span class="lbl">Filtros</span><button type="button" class="fchip" data-act="da" data-da="all" aria-label="Remover filtro de DA"><span>DA: <b>${esc(ui.da)}</b></span><span class="x">✕</span></button><button type="button" class="linkbtn" data-act="da" data-da="all">Limpar</button>`
+        ? `<span class="lbl">Filtros</span><button type="button" class="fchip" data-act="da" data-da="all" aria-label="Remover filtro de DA"><span>DA: <b>${esc(dn(ui.da))}</b></span><span class="x">✕</span></button><button type="button" class="linkbtn" data-act="da" data-da="all">Limpar</button>`
         : '';
       return `<nav class="stabs" role="tablist" aria-label="Seções de resultados">${TABS.map(([v, l]) => `<a href="#" role="tab" data-act="view" data-v="${v}" ${ui.view === v ? 'aria-current="page"' : ''}>${l}</a>`).join('')}</nav>
         <div class="period-line">${esc(mesLabel(first.mes))} a ${esc(mesLabel(last.mes))}${S.partial ? ' (mês em curso, parcial)' : ''}<span style="margin:0 6px">·</span>última compra registrada em ${dateBR(S.lastBuy)}</div>
@@ -3320,10 +3323,10 @@ textarea.f-input{ resize: vertical; }
         const list = (S.daByMes[m.mes] || []).filter(r => r.gmv_valido > 0);
         const sum = list.reduce((s, r) => s + r.gmv_valido, 0);
         list.forEach(r => present.add(r.da));
-        const slices = list.map(r => `<i style="width:${(100 * r.gmv_valido / sum).toFixed(2)}%;background:${colorDA(r.da)}" title="${esc(r.da)} · ${pct(100 * r.gmv_valido / sum)}"></i>`).join('');
+        const slices = list.map(r => `<i style="width:${(100 * r.gmv_valido / sum).toFixed(2)}%;background:${colorDA(r.da)}" title="${esc(dn(r.da))} · ${pct(100 * r.gmv_valido / sum)}"></i>`).join('');
         return `<div class="srow"><span class="sl">${esc(mesLabel(m.mes))}${S.partial && i === S.meses.length - 1 ? '*' : ''}</span><div class="stackbar">${slices}</div><span class="sv">${brlK(m.gmv_valido)}</span></div>`;
       }).join('');
-      const legend = [...present].map(da => `<span><i style="background:${colorDA(da)}"></i>${esc(da)}</span>`).join('');
+      const legend = [...present].map(da => `<span><i style="background:${colorDA(da)}"></i>${esc(dn(da))}</span>`).join('');
       return rows + `<div class="slegend">${legend}</div>`;
     }
     function insightsItems(){
@@ -3338,7 +3341,7 @@ textarea.f-input{ resize: vertical; }
       DA_SCOPE.forEach(d => {
         const t = S.daTotal[d.da]; if(t && t.gmv_valido > 0) return;
         const st = S.slaTotals[d.da];
-        out.push([d.da, st ? `Sem vendas: ${num(st.broadcasts_recebidos)} broadcasts recebidos, ${pct(st.pct_recusa)} recusados (${num(st.recusas_ruptura)} por ruptura).` : 'Sem hubs nem vendas nas consultas do período.']);
+        out.push([dn(d.da), st ? `Sem vendas: ${num(st.broadcasts_recebidos)} broadcasts recebidos, ${pct(st.pct_recusa)} recusados (${num(st.recusas_ruptura)} por ruptura).` : 'Sem hubs nem vendas nas consultas do período.']);
       });
       return out;
     }
@@ -3390,7 +3393,7 @@ textarea.f-input{ resize: vertical; }
         file: 'hubs', def: { k: 'gmv_valido', dir: -1 }, search: r => r.hub_nome + ' ' + r.cidade, click: true, ph: 'Buscar hub ou cidade…',
         cols: [
           { k: 'hub_nome', l: 'Hub', left: 1, name: 1, f: v => esc(v), raw: v => v },
-          { k: 'loc', l: 'Cidade/UF', left: 1, f: v => esc(v), raw: v => v }, { k: 'da', l: 'DA', left: 1, f: v => esc(v), raw: v => v },
+          { k: 'loc', l: 'Cidade/UF', left: 1, f: v => esc(v), raw: v => v }, { k: 'da', l: 'DA', left: 1, f: v => esc(dn(v)), raw: v => dn(v) },
           { k: 'gmv_valido', l: 'GMV válido', f: brl }, { k: 'pct_gmv', l: '% GMV', f: pct }, { k: 'ticket_medio', l: 'Ticket médio', f: brl },
           { k: 'transacoes', l: 'Transações', f: num }, { k: 'consumidores', l: 'Consumidores', f: num }, { k: 'mix_skus', l: 'Mix SKUs', f: num },
           { k: 'ultima_compra', l: 'Última compra', f: dateBR, raw: v => v }, { k: 'pct_cancelamento', l: 'Cancel.', f: pct },
@@ -3400,7 +3403,7 @@ textarea.f-input{ resize: vertical; }
       sla: () => ({
         file: 'eficiencia', def: { k: 'gmv_valido', dir: -1, k2: 'broadcasts_recebidos' }, search: r => r.nome, click: true, ph: 'Buscar hub…',
         cols: [
-          { k: 'nome', l: 'Hub', left: 1, name: 1, f: v => esc(v), raw: v => v }, { k: 'da', l: 'DA', left: 1, f: v => esc(v), raw: v => v },
+          { k: 'nome', l: 'Hub', left: 1, name: 1, f: v => esc(v), raw: v => v }, { k: 'da', l: 'DA', left: 1, f: v => esc(dn(v)), raw: v => dn(v) },
           { k: 'gmv_valido', l: 'GMV válido', f: brl }, { k: 'pedidos', l: 'Pedidos', f: num },
           { k: 'pct_aceite', l: 'Aceite', f: pct }, { k: 'pct_recusa', l: 'Recusa', f: pct }, { k: 'pct_ignorado', l: 'Ignorado', f: pct },
           { k: 'pct_cancelamento', l: 'Cancel.', f: pct }, { k: 'pct_no_prazo', l: 'No prazo', f: pct }, { k: 'despacho', l: 'Despacho', f: hrs, raw: v => v == null ? '' : v / 60 },
@@ -3455,7 +3458,7 @@ textarea.f-input{ resize: vertical; }
     // ----- hubs -----
     function viewHubs(){
       const list = S.hubs.filter(h => ui.da === 'all' || h.da === ui.da);
-      const items = list.slice(0, 8).map(h => ({ label: h.hub_nome, sub: `${h.cidade}, ${h.uf} · ${h.da}`, value: h.gmv_valido, share: h.pct_gmv, act: 'hub', key: norm(h.hub_nome) }));
+      const items = list.slice(0, 8).map(h => ({ label: h.hub_nome, sub: `${h.cidade}, ${h.uf} · ${dn(h.da)}`, value: h.gmv_valido, share: h.pct_gmv, act: 'hub', key: norm(h.hub_nome) }));
       return `<div class="stack">
         <section class="panel"><div class="ph"><h2>Principais hubs</h2><span class="hint">por GMV válido · clique para ver o detalhe</span></div>${items.length ? barRows(items) : '<div class="empty">Nenhum hub com vendas nesta DA no período.</div>'}</section>
         <section class="panel"><div class="ph"><h2>Todos os hubs com vendas</h2><span class="hint">${num(list.length)} hub(s)</span></div>${tableHtml('hub')}</section></div>`;
@@ -3464,7 +3467,7 @@ textarea.f-input{ resize: vertical; }
     // ----- eficiência por DA -----
     function viewEficiencia(){
       const da = ui.da, st = da === 'all' ? S.slaAll : S.slaTotals[da], tot = da === 'all' ? null : S.daTotal[da];
-      const title = da === 'all' ? 'Todas as DAs' : da, cfg = DA_SCOPE.find(d => d.da === da);
+      const title = da === 'all' ? 'Todas as DAs' : dn(da), cfg = DA_SCOPE.find(d => d.da === da);
       const gmv = da === 'all' ? S.total.gmv_valido : (tot ? tot.gmv_valido : 0);
       const head = `<div class="drill-h"><h2>${esc(title)}${cfg ? `<span class="tag">${cfg.uf}</span>` : ''}</h2>
         <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"><span class="chip flat">${brlK(gmv)} GMV válido</span>${tot ? `<span class="chip flat">${pct(tot.pct_gmv_no_periodo)} do total</span>` : ''}</div></div>`;
@@ -3510,7 +3513,7 @@ textarea.f-input{ resize: vertical; }
       if(s){
         html += `<div class="sect">Eficiência operacional</div>${dl([['Pedidos (todos os status)', num(s.pedidos)], ['Aceite / recusa / ignorado', pct(s.pct_aceite) + ' / ' + pct(s.pct_recusa) + ' / ' + pct(s.pct_ignorado)], ['Entregues no prazo', pct(s.pct_no_prazo)], ['Tempo médio até despacho', hrs(s.min_medio_ate_despacho)], ['Broadcasts recebidos', num(s.broadcasts_recebidos)], ['Reencaminhados', pct(s.pct_reencaminhados)]].concat(h ? [] : [['Recusas (ruptura / preço / fora do portfólio)', num(s.recusas_ruptura) + ' / ' + num(s.recusas_preco) + ' / ' + num(s.recusas_fora_portfolio)]]))}`;
       }
-      openRes('Hub · detalhes', h ? h.hub_nome : norm(s.hub), h ? h.cidade + ', ' + h.uf + ' · ' + h.da : s.da + ' · sem vendas no período', html, false);
+      openRes('Hub · detalhes', h ? h.hub_nome : norm(s.hub), h ? h.cidade + ', ' + h.uf + ' · ' + dn(h.da) : dn(s.da) + ' · sem vendas no período', html, false);
     }
 
     // ---------- montagem ----------
@@ -3523,7 +3526,7 @@ textarea.f-input{ resize: vertical; }
     }
     function footerHtml(){
       return `<footer><p><b>Fonte:</b> Hubii Data Lake (Redshift). ${S.live ? 'Dados lidos ao vivo.' : 'Dados do snapshot' + (S.generatedAt ? ' de ' + dateBR(S.generatedAt) : '') + '.'}</p>
-        <p><b>Regras:</b> GMV válido exclui pedidos cancelados; GMV bruto inclui todos os status. Ticket médio = GMV válido ÷ pedidos válidos. ${S.partial ? 'O mês em curso é parcial (*). ' : ''}A DA é definida pela UF do hub (SP → Trevilhub, RS → Makena, MG → BelLub); “Sem hub alocado” são pedidos ainda sem hub atribuído.</p></footer>`;
+        <p><b>Regras:</b> GMV válido exclui pedidos cancelados; GMV bruto inclui todos os status. Ticket médio = GMV válido ÷ pedidos válidos. ${S.partial ? 'O mês em curso é parcial (*). ' : ''}A DA é definida pela UF do hub (SP → TreviLub, RS → Makena, MG → BelLub); “Sem hub alocado” são pedidos ainda sem hub atribuído.</p></footer>`;
     }
     function renderRail(){ const el = document.getElementById('hxRail'); if(el) el.innerHTML = railHtml(); }
     function renderBar(){ const el = document.getElementById('hxBar'); if(el) el.innerHTML = barHtml(); }
@@ -3533,7 +3536,7 @@ textarea.f-input{ resize: vertical; }
       if(ui.view === 'geral') drawChart();
     }
     function renderAll(){
-      root.innerHTML = `<header class="rtop"><div class="brand"><div class="eyebrow">Hubii · Iconic × IPIRANGA</div><h1>Resultados <span class="b">IPIRANGA</span></h1></div>
+      root.innerHTML = `<header class="rtop"><div class="brand"><div class="eyebrow">Hubii · Iconic</div><h1>Resultados</h1></div>
         <div class="fresh" id="hxFresh">${freshHtml()}<button type="button" class="btn" data-act="reload">↻ Atualizar</button></div></header>
         <div id="hxRail"></div><div class="bar" id="hxBar"></div><div id="hxView"></div><div id="hxFoot">${footerHtml()}</div>`;
       renderRail(); renderBar(); renderView();
