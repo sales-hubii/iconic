@@ -3196,6 +3196,8 @@ textarea.f-input{ resize: vertical; }
     }
 
     let S = null;
+    // primeiro mês presente nos dados (o corte de período vive no SQL das perguntas do Metabase)
+    const sinceLbl = () => (S && S.meses && S.meses.length) ? mesLabel(S.meses[0].mes) : 'jul/26';
     const ui = { view: 'geral', da: 'all', detail: false, win: '4', scope: 'ativa', q: {}, sort: {} };
 
     function prep(d, live){
@@ -3508,10 +3510,12 @@ textarea.f-input{ resize: vertical; }
       const refT = new Date(String(o.ref || refIso).slice(0, 10) + 'T23:59:59').getTime();
       const last = weeks[weeks.length - 1];
       const partialW = last && new Date(last + 'T00:00:00').getTime() + 7 * 864e5 > refT ? last : null;
-      const complete = weeks.filter(w => w !== partialW);
+      // semana "inteira" = não é a semana em curso e começa dentro do período dos dados (o corte pode cair no meio de uma semana)
+      const cutIso = S && S.meses && S.meses.length ? S.meses[0].mes + '-01' : '0000-00-00';
+      const complete = weeks.filter(w => w !== partialW && w >= cutIso);
       return {
         sem, rp, weeks, partialW, live: !!o.live, fonte: o.fonte || '', ref: String(o.ref || refIso).slice(0, 10),
-        win: weeks.slice(-4), cur4: complete.slice(-4), prev4: complete.slice(-8, -4),
+        win: weeks.slice(-4), cur4: complete.slice(-4), prev4: complete.length >= 8 ? complete.slice(-8, -4) : [], // sem 4 semanas inteiras de base, não há comparação
         hasBc: sem.some(r => r.broadcasts_recebidos != null),
       };
     }
@@ -3697,7 +3701,7 @@ textarea.f-input{ resize: vertical; }
       const itensTot = sumBy(list, 'itens');
       const d4 = sumBy(list, 'ped4'), p4 = sumBy(list, 'pedPrev4');
       const head = `<div class="drill-h"><h2>${esc(title)}${cfg ? `<span class="tag">${cfg.uf}</span>` : ''}</h2>
-        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"><span class="chip flat">${brlK(da === 'all' ? S.total.gmv_valido : (tot ? tot.gmv_valido : 0))} GMV válido</span>${scopeSeg}${O ? `<div class="seg" role="group" aria-label="Janela"><button type="button" data-act="win" data-v="4" aria-pressed="${ui.win !== 'all'}">Últimas 4 semanas</button><button type="button" data-act="win" data-v="all" aria-pressed="${ui.win === 'all'}">Desde jul/26</button></div>` : ''}</div></div>`;
+        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"><span class="chip flat">${brlK(da === 'all' ? S.total.gmv_valido : (tot ? tot.gmv_valido : 0))} GMV válido</span>${scopeSeg}${O ? `<div class="seg" role="group" aria-label="Janela"><button type="button" data-act="win" data-v="4" aria-pressed="${ui.win !== 'all'}">Últimas 4 semanas</button><button type="button" data-act="win" data-v="all" aria-pressed="${ui.win === 'all'}">Desde ${sinceLbl()}</button></div>` : ''}</div></div>`;
       const kp = st || O ? `<div class="grid g-kpi">
         ${k('Aceite', pct(ref.aceite), `<span>${S.ops && S.ops.hasBc ? winLbl : '% dos broadcasts, período todo'}</span>`)}
         ${k('Resposta', pct(ref.resposta), '<span>broadcasts respondidos (aceite ou recusa)</span>')}
@@ -3723,7 +3727,7 @@ textarea.f-input{ resize: vertical; }
       const recHtml = recHubs.length ? `<ol class="mv att">${recHubs.map(h => `<li><span><button type="button" class="linkbtn" data-act="hub" data-key="${esc(h.key)}">${esc(h.nome)}</button><em style="display:block;font-style:normal;font-size:11.5px;color:var(--muted)">principal motivo: ${esc(domMot(h) || '—')}</em></span><span class="chip warn">${num(h.itens)} itens</span></li>`).join('')}</ol>` : '<div class="empty">Nenhuma recusa de item na janela.</div>';
       const refLbl = `referência ${da === 'all' ? 'da rede' : 'da DA'}: aceite ${pct(ref.aceite)} · resposta ${pct(ref.resposta)}`;
       const actSec = `<section class="panel"><div class="ph"><h2>Onde agir primeiro</h2><span class="hint">hubs com aceite abaixo da referência, por Opportunity Score · clique para o detalhe</span></div>${actHtml}
-          <p class="note">Score 0–100: 30% gap de aceite vs referência, 30% GMV potencial perdido ((recusados + ignorados) × ticket médio), 20% volume de broadcasts, 10% peso das recusas operacionais (ruptura e quantidade), 10% recorrência${S.ops && S.ops.hasBc ? '' : ' (entra quando a série semanal de broadcasts estiver ativa; até lá o score é normalizado nos outros 90%)'}. ${esc(refLbl)}. ${ui.scope === 'todos' ? 'Incluindo todos os hubs da UF que receberam broadcast IPIRANGA, mesmo sem nenhuma venda da marca.' : 'Rede ativa: hubs com ao menos uma venda IPIRANGA válida desde jul/26.'}</p></section>
+          <p class="note">Score 0–100: 30% gap de aceite vs referência, 30% GMV potencial perdido ((recusados + ignorados) × ticket médio), 20% volume de broadcasts, 10% peso das recusas operacionais (ruptura e quantidade), 10% recorrência${S.ops && S.ops.hasBc ? '' : ' (entra quando a série semanal de broadcasts estiver ativa; até lá o score é normalizado nos outros 90%)'}. ${esc(refLbl)}. ${ui.scope === 'todos' ? 'Incluindo todos os hubs da UF que receberam broadcast IPIRANGA, mesmo sem nenhuma venda da marca.' : 'Rede ativa: hubs com ao menos uma venda IPIRANGA válida desde ' + sinceLbl() + '.'}</p></section>
         <div class="grid g-3 top">
           <section class="panel"><div class="ph"><h2>Aceite baixo</h2><span class="hint">≥ 10 broadcasts</span></div>${att(lowAcc, h => pct(h.aceite), 'Nenhum hub abaixo da referência.')}</section>
           <section class="panel"><div class="ph"><h2>Resposta baixa</h2><span class="hint">broadcasts ignorados</span></div>${att(lowResp, h => pct(h.resposta), 'Nenhum hub abaixo da referência.')}</section>
@@ -3754,7 +3758,7 @@ textarea.f-input{ resize: vertical; }
         const prods = Object.values(agg).sort((a, b) => b.total - a.total).slice(0, 8);
         const maxP = Math.max(...prods.map(p => p.total), 1);
         const fora = O.rp.filter(r => r.da === 'Fora do escopo').reduce((s, r) => s + (r.itens_recusados || 0), 0);
-        prodSec = `<section class="panel"><div class="ph"><h2>Produtos mais recusados</h2><span class="hint">itens recusados desde jul/26, por motivo · clique para ver por hub</span></div>
+        prodSec = `<section class="panel"><div class="ph"><h2>Produtos mais recusados</h2><span class="hint">itens recusados desde ${sinceLbl()}, por motivo · clique para ver por hub</span></div>
           ${prods.length ? `<div class="bars">${prods.map((p, i) => `<button type="button" class="bar-row" data-act="prod" data-key="${esc(p.produto)}"><span class="bl"><small>${i + 1}</small>${esc(p.produto)}<em>${p.hubs.size} hub(s)</em></span>${stackRow(p, p.total).replace('class="bt ops-st"', `class="bt ops-st" style="width:${(100 * p.total / maxP).toFixed(1)}%"`)}<span class="bv">${num(p.total)}</span><span class="bd"><span class="chip flat">${pct(100 * p.total / prods.reduce((s, x) => s + x.total, 0))}</span></span></button>`).join('')}</div>${legendHtml(MOTIVOS.slice(0, 4))}` : '<div class="empty">Nenhum produto recusado nesta DA.</div>'}
           ${fora && ui.da === 'all' ? `<p class="note">Fora do escopo do projeto (hubs de outros varejistas, sem nome exibido): ${num(fora)} itens IPIRANGA recusados no mesmo período.</p>` : ''}</section>`;
       }
@@ -3772,7 +3776,7 @@ textarea.f-input{ resize: vertical; }
       const by = {};
       rows.forEach(r => { const a = by[r.hub_nome] || (by[r.hub_nome] = Object.assign({ hub: r.hub_nome, da: r.da, total: 0 }, Object.fromEntries(MOTIVOS.map(m => [m.k, 0])))); const mk = (MOTIVOS.find(m => m.m === r.motivo) || MOTIVOS[4]).k; a[mk] += r.itens_recusados || 0; a.total += r.itens_recusados || 0; });
       const list = Object.values(by).sort((a, b) => b.total - a.total);
-      openRes('Supply Ops · produto recusado', name, 'Itens recusados desde jul/26, por hub e motivo', `
+      openRes('Supply Ops · produto recusado', name, 'Itens recusados desde ' + sinceLbl() + ', por hub e motivo', `
         <div class="tbl-wrap"><table><thead><tr><th class="l">Hub</th><th class="l">DA</th>${MOTIVOS.slice(0, 4).map(m => `<th>${m.l}</th>`).join('')}<th>Total</th></tr></thead>
         <tbody>${list.map(h => `<tr class="click" data-act="hub" data-key="${esc(norm(h.hub))}"><td class="l name">${esc(h.hub)}</td><td class="l">${esc(dn(h.da))}</td>${MOTIVOS.slice(0, 4).map(m => `<td>${num(h[m.k])}</td>`).join('')}<td><b>${num(h.total)}</b></td></tr>`).join('')}</tbody></table></div>`, true);
     }
@@ -3818,11 +3822,11 @@ textarea.f-input{ resize: vertical; }
             ['Aceite / resposta', pct(o.aceite) + ' / ' + pct(o.resposta) + (o.bc ? ` (${o.bc.src}, ${num(o.bc.rec)} broadcasts)` : '')],
             ['GMV potencial perdido', o.perda == null ? '—' : brl(o.perda) + ' (recusados + ignorados × ticket)'],
             ['Pedidos válidos, 4 semanas', num(o.ped4) + (o.pedPrev4 ? ' (antes: ' + num(o.pedPrev4) + ')' : '')],
-            ['Itens recusados (' + (ui.win === 'all' ? 'desde jul/26' : '4 semanas') + ')', num(o.itens) + (o.itens ? ' · ' + MOTIVOS.filter(m => o.itensMot[m.k]).map(m => m.l.toLowerCase() + ' ' + num(o.itensMot[m.k])).join(', ') : '')],
+            ['Itens recusados (' + (ui.win === 'all' ? 'desde ' + sinceLbl() : '4 semanas') + ')', num(o.itens) + (o.itens ? ' · ' + MOTIVOS.filter(m => o.itensMot[m.k]).map(m => m.l.toLowerCase() + ' ' + num(o.itensMot[m.k])).join(', ') : '')],
           ])}
           <div class="grid g-2e" style="margin-top:12px"><div><div class="sect" style="margin-top:0">Pedidos por semana</div>${weekBars('mPed', O.weeks, [{ k: 'pedidos_validos', l: 'Pedidos válidos', c: 'var(--accent)' }], byW, { h: 150, labelLast: true })}</div>
           <div><div class="sect" style="margin-top:0">Itens recusados por semana</div>${weekBars('mRec', O.weeks, MOTIVOS.map(m => ({ k: m.k, l: m.l, c: m.c })), byW, { h: 150, emptyMsg: 'Sem recusas de itens.' })}</div></div>
-          ${top.length ? `<div class="sect">Produtos mais recusados (desde jul/26)</div>${dl(top.map(p => [esc(p.n), num(p.t) + ' · ' + Object.entries(p.m).sort((a, b) => b[1] - a[1]).map(([m, v]) => motL(m) + ' ' + v).join(', ')]))}` : ''}` + html;
+          ${top.length ? `<div class="sect">Produtos mais recusados (desde ${sinceLbl()})</div>${dl(top.map(p => [esc(p.n), num(p.t) + ' · ' + Object.entries(p.m).sort((a, b) => b[1] - a[1]).map(([m, v]) => motL(m) + ' ' + v).join(', ')]))}` : ''}` + html;
       }
       const name = h ? h.hub_nome : s ? norm(s.hub) : o.nome;
       const sub = h ? h.cidade + ', ' + h.uf + ' · ' + dn(h.da) : dn((s || o).da) + (s ? ' · sem vendas no período' : '');
