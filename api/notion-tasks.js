@@ -1,6 +1,7 @@
 // Vercel Serverless Function: /api/notion-tasks
 // Lista as tarefas da database Tasks List do Notion. Token só em NOTION_TOKEN.
 
+const ACTIVE_STATUS = ["To-Do", "Waiting", "On Going"];
 const NOTION_VERSION = "2022-06-28";
 const DB_ID = process.env.NOTION_TASKS_DB_ID || "3b9ef5854ef380ec84e0d4cc4c8fe98a";
 const MAX_TASKS = 1000;
