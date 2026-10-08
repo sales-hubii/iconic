@@ -358,115 +358,213 @@ textarea.f-input{ resize: vertical; }
 }
 .toast.show{ opacity:1; transform: translateX(-50%) translateY(0); }
 
-/* RESULTADOS: IPIRANGA */
-.grid-4{
-  display:grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-  margin-bottom: 8px;
+/* RESULTADOS: padrão visual "Painel Executivo de Vendas" Hubii (escopado em .hx; não afeta as outras abas) */
+.hx{
+  --bg:#ffffff; --surface:#ffffff; --surface-2:#f5f5f5; --ink:#2d254d; --ink-2:#343434; --muted:#8a8a8a;
+  --line:#f1f1f2; --line-2:#e0e0e0; --accent:#6348e5; --accent-2:#746bff; --accent-ink:#ffffff; --accent-soft:#ebebff;
+  --glow:rgba(99,72,229,.06); --glow-30:rgba(99,72,229,.30);
+  --prev:#c4c0d6; --good:#1f9c3f; --good-soft:#e1ffe7; --bad:#f45656; --bad-soft:#fdecec; --warn:#b77900; --warn-soft:#fff4dc;
+  --s2:#746bff; --s3:#f45656; --s4:#f5a524; --s5:#9a9a9a;
+  --r-card:16px; --r-md:12px; --r-pill:50px;
+  --f:"Onest",system-ui,-apple-system,"Segoe UI",sans-serif;
+  background:var(--bg); color:var(--ink-2); font:14px/1.5 var(--f); font-variant-numeric:tabular-nums;
+  -webkit-font-smoothing:antialiased; border-radius:20px; padding:22px 24px 26px; max-width:1320px; margin:0 auto; box-sizing:border-box;
 }
-@media (max-width: 1200px){ .grid-4{ grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 640px){ .grid-4{ grid-template-columns: 1fr; } }
+.hx *, .hx *::before, .hx *::after{ box-sizing:border-box; }
+.hx button, .hx select, .hx input{ font:inherit; color:inherit; }
+.hx :focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
+.hx ol, .hx ul{ list-style:none; margin:0; padding:0; }
+.hx h1, .hx h2, .hx h3{ margin:0; }
+@media (max-width:760px){ .hx{ padding:16px 14px 20px; border-radius:16px; } }
 
-.metric-card{
-  background: var(--card);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 18px;
-  text-align: center;
-}
-.metric-card.clickable{ cursor:pointer; transition: all .15s ease; }
-.metric-card.clickable:hover{ border-color: var(--purple); box-shadow: 0 8px 20px rgba(99,72,229,0.12); transform: translateY(-2px); }
-.metric-label{
-  font-family:'IBM Plex Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-  font-weight: 600;
-  margin-bottom: 8px;
-}
-.metric-value{ font-size: 26px; font-weight: 800; color: var(--purple); margin-bottom: 6px; }
-.metric-value.warn{ color: var(--amber); }
-.metric-sub{ font-size: 12px; color: var(--ink-soft); line-height: 1.3; }
+/* header */
+.hx .rtop{ display:grid; grid-template-columns:1fr auto; align-items:center; gap:12px 20px; padding-block:2px 14px; }
+.hx .brand{ display:flex; flex-direction:column; gap:6px; min-width:0; }
+.hx .eyebrow{ font:500 11.5px/1 var(--f); letter-spacing:1.5px; text-transform:uppercase; color:var(--muted); margin:0; display:block; gap:0; }
+.hx h1{ font:700 clamp(24px,3vw,32px)/1.1 var(--f); letter-spacing:-.02em; color:var(--ink); text-wrap:balance; }
+.hx h1 .b{ color:var(--accent); }
+.hx .fresh{ display:flex; align-items:center; gap:10px; color:var(--muted); font-size:12px; white-space:nowrap; justify-self:end; }
+.hx .dot{ width:8px; height:8px; border-radius:50%; background:var(--muted); display:inline-block; }
+.hx .dot.live{ background:var(--good); box-shadow:0 0 0 3px var(--good-soft); }
+.hx .btn{ border:1px solid var(--line-2); background:var(--surface); padding:7px 14px; border-radius:var(--r-pill); font-weight:600; font-size:13px; cursor:pointer; display:inline-flex; gap:6px; align-items:center; white-space:nowrap; }
+.hx .btn:hover{ border-color:var(--accent); }
+.hx .btn.primary{ background:var(--accent); color:var(--accent-ink); border-color:var(--accent); }
+@media (max-width:760px){ .hx .rtop{ grid-template-columns:minmax(0,1fr); } .hx .fresh{ justify-self:start; white-space:normal; flex-wrap:wrap; } }
 
-.res-src{
-  font-family:'IBM Plex Mono', monospace;
-  font-size: 11px;
-  color: var(--ink-soft);
-  display:flex; align-items:center; gap:8px;
-  margin: -4px 0 18px;
-}
-.res-dot{ width:7px; height:7px; border-radius:50%; background: var(--potencial); display:inline-block; }
-.res-dot.live{ background: var(--foco); box-shadow: 0 0 0 3px var(--foco-bg); }
+/* rail de DAs */
+.hx .rail-wrap{ margin-bottom:10px; }
+.hx .rail-h{ display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:6px 16px; margin-bottom:8px; }
+.hx .rail-h .hint{ font-size:12px; color:var(--muted); }
+.hx .rail{ display:flex; gap:10px; overflow-x:auto; padding-block:2px 10px; scroll-snap-type:x proximity; scrollbar-width:thin; }
+.hx .rc{ flex:0 0 auto; width:200px; scroll-snap-align:start; display:grid; grid-template-columns:auto minmax(0,1fr); gap:4px 10px; align-items:center; text-align:left;
+  padding:12px 14px; border-radius:var(--r-md); border:1px solid var(--line-2); background:var(--surface); cursor:pointer; }
+.hx .rc:hover{ transform:translateY(-1px); }
+@media (prefers-reduced-motion:reduce){ .hx .rc:hover{ transform:none; } }
+.hx .rc[aria-pressed=true]{ border-color:var(--accent); box-shadow:0 0 0 1px var(--accent) inset, 0 6px 18px var(--glow-30); }
+.hx .rc.static{ cursor:default; }
+.hx .rc.static:hover{ transform:none; }
+.hx .rc .mg{ grid-row:span 2; width:36px; height:36px; border-radius:10px; display:grid; place-items:center; font:700 13px/1 var(--f); letter-spacing:.02em; background:var(--accent-soft); color:var(--accent); }
+.hx .rc.all .mg{ background:var(--accent); color:#fff; font-size:11px; }
+.hx .rc.warn .mg{ background:var(--warn-soft); color:var(--warn); }
+.hx .rc .nm{ font-weight:600; font-size:13px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.hx .rc .vl{ display:flex; flex-wrap:wrap; gap:2px 6px; align-items:center; font-size:12px; color:var(--ink-2); white-space:nowrap; }
+.hx .rc .vl .chip{ font-size:10.5px; padding:0 5px; }
+.hx .rc .sh{ grid-column:1/-1; height:3px; border-radius:2px; background:var(--surface-2); overflow:hidden; margin-top:4px; }
+.hx .rc .sh i{ display:block; height:100%; background:var(--accent); }
+.hx .rc.warn .sh i{ background:var(--s4); }
+@media (max-width:760px){ .hx .rc{ width:176px; } }
 
-.res-row{ display:grid; grid-template-columns: 90px 1fr 130px; gap: 14px; align-items:center; padding: 8px 0; font-size: 13px; }
-.res-row + .res-row{ border-top: 1px solid var(--line); }
-.res-row-lbl{ font-family:'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink-soft); }
-.res-bar{ height: 10px; background: var(--paper); border-radius: 999px; overflow:hidden; }
-.res-bar > i{ display:block; height:100%; background: var(--purple); border-radius: 999px; }
-.res-row-val{ text-align:right; font-weight:700; }
-.res-prod{ display:grid; grid-template-columns: 1fr 120px; gap: 6px 14px; padding: 10px 0; }
-.res-prod + .res-prod{ border-top: 1px solid var(--line); }
-.res-prod-name{ font-size: 13px; font-weight:600; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-.res-prod-val{ text-align:right; font-weight:700; font-size:13px; }
-.res-prod .res-bar{ grid-column: 1 / -1; height: 6px; }
-.res-prod-meta{ grid-column: 1 / -1; font-family:'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); }
+/* barra de abas (estática dentro da aba) */
+.hx .bar{ display:grid; grid-template-columns:auto 1fr; align-items:end; column-gap:16px; border-bottom:1px solid var(--line); margin:4px 0 18px; padding-top:4px; background:var(--bg); }
+.hx nav.stabs{ display:flex; gap:4px; overflow-x:auto; scrollbar-width:none; }
+.hx nav.stabs a{ padding:12px 14px 11px; font-size:14.5px; text-decoration:none; color:var(--ink-2); font-weight:500; border-bottom:2px solid transparent; margin-bottom:-1px; white-space:nowrap; cursor:pointer; }
+.hx nav.stabs a[aria-current=page]{ color:var(--accent); border-color:var(--accent); font-weight:600; }
+.hx nav.stabs a:hover{ color:var(--ink); }
+.hx .period-line{ grid-column:1/-1; font-size:12px; color:var(--muted); padding:8px 0 10px; }
+.hx .active{ grid-column:1/-1; display:flex; flex-wrap:wrap; gap:6px; align-items:center; padding-bottom:8px; margin-top:0; }
+.hx .active:empty{ display:none; }
+.hx .active .lbl{ font:500 10.5px/1 var(--f); letter-spacing:.07em; text-transform:uppercase; color:var(--muted); margin-right:2px; }
+.hx .fchip{ display:inline-flex; gap:6px; align-items:center; border:1px solid var(--line-2); background:var(--surface); border-radius:999px; padding:3px 6px 3px 10px; font-size:12.5px; cursor:pointer; }
+.hx .fchip b{ font-weight:600; }
+.hx .fchip span.x{ display:grid; place-items:center; width:18px; height:18px; border-radius:50%; background:var(--surface-2); color:var(--ink-2); font-size:11px; }
+.hx .fchip:hover span.x{ background:var(--bad-soft); color:var(--bad); }
+.hx .linkbtn{ border:0; background:none; color:var(--accent); cursor:pointer; font-size:12.5px; padding:3px 4px; }
+@media (max-width:980px){ .hx .bar{ grid-template-columns:minmax(0,1fr); } }
 
-.res-btn{
-  font-family:'IBM Plex Mono', monospace; font-size: 12px; font-weight:700;
-  color: var(--purple); background: var(--hubii-bg); border: none;
-  padding: 8px 14px; border-radius: 999px; cursor:pointer; margin-top: 12px;
-}
-.res-btn:hover{ background: var(--purple); color:#fff; }
+/* layout */
+.hx .grid{ display:grid; gap:16px; grid-template-columns:minmax(0,1fr); }
+.hx .g-kpi{ grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); }
+.hx .g-2{ grid-template-columns:minmax(0,1.6fr) minmax(0,1fr); }
+.hx .g-2e{ grid-template-columns:repeat(2,minmax(0,1fr)); }
+.hx .g-3{ grid-template-columns:repeat(3,minmax(0,1fr)); }
+.hx .grid.top{ align-items:start; }
+@media (max-width:980px){ .hx .g-2, .hx .g-2e, .hx .g-3{ grid-template-columns:minmax(0,1fr); } }
+.hx .stack{ display:flex; flex-direction:column; gap:16px; min-width:0; }
+.hx .panel{ background:var(--surface); border:1px solid var(--line); border-radius:var(--r-card); padding:20px 22px; min-width:0; }
+.hx .ph{ display:flex; flex-wrap:wrap; justify-content:space-between; align-items:baseline; gap:6px 12px; margin-bottom:12px; }
+.hx .ph h2{ font:600 16px/1.25 var(--f); color:var(--ink); letter-spacing:-.01em; }
+.hx .ph .hint{ font-size:12px; color:var(--muted); }
+.hx .sect{ font:500 11px/1 var(--f); letter-spacing:.07em; text-transform:uppercase; color:var(--muted); margin:18px 0 8px; }
 
-.hub-cards{ display:grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
-.hub-card{ background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; cursor:pointer; transition: all .15s ease; }
-.hub-card:hover{ border-color: var(--purple); box-shadow: 0 8px 20px rgba(99,72,229,0.12); transform: translateY(-2px); }
-.hub-card-header{ display:flex; justify-content:space-between; align-items:flex-start; gap:10px; margin-bottom: 8px; }
-.hub-card-name{ font-weight:700; font-size:15px; color: var(--ink); flex:1; }
-.hub-card-da{
-  font-family:'IBM Plex Mono', monospace; font-size: 10px; font-weight:600; text-transform: uppercase;
-  color: var(--purple); background: var(--hubii-bg); padding: 4px 10px; border-radius: 999px; white-space: nowrap;
-}
-.hub-card-city{ font-size: 12px; color: var(--ink-soft); margin-bottom: 10px; }
-.hub-card-stat{ display:flex; justify-content:space-between; padding: 7px 0; border-bottom: 1px solid var(--line); font-size: 13px; }
-.hub-card-stat:last-child{ border-bottom:none; }
-.hub-card-stat-val{ font-weight:700; color: var(--ink); }
+/* KPI */
+.hx .kpi{ display:flex; flex-direction:column; gap:8px; padding:18px 20px; position:relative; overflow:hidden; background:radial-gradient(360px circle at 15% 0%,var(--glow),transparent 60%),var(--surface); border:1px solid var(--line); border-radius:var(--r-card); min-width:0; }
+.hx .kpi.click{ cursor:pointer; }
+.hx .kpi.click:hover{ border-color:var(--line-2); }
+.hx .kpi .k{ font:500 11.5px/1.2 var(--f); letter-spacing:1.2px; text-transform:uppercase; color:var(--muted); display:flex; justify-content:space-between; gap:6px; }
+.hx .kpi .v{ font:700 clamp(24px,2.4vw,30px)/1.05 var(--f); letter-spacing:-.02em; color:var(--ink); }
+.hx .kpi.hero .v{ color:var(--accent); }
+.hx .kpi .sub{ display:flex; align-items:center; gap:8px; font-size:12px; color:var(--muted); flex-wrap:wrap; }
+.hx .kpi svg{ width:100%; height:30px; display:block; }
+.hx .chip{ display:inline-flex; align-items:center; gap:3px; border-radius:var(--r-pill); padding:1px 9px; font:600 11.5px/1.6 var(--f); letter-spacing:.3px; white-space:nowrap; }
+.hx .chip.up{ background:var(--good-soft); color:var(--good); }
+.hx .chip.down{ background:var(--bad-soft); color:var(--bad); }
+.hx .chip.flat{ background:var(--surface-2); color:var(--muted); border:1px solid var(--line); }
+.hx .chip.warn{ background:var(--warn-soft); color:var(--warn); }
+@media (max-width:760px){ .hx .g-kpi{ grid-template-columns:repeat(2,minmax(0,1fr)); } .hx .kpi .v{ font-size:21px; } .hx .kpi{ padding:14px 14px; } }
 
-.da-section{ background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); margin-bottom: 14px; overflow:hidden; }
-.da-header{ display:flex; justify-content:space-between; align-items:center; gap: 16px; padding: 16px 20px; cursor:pointer; }
-.da-header:hover{ background: var(--hubii-bg); }
-.da-name{ font-weight:700; font-size:16px; color: var(--ink); }
-.da-meta{ font-size:12px; color: var(--ink-soft); margin-top:2px; font-family:'IBM Plex Mono', monospace; }
-.da-gmv{ font-weight:700; font-size:18px; color: var(--purple); text-align:right; }
-.da-gmv small{ display:block; font-size:11px; font-weight:500; color: var(--ink-soft); }
-.da-toggle{ width:24px; height:24px; border:none; background: var(--line); border-radius:6px; display:flex; align-items:center; justify-content:center; color: var(--ink); font-weight:700; flex:none; pointer-events:none; }
-.da-body{ display:none; padding: 0 20px 20px; border-top: 1px solid var(--line); }
-.da-section.open .da-body{ display:block; }
-.kpi-grid{ display:grid; grid-template-columns: repeat(auto-fit, minmax(135px, 1fr)); gap: 10px; margin: 16px 0; }
-.kpi{ background: var(--paper); border-radius: var(--radius-sm); padding: 10px 12px; }
-.kpi b{ display:block; font-size: 18px; margin-top: 2px; }
-.kpi span{ font-family:'IBM Plex Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: .05em; color: var(--ink-soft); }
-.res-scroll{ overflow-x:auto; }
-.da-table{ width:100%; font-size: 13px; border-collapse: collapse; }
-.da-table th{
-  text-align:left; padding: 8px 12px 8px 0; border-bottom: 1px solid var(--line); font-weight:700; color: var(--ink);
-  font-family:'IBM Plex Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: .05em; white-space:nowrap;
+/* controles segmentados */
+.hx .seg{ display:inline-flex; gap:2px; padding:3px; border-radius:var(--r-pill); background:var(--surface-2); }
+.hx .seg button{ border:0; background:none; padding:6px 14px; border-radius:var(--r-pill); cursor:pointer; color:#666; font-weight:600; font-size:13px; }
+.hx .seg button:hover{ color:var(--accent); }
+.hx .seg button[aria-pressed=true]{ background:var(--accent); color:var(--accent-ink); box-shadow:0 4px 14px var(--glow-30); }
+
+/* gráficos */
+.hx .chart{ position:relative; width:100%; min-height:240px; }
+.hx .chart svg{ display:block; width:100%; overflow:visible; }
+.hx .legend{ display:flex; gap:14px; flex-wrap:wrap; font-size:12px; color:var(--ink-2); margin-top:8px; }
+.hx .legend span{ display:inline-flex; align-items:center; gap:6px; }
+.hx .sw{ width:14px; height:3px; border-radius:2px; background:var(--accent); display:inline-block; }
+.hx .sw.prev{ background:repeating-linear-gradient(90deg,var(--prev) 0 4px,transparent 4px 7px); }
+.hx .axis text{ fill:var(--muted); font:11px var(--f); }
+.hx .grid-l line{ stroke:var(--line); stroke-width:1; }
+#tip{ position:fixed; pointer-events:none; z-index:200; background:#2d254d; color:#fff; padding:8px 10px; border-radius:8px; font:12px/1.45 "Onest",system-ui,sans-serif; box-shadow:0 6px 20px rgba(0,0,0,.18); max-width:280px; display:none; }
+#tip b{ font-weight:600; }
+#tip .r{ display:flex; justify-content:space-between; gap:14px; }
+
+/* barras empilhadas */
+.hx .stackbar{ display:flex; height:22px; border-radius:6px; overflow:hidden; gap:2px; background:var(--surface); }
+.hx .stackbar i{ display:block; height:100%; }
+.hx .slegend{ display:flex; flex-wrap:wrap; gap:8px 18px; margin-top:12px; font-size:12.5px; }
+.hx .slegend span{ display:inline-flex; gap:6px; align-items:center; }
+.hx .slegend i{ width:10px; height:10px; border-radius:3px; display:inline-block; }
+.hx .srow{ display:grid; grid-template-columns:62px minmax(0,1fr) 84px; gap:10px; align-items:center; padding:5px 0; font-size:12.5px; }
+.hx .srow .sl{ color:var(--muted); }
+.hx .srow .sv{ text-align:right; font-weight:700; color:var(--ink); font-size:13px; }
+
+/* lista de barras / ranking */
+.hx .bars{ display:flex; flex-direction:column; gap:2px; }
+.hx .bar-row{ display:grid; grid-template-columns:minmax(90px,1.1fr) minmax(60px,2fr) auto auto; gap:10px; align-items:center; padding:6px 6px; border-radius:8px; border:0; background:none; text-align:left; width:100%; }
+.hx button.bar-row{ cursor:pointer; }
+.hx button.bar-row:hover{ background:var(--surface-2); }
+.hx .bar-row .bl{ white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-size:13px; }
+.hx .bar-row .bl small{ display:inline-grid; place-items:center; width:22px; height:22px; border-radius:50%; background:var(--accent-soft); color:var(--accent); font:600 11px/1 var(--f); margin-right:8px; vertical-align:1px; }
+.hx .bar-row:first-child .bl small{ background:var(--accent); color:#fff; }
+.hx .bar-row .bl em{ display:block; font-style:normal; font-size:11.5px; color:var(--muted); overflow:hidden; text-overflow:ellipsis; }
+.hx .bar-row .bt{ height:6px; background:var(--surface-2); border-radius:var(--r-pill); overflow:hidden; }
+.hx .bar-row .bt i{ display:block; height:100%; background:var(--accent); border-radius:var(--r-pill); }
+.hx .bar-row .bv{ font-size:13.5px; font-weight:700; color:var(--ink); text-align:right; min-width:72px; }
+.hx .bar-row .bd{ min-width:62px; text-align:right; }
+@media (max-width:520px){ .hx .bar-row{ grid-template-columns:minmax(0,1fr) auto; } .hx .bar-row .bt{ grid-column:1/-1; grid-row:2; } .hx .bar-row .bd{ display:none; } }
+
+/* medidor e lista de fatos */
+.hx .meter{ height:8px; border-radius:var(--r-pill); background:var(--surface-2); border:1px solid var(--line); position:relative; overflow:hidden; margin-top:6px; }
+.hx .meter i{ position:absolute; inset:0 auto 0 0; background:var(--accent); border-radius:6px; }
+.hx .mrow{ margin-top:14px; font-size:13px; }
+.hx .mrow .mh{ display:flex; justify-content:space-between; gap:10px; }
+.hx .mrow .mh b{ color:var(--ink); font-weight:700; }
+.hx .pace-list{ display:grid; grid-template-columns:auto 1fr; gap:6px 14px; margin:0; font-size:13px; }
+.hx .pace-list dt{ color:var(--muted); }
+.hx .pace-list dd{ margin:0; text-align:right; font-weight:500; white-space:nowrap; }
+
+/* tabelas */
+.hx .tbl-wrap{ overflow-x:auto; border:1px solid var(--line); border-radius:var(--r-card); }
+.hx table{ border-collapse:collapse; width:100%; font-size:13px; }
+.hx th, .hx td{ padding:9px 10px; text-align:right; white-space:nowrap; border-bottom:1px solid var(--line); font-size:13px; }
+.hx th:first-child, .hx td:first-child, .hx th.l, .hx td.l{ text-align:left; }
+.hx thead th{ font:500 11px/1.2 var(--f); letter-spacing:1.2px; text-transform:uppercase; color:#666; background:var(--surface); border-bottom:1px solid var(--line-2); position:sticky; top:0; cursor:pointer; user-select:none; }
+.hx thead th.sorted{ color:var(--ink); }
+.hx tbody tr:last-child td{ border-bottom:0; }
+.hx tbody tr.click{ cursor:pointer; }
+.hx tbody tr.click:hover td{ background:rgba(99,72,229,.03); }
+.hx td.name{ max-width:320px; overflow:hidden; text-overflow:ellipsis; }
+.hx .tbar{ display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-bottom:10px; }
+.hx .tbar input[type=search]{ flex:1 1 220px; background:var(--surface); border:1px solid var(--line-2); border-radius:8px; padding:7px 10px; max-width:100%; }
+.hx .tbar .grow{ flex:1 1 auto; }
+.hx .tag{ display:inline-block; font:500 10px/16px var(--f); letter-spacing:.04em; padding:0 6px; border-radius:5px; vertical-align:1px; margin-left:6px; text-transform:uppercase; background:var(--accent-soft); color:var(--accent); }
+.hx .det{ display:none; }
+.hx .show-det .det{ display:table-cell; }
+
+/* insights */
+.hx .conc{ display:flex; gap:18px; flex-wrap:wrap; margin-top:4px; padding-bottom:12px; font-size:12px; color:var(--muted); }
+.hx .conc div{ min-width:120px; }
+.hx .conc b{ display:block; font:700 20px/1.1 var(--f); color:var(--ink); }
+.hx .mv li{ display:flex; gap:10px; align-items:flex-start; font-size:13px; padding:8px 0; border-top:1px solid var(--line); }
+.hx .mv li .chip{ flex:none; margin-top:1px; }
+
+/* drill */
+.hx .drill{ border:1px solid var(--line-2); border-radius:var(--r-card); padding:22px; background:radial-gradient(600px circle at 10% 0%,var(--glow),transparent 60%),var(--surface); }
+.hx .drill-h{ display:flex; flex-wrap:wrap; gap:10px; justify-content:space-between; align-items:center; margin-bottom:14px; }
+.hx .drill-h h2{ font:700 24px/1.1 var(--f); color:var(--ink); }
+@media (max-width:760px){ .hx .drill{ padding:16px; } }
+
+/* estados */
+.hx .skel{ height:100%; min-height:120px; border-radius:8px; background:linear-gradient(90deg,var(--surface-2),var(--line),var(--surface-2)); background-size:200% 100%; animation:hxsh 1.4s infinite linear; }
+.hx .skel.s{ min-height:44px; }
+@keyframes hxsh{ to{ background-position:-200% 0; } }
+@media (prefers-reduced-motion:reduce){ .hx .skel{ animation:none; } }
+.hx .err{ border:1px dashed var(--bad); background:var(--bad-soft); color:var(--ink); border-radius:8px; padding:12px; font-size:13px; }
+.hx .empty{ color:var(--muted); font-size:13px; padding:18px 0; text-align:center; }
+.hx .note{ font-size:12px; color:var(--muted); margin-top:10px; }
+.hx footer{ margin-top:26px; color:var(--muted); font-size:12px; border-top:1px solid var(--line); padding-top:14px; }
+.hx footer p{ margin:0 0 4px; }
+
+.hx.hx-m{ padding:0; border-radius:0; max-width:none; }
+.hx .eyebrow::before, .hx .eyebrow::after{ content:none; display:none; }
+.hx .drill .g-kpi{ grid-template-columns:repeat(3,minmax(0,1fr)); }
+@media (max-width:760px){
+  .hx .drill .g-kpi{ grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .hx .kpi .k span:nth-child(2){ display:none; }
 }
-.da-table td{ padding: 8px 12px 8px 0; border-bottom: 1px solid var(--line); color: var(--ink-soft); }
-.da-table td:first-child{ color: var(--ink); font-weight:600; }
-.da-table th.num, .da-table td.num{ text-align:right; }
-.da-table tr:last-child td{ border-bottom:none; }
-.da-table tbody tr[data-act]{ cursor:pointer; }
-.da-table tbody tr[data-act]:hover td{ background: var(--hubii-bg); }
-.det-col{ display:none; }
-.da-section.detail .det-col{ display:table-cell; }
-.res-note{ font-size: 12px; color: var(--ink-soft); margin-top: 10px; }
-.res-insights{ list-style:none; }
-.res-insights li{ font-size: 13.5px; padding: 8px 0 8px 16px; position:relative; line-height:1.45; }
-.res-insights li + li{ border-top: 1px solid var(--line); }
-.res-insights li::before{ content:'—'; position:absolute; left:0; color: var(--purple); }
 
 /* ESCOPO: PRAÇAS */
 .praca-foco{
@@ -2991,42 +3089,70 @@ textarea.f-input{ resize: vertical; }
     if(e.key === 'Escape') modal.classList.remove('open');
   });
 
-  // ===== RESULTADOS: IPIRANGA (Metabase · Redshift Datalake, perguntas #3609–#3613) =====
+  // ===== RESULTADOS: IPIRANGA · padrão visual "Painel Executivo de Vendas" Hubii =====
+  // Dados: Hubii Data Lake (Redshift) via Metabase. Ao vivo em /api/resultados; reserva em /resultados-data.json.
   (function(){
     const root = document.getElementById('res-root');
     if(!root) return;
+    root.classList.add('hx');
 
-    // Rótulos exibidos para o card de "pontos de atenção". Mude para false para ocultar para o cliente.
+    // false = oculta o painel "Pontos de atenção" (visão interna) para o cliente
     const SHOW_INSIGHTS = true;
-    // DAs do escopo do projeto (regra: UF do hub → DA).
+    // DAs do escopo (regra: UF do hub -> DA)
     const DA_SCOPE = [
-      { da: 'Trevilhub', uf: 'SP' },
-      { da: 'Makena',    uf: 'RS' },
-      { da: 'BelLub',    uf: 'MG' },
+      { da: 'Trevilhub', uf: 'SP', mg: 'TH' },
+      { da: 'Makena',    uf: 'RS', mg: 'MK' },
+      { da: 'BelLub',    uf: 'MG', mg: 'BL' },
     ];
+    const DA_COLOR = { 'Trevilhub': '#6348e5', 'Makena': '#746bff', 'BelLub': '#9a9a9a', 'Sem hub alocado': '#f5a524' };
 
+    // ---------- formatação (pt-BR) ----------
     const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
     const nf0 = new Intl.NumberFormat('pt-BR', { maximumFractionDigits: 0 });
     const nf1 = new Intl.NumberFormat('pt-BR', { maximumFractionDigits: 1 });
     const nf2 = new Intl.NumberFormat('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     const brl  = v => v == null ? '—' : 'R$ ' + nf2.format(v);
-    const brlC = v => {
+    const brlK = v => {
       if(v == null) return '—';
       const a = Math.abs(v);
-      if(a >= 1e6) return 'R$ ' + nf2.format(v / 1e6) + ' mi';
+      if(a >= 1e6) return 'R$ ' + nf1.format(v / 1e6) + ' mi';
       if(a >= 1e3) return 'R$ ' + nf1.format(v / 1e3) + ' mil';
       return 'R$ ' + nf0.format(v);
     };
+    const axisLbl = v => v >= 1e6 ? nf1.format(v / 1e6) + ' mi' : (v >= 1e3 ? nf0.format(v / 1e3) + ' mil' : nf0.format(v));
     const pct = v => v == null ? '—' : nf1.format(v) + '%';
     const num = v => v == null ? '—' : nf0.format(v);
+    const dec = v => v == null ? '—' : nf1.format(v);
     const hrs = min => min == null ? '—' : nf1.format(min / 60) + ' h';
     const MESES = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
     const mesLabel = m => m === 'TOTAL' ? 'Total' : MESES[+m.slice(5, 7) - 1] + '/' + m.slice(2, 4);
     const dateBR = s => s ? s.slice(8, 10) + '/' + s.slice(5, 7) + '/' + s.slice(0, 4) : '—';
     const norm = s => String(s || '').replace(/^\d+\s*-\s*/, '').trim();
     const toRows = t => ((t && t.r) || []).map(a => Object.fromEntries(t.c.map((k, i) => [k, a[i]])));
+    const chipVar = (cur, prev) => {
+      if(!prev) return '';
+      const d = (cur / prev - 1) * 100;
+      const cls = Math.abs(d) < 0.05 ? 'flat' : (d > 0 ? 'up' : 'down');
+      return `<span class="chip ${cls}">${d > 0.05 ? '▲' : (d < -0.05 ? '▼' : '■')} ${nf1.format(Math.abs(d))}%</span>`;
+    };
 
-    // ---- modal (reaproveita o modal global do dashboard) ----
+    // ---------- tooltip ----------
+    let tipEl = null;
+    function tip(){
+      if(!tipEl){ tipEl = document.getElementById('tip'); if(!tipEl){ tipEl = document.createElement('div'); tipEl.id = 'tip'; document.body.appendChild(tipEl); } }
+      return tipEl;
+    }
+    function showTip(html, x, y){
+      const t = tip(); t.innerHTML = html; t.style.display = 'block';
+      const w = t.offsetWidth, h = t.offsetHeight;
+      let left = x + 14, top = y + 14;
+      if(left + w > window.innerWidth - 8) left = x - w - 14;
+      if(top + h > window.innerHeight - 8) top = y - h - 14;
+      t.style.left = Math.max(8, left) + 'px'; t.style.top = Math.max(8, top) + 'px';
+    }
+    function hideTip(){ if(tipEl) tipEl.style.display = 'none'; }
+
+    // ---------- modal compartilhado do dashboard ----------
     const box = modal.querySelector('.modal-box');
     const footer = modal.querySelector('.modal-footer');
     new MutationObserver(() => {
@@ -3034,330 +3160,431 @@ textarea.f-input{ resize: vertical; }
     }).observe(modal, { attributes: true, attributeFilter: ['class'] });
     function openRes(eyebrow, title, sub, html, wide){
       currentTaskKey = null;
-      modalEyebrow.textContent = eyebrow;
-      modalTitle.textContent = title;
-      modalSub.textContent = sub;
-      modalBody.innerHTML = html;
+      modalEyebrow.textContent = eyebrow; modalTitle.textContent = title; modalSub.textContent = sub;
+      modalBody.innerHTML = '<div class="hx hx-m">' + html + '</div>';
       modalAddUpdate.style.display = 'none';
       if(footer) footer.style.display = 'none';
       box.style.maxWidth = wide ? '980px' : '';
       modal.classList.add('open');
     }
 
-    // ---- carga: API ao vivo (se configurada) → snapshot versionado ----
+    // ---------- carga: API ao vivo -> snapshot ----------
     async function loadData(){
       try{
         const r = await fetch('/api/resultados', { credentials: 'same-origin' });
-        if(r.ok){
-          const d = await r.json();
-          if(d && d.mensal) return { d, live: true };
-        }
-      }catch(e){ /* sem API ao vivo: usa snapshot */ }
+        if(r.ok){ const d = await r.json(); if(d && d.mensal) return { d, live: true }; }
+      }catch(e){ /* sem API ao vivo: usa o snapshot */ }
       const r2 = await fetch('/resultados-data.json', { credentials: 'same-origin', cache: 'no-cache' });
       if(!r2.ok) throw new Error('snapshot indisponível (HTTP ' + r2.status + ')');
       return { d: await r2.json(), live: false };
     }
 
-    function prep(d){
-      const mensalAll = toRows(d.mensal);
-      const daRows = toRows(d.da);
-      const sla = toRows(d.sla);
+    let S = null;
+    const ui = { view: 'geral', da: 'all', detail: false, q: {}, sort: {} };
+
+    function prep(d, live){
+      const mensalAll = toRows(d.mensal), daRows = toRows(d.da), sla = toRows(d.sla);
       const hubs = toRows(d.hub).sort((a, b) => b.gmv_valido - a.gmv_valido);
-      const slaTotals = {};
-      sla.filter(r => String(r.hub).startsWith('>>>') && r.da).forEach(r => { slaTotals[r.da] = r; });
-      const slaHubs = sla.filter(r => !String(r.hub).startsWith('>>>'));
-      const hubInfo = {};
-      hubs.forEach(h => { hubInfo[norm(h.hub_nome)] = h; });
+      const slaTotals = {}; let slaAll = null;
+      sla.filter(r => String(r.hub).startsWith('>>>')).forEach(r => { if(r.da) slaTotals[r.da] = r; else slaAll = r; });
+      const meses = mensalAll.filter(r => r.mes !== 'TOTAL');
+      const ref = String(d.refreshedAt || d.generatedAt || new Date().toISOString()).slice(0, 10);
+      const partial = meses.length > 0 && meses[meses.length - 1].mes === ref.slice(0, 7);
+      const daTotal = Object.fromEntries(daRows.filter(r => r.mes === 'TOTAL').map(r => [r.da, r]));
+      const daByMes = {};
+      daRows.filter(r => r.mes !== 'TOTAL').forEach(r => { (daByMes[r.mes] = daByMes[r.mes] || []).push(r); });
       return {
-        meses: mensalAll.filter(r => r.mes !== 'TOTAL'),
+        live, ref, partial, meses, daTotal, daByMes, hubs, slaTotals, slaAll,
+        complete: partial ? meses.slice(0, -1) : meses,
         total: mensalAll.find(r => r.mes === 'TOTAL'),
         produtos: toRows(d.produto).sort((a, b) => b.gmv_valido - a.gmv_valido),
-        daTotal: Object.fromEntries(daRows.filter(r => r.mes === 'TOTAL').map(r => [r.da, r])),
-        daRows, hubs, hubInfo, slaTotals, slaHubs,
-        generatedAt: d.generatedAt || d.refreshedAt || null,
+        slaHubs: sla.filter(r => !String(r.hub).startsWith('>>>')),
+        hubInfo: Object.fromEntries(hubs.map(h => [norm(h.hub_nome), h])),
+        pedidosValidos: Object.values(daTotal).reduce((s, r) => s + (r.pedidos_validos || 0), 0),
+        lastBuy: hubs.reduce((m, h) => (h.ultima_compra > m ? h.ultima_compra : m), ''),
+        stamp: d.refreshedAt || null, generatedAt: d.generatedAt || null,
       };
     }
 
-    let S = null;
-
-    // ---- seções ----
-    function cards(){
-      const t = S.total;
-      const un = S.daTotal['Sem hub alocado'];
-      const cancelPct = t.gmv_todos_status ? 100 * t.gmv_cancelado / t.gmv_todos_status : null;
-      return `
-        <div class="grid-4">
-          <div class="metric-card clickable" data-act="mensal">
-            <div class="metric-label">GMV válido</div>
-            <div class="metric-value">${brlC(t.gmv_valido)}</div>
-            <div class="metric-sub">${esc(mesLabel(S.meses[0].mes))} a ${esc(mesLabel(S.meses[S.meses.length - 1].mes))} · ver por mês</div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-label">Pedidos</div>
-            <div class="metric-value">${num(t.pedidos)}</div>
-            <div class="metric-sub">${num(t.unidades)} unidades</div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-label">GMV cancelado</div>
-            <div class="metric-value">${brlC(t.gmv_cancelado)}</div>
-            <div class="metric-sub">${pct(cancelPct)} do GMV bruto (todos os status)</div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-label">Sem hub alocado</div>
-            <div class="metric-value ${un && un.gmv_valido > 0 ? 'warn' : ''}">${brlC(un ? un.gmv_valido : 0)}</div>
-            <div class="metric-sub">${un ? pct(un.pct_gmv_no_periodo) + ' do GMV válido do período' : 'nenhum GMV sem alocação'}</div>
-          </div>
-        </div>`;
+    // ---------- sparkline e gráfico (SVG desenhado à mão) ----------
+    function spark(vals, partial){
+      const n = vals.length; if(n < 2 || vals.some(v => v == null)) return '';
+      const W = 100, H = 30, p = 3, min = Math.min(...vals), max = Math.max(...vals), span = (max - min) || 1;
+      const pts = vals.map((v, i) => [p + i * (W - 2 * p) / (n - 1), H - p - (v - min) / span * (H - 2 * p)]);
+      const d = a => a.map((q, i) => (i ? 'L' : 'M') + q[0].toFixed(1) + ' ' + q[1].toFixed(1)).join(' ');
+      const solid = partial ? pts.slice(0, -1) : pts;
+      let out = `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-hidden="true">`;
+      if(solid.length > 1) out += `<path d="${d(solid)}" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>`;
+      if(partial) out += `<path d="${d(pts.slice(-2))}" fill="none" stroke="var(--prev)" stroke-width="2" stroke-dasharray="4 3" stroke-linecap="round" vector-effect="non-scaling-stroke"/>`;
+      return out + '</svg>';
     }
-
-    function monthBars(){
-      const max = Math.max(...S.meses.map(m => m.gmv_valido), 1);
-      const last = S.meses.length - 1;
-      return `<div class="panel">` + S.meses.map((m, i) => `
-        <div class="res-row">
-          <div class="res-row-lbl">${esc(mesLabel(m.mes))}${i === last ? ' · em curso' : ''}</div>
-          <div class="res-bar"><i style="width:${(100 * m.gmv_valido / max).toFixed(1)}%"></i></div>
-          <div class="res-row-val">${brlC(m.gmv_valido)}</div>
-        </div>`).join('') + `</div>`;
+    function scale(maxV){
+      const raw = maxV * 1.08, s0 = raw / 4, mag = Math.pow(10, Math.floor(Math.log10(s0))), nrm = s0 / mag;
+      const step = (nrm <= 1 ? 1 : nrm <= 2 ? 2 : nrm <= 2.5 ? 2.5 : nrm <= 5 ? 5 : 10) * mag;
+      return { step, top: Math.ceil(raw / step) * step };
     }
-
-    function produtos(){
-      const top = S.produtos.slice(0, 5);
-      const max = Math.max(...top.map(p => p.gmv_valido), 1);
-      return `<div class="panel">` + top.map(p => `
-        <div class="res-prod">
-          <div class="res-prod-name" title="${esc(p.produto)}">${esc(p.produto)}</div>
-          <div class="res-prod-val">${brlC(p.gmv_valido)}</div>
-          <div class="res-bar"><i style="width:${(100 * p.gmv_valido / max).toFixed(1)}%"></i></div>
-          <div class="res-prod-meta">${pct(p.pct_gmv)} do GMV · ${num(p.unidades)} un. · ${num(p.pedidos_validos)} pedidos · ${num(p.hubs_que_venderam)} hub(s)</div>
-        </div>`).join('') +
-        `<button class="res-btn" data-act="produtos">Ver todos os ${S.produtos.length} produtos →</button></div>`;
-    }
-
-    function hubCards(){
-      const list = S.hubs.slice(0, 6);
-      return `<div class="hub-cards">` + list.map((h, i) => `
-        <div class="hub-card" data-act="hub" data-key="${esc(norm(h.hub_nome))}">
-          <div class="hub-card-header">
-            <div class="hub-card-name">${i + 1}. ${esc(h.hub_nome)}</div>
-            <div class="hub-card-da">${esc(h.da)}</div>
-          </div>
-          <div class="hub-card-city">${esc(h.cidade)}, ${esc(h.uf)}</div>
-          <div class="hub-card-stat"><span>GMV válido</span><span class="hub-card-stat-val">${brlC(h.gmv_valido)}</span></div>
-          <div class="hub-card-stat"><span>% do GMV</span><span class="hub-card-stat-val">${pct(h.pct_gmv)}</span></div>
-          <div class="hub-card-stat"><span>Transações</span><span class="hub-card-stat-val">${num(h.transacoes)}</span></div>
-          <div class="hub-card-stat"><span>Ticket médio</span><span class="hub-card-stat-val">${brl(h.ticket_medio)}</span></div>
-        </div>`).join('') + `</div>` +
-        (S.hubs.length > list.length ? `<button class="res-btn" data-act="hubs">Ver todos os ${S.hubs.length} hubs →</button>` : '');
-    }
-
-    function slaCells(r, withName){
-      return `
-        <td class="num">${num(r.pedidos)}</td>
-        <td class="num">${pct(r.pct_aceite)}</td>
-        <td class="num">${pct(r.pct_recusa)}</td>
-        <td class="num">${pct(r.pct_cancelamento)}</td>
-        <td class="num det-col">${num(r.recusas_ruptura)}</td>
-        <td class="num det-col">${num(r.recusas_preco)}</td>
-        <td class="num det-col">${num(r.recusas_fora_portfolio)}</td>
-        <td class="num det-col">${num(r.broadcasts_recebidos)}</td>
-        <td class="num det-col">${pct(r.pct_no_prazo)}</td>
-        <td class="num det-col">${hrs(r.min_medio_ate_despacho)}</td>`;
-    }
-
-    function daSection(cfg){
-      const tot = S.daTotal[cfg.da];
-      const st = S.slaTotals[cfg.da];
-      const rows = S.slaHubs.filter(r => r.da === cfg.da)
-        .sort((a, b) => (b.gmv_valido - a.gmv_valido) || (b.broadcasts_recebidos - a.broadcasts_recebidos));
-      const gmv = tot ? tot.gmv_valido : 0;
-      const comVendas = rows.filter(r => r.gmv_valido > 0).length;
-      const meta = rows.length
-        ? `${cfg.uf} · ${comVendas} de ${rows.length} hubs com vendas`
-        : `${cfg.uf} · sem hubs nas consultas`;
-      const kpis = st ? `
-        <div class="kpi-grid">
-          <div class="kpi"><span>Pedidos</span><b>${num(st.pedidos)}</b></div>
-          <div class="kpi"><span>Aceite</span><b>${pct(st.pct_aceite)}</b></div>
-          <div class="kpi"><span>Recusa</span><b>${pct(st.pct_recusa)}</b></div>
-          <div class="kpi"><span>Ignorado</span><b>${pct(st.pct_ignorado)}</b></div>
-          <div class="kpi"><span>Cancelamento</span><b>${pct(st.pct_cancelamento)}</b></div>
-          <div class="kpi"><span>No prazo</span><b>${pct(st.pct_no_prazo)}</b></div>
-          <div class="kpi"><span>Recusa por ruptura</span><b>${num(st.recusas_ruptura)}</b></div>
-          <div class="kpi"><span>Broadcasts recebidos</span><b>${num(st.broadcasts_recebidos)}</b></div>
-        </div>` : `<div class="res-note" style="margin-top:16px">Sem registros desta DA nas consultas do período.</div>`;
-      const table = rows.length ? `
-        <div class="res-scroll"><table class="da-table">
-          <thead><tr>
-            <th>Hub</th><th class="num">GMV válido</th><th class="num">Pedidos</th><th class="num">Aceite</th><th class="num">Recusa</th><th class="num">Cancel.</th>
-            <th class="num det-col">Rupt.</th><th class="num det-col">Preço</th><th class="num det-col">Fora port.</th><th class="num det-col">Broadc.</th><th class="num det-col">No prazo</th><th class="num det-col">Despacho</th>
-          </tr></thead>
-          <tbody>${rows.map(r => `
-            <tr data-act="hub" data-key="${esc(norm(r.hub))}">
-              <td>${esc(norm(r.hub))}</td>
-              <td class="num">${brl(r.gmv_valido)}</td>
-              ${slaCells(r)}
-            </tr>`).join('')}</tbody>
-        </table></div>
-        <button class="res-btn" data-act="det">Análise detalhada ⇅</button>
-        <div class="res-note">Ordenado por GMV válido. Clique em um hub para ver o detalhe.</div>` : '';
-      return `
-        <div class="da-section" data-da="${esc(cfg.da)}">
-          <div class="da-header" data-act="da">
-            <div>
-              <div class="da-name">${esc(cfg.da)}</div>
-              <div class="da-meta">${esc(meta)}</div>
-            </div>
-            <div style="display:flex;align-items:center;gap:16px">
-              <div class="da-gmv">${brlC(gmv)}<small>${tot ? pct(tot.pct_gmv_no_periodo) + ' do GMV' : 'sem vendas'}</small></div>
-              <button class="da-toggle" tabindex="-1">+</button>
-            </div>
-          </div>
-          <div class="da-body">${kpis}${table}</div>
-        </div>`;
-    }
-
-    function foraEscopo(){
-      const st = S.slaTotals['Fora do escopo'];
-      if(!st) return '';
-      const n = S.slaHubs.filter(r => r.da === 'Fora do escopo').length;
-      return `<div class="res-note">Fora do escopo do projeto: ${num(n)} hubs receberam ${num(st.broadcasts_recebidos)} broadcasts (${pct(st.pct_recusa)} recusados, ${pct(st.pct_ignorado)} ignorados) e não registraram vendas.</div>`;
-    }
-
-    function insights(){
-      const out = [];
-      const top = S.hubs[0];
-      if(top && top.pct_gmv >= 50) out.push(`<b>Concentração:</b> ${esc(top.hub_nome)} responde por ${pct(top.pct_gmv)} do GMV válido atribuído a hubs.`);
-      const last = S.meses[S.meses.length - 1];
-      const unLast = S.daRows.find(r => r.mes === last.mes && r.da === 'Sem hub alocado');
-      if(unLast && unLast.gmv_valido > 0) out.push(`<b>Alocação:</b> em ${esc(mesLabel(last.mes))}, ${pct(unLast.pct_gmv_no_periodo)} do GMV válido (${brl(unLast.gmv_valido)}) ainda não está alocado a um hub/DA.`);
-      const ref = S.hubs.reduce((m, h) => h.ultima_compra > m ? h.ultima_compra : m, '');
-      if(ref){
-        const dormentes = S.hubs.filter(h => (new Date(ref) - new Date(h.ultima_compra)) / 864e5 > 14);
-        if(dormentes.length) out.push(`<b>Hubs sem compras recentes:</b> ${dormentes.length} de ${S.hubs.length} hubs com vendas não compram há mais de 14 dias (última compra geral em ${dateBR(ref)}).`);
+    function drawChart(){
+      const el = document.getElementById('hxChart'); if(!el || !S) return;
+      const pts = S.meses, n = pts.length;
+      if(!n){ el.innerHTML = '<div class="empty">Sem dados no período.</div>'; return; }
+      const W = Math.max(280, Math.round(el.clientWidth || 640)), H = 240, m = { l: 54, r: 18, t: 22, b: 28 };
+      const { top, step } = scale(Math.max(...pts.map(p => p.gmv_valido), 1));
+      const iw = W - m.l - m.r, ih = H - m.t - m.b;
+      const X = i => m.l + (n === 1 ? iw / 2 : i * iw / (n - 1)), Y = v => m.t + ih * (1 - v / top);
+      const P = pts.map((p, i) => [X(i), Y(p.gmv_valido)]);
+      const solid = S.partial ? P.slice(0, -1) : P;
+      const line = a => a.map((q, i) => (i ? 'L' : 'M') + q[0].toFixed(1) + ' ' + q[1].toFixed(1)).join(' ');
+      let grid = '', ax = '';
+      for(let v = 0; v <= top + 1e-6; v += step){
+        const y = Y(v).toFixed(1);
+        grid += `<line x1="${m.l}" x2="${W - m.r}" y1="${y}" y2="${y}"/>`;
+        ax += `<text x="${m.l - 8}" y="${(+y + 4).toFixed(1)}" text-anchor="end">${axisLbl(v)}</text>`;
       }
-      DA_SCOPE.forEach(cfg => {
-        const tot = S.daTotal[cfg.da];
-        if(tot && tot.gmv_valido > 0) return;
-        const st = S.slaTotals[cfg.da];
-        out.push(st
-          ? `<b>${esc(cfg.da)}:</b> sem vendas; ${num(st.broadcasts_recebidos)} broadcasts recebidos, ${pct(st.pct_recusa)} recusados (${num(st.recusas_ruptura)} por ruptura).`
-          : `<b>${esc(cfg.da)}:</b> sem hubs nem vendas nas consultas do período.`);
+      pts.forEach((p, i) => { ax += `<text x="${X(i).toFixed(1)}" y="${H - 8}" text-anchor="middle">${esc(mesLabel(p.mes))}${S.partial && i === n - 1 ? '*' : ''}</text>`; });
+      const base = Y(0).toFixed(1);
+      const area = solid.length > 1 ? `<path d="${line(solid)} L${solid[solid.length - 1][0].toFixed(1)} ${base} L${solid[0][0].toFixed(1)} ${base} Z" fill="url(#hxg)"/>` : '';
+      const solidLine = solid.length > 1 ? `<path d="${line(solid)}" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>` : '';
+      const dashed = S.partial && n > 1 ? `<path d="${line(P.slice(-2))}" fill="none" stroke="var(--prev)" stroke-width="2.5" stroke-dasharray="4 3" stroke-linecap="round"/>` : '';
+      const dots = P.map((q, i) => `<circle cx="${q[0].toFixed(1)}" cy="${q[1].toFixed(1)}" r="4" fill="#fff" stroke="${S.partial && i === n - 1 ? 'var(--prev)' : 'var(--accent)'}" stroke-width="2"/>`).join('');
+      const labels = P.map((q, i) => `<text x="${q[0].toFixed(1)}" y="${(q[1] - 10).toFixed(1)}" text-anchor="middle" style="fill:var(--ink);font:600 11px var(--f)">${esc(brlK(pts[i].gmv_valido))}</text>`).join('');
+      const hw = Math.max(40, iw / Math.max(n, 1));
+      const hits = P.map((q, i) => `<rect data-i="${i}" x="${(q[0] - hw / 2).toFixed(1)}" y="${m.t}" width="${hw.toFixed(1)}" height="${ih}" fill="transparent"/>`).join('');
+      el.innerHTML = `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="GMV válido por mês">
+        <defs><linearGradient id="hxg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6348e5" stop-opacity=".10"/><stop offset="1" stop-color="#6348e5" stop-opacity="0"/></linearGradient></defs>
+        <g class="grid-l">${grid}</g><g class="axis">${ax}</g>${area}${solidLine}${dashed}${dots}${labels}${hits}</svg>`;
+      el.querySelectorAll('rect[data-i]').forEach(r => {
+        const show = ev => {
+          const p = pts[+r.dataset.i], c = ev.touches ? ev.touches[0] : ev;
+          showTip(`<b>${esc(mesLabel(p.mes))}${S.partial && +r.dataset.i === n - 1 ? ' · mês em curso (parcial)' : ''}</b>
+            <div class="r"><span>GMV válido</span><span>${brl(p.gmv_valido)}</span></div>
+            <div class="r"><span>GMV bruto</span><span>${brl(p.gmv_todos_status)}</span></div>
+            <div class="r"><span>Cancelado</span><span>${brl(p.gmv_cancelado)}</span></div>
+            <div class="r"><span>Pedidos</span><span>${num(p.pedidos)}</span></div>
+            <div class="r"><span>Unidades</span><span>${num(p.unidades)}</span></div>`, c.clientX, c.clientY);
+        };
+        r.addEventListener('mousemove', show); r.addEventListener('touchstart', show, { passive: true });
+        r.addEventListener('mouseleave', hideTip); r.addEventListener('touchend', hideTip);
       });
-      if(!out.length) return '';
-      return `<div class="section-label">Pontos de atenção</div><div class="panel"><ul class="res-insights">${out.map(i => `<li>${i}</li>`).join('')}</ul></div>`;
     }
 
-    function render(live){
-      const src = live
-        ? `<span class="res-dot live"></span>Ao vivo · Metabase (Redshift Datalake)`
-        : `<span class="res-dot"></span>Snapshot do Metabase (Redshift Datalake)${S.generatedAt ? ' · gerado em ' + dateBR(S.generatedAt) : ''}`;
-      root.innerHTML = `
-        <div class="section-label first">IPIRANGA · desde ${esc(mesLabel(S.meses[0].mes))}</div>
-        <div class="res-src">${src}</div>
-        ${cards()}
-        <div class="section-label">GMV válido por mês</div>
-        ${monthBars()}
-        <div class="section-label">GMV por produto</div>
-        ${produtos()}
-        <div class="section-label">Principais hubs</div>
-        ${hubCards()}
-        <div class="section-label">Resultados por Distribuidor Autorizado</div>
-        ${DA_SCOPE.map(daSection).join('')}
-        ${foraEscopo()}
-        ${SHOW_INSIGHTS ? insights() : ''}`;
+    // ---------- blocos ----------
+    const kpi = o => `<div class="kpi${o.hero ? ' hero' : ''}${o.click ? ' click' : ''}"${o.click ? ` data-act="${o.click}" role="button" tabindex="0"` : ''}>
+      <div class="k"><span>${esc(o.k)}</span>${o.click ? '<span>por mês →</span>' : ''}</div>
+      <div class="v">${o.v}</div><div class="sub">${o.sub || ''}</div>${o.spark || ''}</div>`;
+
+    function kpisHtml(){
+      const t = S.total, c = S.complete, last = c[c.length - 1], prev = c[c.length - 2];
+      const vs = key => (last && prev) ? chipVar(last[key], prev[key]) + `<span>${esc(mesLabel(last.mes))} vs ${esc(mesLabel(prev.mes))}</span>` : '';
+      const cancelPct = t.gmv_todos_status ? 100 * t.gmv_cancelado / t.gmv_todos_status : null;
+      const ticket = S.pedidosValidos ? t.gmv_valido / S.pedidosValidos : null;
+      const ticketSeries = S.meses.map(m => { const p = (S.daByMes[m.mes] || []).reduce((s, r) => s + (r.pedidos_validos || 0), 0); return p ? m.gmv_valido / p : null; });
+      return `<div class="grid g-kpi">
+        ${kpi({ k: 'GMV válido', v: brlK(t.gmv_valido), hero: true, click: 'mensal', sub: vs('gmv_valido'), spark: spark(S.meses.map(m => m.gmv_valido), S.partial) })}
+        ${kpi({ k: 'Pedidos', v: num(t.pedidos), sub: vs('pedidos') || `<span>${num(t.unidades)} unidades</span>`, spark: spark(S.meses.map(m => m.pedidos), S.partial) })}
+        ${kpi({ k: 'Ticket médio', v: brl(ticket), sub: '<span>GMV válido ÷ pedidos válidos</span>', spark: spark(ticketSeries, S.partial) })}
+        ${kpi({ k: 'GMV cancelado', v: brlK(t.gmv_cancelado), sub: `<span class="chip warn">${pct(cancelPct)} do bruto</span><span>todos os status</span>`, spark: spark(S.meses.map(m => m.gmv_cancelado), S.partial) })}
+      </div>`;
     }
 
-    // ---- modais ----
+    function railHtml(){
+      const total = S.total.gmv_valido, un = S.daTotal['Sem hub alocado'];
+      const card = (da, mg, name, val, chip, share, extra) => `<button type="button" class="rc ${extra || ''}" data-act="da" data-da="${esc(da)}" aria-pressed="${ui.da === da}">
+        <span class="mg">${mg}</span><span class="nm">${esc(name)}</span><span class="vl">${val} ${chip}</span><span class="sh"><i style="width:${Math.min(100, share || 0)}%"></i></span></button>`;
+      const cards = [card('all', 'ALL', 'Todas as DAs', brlK(total), `<span class="chip flat">${S.hubs.length} hubs</span>`, 100, 'all')];
+      DA_SCOPE.forEach(d => {
+        const t = S.daTotal[d.da], g = t ? t.gmv_valido : 0;
+        cards.push(card(d.da, d.mg, d.da + ' · ' + d.uf, brlK(g), g > 0 ? `<span class="chip flat">${pct(t.pct_gmv_no_periodo)}</span>` : '<span class="chip flat">sem vendas</span>', t ? t.pct_gmv_no_periodo : 0));
+      });
+      if(un && un.gmv_valido > 0){
+        cards.push(`<div class="rc static warn"><span class="mg">SH</span><span class="nm">Sem hub alocado</span><span class="vl">${brlK(un.gmv_valido)} <span class="chip warn">${pct(un.pct_gmv_no_periodo)}</span></span><span class="sh"><i style="width:${Math.min(100, un.pct_gmv_no_periodo)}%"></i></span></div>`);
+      }
+      return `<div class="rail-wrap"><div class="rail-h"><h2 class="sect" style="margin:0">Distribuidores autorizados (DA)</h2><span class="hint">Clique em uma DA para filtrar hubs e eficiência</span></div><div class="rail">${cards.join('')}</div></div>`;
+    }
+
+    const TABS = [['geral', 'Visão geral'], ['produtos', 'Produtos'], ['hubs', 'Hubs'], ['eficiencia', 'Eficiência por DA']];
+    function barHtml(){
+      const first = S.meses[0], last = S.meses[S.meses.length - 1];
+      const chips = ui.da !== 'all'
+        ? `<span class="lbl">Filtros</span><button type="button" class="fchip" data-act="da" data-da="all" aria-label="Remover filtro de DA"><span>DA: <b>${esc(ui.da)}</b></span><span class="x">✕</span></button><button type="button" class="linkbtn" data-act="da" data-da="all">Limpar</button>`
+        : '';
+      return `<nav class="stabs" role="tablist" aria-label="Seções de resultados">${TABS.map(([v, l]) => `<a href="#" role="tab" data-act="view" data-v="${v}" ${ui.view === v ? 'aria-current="page"' : ''}>${l}</a>`).join('')}</nav>
+        <div class="period-line">${esc(mesLabel(first.mes))} a ${esc(mesLabel(last.mes))}${S.partial ? ' (mês em curso, parcial)' : ''}<span style="margin:0 6px">·</span>última compra registrada em ${dateBR(S.lastBuy)}</div>
+        <div class="active">${chips}</div>`;
+    }
+
+    // ----- visão geral -----
+    function colorDA(da){ return DA_COLOR[da] || '#9a9a9a'; }
+    function allocHtml(){
+      const present = new Set();
+      const rows = S.meses.map((m, i) => {
+        const list = (S.daByMes[m.mes] || []).filter(r => r.gmv_valido > 0);
+        const sum = list.reduce((s, r) => s + r.gmv_valido, 0);
+        list.forEach(r => present.add(r.da));
+        const slices = list.map(r => `<i style="width:${(100 * r.gmv_valido / sum).toFixed(2)}%;background:${colorDA(r.da)}" title="${esc(r.da)} · ${pct(100 * r.gmv_valido / sum)}"></i>`).join('');
+        return `<div class="srow"><span class="sl">${esc(mesLabel(m.mes))}${S.partial && i === S.meses.length - 1 ? '*' : ''}</span><div class="stackbar">${slices}</div><span class="sv">${brlK(m.gmv_valido)}</span></div>`;
+      }).join('');
+      const legend = [...present].map(da => `<span><i style="background:${colorDA(da)}"></i>${esc(da)}</span>`).join('');
+      return rows + `<div class="slegend">${legend}</div>`;
+    }
+    function insightsItems(){
+      const out = [], top = S.hubs[0], last = S.meses[S.meses.length - 1];
+      if(top && top.pct_gmv >= 50) out.push(['Concentração', `${esc(top.hub_nome)} responde por ${pct(top.pct_gmv)} do GMV válido atribuído a hubs.`]);
+      const un = (S.daByMes[last.mes] || []).find(r => r.da === 'Sem hub alocado');
+      if(un && un.gmv_valido > 0) out.push(['Alocação', `Em ${esc(mesLabel(last.mes))}, ${pct(un.pct_gmv_no_periodo)} do GMV válido (${brl(un.gmv_valido)}) ainda não está alocado a um hub/DA.`]);
+      if(S.lastBuy){
+        const dorm = S.hubs.filter(h => (new Date(S.lastBuy) - new Date(h.ultima_compra)) / 864e5 > 14);
+        if(dorm.length) out.push(['Recompra', `${dorm.length} de ${S.hubs.length} hubs com vendas não compram há mais de 14 dias (última compra geral em ${dateBR(S.lastBuy)}).`]);
+      }
+      DA_SCOPE.forEach(d => {
+        const t = S.daTotal[d.da]; if(t && t.gmv_valido > 0) return;
+        const st = S.slaTotals[d.da];
+        out.push([d.da, st ? `Sem vendas: ${num(st.broadcasts_recebidos)} broadcasts recebidos, ${pct(st.pct_recusa)} recusados (${num(st.recusas_ruptura)} por ruptura).` : 'Sem hubs nem vendas nas consultas do período.']);
+      });
+      return out;
+    }
+    function insightsHtml(){
+      if(!SHOW_INSIGHTS) return '';
+      const items = insightsItems(), top = S.hubs[0], un = S.daTotal['Sem hub alocado'];
+      const stats = [];
+      if(top) stats.push([pct(top.pct_gmv), 'do GMV no maior hub']);
+      stats.push([num(S.hubs.length), 'hubs com vendas']);
+      if(un) stats.push([pct(un.pct_gmv_no_periodo), 'do GMV sem hub alocado']);
+      return `<section class="panel"><div class="ph"><h2>Pontos de atenção</h2><span class="hint">leitura automática dos dados</span></div>
+        <div class="conc">${stats.map(([b, s]) => `<div><b>${b}</b>${s}</div>`).join('')}</div>
+        ${items.length ? `<ol class="mv">${items.map(([c, t]) => `<li><span class="chip warn">${esc(c)}</span><span>${t}</span></li>`).join('')}</ol>` : '<div class="empty">Nada a destacar no período.</div>'}</section>`;
+    }
+    function viewGeral(){
+      return `<div class="stack">${kpisHtml()}
+        <div class="grid g-2 top">
+          <section class="panel"><div class="ph"><h2>GMV válido por mês</h2><span class="hint">${S.partial ? '* mês em curso, parcial' : 'por mês de pedido'}</span></div>
+            <div class="chart" id="hxChart"></div>
+            <div class="legend"><span><i class="sw"></i>GMV válido</span>${S.partial ? '<span><i class="sw prev"></i>Mês em curso (parcial)</span>' : ''}</div></section>
+          <section class="panel"><div class="ph"><h2>Alocação do GMV por DA</h2><span class="hint">% do GMV válido do mês</span></div>${allocHtml()}</section>
+        </div>${insightsHtml()}</div>`;
+    }
+
+    // ----- ranking em barras -----
+    function barRows(items){
+      const max = Math.max(...items.map(i => i.value), 1);
+      return `<div class="bars">${items.map((it, i) => {
+        const tag = it.act ? 'button type="button"' : 'div', end = it.act ? 'button' : 'div';
+        return `<${tag} class="bar-row"${it.act ? ` data-act="${it.act}" data-key="${esc(it.key)}"` : ''}>
+          <span class="bl"><small>${i + 1}</small>${esc(it.label)}<em>${esc(it.sub)}</em></span>
+          <span class="bt"><i style="width:${(100 * it.value / max).toFixed(1)}%"></i></span>
+          <span class="bv">${brlK(it.value)}</span><span class="bd"><span class="chip flat">${pct(it.share)}</span></span></${end}>`;
+      }).join('')}</div>`;
+    }
+
+    // ----- tabelas (ordenar, buscar, CSV) -----
+    const TABLES = {
+      prod: () => ({
+        file: 'produtos', def: { k: 'gmv_valido', dir: -1 }, search: r => r.produto, ph: 'Buscar produto…',
+        cols: [
+          { k: 'produto', l: 'Produto', left: 1, name: 1, f: v => esc(v), raw: v => v },
+          { k: 'gmv_valido', l: 'GMV válido', f: brl }, { k: 'pct_gmv', l: '% GMV', f: pct }, { k: 'pct_acumulado', l: '% acum.', f: pct },
+          { k: 'unidades', l: 'Unid.', f: num }, { k: 'pedidos_validos', l: 'Pedidos', f: num }, { k: 'hubs_que_venderam', l: 'Hubs', f: num },
+        ],
+        rows: S.produtos,
+      }),
+      hub: () => ({
+        file: 'hubs', def: { k: 'gmv_valido', dir: -1 }, search: r => r.hub_nome + ' ' + r.cidade, click: true, ph: 'Buscar hub ou cidade…',
+        cols: [
+          { k: 'hub_nome', l: 'Hub', left: 1, name: 1, f: v => esc(v), raw: v => v },
+          { k: 'loc', l: 'Cidade/UF', left: 1, f: v => esc(v), raw: v => v }, { k: 'da', l: 'DA', left: 1, f: v => esc(v), raw: v => v },
+          { k: 'gmv_valido', l: 'GMV válido', f: brl }, { k: 'pct_gmv', l: '% GMV', f: pct }, { k: 'ticket_medio', l: 'Ticket médio', f: brl },
+          { k: 'transacoes', l: 'Transações', f: num }, { k: 'consumidores', l: 'Consumidores', f: num }, { k: 'mix_skus', l: 'Mix SKUs', f: num },
+          { k: 'ultima_compra', l: 'Última compra', f: dateBR, raw: v => v }, { k: 'pct_cancelamento', l: 'Cancel.', f: pct },
+        ],
+        rows: S.hubs.filter(h => ui.da === 'all' || h.da === ui.da).map(h => ({ ...h, loc: h.cidade + '/' + h.uf, key: norm(h.hub_nome) })),
+      }),
+      sla: () => ({
+        file: 'eficiencia', def: { k: 'gmv_valido', dir: -1, k2: 'broadcasts_recebidos' }, search: r => r.nome, click: true, ph: 'Buscar hub…',
+        cols: [
+          { k: 'nome', l: 'Hub', left: 1, name: 1, f: v => esc(v), raw: v => v }, { k: 'da', l: 'DA', left: 1, f: v => esc(v), raw: v => v },
+          { k: 'gmv_valido', l: 'GMV válido', f: brl }, { k: 'pedidos', l: 'Pedidos', f: num },
+          { k: 'pct_aceite', l: 'Aceite', f: pct }, { k: 'pct_recusa', l: 'Recusa', f: pct }, { k: 'pct_ignorado', l: 'Ignorado', f: pct },
+          { k: 'pct_cancelamento', l: 'Cancel.', f: pct }, { k: 'pct_no_prazo', l: 'No prazo', f: pct }, { k: 'despacho', l: 'Despacho', f: hrs, raw: v => v == null ? '' : v / 60 },
+          { k: 'recusas_ruptura', l: 'Ruptura', f: num, det: 1 }, { k: 'recusas_preco', l: 'Preço', f: num, det: 1 }, { k: 'recusas_fora_portfolio', l: 'Fora portf.', f: num, det: 1 },
+          { k: 'broadcasts_recebidos', l: 'Broadcasts', f: num, det: 1 }, { k: 'pct_reencaminhados', l: 'Reencam.', f: pct, det: 1 },
+        ],
+        rows: S.slaHubs.filter(r => r.da !== 'Fora do escopo' && (ui.da === 'all' || r.da === ui.da)).map(r => ({ ...r, nome: norm(r.hub), key: norm(r.hub), despacho: r.min_medio_ate_despacho })),
+      }),
+    };
+    function tableRows(id){
+      const cfg = TABLES[id](), q = (ui.q[id] || '').trim().toLowerCase();
+      const s = ui.sort[id] || cfg.def;
+      let rows = cfg.rows.filter(r => !q || String(cfg.search(r)).toLowerCase().includes(q));
+      const cmp = (a, b, k) => { const x = a[k], y = b[k]; if(x == null && y == null) return 0; if(x == null) return 1; if(y == null) return -1; return typeof x === 'number' && typeof y === 'number' ? x - y : String(x).localeCompare(String(y), 'pt-BR'); };
+      rows = rows.slice().sort((a, b) => (cmp(a, b, s.k) * s.dir) || (cfg.def.k2 ? cmp(b, a, cfg.def.k2) : 0));
+      return { cfg, rows, s, cols: cfg.cols.filter(c => !c.det || ui.detail) };
+    }
+    function tbodyHtml(id){
+      const { cfg, rows, cols } = tableRows(id);
+      if(!rows.length) return `<tr><td colspan="${cols.length}" class="l"><div class="empty">Nada encontrado.</div></td></tr>`;
+      return rows.map(r => `<tr${cfg.click ? ` class="click" data-act="hub" data-key="${esc(r.key)}"` : ''}>${cols.map(c => `<td class="${c.left ? 'l' : ''}${c.name ? ' name' : ''}">${c.f(r[c.k], r)}</td>`).join('')}</tr>`).join('');
+    }
+    function tableHtml(id, extraBar){
+      const { cfg, s, cols } = tableRows(id);
+      return `<div class="tbar"><input type="search" data-q="${id}" placeholder="${esc(cfg.ph)}" value="${esc(ui.q[id] || '')}" aria-label="${esc(cfg.ph)}"><span class="grow"></span>${extraBar || ''}<button type="button" class="btn" data-act="export" data-t="${id}">⤓ Exportar CSV</button></div>
+        <div class="tbl-wrap"><table id="tbl-${id}"><thead><tr>${cols.map(c => `<th class="${c.left ? 'l' : ''}${s.k === c.k ? ' sorted' : ''}" data-act="sort" data-t="${id}" data-k="${c.k}">${c.l}${s.k === c.k ? (s.dir > 0 ? ' ▲' : ' ▼') : ''}</th>`).join('')}</tr></thead><tbody>${tbodyHtml(id)}</tbody></table></div>`;
+    }
+    function exportCsv(id){
+      const { rows, cols } = tableRows(id), cfg = TABLES[id]();
+      const cell = (c, r) => { const v = c.raw ? c.raw(r[c.k]) : r[c.k]; if(v == null) return ''; return typeof v === 'number' ? String(Math.round(v * 100) / 100).replace('.', ',') : '"' + String(v).replace(/"/g, '""') + '"'; };
+      const csv = '\ufeff' + [cols.map(c => '"' + c.l + '"').join(';')].concat(rows.map(r => cols.map(c => cell(c, r)).join(';'))).join('\r\n');
+      try{
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' }));
+        a.download = 'iconic-ipiranga-' + cfg.file + '-' + (S.ref || '') + '.csv';
+        document.body.appendChild(a); a.click(); a.remove();
+      }catch(e){ console.warn('[resultados] exportação indisponível', e); }
+    }
+
+    // ----- produtos -----
+    function viewProdutos(){
+      const top = S.produtos.slice(0, 8).map(p => ({ label: p.produto, sub: `${num(p.unidades)} un. · ${num(p.hubs_que_venderam)} hub(s)`, value: p.gmv_valido, share: p.pct_gmv }));
+      const cum = n => (S.produtos[n - 1] || S.produtos[S.produtos.length - 1] || {}).pct_acumulado;
+      const meter = (l, v) => `<div class="mrow"><div class="mh"><span>${l}</span><b>${pct(v)}</b></div><div class="meter"><i style="width:${Math.min(100, v || 0)}%"></i></div></div>`;
+      return `<div class="stack"><div class="grid g-2 top">
+        <section class="panel"><div class="ph"><h2>Ranking de produtos</h2><span class="hint">GMV válido · % do total</span></div>${S.produtos.length ? barRows(top) : '<div class="empty">Sem vendas por produto no período.</div>'}</section>
+        <section class="panel"><div class="ph"><h2>Concentração do portfólio</h2><span class="hint">% acumulado do GMV</span></div>${meter('Top 1 produto', cum(1))}${meter('Top 3 produtos', cum(3))}${meter('Top 5 produtos', cum(5))}
+          <p class="note">${num(S.produtos.length)} produtos com venda no período.</p></section></div>
+        <section class="panel"><div class="ph"><h2>Todos os produtos</h2><span class="hint">clique no cabeçalho para ordenar</span></div>${tableHtml('prod')}</section></div>`;
+    }
+
+    // ----- hubs -----
+    function viewHubs(){
+      const list = S.hubs.filter(h => ui.da === 'all' || h.da === ui.da);
+      const items = list.slice(0, 8).map(h => ({ label: h.hub_nome, sub: `${h.cidade}, ${h.uf} · ${h.da}`, value: h.gmv_valido, share: h.pct_gmv, act: 'hub', key: norm(h.hub_nome) }));
+      return `<div class="stack">
+        <section class="panel"><div class="ph"><h2>Principais hubs</h2><span class="hint">por GMV válido · clique para ver o detalhe</span></div>${items.length ? barRows(items) : '<div class="empty">Nenhum hub com vendas nesta DA no período.</div>'}</section>
+        <section class="panel"><div class="ph"><h2>Todos os hubs com vendas</h2><span class="hint">${num(list.length)} hub(s)</span></div>${tableHtml('hub')}</section></div>`;
+    }
+
+    // ----- eficiência por DA -----
+    function viewEficiencia(){
+      const da = ui.da, st = da === 'all' ? S.slaAll : S.slaTotals[da], tot = da === 'all' ? null : S.daTotal[da];
+      const title = da === 'all' ? 'Todas as DAs' : da, cfg = DA_SCOPE.find(d => d.da === da);
+      const gmv = da === 'all' ? S.total.gmv_valido : (tot ? tot.gmv_valido : 0);
+      const head = `<div class="drill-h"><h2>${esc(title)}${cfg ? `<span class="tag">${cfg.uf}</span>` : ''}</h2>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"><span class="chip flat">${brlK(gmv)} GMV válido</span>${tot ? `<span class="chip flat">${pct(tot.pct_gmv_no_periodo)} do total</span>` : ''}</div></div>`;
+      let body;
+      if(!st){
+        body = '<div class="empty">Sem registros desta DA nas consultas do período.</div>';
+      }else{
+        const k = (l, v, sub) => `<div class="kpi"><div class="k"><span>${l}</span></div><div class="v">${v}</div><div class="sub"><span>${sub || ''}</span></div></div>`;
+        const seg = [['Aceite', st.pct_aceite, 'var(--accent)'], ['Recusa', st.pct_recusa, 'var(--bad)'], ['Ignorado', st.pct_ignorado, 'var(--s5)']];
+        const segSum = seg.reduce((s, x) => s + (x[1] || 0), 0);
+        const stack = segSum > 0 ? `<div class="sect">Resposta aos broadcasts (${num(st.broadcasts_recebidos)} recebidos)</div><div class="stackbar">${seg.filter(x => x[1] > 0).map(x => `<i style="width:${(100 * x[1] / segSum).toFixed(2)}%;background:${x[2]}" title="${x[0]} · ${pct(x[1])}"></i>`).join('')}</div><div class="slegend">${seg.map(x => `<span><i style="background:${x[2]}"></i>${x[0]} ${pct(x[1])}</span>`).join('')}</div>` : '';
+        const rec = [['Ruptura de estoque', st.recusas_ruptura], ['Preço', st.recusas_preco], ['Fora do portfólio', st.recusas_fora_portfolio]];
+        const recTot = rec.reduce((s, x) => s + (x[1] || 0), 0), recMax = Math.max(...rec.map(x => x[1] || 0), 1);
+        const recHtml = recTot ? `<div class="sect">Motivos de recusa (${num(recTot)})</div><div class="bars">${rec.map(x => `<div class="bar-row"><span class="bl">${x[0]}</span><span class="bt"><i style="width:${(100 * (x[1] || 0) / recMax).toFixed(1)}%"></i></span><span class="bv">${num(x[1])}</span><span class="bd"><span class="chip flat">${pct(100 * (x[1] || 0) / recTot)}</span></span></div>`).join('')}</div>` : '';
+        body = `<div class="grid g-kpi">${k('Aceite', pct(st.pct_aceite))}${k('Recusa', pct(st.pct_recusa))}${k('Cancelamento', pct(st.pct_cancelamento), `${num(st.cancelados)} pedido(s)`)}${k('Entregas no prazo', pct(st.pct_no_prazo))}${k('Tempo até despacho', hrs(st.min_medio_ate_despacho))}${k('Reencaminhados', pct(st.pct_reencaminhados))}</div>${stack}${recHtml}`;
+      }
+      const detailSeg = `<div class="seg" role="group" aria-label="Nível de detalhe"><button type="button" data-act="detail" data-v="0" aria-pressed="${!ui.detail}">Resumo</button><button type="button" data-act="detail" data-v="1" aria-pressed="${ui.detail}">Detalhada</button></div>`;
+      const fora = S.slaTotals['Fora do escopo'];
+      return `<div class="stack"><div class="drill">${head}${body}</div>
+        <section class="panel"><div class="ph"><h2>Hubs da rede</h2><span class="hint">ordenado por GMV válido · clique para ver o detalhe</span></div>${tableHtml('sla', detailSeg)}</section>
+        ${fora && ui.da === 'all' ? `<p class="note">Fora do escopo do projeto: ${num(S.slaHubs.filter(r => r.da === 'Fora do escopo').length)} hubs receberam ${num(fora.broadcasts_recebidos)} broadcasts (${pct(fora.pct_recusa)} recusados, ${pct(fora.pct_ignorado)} ignorados) e não registraram vendas.</p>` : ''}</div>`;
+    }
+
+    // ----- modais -----
     function modalMensal(){
       const rows = S.meses.concat([S.total]);
-      openRes('Resultados · IPIRANGA', 'GMV por mês', 'GMV válido exclui pedidos cancelados; "todos os status" inclui cancelados', `
-        <div class="res-scroll"><table class="da-table">
-          <thead><tr><th>Mês</th><th class="num">GMV válido</th><th class="num">GMV todos os status</th><th class="num">Cancelado</th><th class="num">% cancel.</th><th class="num">Pedidos</th><th class="num">Unidades</th></tr></thead>
-          <tbody>${rows.map(r => `<tr><td>${esc(mesLabel(r.mes))}</td><td class="num">${brl(r.gmv_valido)}</td><td class="num">${brl(r.gmv_todos_status)}</td><td class="num">${brl(r.gmv_cancelado)}</td><td class="num">${r.gmv_todos_status ? pct(100 * r.gmv_cancelado / r.gmv_todos_status) : '—'}</td><td class="num">${num(r.pedidos)}</td><td class="num">${num(r.unidades)}</td></tr>`).join('')}</tbody>
-        </table></div>`, true);
+      openRes('Resultados · IPIRANGA', 'GMV por mês', 'GMV válido exclui pedidos cancelados; GMV bruto inclui todos os status', `
+        <div class="tbl-wrap"><table><thead><tr><th class="l">Mês</th><th>GMV válido</th><th>GMV bruto</th><th>Cancelado</th><th>% cancel.</th><th>Pedidos</th><th>Unidades</th></tr></thead>
+        <tbody>${rows.map((r, i) => `<tr><td class="l">${esc(mesLabel(r.mes))}${S.partial && i === S.meses.length - 1 ? '*' : ''}</td><td>${brl(r.gmv_valido)}</td><td>${brl(r.gmv_todos_status)}</td><td>${brl(r.gmv_cancelado)}</td><td>${r.gmv_todos_status ? pct(100 * r.gmv_cancelado / r.gmv_todos_status) : '—'}</td><td>${num(r.pedidos)}</td><td>${num(r.unidades)}</td></tr>`).join('')}</tbody></table></div>
+        ${S.partial ? '<p class="note">* Mês em curso, parcial.</p>' : ''}`, true);
     }
-
-    function modalProdutos(){
-      openRes('Resultados · IPIRANGA', 'GMV por produto', S.produtos.length + ' produtos, ordenados por GMV válido', `
-        <div class="res-scroll"><table class="da-table">
-          <thead><tr><th>Produto</th><th class="num">GMV válido</th><th class="num">% GMV</th><th class="num">% acum.</th><th class="num">Unid.</th><th class="num">Pedidos</th><th class="num">Hubs</th></tr></thead>
-          <tbody>${S.produtos.map(p => `<tr><td>${esc(p.produto)}</td><td class="num">${brl(p.gmv_valido)}</td><td class="num">${pct(p.pct_gmv)}</td><td class="num">${pct(p.pct_acumulado)}</td><td class="num">${num(p.unidades)}</td><td class="num">${num(p.pedidos_validos)}</td><td class="num">${num(p.hubs_que_venderam)}</td></tr>`).join('')}</tbody>
-        </table></div>`, true);
-    }
-
-    function modalHubs(){
-      openRes('Resultados · IPIRANGA', 'Hubs com vendas', S.hubs.length + ' hubs, ordenados por GMV válido', `
-        <div class="res-scroll"><table class="da-table">
-          <thead><tr><th>Hub</th><th>Cidade/UF</th><th>DA</th><th class="num">GMV válido</th><th class="num">% GMV</th><th class="num">Ticket</th><th class="num">Transações</th><th class="num">Última compra</th></tr></thead>
-          <tbody>${S.hubs.map(h => `<tr data-act="hub" data-key="${esc(norm(h.hub_nome))}"><td>${esc(h.hub_nome)}</td><td>${esc(h.cidade)}/${esc(h.uf)}</td><td>${esc(h.da)}</td><td class="num">${brl(h.gmv_valido)}</td><td class="num">${pct(h.pct_gmv)}</td><td class="num">${brl(h.ticket_medio)}</td><td class="num">${num(h.transacoes)}</td><td class="num">${dateBR(h.ultima_compra)}</td></tr>`).join('')}</tbody>
-        </table></div>`, true);
-    }
-
     function modalHub(key){
-      const h = S.hubInfo[key];
-      const s = S.slaHubs.find(r => norm(r.hub) === key);
+      const h = S.hubInfo[key], s = S.slaHubs.find(r => norm(r.hub) === key);
       if(!h && !s) return;
-      const li = (l, v) => `<li><b>${l}:</b> ${v}</li>`;
+      const kp = (l, v) => `<div class="kpi"><div class="k"><span>${l}</span></div><div class="v">${v}</div></div>`;
+      const dl = rows => `<dl class="pace-list">${rows.map(([a, b]) => `<dt>${a}</dt><dd>${b}</dd>`).join('')}</dl>`;
       let html = '';
       if(h){
-        html += `<div class="modal-section"><div class="modal-section-label">Performance</div><ul>
-          ${li('GMV válido', brl(h.gmv_valido) + ' (' + pct(h.pct_gmv) + ' do total)')}
-          ${li('Transações', num(h.transacoes))}${li('Unidades', num(h.unidades))}
-          ${li('Ticket médio', brl(h.ticket_medio))}${li('Consumidores', num(h.consumidores))}${li('Mix de SKUs', num(h.mix_skus))}
-        </ul></div>
-        <div class="modal-section"><div class="modal-section-label">Recorrência</div><ul>
-          ${li('Primeira compra', dateBR(h.primeira_compra))}${li('Última compra', dateBR(h.ultima_compra))}
-          ${li('Intervalo médio entre compras', nf1.format(h.intervalo_medio_dias) + ' dia(s)')}${li('Transações por semana', nf1.format(h.transacoes_por_semana))}
-        </ul></div>
-        <div class="modal-section"><div class="modal-section-label">Cancelamentos e recusas</div><ul>
-          ${li('Cancelados', num(h.cancelados) + ' (' + pct(h.pct_cancelamento) + ')')}
-          ${li('Recusas por ruptura', num(h.recusas_ruptura))}${li('Recusas por preço', num(h.recusas_preco))}${li('Recusas fora do portfólio', num(h.recusas_fora_portfolio))}
-        </ul></div>`;
+        html += `<div class="grid g-kpi" style="grid-template-columns:repeat(2,minmax(0,1fr))">${kp('GMV válido', brlK(h.gmv_valido))}${kp('% do GMV', pct(h.pct_gmv))}${kp('Ticket médio', brl(h.ticket_medio))}${kp('Transações', num(h.transacoes))}</div>
+          <div class="sect">Compras</div>${dl([['Unidades', num(h.unidades)], ['Consumidores', num(h.consumidores)], ['Mix de SKUs', num(h.mix_skus)], ['Primeira compra', dateBR(h.primeira_compra)], ['Última compra', dateBR(h.ultima_compra)], ['Intervalo médio entre compras', dec(h.intervalo_medio_dias) + ' dia(s)'], ['Transações por semana', dec(h.transacoes_por_semana)]])}
+          <div class="sect">Cancelamentos e recusas</div>${dl([['Cancelados', num(h.cancelados) + ' (' + pct(h.pct_cancelamento) + ')'], ['Recusas por ruptura', num(h.recusas_ruptura)], ['Recusas por preço', num(h.recusas_preco)], ['Recusas fora do portfólio', num(h.recusas_fora_portfolio)]])}`;
       }
       if(s){
-        html += `<div class="modal-section"><div class="modal-section-label">Eficiência operacional</div><ul>
-          ${li('Pedidos (todos os status)', num(s.pedidos))}
-          ${li('Aceite / recusa / ignorado', pct(s.pct_aceite) + ' / ' + pct(s.pct_recusa) + ' / ' + pct(s.pct_ignorado))}
-          ${li('Entregues no prazo', pct(s.pct_no_prazo))}
-          ${li('Tempo médio até despacho', hrs(s.min_medio_ate_despacho))}
-          ${li('Broadcasts recebidos', num(s.broadcasts_recebidos))}
-          ${li('Reencaminhados', pct(s.pct_reencaminhados))}
-          ${!h ? li('Recusas (ruptura / preço / fora do portfólio)', num(s.recusas_ruptura) + ' / ' + num(s.recusas_preco) + ' / ' + num(s.recusas_fora_portfolio)) : ''}
-        </ul></div>`;
+        html += `<div class="sect">Eficiência operacional</div>${dl([['Pedidos (todos os status)', num(s.pedidos)], ['Aceite / recusa / ignorado', pct(s.pct_aceite) + ' / ' + pct(s.pct_recusa) + ' / ' + pct(s.pct_ignorado)], ['Entregues no prazo', pct(s.pct_no_prazo)], ['Tempo médio até despacho', hrs(s.min_medio_ate_despacho)], ['Broadcasts recebidos', num(s.broadcasts_recebidos)], ['Reencaminhados', pct(s.pct_reencaminhados)]].concat(h ? [] : [['Recusas (ruptura / preço / fora do portfólio)', num(s.recusas_ruptura) + ' / ' + num(s.recusas_preco) + ' / ' + num(s.recusas_fora_portfolio)]]))}`;
       }
-      const sub = h ? h.cidade + ', ' + h.uf + ' · ' + h.da : (s.da + ' · sem vendas no período');
-      openRes('Hub · detalhes', h ? h.hub_nome : norm(s.hub), sub, html, false);
+      openRes('Hub · detalhes', h ? h.hub_nome : norm(s.hub), h ? h.cidade + ', ' + h.uf + ' · ' + h.da : s.da + ' · sem vendas no período', html, false);
     }
 
-    root.addEventListener('click', e => {
-      const t = e.target.closest('[data-act]');
-      if(!t || !S) return;
-      const act = t.dataset.act;
-      if(act === 'mensal') modalMensal();
-      else if(act === 'produtos') modalProdutos();
-      else if(act === 'hubs') modalHubs();
-      else if(act === 'hub') modalHub(t.dataset.key);
-      else if(act === 'da'){
-        const sec = t.closest('.da-section');
-        sec.classList.toggle('open');
-        sec.querySelector('.da-toggle').textContent = sec.classList.contains('open') ? '−' : '+';
+    // ---------- montagem ----------
+    function freshHtml(){
+      if(S.live){
+        const t = S.stamp ? new Date(S.stamp) : new Date();
+        return `<span class="dot live"></span><span>Ao vivo · atualizado às ${t.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}</span>`;
       }
-      else if(act === 'det') t.closest('.da-section').classList.toggle('detail');
+      return `<span class="dot"></span><span>Snapshot${S.generatedAt ? ' de ' + dateBR(S.generatedAt) : ''}</span>`;
+    }
+    function footerHtml(){
+      return `<footer><p><b>Fonte:</b> Hubii Data Lake (Redshift). ${S.live ? 'Dados lidos ao vivo.' : 'Dados do snapshot' + (S.generatedAt ? ' de ' + dateBR(S.generatedAt) : '') + '.'}</p>
+        <p><b>Regras:</b> GMV válido exclui pedidos cancelados; GMV bruto inclui todos os status. Ticket médio = GMV válido ÷ pedidos válidos. ${S.partial ? 'O mês em curso é parcial (*). ' : ''}A DA é definida pela UF do hub (SP → Trevilhub, RS → Makena, MG → BelLub); “Sem hub alocado” são pedidos ainda sem hub atribuído.</p></footer>`;
+    }
+    function renderRail(){ const el = document.getElementById('hxRail'); if(el) el.innerHTML = railHtml(); }
+    function renderBar(){ const el = document.getElementById('hxBar'); if(el) el.innerHTML = barHtml(); }
+    function renderView(){
+      const el = document.getElementById('hxView'); if(!el) return;
+      el.innerHTML = ui.view === 'produtos' ? viewProdutos() : ui.view === 'hubs' ? viewHubs() : ui.view === 'eficiencia' ? viewEficiencia() : viewGeral();
+      if(ui.view === 'geral') drawChart();
+    }
+    function renderAll(){
+      root.innerHTML = `<header class="rtop"><div class="brand"><div class="eyebrow">Hubii · Iconic × IPIRANGA</div><h1>Resultados <span class="b">IPIRANGA</span></h1></div>
+        <div class="fresh" id="hxFresh">${freshHtml()}<button type="button" class="btn" data-act="reload">↻ Atualizar</button></div></header>
+        <div id="hxRail"></div><div class="bar" id="hxBar"></div><div id="hxView"></div><div id="hxFoot">${footerHtml()}</div>`;
+      renderRail(); renderBar(); renderView();
+    }
+    const skeleton = () => { root.innerHTML = '<div class="grid g-kpi"><div class="skel"></div><div class="skel"></div><div class="skel"></div><div class="skel"></div></div><div class="grid g-2" style="margin-top:16px"><div class="skel" style="min-height:260px"></div><div class="skel" style="min-height:260px"></div></div>'; };
+    function boot(withSkeleton){
+      if(withSkeleton) skeleton();
+      return loadData().then(({ d, live }) => { S = prep(d, live); renderAll(); }).catch(err => {
+        console.error('[resultados]', err);
+        root.innerHTML = '<div class="err">Não foi possível carregar os resultados agora. <button type="button" class="btn" data-act="reload" style="margin-left:8px">Tentar novamente</button></div>';
+      });
+    }
+
+    // ---------- eventos ----------
+    root.addEventListener('click', e => {
+      const t = e.target.closest('[data-act]'); if(!t) return;
+      const act = t.dataset.act;
+      if(act === 'reload'){ e.preventDefault(); boot(true); return; }
+      if(!S) return;
+      if(act === 'view'){ e.preventDefault(); ui.view = t.dataset.v; renderBar(); renderView(); }
+      else if(act === 'da'){ ui.da = t.dataset.da; renderRail(); renderBar(); renderView(); }
+      else if(act === 'mensal') modalMensal();
+      else if(act === 'hub') modalHub(t.dataset.key);
+      else if(act === 'detail'){ ui.detail = t.dataset.v === '1'; renderView(); }
+      else if(act === 'export') exportCsv(t.dataset.t);
+      else if(act === 'sort'){
+        const id = t.dataset.t, k = t.dataset.k, cur = ui.sort[id] || TABLES[id]().def;
+        ui.sort[id] = { k, dir: cur.k === k ? -cur.dir : -1 };
+        renderView();
+      }
     });
-    // linhas clicadas dentro do modal "todos os hubs"
+    root.addEventListener('keydown', e => {
+      if((e.key === 'Enter' || e.key === ' ') && e.target.matches('[role="button"][data-act]')){ e.preventDefault(); e.target.click(); }
+    });
+    root.addEventListener('input', e => {
+      const id = e.target.dataset && e.target.dataset.q; if(!id || !S) return;
+      ui.q[id] = e.target.value;
+      const tb = document.querySelector('#tbl-' + id + ' tbody'); if(tb) tb.innerHTML = tbodyHtml(id);
+    });
     modalBody.addEventListener('click', e => {
-      const t = e.target.closest('tr[data-act="hub"]');
-      if(t && S) modalHub(t.dataset.key);
+      const t = e.target.closest('[data-act="hub"]'); if(t && S) modalHub(t.dataset.key);
     });
 
-    loadData().then(({ d, live }) => {
-      S = prep(d);
-      render(live);
-    }).catch(err => {
-      console.error('[resultados]', err);
-      root.innerHTML = '<div class="panel"><div class="placeholder-note">Não foi possível carregar os dados de Resultados agora. Tente novamente em instantes.</div></div>';
-    });
+    // o gráfico mede a largura real: redesenha ao redimensionar e quando a aba Resultados fica visível
+    let rz = null;
+    const redraw = () => { clearTimeout(rz); rz = setTimeout(() => { if(S && ui.view === 'geral') drawChart(); }, 80); };
+    window.addEventListener('resize', redraw);
+    if(typeof ResizeObserver !== 'undefined') new ResizeObserver(redraw).observe(root);
+    document.querySelectorAll('[data-tab="resultados"]').forEach(b => b.addEventListener('click', () => setTimeout(redraw, 60)));
+
+    boot(true);
   })();
 </script>
 
