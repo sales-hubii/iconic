@@ -540,6 +540,11 @@ textarea.f-input{ resize: vertical; }
 .hx .conc b{ display:block; font:700 20px/1.1 var(--f); color:var(--ink); }
 .hx .mv li{ display:flex; gap:10px; align-items:flex-start; font-size:13px; padding:8px 0; border-top:1px solid var(--line); }
 .hx .mv li .chip{ flex:none; margin-top:1px; }
+.hx .mv.att li{ justify-content:space-between; align-items:center; }
+.hx .mv.att .linkbtn{ text-align:left; font-size:13px; padding:0; color:var(--ink); }
+.hx .mv.att .linkbtn:hover{ color:var(--accent); }
+.hx .bar-row .bt.ops-st{ display:flex; gap:1px; }
+.hx .bar-row .bt.ops-st i{ border-radius:0; flex:none; }
 
 /* drill */
 .hx .drill{ border:1px solid var(--line-2); border-radius:var(--r-card); padding:22px; background:radial-gradient(600px circle at 10% 0%,var(--glow),transparent 60%),var(--surface); }
@@ -3181,9 +3186,17 @@ textarea.f-input{ resize: vertical; }
       if(!r2.ok) throw new Error('snapshot indisponível (HTTP ' + r2.status + ')');
       return { d: await r2.json(), live: false };
     }
+    // Supply Ops: perguntas Iconic-Ops ao vivo quando existirem; senão, o bloco "ops" do snapshot
+    async function loadDataOps(){
+      const res = await loadData();
+      if(!res.d.ops || !(res.d.ops.recusa_produto && res.d.ops.recusa_produto.r.length)){
+        try{ const r = await fetch('/resultados-data.json', { credentials: 'same-origin', cache: 'no-cache' }); if(r.ok){ const s = await r.json(); if(s.ops){ if(!res.d.ops) res.d.ops = s.ops; else res.d.ops.recusa_produto = s.ops.recusa_produto; } } }catch(e){ /* sem Supply Ops */ }
+      }
+      return res;
+    }
 
     let S = null;
-    const ui = { view: 'geral', da: 'all', detail: false, q: {}, sort: {} };
+    const ui = { view: 'geral', da: 'all', detail: false, win: '4', scope: 'ativa', q: {}, sort: {} };
 
     function prep(d, live){
       const mensalAll = toRows(d.mensal), daRows = toRows(d.da), sla = toRows(d.sla);
@@ -3206,6 +3219,7 @@ textarea.f-input{ resize: vertical; }
         pedidosValidos: Object.values(daTotal).reduce((s, r) => s + (r.pedidos_validos || 0), 0),
         lastBuy: hubs.reduce((m, h) => (h.ultima_compra > m ? h.ultima_compra : m), ''),
         stamp: d.refreshedAt || null, generatedAt: d.generatedAt || null,
+        ops: null, opsRaw: d.ops || null,
       };
     }
 
@@ -3301,10 +3315,10 @@ textarea.f-input{ resize: vertical; }
       if(un && un.gmv_valido > 0){
         cards.push(`<div class="rc static warn"><span class="mg">SH</span><span class="nm">Sem hub alocado</span><span class="vl">${brlK(un.gmv_valido)} <span class="chip warn">${pct(un.pct_gmv_no_periodo)}</span></span><span class="sh"><i style="width:${Math.min(100, un.pct_gmv_no_periodo)}%"></i></span></div>`);
       }
-      return `<div class="rail-wrap"><div class="rail-h"><h2 class="sect" style="margin:0">Distribuidores autorizados (DA)</h2><span class="hint">Clique em uma DA para filtrar hubs e eficiência</span></div><div class="rail">${cards.join('')}</div></div>`;
+      return `<div class="rail-wrap"><div class="rail-h"><h2 class="sect" style="margin:0">Distribuidores autorizados (DA)</h2><span class="hint">Clique em uma DA para filtrar hubs e Supply Ops</span></div><div class="rail">${cards.join('')}</div></div>`;
     }
 
-    const TABS = [['geral', 'Visão geral'], ['produtos', 'Produtos'], ['hubs', 'Hubs'], ['eficiencia', 'Eficiência por DA']];
+    const TABS = [['geral', 'Visão geral'], ['produtos', 'Produtos'], ['hubs', 'Hubs'], ['supply', 'Supply Ops']];
     function barHtml(){
       const first = S.meses[0], last = S.meses[S.meses.length - 1];
       const chips = ui.da !== 'all'
@@ -3401,16 +3415,23 @@ textarea.f-input{ resize: vertical; }
         rows: S.hubs.filter(h => ui.da === 'all' || h.da === ui.da).map(h => ({ ...h, loc: h.cidade + '/' + h.uf, key: norm(h.hub_nome) })),
       }),
       sla: () => ({
-        file: 'eficiencia', def: { k: 'gmv_valido', dir: -1, k2: 'broadcasts_recebidos' }, search: r => r.nome, click: true, ph: 'Buscar hub…',
+        file: 'supply-ops', def: { k: 'score', dir: -1, k2: 'gmv_valido' }, search: r => r.nome, click: true, ph: 'Buscar hub…',
         cols: [
           { k: 'nome', l: 'Hub', left: 1, name: 1, f: v => esc(v), raw: v => v }, { k: 'da', l: 'DA', left: 1, f: v => esc(dn(v)), raw: v => dn(v) },
-          { k: 'gmv_valido', l: 'GMV válido', f: brl }, { k: 'pedidos', l: 'Pedidos', f: num },
-          { k: 'pct_aceite', l: 'Aceite', f: pct }, { k: 'pct_recusa', l: 'Recusa', f: pct }, { k: 'pct_ignorado', l: 'Ignorado', f: pct },
+          { k: 'score', l: 'Score', f: v => v == null ? '—' : `<span class="chip ${v >= 60 ? 'down' : v >= 35 ? 'warn' : 'flat'}">${v}</span>`, raw: v => v },
+          { k: 'gmv_valido', l: 'GMV válido', f: brl }, { k: 'ped4', l: 'Pedidos 4 sem.', f: num }, { k: 'dped', l: 'Δ 4 sem.', f: (v, r) => r.pedPrev4 ? chipVar(r.ped4, r.pedPrev4) : '—', raw: v => v },
+          { k: 'aceite', l: 'Aceite', f: pct }, { k: 'resposta', l: 'Resposta', f: pct }, { k: 'itens', l: 'Itens recus.', f: num },
           { k: 'pct_cancelamento', l: 'Cancel.', f: pct }, { k: 'pct_no_prazo', l: 'No prazo', f: pct }, { k: 'despacho', l: 'Despacho', f: hrs, raw: v => v == null ? '' : v / 60 },
-          { k: 'recusas_ruptura', l: 'Ruptura', f: num, det: 1 }, { k: 'recusas_preco', l: 'Preço', f: num, det: 1 }, { k: 'recusas_fora_portfolio', l: 'Fora portf.', f: num, det: 1 },
-          { k: 'broadcasts_recebidos', l: 'Broadcasts', f: num, det: 1 }, { k: 'pct_reencaminhados', l: 'Reencam.', f: pct, det: 1 },
+          { k: 'r_rup', l: 'Ruptura', f: num, det: 1 }, { k: 'r_qtd', l: 'Qtd. insuf.', f: num, det: 1 }, { k: 'r_port', l: 'Fora portf.', f: num, det: 1 }, { k: 'r_preco', l: 'Preço', f: num, det: 1 },
+          { k: 'rec', l: 'Broadcasts', f: num, det: 1 }, { k: 'pct_reencaminhados', l: 'Reencam.', f: pct, det: 1 },
         ],
-        rows: S.slaHubs.filter(r => r.da !== 'Fora do escopo' && (ui.da === 'all' || r.da === ui.da)).map(r => ({ ...r, nome: norm(r.hub), key: norm(r.hub), despacho: r.min_medio_ate_despacho })),
+        rows: (S.opsList || []).map(h => ({
+          key: h.key, nome: h.nome, da: h.da, score: h.score, ped4: h.ped4, pedPrev4: h.pedPrev4, dped: h.pedPrev4 ? h.ped4 / h.pedPrev4 - 1 : null,
+          gmv_valido: h.sla ? h.sla.gmv_valido : (h.info ? h.info.gmv_valido : null), aceite: h.aceite, resposta: h.resposta, itens: h.itens,
+          pct_cancelamento: h.sla ? h.sla.pct_cancelamento : null, pct_no_prazo: h.sla ? h.sla.pct_no_prazo : null, despacho: h.sla ? h.sla.min_medio_ate_despacho : null,
+          r_rup: h.itensMot.itens_ruptura, r_qtd: h.itensMot.itens_qtd_insuficiente, r_port: h.itensMot.itens_fora_portfolio, r_preco: h.itensMot.itens_preco,
+          rec: h.bc ? h.bc.rec : null, pct_reencaminhados: h.sla ? h.sla.pct_reencaminhados : null,
+        })),
       }),
     };
     function tableRows(id){
@@ -3418,7 +3439,8 @@ textarea.f-input{ resize: vertical; }
       const s = ui.sort[id] || cfg.def;
       let rows = cfg.rows.filter(r => !q || String(cfg.search(r)).toLowerCase().includes(q));
       const cmp = (a, b, k) => { const x = a[k], y = b[k]; if(x == null && y == null) return 0; if(x == null) return 1; if(y == null) return -1; return typeof x === 'number' && typeof y === 'number' ? x - y : String(x).localeCompare(String(y), 'pt-BR'); };
-      rows = rows.slice().sort((a, b) => (cmp(a, b, s.k) * s.dir) || (cfg.def.k2 ? cmp(b, a, cfg.def.k2) : 0));
+      const nl = (a, b) => (a[s.k] == null) - (b[s.k] == null);
+      rows = rows.slice().sort((a, b) => nl(a, b) || (cmp(a, b, s.k) * s.dir) || (cfg.def.k2 ? cmp(b, a, cfg.def.k2) : 0));
       return { cfg, rows, s, cols: cfg.cols.filter(c => !c.det || ui.detail) };
     }
     function tbodyHtml(id){
@@ -3464,31 +3486,295 @@ textarea.f-input{ resize: vertical; }
         <section class="panel"><div class="ph"><h2>Todos os hubs com vendas</h2><span class="hint">${num(list.length)} hub(s)</span></div>${tableHtml('hub')}</section></div>`;
     }
 
-    // ----- eficiência por DA -----
-    function viewEficiencia(){
-      const da = ui.da, st = da === 'all' ? S.slaAll : S.slaTotals[da], tot = da === 'all' ? null : S.daTotal[da];
+    // ----- supply ops -----
+    // Visão operacional por hub: resposta aos broadcasts, recusas de itens IPIRANGA, produtos recusados e prioridade de ação.
+    const MOTIVOS = [
+      { k: 'itens_ruptura', m: 'ruptura', l: 'Ruptura de estoque', c: 'var(--bad)', op: 1 },
+      { k: 'itens_qtd_insuficiente', m: 'qtd_insuficiente', l: 'Quantidade insuficiente', c: 'var(--s4)', op: 1 },
+      { k: 'itens_fora_portfolio', m: 'fora_portfolio', l: 'Fora do portfólio', c: 'var(--s2)', op: 0 },
+      { k: 'itens_preco', m: 'preco', l: 'Preço', c: 'var(--s5)', op: 0 },
+      { k: 'itens_outros', m: 'outros', l: 'Outros', c: 'var(--line-2)', op: 0 },
+    ];
+    const W_OPS = { gap: 30, perda: 30, vol: 20, acion: 10, recor: 10 };
+    const wkLabel = w => w ? w.slice(8, 10) + '/' + w.slice(5, 7) : '—';
+    const sumBy = (rows, k) => rows.reduce((s, r) => s + (r[k] || 0), 0);
+    const itensOf = r => MOTIVOS.reduce((s, m) => s + (r[m.k] || 0), 0);
+    const inDA = da => ui.da === 'all' || da === ui.da;
+
+    function prepOps(o, refIso){
+      if(!o || !o.semana) return null;
+      const sem = toRows(o.semana), rp = toRows(o.recusa_produto);
+      const weeks = [...new Set(sem.map(r => r.semana))].sort();
+      const refT = new Date(String(o.ref || refIso).slice(0, 10) + 'T23:59:59').getTime();
+      const last = weeks[weeks.length - 1];
+      const partialW = last && new Date(last + 'T00:00:00').getTime() + 7 * 864e5 > refT ? last : null;
+      const complete = weeks.filter(w => w !== partialW);
+      return {
+        sem, rp, weeks, partialW, live: !!o.live, fonte: o.fonte || '', ref: String(o.ref || refIso).slice(0, 10),
+        win: weeks.slice(-4), cur4: complete.slice(-4), prev4: complete.slice(-8, -4),
+        hasBc: sem.some(r => r.broadcasts_recebidos != null),
+      };
+    }
+
+    // universo de hubs do escopo: perguntas 3612/3613 + série semanal (Supply Ops)
+    function opsHubs(){
+      const O = S.ops, map = {};
+      const get = key => map[key] || (map[key] = { key, nome: key, da: null, uf: null, sla: null, info: S.hubInfo[key] || null, wk: [] });
+      S.slaHubs.filter(r => r.da !== 'Fora do escopo').forEach(r => { const h = get(norm(r.hub)); h.da = r.da; h.sla = r; });
+      if(O) O.sem.filter(r => r.hub_nome && r.da !== 'Fora do escopo').forEach(r => { const h = get(norm(r.hub_nome)); h.da = h.da || r.da; h.uf = r.uf; h.wk.push(r); });
+      const all = Object.values(map).filter(h => inDA(h.da));
+      all.forEach(h => { h.ativa = !!((h.info && h.info.gmv_valido > 0) || h.wk.some(r => r.pedidos_validos > 0) || (h.sla && h.sla.gmv_valido > 0)); });
+      const list = ui.scope === 'todos' ? all : all.filter(h => h.ativa);
+      const daTicket = da => { const t = S.daTotal[da]; return t && t.pedidos_validos ? t.gmv_valido / t.pedidos_validos : null; };
+      const netTicket = S.pedidosValidos ? S.total.gmv_valido / S.pedidosValidos : null;
+      const pick = ws => (h => h.wk.filter(r => ws.includes(r.semana)));
+      list.forEach(h => {
+        if(h.info) h.uf = h.uf || h.info.uf;
+        const win = O ? pick(ui.win === 'all' ? O.weeks : O.win)(h) : [];
+        const c4 = O ? pick(O.cur4)(h) : [], p4 = O ? pick(O.prev4)(h) : [];
+        h.itensMot = Object.fromEntries(MOTIVOS.map(m => [m.k, sumBy(win, m.k)]));
+        h.itens = itensOf(h.itensMot);
+        h.itensOp = MOTIVOS.filter(m => m.op).reduce((s, m) => s + h.itensMot[m.k], 0);
+        h.ped4 = sumBy(c4, 'pedidos_validos'); h.pedPrev4 = sumBy(p4, 'pedidos_validos');
+        h.pedWin = sumBy(win, 'pedidos_validos'); h.gmvWin = sumBy(win, 'gmv_valido');
+        // resposta aos broadcasts: série semanal (quando a pergunta Iconic-Ops traz broadcasts) ou período da pergunta 3613
+        const bcRows = O && O.hasBc ? win.filter(r => r.broadcasts_recebidos != null) : [];
+        if(bcRows.length){
+          const rec = sumBy(bcRows, 'broadcasts_recebidos');
+          h.bc = { src: 'semanal', rec, acc: sumBy(bcRows, 'aceitos'), ref: sumBy(bcRows, 'recusados'), ign: sumBy(bcRows, 'ignorados'), resp: sumBy(bcRows, 'respondidos') };
+        }else if(h.sla && h.sla.broadcasts_recebidos){
+          const s = h.sla, rec = s.broadcasts_recebidos;
+          h.bc = { src: 'período', rec, acc: Math.round(rec * (s.pct_aceite || 0) / 100), ref: Math.round(rec * (s.pct_recusa || 0) / 100), ign: Math.round(rec * (s.pct_ignorado || 0) / 100) };
+          h.bc.resp = rec - h.bc.ign;
+        }else h.bc = null;
+        if(h.bc){
+          h.aceite = h.bc.rec ? 100 * h.bc.acc / h.bc.rec : null;
+          h.resposta = h.bc.rec ? 100 * h.bc.resp / h.bc.rec : null;
+        }else{ h.aceite = null; h.resposta = null; }
+        h.ticket = (h.info && h.info.ticket_medio) || daTicket(h.da) || netTicket;
+        h.perda = h.bc && h.ticket ? (h.bc.ref + h.bc.ign) * h.ticket : null;
+        // recorrência: só com série semanal de broadcasts (aceite abaixo da referência também nas 4 semanas anteriores)
+        h.prevAceite = null;
+        if(O && O.hasBc){
+          const pr = pick(O.prev4)(h).filter(r => r.broadcasts_recebidos);
+          const rec = sumBy(pr, 'broadcasts_recebidos');
+          if(rec) h.prevAceite = 100 * sumBy(pr, 'aceitos') / rec;
+        }
+      });
+      return list;
+    }
+    function refRates(list){
+      const st = ui.da === 'all' ? S.slaAll : S.slaTotals[ui.da];
+      const withBc = list.filter(h => h.bc && h.bc.rec);
+      const rec = sumBy(withBc.map(h => h.bc), 'rec');
+      if(S.ops && S.ops.hasBc && rec) return { aceite: 100 * sumBy(withBc.map(h => h.bc), 'acc') / rec, resposta: 100 * sumBy(withBc.map(h => h.bc), 'resp') / rec };
+      return st ? { aceite: st.pct_aceite, resposta: 100 - (st.pct_ignorado || 0) } : { aceite: null, resposta: null };
+    }
+    // Opportunity Score (0-100): 30% gap de aceite, 30% GMV potencial perdido, 20% volume, 10% recusa operacional, 10% recorrência
+    function scoreHubs(list, ref){
+      const cands = list.filter(h => h.aceite != null && ref.aceite != null && h.aceite < ref.aceite && h.bc.rec >= 5);
+      const maxP = Math.max(...cands.map(h => h.perda || 0), 1), maxR = Math.max(...cands.map(h => h.bc.rec), 1);
+      cands.forEach(h => {
+        const parts = {
+          gap: Math.max(0, (ref.aceite - h.aceite) / (ref.aceite || 1)),
+          perda: (h.perda || 0) / maxP,
+          vol: h.bc.rec / maxR,
+          acion: h.itens ? h.itensOp / h.itens : 0,
+          recor: h.prevAceite == null ? null : (h.prevAceite < ref.aceite ? 1 : 0),
+        };
+        const wsum = Object.keys(W_OPS).reduce((s, k) => s + (parts[k] == null ? 0 : W_OPS[k]), 0);
+        h.score = Math.round(100 * Object.keys(W_OPS).reduce((s, k) => s + (parts[k] == null ? 0 : W_OPS[k] * parts[k]), 0) / wsum);
+        h.parts = parts;
+      });
+      list.filter(h => !cands.includes(h)).forEach(h => { h.score = null; h.parts = null; });
+      return cands.sort((a, b) => b.score - a.score || (b.perda || 0) - (a.perda || 0));
+    }
+    const domMot = h => { const m = MOTIVOS.slice().sort((a, b) => h.itensMot[b.k] - h.itensMot[a.k])[0]; return h.itens ? m.l.toLowerCase() : null; };
+
+    // gráfico de barras semanais (empilhadas), SVG à mão
+    function weekBars(id, weeks, series, getRow, opts){
+      opts = opts || {};
+      const W = opts.w || 640, H = opts.h || 200, m = { l: 44, r: 8, t: 18, b: 26 }, n = weeks.length;
+      if(!n) return '<div class="empty">Sem dados no período.</div>';
+      const vals = weeks.map(w => { const r = getRow(w); return series.map(s => r[s.k] || 0); });
+      const tot = vals.map(v => v.reduce((a, b) => a + b, 0));
+      const max = Math.max(...tot, 0);
+      if(!max) return `<div class="empty">${opts.emptyMsg || 'Nada registrado no período.'}</div>`;
+      const { top, step } = scale(max);
+      const iw = W - m.l - m.r, ih = H - m.t - m.b, bw = Math.min(34, iw / n * .66);
+      const X = i => m.l + (i + .5) * iw / n, Y = v => m.t + ih * (1 - v / top);
+      let g = '', ax = '';
+      for(let v = 0; v <= top + 1e-6; v += step){ const y = Y(v).toFixed(1); g += `<line x1="${m.l}" x2="${W - m.r}" y1="${y}" y2="${y}"/>`; ax += `<text x="${m.l - 6}" y="${(+y + 4).toFixed(1)}" text-anchor="end">${opts.money ? axisLbl(v) : nf0.format(v)}</text>`; }
+      const every = Math.ceil(n / Math.max(3, Math.floor(iw / 56)));
+      let bars = '';
+      weeks.forEach((w, i) => {
+        const part = w === (S.ops && S.ops.partialW);
+        if(i % every === 0 || i === n - 1) ax += `<text x="${X(i).toFixed(1)}" y="${H - 8}" text-anchor="middle">${wkLabel(w)}${part ? '*' : ''}</text>`;
+        let acc = 0;
+        series.forEach((s, j) => {
+          const v = vals[i][j]; if(!v) return;
+          const y0 = Y(acc), y1 = Y(acc + v); acc += v;
+          bars += `<rect x="${(X(i) - bw / 2).toFixed(1)}" y="${y1.toFixed(1)}" width="${bw.toFixed(1)}" height="${Math.max(1, y0 - y1).toFixed(1)}" rx="2" style="fill:${part ? 'var(--prev)' : s.c}"${part && series.length > 1 ? ' opacity=".55"' : ''}/>`;
+        });
+        if(opts.labelLast && i === n - 1 && tot[i]) bars += `<text x="${X(i).toFixed(1)}" y="${(Y(tot[i]) - 6).toFixed(1)}" text-anchor="middle" style="fill:var(--ink);font:600 11px var(--f)">${opts.money ? brlK(tot[i]) : nf0.format(tot[i])}</text>`;
+      });
+      const hw = iw / n;
+      const hits = weeks.map((w, i) => `<rect data-w="${i}" x="${(X(i) - hw / 2).toFixed(1)}" y="${m.t}" width="${hw.toFixed(1)}" height="${ih}" fill="transparent"/>`).join('');
+      CHARTS[id] = { weeks, series, vals, tot, money: opts.money, title: opts.title || '', render: w2 => weekBars(id, weeks, series, getRow, Object.assign({}, opts, { w: w2 })) };
+      return `<svg viewBox="0 0 ${W} ${H}" data-cw="${W}" style="display:block;width:100%;overflow:visible" data-chart="${id}" role="img" aria-label="${esc(opts.title || '')}"><g class="grid-l">${g}</g><g class="axis">${ax}</g>${bars}${hits}</svg>`;
+    }
+    // linhas (% por semana) para aceite e resposta, quando houver broadcasts semanais
+    function weekLines(id, weeks, series, getRow, wpx){
+      const W = wpx || 640, H = 200, m = { l: 44, r: 8, t: 18, b: 26 }, n = weeks.length;
+      const vals = weeks.map(w => { const r = getRow(w); return series.map(s => r[s.k]); });
+      if(!vals.some(v => v.some(x => x != null))) return '<div class="empty">Sem broadcasts semanais ainda.</div>';
+      const iw = W - m.l - m.r, ih = H - m.t - m.b;
+      const X = i => m.l + (n === 1 ? iw / 2 : i * iw / (n - 1)), Y = v => m.t + ih * (1 - v / 100);
+      let g = '', ax = '';
+      [0, 25, 50, 75, 100].forEach(v => { const y = Y(v).toFixed(1); g += `<line x1="${m.l}" x2="${W - m.r}" y1="${y}" y2="${y}"/>`; ax += `<text x="${m.l - 6}" y="${(+y + 4).toFixed(1)}" text-anchor="end">${v}%</text>`; });
+      const every = Math.ceil(n / Math.max(3, Math.floor(iw / 56)));
+      weeks.forEach((w, i) => { if(i % every === 0 || i === n - 1) ax += `<text x="${X(i).toFixed(1)}" y="${H - 8}" text-anchor="middle">${wkLabel(w)}${w === S.ops.partialW ? '*' : ''}</text>`; });
+      const paths = series.map((s, j) => {
+        let d = '', pen = false;
+        vals.forEach((v, i) => { if(v[j] == null){ pen = false; return; } d += (pen ? 'L' : 'M') + X(i).toFixed(1) + ' ' + Y(v[j]).toFixed(1) + ' '; pen = true; });
+        const dots = vals.map((v, i) => v[j] == null ? '' : `<circle cx="${X(i).toFixed(1)}" cy="${Y(v[j]).toFixed(1)}" r="3" fill="#fff" style="stroke:${s.c}" stroke-width="2"/>`).join('');
+        return `<path d="${d}" fill="none" style="stroke:${s.c}" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>${dots}`;
+      }).join('');
+      const hw = iw / Math.max(n - 1, 1);
+      const hits = weeks.map((w, i) => `<rect data-w="${i}" x="${(X(i) - hw / 2).toFixed(1)}" y="${m.t}" width="${hw.toFixed(1)}" height="${ih}" fill="transparent"/>`).join('');
+      CHARTS[id] = { weeks, series, vals, pct: true, title: '', render: w2 => weekLines(id, weeks, series, getRow, w2) };
+      return `<svg viewBox="0 0 ${W} ${H}" data-cw="${W}" style="display:block;width:100%;overflow:visible" data-chart="${id}" role="img" aria-label="Aceite e resposta por semana"><g class="grid-l">${g}</g><g class="axis">${ax}</g>${paths}${hits}</svg>`;
+    }
+    const CHARTS = {};
+    function wireCharts(scope){
+      (scope || root).querySelectorAll('svg[data-chart]').forEach(svg => {
+        const c = CHARTS[svg.dataset.chart]; if(!c || svg.dataset.wired === '1') return;
+        svg.dataset.wired = '1';
+        svg.querySelectorAll('rect[data-w]').forEach(r => {
+          const show = ev => {
+            const i = +r.dataset.w, p = ev.touches ? ev.touches[0] : ev, w = c.weeks[i];
+            const fmt = v => v == null ? '—' : c.pct ? pct(v) : c.money ? brl(v) : num(v);
+            const rows = c.series.map((s, j) => `<div class="r"><span>${esc(s.l)}</span><span>${fmt(c.vals[i][j])}</span></div>`).join('');
+            const tot = c.series.length > 1 && !c.pct ? `<div class="r"><span><b>Total</b></span><span><b>${fmt(c.tot[i])}</b></span></div>` : '';
+            showTip(`<b>Semana de ${wkLabel(w)}${w === S.ops.partialW ? ' · em curso (parcial)' : ''}</b>${rows}${tot}`, p.clientX, p.clientY);
+          };
+          r.addEventListener('mousemove', show); r.addEventListener('touchstart', show, { passive: true });
+          r.addEventListener('mouseleave', hideTip); r.addEventListener('touchend', hideTip);
+        });
+      });
+    }
+    // redesenha cada gráfico semanal na largura real do contêiner (texto e traço em escala 1:1)
+    function fitCharts(scope){
+      (scope || root).querySelectorAll('svg[data-chart]').forEach(svg => {
+        const c = CHARTS[svg.dataset.chart]; if(!c || !c.render) return;
+        const host = svg.parentElement, w = host ? Math.round(host.clientWidth) : 0;
+        if(!w || Math.abs(w - (+svg.dataset.cw || 0)) < 2) return;
+        const tmp = document.createElement('div'); tmp.innerHTML = c.render(Math.max(260, w));
+        const nsvg = tmp.querySelector('svg'); if(nsvg) svg.replaceWith(nsvg);
+      });
+      wireCharts(scope);
+    }
+    const legendHtml = series => `<div class="slegend">${series.map(s => `<span><i style="background:${s.c}"></i>${esc(s.l)}</span>`).join('')}</div>`;
+    const stackRow = (obj, total) => total ? `<span class="bt ops-st">${MOTIVOS.filter(m => obj[m.k]).map(m => `<i style="width:${(100 * obj[m.k] / total).toFixed(1)}%;background:${m.c}" title="${m.l} · ${num(obj[m.k])}"></i>`).join('')}</span>` : '<span class="bt"></span>';
+
+    function opsWeekRow(rows){
+      const o = {}; ['pedidos_validos', 'gmv_valido', 'broadcasts_recebidos', 'respondidos', 'aceitos'].concat(MOTIVOS.map(m => m.k)).forEach(k => { o[k] = sumBy(rows, k); });
+      const bcRows = rows.filter(r => r.broadcasts_recebidos != null);
+      o.aceite = bcRows.length && o.broadcasts_recebidos ? 100 * o.aceitos / o.broadcasts_recebidos : null;
+      o.resposta = bcRows.length && o.broadcasts_recebidos ? 100 * o.respondidos / o.broadcasts_recebidos : null;
+      return o;
+    }
+
+    function viewSupply(){
+      const O = S.ops, da = ui.da, st = da === 'all' ? S.slaAll : S.slaTotals[da], tot = da === 'all' ? null : S.daTotal[da];
       const title = da === 'all' ? 'Todas as DAs' : dn(da), cfg = DA_SCOPE.find(d => d.da === da);
-      const gmv = da === 'all' ? S.total.gmv_valido : (tot ? tot.gmv_valido : 0);
+      const list = opsHubs(), ref = refRates(list), ranked = scoreHubs(list, ref);
+      const scopeSeg = `<div class="seg" role="group" aria-label="Hubs considerados"><button type="button" data-act="scope" data-v="ativa" aria-pressed="${ui.scope !== 'todos'}">Rede ativa</button><button type="button" data-act="scope" data-v="todos" aria-pressed="${ui.scope === 'todos'}">Todos com broadcast</button></div>`;
+      S.opsList = list;
+      const winLbl = !O ? '' : ui.win === 'all' ? 'desde ' + wkLabel(O.weeks[0]) : 'últimas 4 semanas (' + wkLabel(O.win[0]) + ' a hoje)';
+      const k = (l, v, sub) => `<div class="kpi"><div class="k"><span>${l}</span></div><div class="v">${v}</div><div class="sub">${sub || ''}</div></div>`;
+      // ---- cabeçalho e KPIs ----
+      const itensTot = sumBy(list, 'itens');
+      const d4 = sumBy(list, 'ped4'), p4 = sumBy(list, 'pedPrev4');
       const head = `<div class="drill-h"><h2>${esc(title)}${cfg ? `<span class="tag">${cfg.uf}</span>` : ''}</h2>
-        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"><span class="chip flat">${brlK(gmv)} GMV válido</span>${tot ? `<span class="chip flat">${pct(tot.pct_gmv_no_periodo)} do total</span>` : ''}</div></div>`;
-      let body;
-      if(!st){
-        body = '<div class="empty">Sem registros desta DA nas consultas do período.</div>';
-      }else{
-        const k = (l, v, sub) => `<div class="kpi"><div class="k"><span>${l}</span></div><div class="v">${v}</div><div class="sub"><span>${sub || ''}</span></div></div>`;
-        const seg = [['Aceite', st.pct_aceite, 'var(--accent)'], ['Recusa', st.pct_recusa, 'var(--bad)'], ['Ignorado', st.pct_ignorado, 'var(--s5)']];
-        const segSum = seg.reduce((s, x) => s + (x[1] || 0), 0);
-        const stack = segSum > 0 ? `<div class="sect">Resposta aos broadcasts (${num(st.broadcasts_recebidos)} recebidos)</div><div class="stackbar">${seg.filter(x => x[1] > 0).map(x => `<i style="width:${(100 * x[1] / segSum).toFixed(2)}%;background:${x[2]}" title="${x[0]} · ${pct(x[1])}"></i>`).join('')}</div><div class="slegend">${seg.map(x => `<span><i style="background:${x[2]}"></i>${x[0]} ${pct(x[1])}</span>`).join('')}</div>` : '';
-        const rec = [['Ruptura de estoque', st.recusas_ruptura], ['Preço', st.recusas_preco], ['Fora do portfólio', st.recusas_fora_portfolio]];
-        const recTot = rec.reduce((s, x) => s + (x[1] || 0), 0), recMax = Math.max(...rec.map(x => x[1] || 0), 1);
-        const recHtml = recTot ? `<div class="sect">Motivos de recusa (${num(recTot)})</div><div class="bars">${rec.map(x => `<div class="bar-row"><span class="bl">${x[0]}</span><span class="bt"><i style="width:${(100 * (x[1] || 0) / recMax).toFixed(1)}%"></i></span><span class="bv">${num(x[1])}</span><span class="bd"><span class="chip flat">${pct(100 * (x[1] || 0) / recTot)}</span></span></div>`).join('')}</div>` : '';
-        body = `<div class="grid g-kpi">${k('Aceite', pct(st.pct_aceite))}${k('Recusa', pct(st.pct_recusa))}${k('Cancelamento', pct(st.pct_cancelamento), `${num(st.cancelados)} pedido(s)`)}${k('Entregas no prazo', pct(st.pct_no_prazo))}${k('Tempo até despacho', hrs(st.min_medio_ate_despacho))}${k('Reencaminhados', pct(st.pct_reencaminhados))}</div>${stack}${recHtml}`;
+        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"><span class="chip flat">${brlK(da === 'all' ? S.total.gmv_valido : (tot ? tot.gmv_valido : 0))} GMV válido</span>${scopeSeg}${O ? `<div class="seg" role="group" aria-label="Janela"><button type="button" data-act="win" data-v="4" aria-pressed="${ui.win !== 'all'}">Últimas 4 semanas</button><button type="button" data-act="win" data-v="all" aria-pressed="${ui.win === 'all'}">Desde jul/26</button></div>` : ''}</div></div>`;
+      const kp = st || O ? `<div class="grid g-kpi">
+        ${k('Aceite', pct(ref.aceite), `<span>${S.ops && S.ops.hasBc ? winLbl : '% dos broadcasts, período todo'}</span>`)}
+        ${k('Resposta', pct(ref.resposta), '<span>broadcasts respondidos (aceite ou recusa)</span>')}
+        ${k('Itens recusados', num(itensTot), `<span>${esc(winLbl)}</span>`)}
+        ${k('Pedidos válidos', num(d4), p4 ? chipVar(d4, p4) + '<span>4 semanas completas vs 4 anteriores</span>' : '<span>4 semanas completas</span>')}
+        ${st ? k('Entregas no prazo', pct(st.pct_no_prazo), '<span>período todo</span>') : ''}
+        ${st ? k('Tempo até despacho', hrs(st.min_medio_ate_despacho), '<span>do pedido à saída do hub</span>') : ''}
+      </div>` : '<div class="empty">Sem registros desta DA nas consultas do período.</div>';
+      // ---- onde agir primeiro ----
+      const top = ranked.slice(0, 8);
+      const maxS = Math.max(...top.map(h => h.score), 1);
+      const actHtml = top.length ? `<div class="bars">${top.map((h, i) => `<button type="button" class="bar-row" data-act="hub" data-key="${esc(h.key)}">
+          <span class="bl"><small>${i + 1}</small>${esc(h.nome)}<em>aceite ${pct(h.aceite)} · ${num(h.bc.rec)} broadcasts${h.perda ? ' · ' + brlK(h.perda) + ' potencial perdido' : ''}${domMot(h) ? ' · ' + esc(domMot(h)) : ''}</em></span>
+          <span class="bt"><i style="width:${(100 * h.score / maxS).toFixed(1)}%"></i></span><span class="bv">${h.score}</span><span class="bd"><span class="chip ${h.score >= 60 ? 'down' : h.score >= 35 ? 'warn' : 'flat'}">${h.score >= 60 ? 'alta' : h.score >= 35 ? 'média' : 'baixa'}</span></span></button>`).join('')}</div>`
+        : '<div class="empty">Nenhum hub com aceite abaixo da referência no período.</div>';
+      // listas de atenção
+      const att = (arr, fmt, empty) => arr.length ? `<ol class="mv att">${arr.map(h => `<li><button type="button" class="linkbtn" data-act="hub" data-key="${esc(h.key)}">${esc(h.nome)}</button><span class="chip down">${fmt(h)}</span></li>`).join('')}</ol>` : `<div class="empty">${empty}</div>`;
+      const elig = list.filter(h => h.bc && h.bc.rec >= 10);
+      const lowAcc = elig.filter(h => ref.aceite != null && h.aceite < ref.aceite).sort((a, b) => a.aceite - b.aceite).slice(0, 5);
+      const lowResp = elig.filter(h => ref.resposta != null && h.resposta < ref.resposta).sort((a, b) => a.resposta - b.resposta).slice(0, 5);
+      const recHubs = list.filter(h => h.itens > 0).sort((a, b) => b.itens - a.itens).slice(0, 5);
+      const maxI = Math.max(...recHubs.map(h => h.itens), 1);
+      const recHtml = recHubs.length ? `<ol class="mv att">${recHubs.map(h => `<li><span><button type="button" class="linkbtn" data-act="hub" data-key="${esc(h.key)}">${esc(h.nome)}</button><em style="display:block;font-style:normal;font-size:11.5px;color:var(--muted)">principal motivo: ${esc(domMot(h) || '—')}</em></span><span class="chip warn">${num(h.itens)} itens</span></li>`).join('')}</ol>` : '<div class="empty">Nenhuma recusa de item na janela.</div>';
+      const refLbl = `referência ${da === 'all' ? 'da rede' : 'da DA'}: aceite ${pct(ref.aceite)} · resposta ${pct(ref.resposta)}`;
+      const actSec = `<section class="panel"><div class="ph"><h2>Onde agir primeiro</h2><span class="hint">hubs com aceite abaixo da referência, por Opportunity Score · clique para o detalhe</span></div>${actHtml}
+          <p class="note">Score 0–100: 30% gap de aceite vs referência, 30% GMV potencial perdido ((recusados + ignorados) × ticket médio), 20% volume de broadcasts, 10% peso das recusas operacionais (ruptura e quantidade), 10% recorrência${S.ops && S.ops.hasBc ? '' : ' (entra quando a série semanal de broadcasts estiver ativa; até lá o score é normalizado nos outros 90%)'}. ${esc(refLbl)}. ${ui.scope === 'todos' ? 'Incluindo todos os hubs da UF que receberam broadcast IPIRANGA, mesmo sem nenhuma venda da marca.' : 'Rede ativa: hubs com ao menos uma venda IPIRANGA válida desde jul/26.'}</p></section>
+        <div class="grid g-3 top">
+          <section class="panel"><div class="ph"><h2>Aceite baixo</h2><span class="hint">≥ 10 broadcasts</span></div>${att(lowAcc, h => pct(h.aceite), 'Nenhum hub abaixo da referência.')}</section>
+          <section class="panel"><div class="ph"><h2>Resposta baixa</h2><span class="hint">broadcasts ignorados</span></div>${att(lowResp, h => pct(h.resposta), 'Nenhum hub abaixo da referência.')}</section>
+          <section class="panel"><div class="ph"><h2>Mais recusas de itens</h2><span class="hint">${esc(winLbl)}</span></div>${recHtml}</section>
+        </div>`;
+      // ---- evolução semanal ----
+      let evo = '';
+      if(O){
+        const rowsDA = O.sem.filter(r => inDA(r.da) && (ui.da !== 'all' || r.da !== 'Fora do escopo'));
+        const byW = w => opsWeekRow(rowsDA.filter(r => r.semana === w));
+        const ped = weekBars('opsPed', O.weeks, [{ k: 'pedidos_validos', l: 'Pedidos válidos', c: 'var(--accent)' }], byW, { labelLast: true, title: 'Pedidos válidos IPIRANGA por semana' });
+        const rec = weekBars('opsRec', O.weeks, MOTIVOS.map(m => ({ k: m.k, l: m.l, c: m.c })), byW, { title: 'Itens recusados por semana e motivo', emptyMsg: 'Nenhuma recusa de item registrada.' });
+        const lines = O.hasBc ? `<section class="panel"><div class="ph"><h2>Aceite e resposta por semana</h2><span class="hint">% dos broadcasts recebidos</span></div><div class="chart" style="min-height:0">${weekLines('opsRate', O.weeks, [{ k: 'aceite', l: 'Aceite', c: 'var(--accent)' }, { k: 'resposta', l: 'Resposta', c: 'var(--s4)' }], byW)}</div>${legendHtml([{ l: 'Aceite', c: 'var(--accent)' }, { l: 'Resposta', c: 'var(--s4)' }])}</section>` : '';
+        evo = `<div class="grid g-2e top">
+          <section class="panel"><div class="ph"><h2>Pedidos válidos por semana</h2><span class="hint">IPIRANGA · semana de segunda a domingo</span></div><div class="chart" style="min-height:0">${ped}</div>${O.partialW ? '<p class="note">* Semana em curso, parcial.</p>' : ''}</section>
+          <section class="panel"><div class="ph"><h2>Itens recusados por semana</h2><span class="hint">itens IPIRANGA marcados na recusa do hub</span></div><div class="chart" style="min-height:0">${rec}</div>${legendHtml(MOTIVOS.slice(0, 4))}</section>
+        </div>${lines}`;
+      }
+      // ---- produtos recusados ----
+      let prodSec = '';
+      if(O){
+        const agg = {};
+        O.rp.filter(r => inDA(r.da) && r.da !== 'Fora do escopo').forEach(r => {
+          const a = agg[r.produto] || (agg[r.produto] = Object.assign({ produto: r.produto, total: 0, hubs: new Set() }, Object.fromEntries(MOTIVOS.map(m => [m.k, 0]))));
+          const mk = (MOTIVOS.find(m => m.m === r.motivo) || MOTIVOS[4]).k;
+          a[mk] += r.itens_recusados || 0; a.total += r.itens_recusados || 0; if(r.hub_nome) a.hubs.add(r.hub_nome);
+        });
+        const prods = Object.values(agg).sort((a, b) => b.total - a.total).slice(0, 8);
+        const maxP = Math.max(...prods.map(p => p.total), 1);
+        const fora = O.rp.filter(r => r.da === 'Fora do escopo').reduce((s, r) => s + (r.itens_recusados || 0), 0);
+        prodSec = `<section class="panel"><div class="ph"><h2>Produtos mais recusados</h2><span class="hint">itens recusados desde jul/26, por motivo · clique para ver por hub</span></div>
+          ${prods.length ? `<div class="bars">${prods.map((p, i) => `<button type="button" class="bar-row" data-act="prod" data-key="${esc(p.produto)}"><span class="bl"><small>${i + 1}</small>${esc(p.produto)}<em>${p.hubs.size} hub(s)</em></span>${stackRow(p, p.total).replace('class="bt ops-st"', `class="bt ops-st" style="width:${(100 * p.total / maxP).toFixed(1)}%"`)}<span class="bv">${num(p.total)}</span><span class="bd"><span class="chip flat">${pct(100 * p.total / prods.reduce((s, x) => s + x.total, 0))}</span></span></button>`).join('')}</div>${legendHtml(MOTIVOS.slice(0, 4))}` : '<div class="empty">Nenhum produto recusado nesta DA.</div>'}
+          ${fora && ui.da === 'all' ? `<p class="note">Fora do escopo do projeto (hubs de outros varejistas, sem nome exibido): ${num(fora)} itens IPIRANGA recusados no mesmo período.</p>` : ''}</section>`;
       }
       const detailSeg = `<div class="seg" role="group" aria-label="Nível de detalhe"><button type="button" data-act="detail" data-v="0" aria-pressed="${!ui.detail}">Resumo</button><button type="button" data-act="detail" data-v="1" aria-pressed="${ui.detail}">Detalhada</button></div>`;
-      const fora = S.slaTotals['Fora do escopo'];
-      return `<div class="stack"><div class="drill">${head}${body}</div>
-        <section class="panel"><div class="ph"><h2>Hubs da rede</h2><span class="hint">ordenado por GMV válido · clique para ver o detalhe</span></div>${tableHtml('sla', detailSeg)}</section>
-        ${fora && ui.da === 'all' ? `<p class="note">Fora do escopo do projeto: ${num(S.slaHubs.filter(r => r.da === 'Fora do escopo').length)} hubs receberam ${num(fora.broadcasts_recebidos)} broadcasts (${pct(fora.pct_recusa)} recusados, ${pct(fora.pct_ignorado)} ignorados) e não registraram vendas.</p>` : ''}</div>`;
+      const foraSla = S.slaTotals['Fora do escopo'];
+      const fonte = O ? `<p class="note">Fonte da série semanal e das recusas por produto: ${O.live ? 'Metabase (ao vivo)' : esc(O.fonte || 'snapshot') + ' · ' + dateBR(O.ref)}. Resposta e aceite por hub: ${S.ops && S.ops.hasBc ? 'série semanal' : 'pergunta 3613 (período todo)'}.</p>` : '';
+      return `<div class="stack"><div class="drill">${head}${kp}</div>${actSec}${evo}${prodSec}
+        <section class="panel"><div class="ph"><h2>Todos os hubs</h2><span class="hint">ordenado por score e GMV · clique para ver o detalhe</span></div>${tableHtml('sla', detailSeg)}</section>
+        ${foraSla && ui.da === 'all' ? `<p class="note">Fora do escopo do projeto: ${num(S.slaHubs.filter(r => r.da === 'Fora do escopo').length)} hubs receberam ${num(foraSla.broadcasts_recebidos)} broadcasts (${pct(foraSla.pct_recusa)} recusados, ${pct(foraSla.pct_ignorado)} ignorados) e não registraram vendas.</p>` : ''}${fonte}</div>`;
+    }
+
+    function modalProd(name){
+      if(!S.ops) return;
+      const rows = S.ops.rp.filter(r => r.produto === name && inDA(r.da) && r.da !== 'Fora do escopo');
+      const by = {};
+      rows.forEach(r => { const a = by[r.hub_nome] || (by[r.hub_nome] = Object.assign({ hub: r.hub_nome, da: r.da, total: 0 }, Object.fromEntries(MOTIVOS.map(m => [m.k, 0])))); const mk = (MOTIVOS.find(m => m.m === r.motivo) || MOTIVOS[4]).k; a[mk] += r.itens_recusados || 0; a.total += r.itens_recusados || 0; });
+      const list = Object.values(by).sort((a, b) => b.total - a.total);
+      openRes('Supply Ops · produto recusado', name, 'Itens recusados desde jul/26, por hub e motivo', `
+        <div class="tbl-wrap"><table><thead><tr><th class="l">Hub</th><th class="l">DA</th>${MOTIVOS.slice(0, 4).map(m => `<th>${m.l}</th>`).join('')}<th>Total</th></tr></thead>
+        <tbody>${list.map(h => `<tr class="click" data-act="hub" data-key="${esc(norm(h.hub))}"><td class="l name">${esc(h.hub)}</td><td class="l">${esc(dn(h.da))}</td>${MOTIVOS.slice(0, 4).map(m => `<td>${num(h[m.k])}</td>`).join('')}<td><b>${num(h.total)}</b></td></tr>`).join('')}</tbody></table></div>`, true);
     }
 
     // ----- modais -----
@@ -3501,7 +3787,13 @@ textarea.f-input{ resize: vertical; }
     }
     function modalHub(key){
       const h = S.hubInfo[key], s = S.slaHubs.find(r => norm(r.hub) === key);
-      if(!h && !s) return;
+      let o = null;
+      if(S.ops || s){
+        const find = () => { const list = opsHubs(); scoreHubs(list, refRates(list)); return list.find(x => x.key === key) || null; };
+        o = find();
+        if(!o && ui.scope !== 'todos'){ const sc = ui.scope; ui.scope = 'todos'; o = find(); ui.scope = sc; }
+      }
+      if(!h && !s && !o) return;
       const kp = (l, v) => `<div class="kpi"><div class="k"><span>${l}</span></div><div class="v">${v}</div></div>`;
       const dl = rows => `<dl class="pace-list">${rows.map(([a, b]) => `<dt>${a}</dt><dd>${b}</dd>`).join('')}</dl>`;
       let html = '';
@@ -3513,7 +3805,29 @@ textarea.f-input{ resize: vertical; }
       if(s){
         html += `<div class="sect">Eficiência operacional</div>${dl([['Pedidos (todos os status)', num(s.pedidos)], ['Aceite / recusa / ignorado', pct(s.pct_aceite) + ' / ' + pct(s.pct_recusa) + ' / ' + pct(s.pct_ignorado)], ['Entregues no prazo', pct(s.pct_no_prazo)], ['Tempo médio até despacho', hrs(s.min_medio_ate_despacho)], ['Broadcasts recebidos', num(s.broadcasts_recebidos)], ['Reencaminhados', pct(s.pct_reencaminhados)]].concat(h ? [] : [['Recusas (ruptura / preço / fora do portfólio)', num(s.recusas_ruptura) + ' / ' + num(s.recusas_preco) + ' / ' + num(s.recusas_fora_portfolio)]]))}`;
       }
-      openRes('Hub · detalhes', h ? h.hub_nome : norm(s.hub), h ? h.cidade + ', ' + h.uf + ' · ' + dn(h.da) : dn(s.da) + ' · sem vendas no período', html, false);
+      if(o && S.ops){
+        const O = S.ops, byW = w => opsWeekRow(o.wk.filter(r => r.semana === w));
+        const prods = {};
+        O.rp.filter(r => r.hub_nome && norm(r.hub_nome) === key).forEach(r => { const a = prods[r.produto] || (prods[r.produto] = { n: r.produto, t: 0, m: {} }); a.t += r.itens_recusados || 0; a.m[r.motivo] = (a.m[r.motivo] || 0) + (r.itens_recusados || 0); });
+        const top = Object.values(prods).sort((a, b) => b.t - a.t).slice(0, 5);
+        const motL = m => (MOTIVOS.find(x => x.m === m) || MOTIVOS[4]).l.toLowerCase();
+        const P = o.parts;
+        html = `<div class="sect" style="margin-top:0">Supply Ops</div>${dl([
+            ['Opportunity Score', o.score == null ? 'fora da lista (aceite na referência ou sem broadcasts)' : o.score + ' de 100'],
+            ...(P ? [['Componentes', `gap ${pct(100 * P.gap)} · perda ${pct(100 * P.perda)} · volume ${pct(100 * P.vol)} · operacional ${pct(100 * P.acion)}${P.recor == null ? '' : ' · recorrente ' + (P.recor ? 'sim' : 'não')}`]] : []),
+            ['Aceite / resposta', pct(o.aceite) + ' / ' + pct(o.resposta) + (o.bc ? ` (${o.bc.src}, ${num(o.bc.rec)} broadcasts)` : '')],
+            ['GMV potencial perdido', o.perda == null ? '—' : brl(o.perda) + ' (recusados + ignorados × ticket)'],
+            ['Pedidos válidos, 4 semanas', num(o.ped4) + (o.pedPrev4 ? ' (antes: ' + num(o.pedPrev4) + ')' : '')],
+            ['Itens recusados (' + (ui.win === 'all' ? 'desde jul/26' : '4 semanas') + ')', num(o.itens) + (o.itens ? ' · ' + MOTIVOS.filter(m => o.itensMot[m.k]).map(m => m.l.toLowerCase() + ' ' + num(o.itensMot[m.k])).join(', ') : '')],
+          ])}
+          <div class="grid g-2e" style="margin-top:12px"><div><div class="sect" style="margin-top:0">Pedidos por semana</div>${weekBars('mPed', O.weeks, [{ k: 'pedidos_validos', l: 'Pedidos válidos', c: 'var(--accent)' }], byW, { h: 150, labelLast: true })}</div>
+          <div><div class="sect" style="margin-top:0">Itens recusados por semana</div>${weekBars('mRec', O.weeks, MOTIVOS.map(m => ({ k: m.k, l: m.l, c: m.c })), byW, { h: 150, emptyMsg: 'Sem recusas de itens.' })}</div></div>
+          ${top.length ? `<div class="sect">Produtos mais recusados (desde jul/26)</div>${dl(top.map(p => [esc(p.n), num(p.t) + ' · ' + Object.entries(p.m).sort((a, b) => b[1] - a[1]).map(([m, v]) => motL(m) + ' ' + v).join(', ')]))}` : ''}` + html;
+      }
+      const name = h ? h.hub_nome : s ? norm(s.hub) : o.nome;
+      const sub = h ? h.cidade + ', ' + h.uf + ' · ' + dn(h.da) : dn((s || o).da) + (s ? ' · sem vendas no período' : '');
+      openRes('Hub · detalhes', name, sub, html, !!(o && S.ops));
+      if(o && S.ops) fitCharts(modalBody);
     }
 
     // ---------- montagem ----------
@@ -3532,8 +3846,9 @@ textarea.f-input{ resize: vertical; }
     function renderBar(){ const el = document.getElementById('hxBar'); if(el) el.innerHTML = barHtml(); }
     function renderView(){
       const el = document.getElementById('hxView'); if(!el) return;
-      el.innerHTML = ui.view === 'produtos' ? viewProdutos() : ui.view === 'hubs' ? viewHubs() : ui.view === 'eficiencia' ? viewEficiencia() : viewGeral();
+      el.innerHTML = ui.view === 'produtos' ? viewProdutos() : ui.view === 'hubs' ? viewHubs() : ui.view === 'supply' ? viewSupply() : viewGeral();
       if(ui.view === 'geral') drawChart();
+      if(ui.view === 'supply') fitCharts(el);
     }
     function renderAll(){
       root.innerHTML = `<header class="rtop"><div class="brand"><div class="eyebrow">Hubii · Iconic</div><h1>Resultados</h1></div>
@@ -3544,7 +3859,7 @@ textarea.f-input{ resize: vertical; }
     const skeleton = () => { root.innerHTML = '<div class="grid g-kpi"><div class="skel"></div><div class="skel"></div><div class="skel"></div><div class="skel"></div></div><div class="grid g-2" style="margin-top:16px"><div class="skel" style="min-height:260px"></div><div class="skel" style="min-height:260px"></div></div>'; };
     function boot(withSkeleton){
       if(withSkeleton) skeleton();
-      return loadData().then(({ d, live }) => { S = prep(d, live); renderAll(); }).catch(err => {
+      return loadDataOps().then(({ d, live }) => { S = prep(d, live); S.ops = prepOps(S.opsRaw, S.ref); renderAll(); }).catch(err => {
         console.error('[resultados]', err);
         root.innerHTML = '<div class="err">Não foi possível carregar os resultados agora. <button type="button" class="btn" data-act="reload" style="margin-left:8px">Tentar novamente</button></div>';
       });
@@ -3560,6 +3875,9 @@ textarea.f-input{ resize: vertical; }
       else if(act === 'da'){ ui.da = t.dataset.da; renderRail(); renderBar(); renderView(); }
       else if(act === 'mensal') modalMensal();
       else if(act === 'hub') modalHub(t.dataset.key);
+      else if(act === 'prod') modalProd(t.dataset.key);
+      else if(act === 'win'){ ui.win = t.dataset.v; renderView(); }
+      else if(act === 'scope'){ ui.scope = t.dataset.v; renderView(); }
       else if(act === 'detail'){ ui.detail = t.dataset.v === '1'; renderView(); }
       else if(act === 'export') exportCsv(t.dataset.t);
       else if(act === 'sort'){
@@ -3582,7 +3900,7 @@ textarea.f-input{ resize: vertical; }
 
     // o gráfico mede a largura real: redesenha ao redimensionar e quando a aba Resultados fica visível
     let rz = null;
-    const redraw = () => { clearTimeout(rz); rz = setTimeout(() => { if(S && ui.view === 'geral') drawChart(); }, 80); };
+    const redraw = () => { clearTimeout(rz); rz = setTimeout(() => { if(S && ui.view === 'geral') drawChart(); else if(S && ui.view === 'supply') fitCharts(root); }, 80); };
     window.addEventListener('resize', redraw);
     if(typeof ResizeObserver !== 'undefined') new ResizeObserver(redraw).observe(root);
     document.querySelectorAll('[data-tab="resultados"]').forEach(b => b.addEventListener('click', () => setTimeout(redraw, 60)));
