@@ -1565,6 +1565,25 @@ textarea.f-input{ resize: vertical; }
   }
   .modal-title{ font-size: 17px; }
 }
+
+.week-group{ margin-bottom: 18px; }
+.week-header{ display:flex; align-items:center; justify-content:space-between; margin: 14px 0 6px; padding-bottom:6px; border-bottom:1px solid rgba(0,0,0,.08); }
+.week-badge{ font-weight:600; font-size:13px; letter-spacing:.02em; color: var(--purple); }
+.week-count{ font-size:12px; color:#6b7280; }
+.task-owner{ margin-left:8px; font-size:11px; color:#6b7280; border:1px solid rgba(0,0,0,.1); border-radius:999px; padding:1px 7px; }
+.task-chip.st-todo{ background: rgba(100,116,139,.12); color:#475569; }
+.task-chip.st-paused{ background: rgba(220,38,38,.10); color:#b91c1c; }
+.owner-badge.ambos{ color: var(--purple); background: rgba(99,72,229,.12); }
+details.ata-group{ margin-top: 12px; }
+details.ata-group > summary{ cursor:pointer; list-style:none; display:flex; justify-content:space-between; align-items:center; padding:8px 4px; font-weight:600; }
+details.ata-old{ border-top:1px solid rgba(0,0,0,.06); padding: 6px 4px; }
+details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
+.ata-old-date{ display:inline-block; min-width:84px; color:#6b7280; font-size:12px; }
+.ata-old-body{ padding: 8px 0 4px 84px; font-size:14px; }
+.ata-section{ margin-bottom:10px; }
+.ata-section-label{ font-weight:600; font-size:12px; text-transform:uppercase; letter-spacing:.04em; color:#6b7280; margin-bottom:4px; }
+.ata-old-body ul{ margin:0 0 4px 18px; padding:0; }
+.ata-old-body li{ margin:2px 0; }
 </style>
 </head>
 <body>
@@ -3976,32 +3995,69 @@ textarea.f-input{ resize: vertical; }
     const st = STATUS[t.status] ? t.status : 'Backlog';
     return `<div class="task${st === 'Done' ? ' done' : ''}" data-task data-status="${esc(key)}">
       <div class="check" data-check>${CHECK_SVG}</div>
-      <div class="task-text">${esc(t.title)}</div>
+      <div class="task-text">${esc(t.title)} <span class="task-owner">${esc(OWNER[t.owner] || t.owner)}</span></div>
       <span class="task-chip st-${STATUS[st].cls}">${STATUS[st].label}</span>
     </div>`;
   }
   function renderTasks(){
     const list = Object.entries(state.tasks);
-    const html = OWNER_GROUPS.map(([own, label, cls]) => {
-      const items = list.filter(([, t]) => t.owner === own).sort((a, b) => (a[1].order || 0) - (b[1].order || 0));
-      if(!items.length) return '';
-      return `<div class="owner-group"><div class="owner-header"><span class="owner-badge ${cls}">${label}</span></div>${items.map(([k, t]) => taskRow(k, t)).join('')}</div>`;
+    const weeks = {};
+    list.forEach(([k, t]) => { const w = t.week == null ? 'sem' : String(t.week); (weeks[w] = weeks[w] || []).push([k, t]); });
+    const keys = Object.keys(weeks).sort((x, y) => x === 'sem' ? 1 : y === 'sem' ? -1 : Number(y) - Number(x));
+    const html = keys.map(w => {
+      const items = weeks[w].sort((x, y) => (x[1].order || 0) - (y[1].order || 0));
+      const label = w === 'sem' ? 'Sem semana definida' : 'Semana ' + w;
+      const done = items.filter(([, t]) => t.status === 'Done').length;
+      return `<div class="week-group"><div class="week-header"><span class="week-badge">${esc(label)}</span><span class="week-count">${done}/${items.length} concluídas</span></div>${items.map(([k, t]) => taskRow(k, t)).join('')}</div>`;
     }).join('');
     $('tasks-root').innerHTML = html || '<div class="placeholder-note">Nenhuma tarefa cadastrada.</div>';
     const done = list.filter(([, t]) => t.status === 'Done').length;
     $('tabCount').textContent = done + '/' + list.length;
   }
+
+  const MESES_LONG = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
+  function renderSections(sections, a){
+    const link = a.url ? `<a class="modal-link" href="${esc(a.url)}" target="_blank" rel="noopener">Abrir ata no Notion ↗</a>` : '';
+    if(sections && sections.length){
+      return sections.map(s => `<div class="ata-section"><div class="ata-section-label">${esc(s.label)}</div><ul>${s.items.map(i => `<li>${esc(i)}</li>`).join('')}</ul></div>`).join('') + link;
+    }
+    if(a.teaser) return `<p>${esc(a.teaser)}</p>` + link;
+    return link || '<p class="note">Sem conteúdo disponível.</p>';
+  }
+  const teaserOf = a => a.teaser || (a.sections && a.sections[0] && a.sections[0].items.slice(0, 2).join(' · ')) || a.sub || '';
+  function allAtas(){
+    const notion = Object.entries(state.atas).map(([id, a]) => ({ id, ...a }));
+    const stat = STATIC_ATAS.map(a => ({ id: a.id, date: a.date, title: a.title, teaser: a.teaser, sections: [], loaded: true }));
+    return notion.concat(stat).sort((x, y) => String(y.date).localeCompare(String(x.date)));
+  }
   function renderAtas(){
-    const items = STATIC_ATAS.map(a => ({ id: a.id, date: a.date, title: a.title, teaser: a.teaser }))
-      .concat(Object.entries(state.atas).map(([id, a]) => ({
-        id, date: a.date, title: a.title,
-        teaser: a.sub || ((a.sections && a.sections[0] && a.sections[0].items[0]) || ''),
-      })));
-    items.sort((x, y) => String(y.date).localeCompare(String(x.date)));
-    $('atas-root').innerHTML = items.map(a => `<div class="ata-card" data-ata="${esc(a.id)}">
+    const all = allAtas();
+    const recent = all.slice(0, 5), older = all.slice(5);
+    let html = recent.map(a => `<div class="ata-card" data-ata="${esc(a.id)}">
       <div class="ata-date">${esc(a.date.slice(8,10))}<span>${esc(MESES[+a.date.slice(5,7) - 1].toUpperCase())}</span></div>
-      <div class="ata-info"><div class="ata-title">${esc(a.title)}</div><div class="ata-teaser">${esc(a.teaser)}</div></div>
+      <div class="ata-info"><div class="ata-title">${esc(a.title)}</div><div class="ata-teaser">${esc(teaserOf(a))}</div></div>
       <div class="ata-arrow">→</div></div>`).join('');
+    const byMonth = {};
+    older.forEach(a => { const k = a.date.slice(0, 7) || 'sem-data'; (byMonth[k] = byMonth[k] || []).push(a); });
+    html += Object.keys(byMonth).sort().reverse().map(m => {
+      const label = m === 'sem-data' ? 'Sem data' : MESES_LONG[+m.slice(5,7) - 1] + ' ' + m.slice(0,4);
+      return `<details class="ata-group"><summary><span>${esc(label)}</span><span class="week-count">${byMonth[m].length} atas</span></summary>${byMonth[m].map(a => `<details class="ata-old" data-ata-old="${esc(a.id)}"><summary><span class="ata-old-date">${esc(dateBR(a.date))}</span> ${esc(a.title)}</summary><div class="ata-old-body" id="ata-body-${esc(a.id)}">${a.loaded ? renderSections(a.sections, a) : '<p class="note">Carregando...</p>'}</div></details>`).join('')}</details>`;
+    }).join('');
+    $('atas-root').innerHTML = html;
+  }
+  async function loadAtaBody(id){
+    const a = state.atas[id]; if(!a || a.loaded) return;
+    const body = document.getElementById('ata-body-' + id);
+    try{
+      const r = await fetch('/api/tasks?ata=' + encodeURIComponent(id), { credentials: 'same-origin', cache: 'no-store' });
+      if(!r.ok) throw new Error('HTTP ' + r.status);
+      const j = await r.json();
+      a.sections = j.sections || []; a.loaded = true;
+      if(body) body.innerHTML = renderSections(a.sections, a);
+    }catch(e){
+      console.warn('[atas] conteúdo indisponível:', e.message);
+      if(body) body.innerHTML = a.url ? `<a class="modal-link" href="${esc(a.url)}" target="_blank" rel="noopener">Não foi possível carregar aqui. Abrir no Notion ↗</a>` : '<p class="note">Não foi possível carregar.</p>';
+    }
   }
   function renderBadge(){
     const el = $('updateDate'); if(!el) return;
@@ -4088,16 +4144,11 @@ textarea.f-input{ resize: vertical; }
   }
   function openAta(id){
     if(typeof MEETINGS !== 'undefined' && MEETINGS[id]){ openMeeting(id); return; }
-    const a = state.atas[id];
-    if(a){
-      ctx = { type: 'ata', id };
-      openModal('Ata de reunião', a.title, dateBR(a.date),
-        `<div class="modal-section"><a class="modal-link" href="${esc(a.url)}" target="_blank" rel="noopener">Abrir ata no Notion ↗</a></div>`);
-      return;
-    }
-    const s = STATIC_ATAS.find(x => x.id === id); if(!s) return;
+    const stat = STATIC_ATAS.find(x => x.id === id);
+    const a = state.atas[id] || (stat && { ...stat, sections: [], loaded: true });
+    if(!a) return;
     ctx = { type: 'ata', id };
-    openModal('Ata de reunião', s.title, dateBR(s.date), `<div class="modal-section"><p>${esc(s.teaser)}</p></div>`);
+    openModal('Ata de reunião', a.title, dateBR(a.date), renderSections(a.sections || [], a));
   }
 
   // ---------- ações ----------
@@ -4184,6 +4235,9 @@ textarea.f-input{ resize: vertical; }
   $('atas-root').addEventListener('click', (e) => {
     const card = e.target.closest('[data-ata]'); if(card) openAta(card.dataset.ata);
   });
+  $('atas-root').addEventListener('toggle', (e) => {
+    const d = e.target; if(d && d.matches && d.matches('details.ata-old') && d.open) loadAtaBody(d.dataset.ataOld);
+  }, true);
   $('btnAddTask').addEventListener('click', openNewTask);
   const badge = $('updateBadge');
   if(badge){ badge.title = 'Clique para recarregar tarefas'; badge.addEventListener('click', () => { load().then(() => toast('Atualizado.')); }); }
@@ -4195,4 +4249,3 @@ textarea.f-input{ resize: vertical; }
 
 </body>
 </html>
-
