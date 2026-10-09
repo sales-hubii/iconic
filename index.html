@@ -3436,8 +3436,8 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
     function barHtml(){
       const first = S.meses[0], last = S.meses[S.meses.length - 1];
       const names = new Map();
-      S0.hubs.forEach(h => names.set(norm(h.hub_nome), norm(h.hub_nome)));
-      S0.slaHubs.filter(r => r.da !== 'Fora do escopo').forEach(r => names.set(norm(r.hub), norm(r.hub)));
+      // só hubs com venda no período: hubs que receberam broadcast sem vender não entram no filtro
+      S0.hubs.filter(h => h.gmv_valido > 0).forEach(h => names.set(norm(h.hub_nome), norm(h.hub_nome)));
       const hubOpts = '<option value="">Todos os hubs</option>' + [...names.values()].sort((a, b) => a.localeCompare(b, 'pt-BR')).map(n => `<option value="${esc(n)}"${ui.hub === n ? ' selected' : ''}>${esc(n)}</option>`).join('');
       const monthOpts = '<option value="all">Todos os meses</option>' + S0.meses.map((m, i) => `<option value="${esc(m.mes)}"${ui.mes === m.mes ? ' selected' : ''}>${esc(mesLabel(m.mes))}${S0.partial && i === S0.meses.length - 1 ? ' (parcial)' : ''}</option>`).join('');
       const filters = `<label class="flt"><span>Mês</span><select class="fsel" data-filter="mes" aria-label="Filtrar por mês">${monthOpts}</select></label><label class="flt"><span>Hub</span><select class="fsel" data-filter="hub" aria-label="Filtrar por hub">${hubOpts}</select></label>`;
