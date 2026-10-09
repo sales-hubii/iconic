@@ -3351,7 +3351,11 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
     }
 
     function prep(d, live){
-      const mensalAll = toRows(d.mensal), sla = toRows(d.sla);
+      // GMV sem hub alocado é tirado do total de cada mês (valido e bruto), para o total bater com a soma das DAs
+      const unalMes = {};
+      toRows(d.da).filter(r => r.da === 'Sem hub alocado').forEach(r => { unalMes[r.mes] = (unalMes[r.mes] || 0) + (r.gmv_valido || 0); });
+      const mensalAll = toRows(d.mensal).map(r => { const u = unalMes[r.mes] || 0; return u ? Object.assign({}, r, { gmv_valido: r.gmv_valido - u, gmv_todos_status: r.gmv_todos_status - u }) : r; });
+      const sla = toRows(d.sla);
       // só DAs do escopo: pedidos sem hub alocado não entram em nenhuma visão
       const daRows = toRows(d.da).filter(r => r.da !== 'Sem hub alocado');
       const gSumMes = m => daRows.filter(r => r.mes === m).reduce((s, r) => s + (r.gmv_valido || 0), 0);
