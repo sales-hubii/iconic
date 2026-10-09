@@ -425,6 +425,13 @@ textarea.f-input{ resize: vertical; }
 .hx .period-line{ grid-column:1/-1; font-size:12px; color:var(--muted); padding:8px 0 10px; }
 .hx .active{ grid-column:1/-1; display:flex; flex-wrap:wrap; gap:6px; align-items:center; padding-bottom:8px; margin-top:0; }
 .hx .active:empty{ display:none; }
+.hx .flt{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--muted)}
+.hx .fsel{border:1px solid var(--line-2);border-radius:999px;padding:5px 10px;font:500 12.5px var(--f);background:var(--surface);color:var(--ink-2);max-width:240px;cursor:pointer}
+.hx .fsel:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.hx .cmp-pick{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.hx .cmp-sel{display:flex;flex-direction:column;align-items:stretch;gap:4px}
+.hx .cmp-sel .fsel{max-width:none;width:100%;border-radius:var(--r-md)}
+@media (max-width:760px){ .hx .cmp-pick{grid-template-columns:1fr} }
 .hx .active .lbl{ font:500 10.5px/1 var(--f); letter-spacing:.07em; text-transform:uppercase; color:var(--muted); margin-right:2px; }
 .hx .fchip{ display:inline-flex; gap:6px; align-items:center; border:1px solid var(--line-2); background:var(--surface); border-radius:999px; padding:3px 6px 3px 10px; font-size:12.5px; cursor:pointer; }
 .hx .fchip b{ font-weight:600; }
@@ -3226,10 +3233,84 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
       return res;
     }
 
-    let S = null;
-    // primeiro mês presente nos dados (o corte de período vive no SQL das perguntas do Metabase)
+    let S = null, S0 = null;
     const sinceLbl = () => (S && S.meses && S.meses.length) ? mesLabel(S.meses[0].mes) : 'jul/26';
-    const ui = { view: 'geral', da: 'all', detail: false, win: '4', scope: 'ativa', q: {}, sort: {} };
+    const ui = { view: 'geral', da: 'all', mes: 'all', hub: null, cmp: [null, null], detail: false, win: '4', scope: 'ativa', q: {}, sort: {} };
+    // com mês selecionado, a janela de 4 semanas não se aplica: vale o mês inteiro
+    const winEff = () => ui.mes !== 'all' ? 'all' : ui.win;
+    const mesOf = w => String(w || '').slice(0, 7);
+
+    // S é sempre derivado de S0 (base completa) conforme o filtro de mês
+    function applyFilters(){
+      const b = S0, sel = ui.mes, all = sel === 'all';
+      const meses = all ? b.meses : b.meses.filter(m => m.mes === sel);
+      const sumF = k => meses.reduce((s, r) => s + (r[k] || 0), 0);
+      const total = all ? b.total : { mes: 'TOTAL', gmv_valido: sumF('gmv_valido'), gmv_todos_status: sumF('gmv_todos_status'), gmv_cancelado: sumF('gmv_cancelado'), pedidos: sumF('pedidos'), unidades: sumF('unidades') };
+      const daByMes = {};
+      meses.forEach(m => { daByMes[m.mes] = b.daByMes[m.mes] || []; });
+      let daTotal = b.daTotal;
+      if(!all){
+        const rows = Object.values(daByMes).flat();
+        const gtot = rows.reduce((s, r) => s + (r.gmv_valido || 0), 0);
+        daTotal = {};
+        [...new Set(rows.map(r => r.da))].forEach(da => {
+          const rs = rows.filter(r => r.da === da), g = rs.reduce((s, r) => s + (r.gmv_valido || 0), 0);
+          daTotal[da] = { mes: 'TOTAL', da, gmv_valido: g, pedidos_validos: rs.reduce((s, r) => s + (r.pedidos_validos || 0), 0), hubs_ativos: Math.max(0, ...rs.map(r => r.hubs_ativos || 0)), pct_gmv_no_periodo: gtot ? 100 * g / gtot : 0 };
+        });
+      }
+      const pedidosValidos = Object.values(daTotal).reduce((s, r) => s + (r.pedidos_validos || 0), 0);
+      const partial = !!b.partial && (all || sel === b.meses[b.meses.length - 1].mes);
+      S = Object.assign({}, b, {
+        meses, total, daTotal, daByMes, pedidosValidos, partial,
+        complete: partial ? meses.slice(0, -1) : meses,
+        ops: prepOps(b.opsRaw, b.ref, sel),
+      });
+    }
+    function refreshAll(){ applyFilters(); renderRail(); renderBar(); renderView(); }
+
+    // avisos honestos: o que não tem quebra por mês/hub nesta consulta
+    function filterNote(view){
+      const out = [];
+      if(ui.mes !== 'all' && (view === 'produtos' || view === 'hubs')) out.push('Produtos e hubs não têm quebra mensal nesta consulta: mostram o período inteiro.');
+      if(ui.hub && (view === 'geral' || view === 'produtos')) out.push('O filtro de hub vale para Hubs e Supply Ops; esta visão segue no total.');
+      return out.map(t => `<p class="note">${esc(t)}</p>`).join('');
+    }
+
+    // comparação lado a lado de dois hubs (taxas, não volumes absolutos)
+    function cmpSecHtml(listAll){
+      const opts = sel => '<option value="">— escolher hub —</option>' + listAll.slice().sort((a, b) => a.nome.localeCompare(b.nome, 'pt-BR')).map(h => `<option value="${esc(h.key)}"${h.key === sel ? ' selected' : ''}>${esc(h.nome)}</option>`).join('');
+      const lab = (n, i) => `<label class="flt cmp-sel"><span>Hub ${n}</span><select class="fsel" data-cmp="${i}" aria-label="Hub ${n}">${opts(ui.cmp[i])}</select></label>`;
+      return `<section class="panel"><div class="ph"><h2>Comparar dois hubs</h2><span class="hint">taxas, não volumes · mesma janela e mês da tela</span></div>
+        <div class="cmp-pick">${lab('A', 0)}${lab('B', 1)}</div>${cmpTableHtml(listAll)}</section>`;
+    }
+    function cmpTableHtml(listAll){
+      const A = listAll.find(h => h.key === ui.cmp[0]), B = listAll.find(h => h.key === ui.cmp[1]);
+      if(!A || !B) return '<div class="empty">Escolha dois hubs acima para comparar.</div>';
+      if(A.key === B.key) return '<div class="empty">Escolha dois hubs diferentes.</div>';
+      const per100 = (n, h) => h.pedWin ? 100 * n / h.pedWin : null;
+      const rows = [
+        ['UF', h => h.uf || '—', v => v, null],
+        ['Broadcasts recebidos', h => h.bc ? h.bc.rec : null, num, null],
+        ['Aceite', h => h.aceite, pct, 'hi'],
+        ['Resposta', h => h.resposta, pct, 'hi'],
+        ['Entregas no prazo', h => h.sla ? h.sla.pct_no_prazo : null, pct, 'hi'],
+        ['Itens recusados por 100 pedidos', h => per100(h.itens, h), dec, 'lo'],
+        ['Recusas operacionais por 100 pedidos (ruptura + qtd.)', h => per100(h.itensOp, h), dec, 'lo'],
+        ['Cancelamento', h => h.sla ? h.sla.pct_cancelamento : null, pct, 'lo'],
+        ['Tempo até despacho', h => h.sla ? h.sla.min_medio_ate_despacho : null, hrs, 'lo'],
+        ['Ticket médio', h => h.ticket, brl, 'hi'],
+        ['GMV potencial perdido', h => h.perda, brl, 'lo'],
+        ['Score de oportunidade', h => h.score, v => v == null ? '—' : v + ' de 100', null],
+      ];
+      const body = rows.map(([l, g, f, dir]) => {
+        const va = g(A), vb = g(B), ok = !!dir && va != null && vb != null && va !== vb;
+        const aWin = ok && (dir === 'hi' ? va > vb : va < vb), bWin = ok && !aWin;
+        const st = w => w ? ' style="font-weight:700;color:var(--good)"' : '';
+        return `<tr><td class="l">${esc(l)}</td><td${st(aWin)}>${f(va)}</td><td${st(bWin)}>${f(vb)}</td></tr>`;
+      }).join('');
+      return `<div class="tbl-wrap"><table><thead><tr><th class="l">Indicador</th><th>${esc(A.nome)}</th><th>${esc(B.nome)}</th></tr></thead><tbody>${body}</tbody></table></div>
+        <p class="note">Verde = melhor leitura entre os dois. Recusas, cancelamento e despacho: menor é melhor. Taxas por 100 pedidos usam os pedidos válidos da janela ou do mês selecionado.</p>`;
+    }
 
     function prep(d, live){
       const mensalAll = toRows(d.mensal), daRows = toRows(d.da), sla = toRows(d.sla);
@@ -3354,12 +3435,18 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
     const TABS = [['geral', 'Visão geral'], ['produtos', 'Produtos'], ['hubs', 'Hubs'], ['supply', 'Supply Ops']];
     function barHtml(){
       const first = S.meses[0], last = S.meses[S.meses.length - 1];
+      const names = new Map();
+      S0.hubs.forEach(h => names.set(norm(h.hub_nome), norm(h.hub_nome)));
+      S0.slaHubs.filter(r => r.da !== 'Fora do escopo').forEach(r => names.set(norm(r.hub), norm(r.hub)));
+      const hubOpts = '<option value="">Todos os hubs</option>' + [...names.values()].sort((a, b) => a.localeCompare(b, 'pt-BR')).map(n => `<option value="${esc(n)}"${ui.hub === n ? ' selected' : ''}>${esc(n)}</option>`).join('');
+      const monthOpts = '<option value="all">Todos os meses</option>' + S0.meses.map((m, i) => `<option value="${esc(m.mes)}"${ui.mes === m.mes ? ' selected' : ''}>${esc(mesLabel(m.mes))}${S0.partial && i === S0.meses.length - 1 ? ' (parcial)' : ''}</option>`).join('');
+      const filters = `<label class="flt"><span>Mês</span><select class="fsel" data-filter="mes" aria-label="Filtrar por mês">${monthOpts}</select></label><label class="flt"><span>Hub</span><select class="fsel" data-filter="hub" aria-label="Filtrar por hub">${hubOpts}</select></label>`;
       const chips = ui.da !== 'all'
         ? `<span class="lbl">Filtros</span><button type="button" class="fchip" data-act="da" data-da="all" aria-label="Remover filtro de DA"><span>DA: <b>${esc(dn(ui.da))}</b></span><span class="x">✕</span></button><button type="button" class="linkbtn" data-act="da" data-da="all">Limpar</button>`
         : '';
       return `<nav class="stabs" role="tablist" aria-label="Seções de resultados">${TABS.map(([v, l]) => `<a href="#" role="tab" data-act="view" data-v="${v}" ${ui.view === v ? 'aria-current="page"' : ''}>${l}</a>`).join('')}</nav>
         <div class="period-line">${esc(mesLabel(first.mes))} a ${esc(mesLabel(last.mes))}${S.partial ? ' (mês em curso, parcial)' : ''}<span style="margin:0 6px">·</span>última compra registrada em ${dateBR(S.lastBuy)}</div>
-        <div class="active">${chips}</div>`;
+        <div class="active">${filters}${chips}</div>`;
     }
 
     // ----- visão geral -----
@@ -3410,7 +3497,7 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
             <div class="chart" id="hxChart"></div>
             <div class="legend"><span><i class="sw"></i>GMV válido</span>${S.partial ? '<span><i class="sw prev"></i>Mês em curso (parcial)</span>' : ''}</div></section>
           <section class="panel"><div class="ph"><h2>Alocação do GMV por DA</h2><span class="hint">% do GMV válido do mês</span></div>${allocHtml()}</section>
-        </div>${insightsHtml()}</div>`;
+        </div>${insightsHtml()}${filterNote('geral')}</div>`;
     }
 
     // ----- ranking em barras -----
@@ -3445,7 +3532,7 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
           { k: 'transacoes', l: 'Transações', f: num }, { k: 'consumidores', l: 'Consumidores', f: num }, { k: 'mix_skus', l: 'Mix SKUs', f: num },
           { k: 'ultima_compra', l: 'Última compra', f: dateBR, raw: v => v }, { k: 'pct_cancelamento', l: 'Cancel.', f: pct },
         ],
-        rows: S.hubs.filter(h => ui.da === 'all' || h.da === ui.da).map(h => ({ ...h, loc: h.cidade + '/' + h.uf, key: norm(h.hub_nome) })),
+        rows: S.hubs.filter(h => (ui.da === 'all' || h.da === ui.da) && (!ui.hub || norm(h.hub_nome) === ui.hub)).map(h => ({ ...h, loc: h.cidade + '/' + h.uf, key: norm(h.hub_nome) })),
       }),
       sla: () => ({
         file: 'supply-ops', def: { k: 'score', dir: -1, k2: 'gmv_valido' }, search: r => r.nome, click: true, ph: 'Buscar hub…',
@@ -3458,7 +3545,7 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
           { k: 'r_rup', l: 'Ruptura', f: num, det: 1 }, { k: 'r_qtd', l: 'Qtd. insuf.', f: num, det: 1 }, { k: 'r_port', l: 'Fora portf.', f: num, det: 1 }, { k: 'r_preco', l: 'Preço', f: num, det: 1 },
           { k: 'rec', l: 'Broadcasts', f: num, det: 1 }, { k: 'pct_reencaminhados', l: 'Reencam.', f: pct, det: 1 },
         ],
-        rows: (S.opsList || []).map(h => ({
+        rows: (S.opsList || []).filter(h => !ui.hub || h.key === ui.hub).map(h => ({
           key: h.key, nome: h.nome, da: h.da, score: h.score, ped4: h.ped4, pedPrev4: h.pedPrev4, dped: h.pedPrev4 ? h.ped4 / h.pedPrev4 - 1 : null,
           gmv_valido: h.sla ? h.sla.gmv_valido : (h.info ? h.info.gmv_valido : null), aceite: h.aceite, resposta: h.resposta, itens: h.itens,
           pct_cancelamento: h.sla ? h.sla.pct_cancelamento : null, pct_no_prazo: h.sla ? h.sla.pct_no_prazo : null, despacho: h.sla ? h.sla.min_medio_ate_despacho : null,
@@ -3507,16 +3594,16 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
         <section class="panel"><div class="ph"><h2>Ranking de produtos</h2><span class="hint">GMV válido · % do total</span></div>${S.produtos.length ? barRows(top) : '<div class="empty">Sem vendas por produto no período.</div>'}</section>
         <section class="panel"><div class="ph"><h2>Concentração do portfólio</h2><span class="hint">% acumulado do GMV</span></div>${meter('Top 1 produto', cum(1))}${meter('Top 3 produtos', cum(3))}${meter('Top 5 produtos', cum(5))}
           <p class="note">${num(S.produtos.length)} produtos com venda no período.</p></section></div>
-        <section class="panel"><div class="ph"><h2>Todos os produtos</h2><span class="hint">clique no cabeçalho para ordenar</span></div>${tableHtml('prod')}</section></div>`;
+        <section class="panel"><div class="ph"><h2>Todos os produtos</h2><span class="hint">clique no cabeçalho para ordenar</span></div>${tableHtml('prod')}</section>${filterNote('produtos')}</div>`;
     }
 
     // ----- hubs -----
     function viewHubs(){
-      const list = S.hubs.filter(h => ui.da === 'all' || h.da === ui.da);
+      const list = S.hubs.filter(h => (ui.da === 'all' || h.da === ui.da) && (!ui.hub || norm(h.hub_nome) === ui.hub));
       const items = list.slice(0, 8).map(h => ({ label: h.hub_nome, sub: `${h.cidade}, ${h.uf} · ${dn(h.da)}`, value: h.gmv_valido, share: h.pct_gmv, act: 'hub', key: norm(h.hub_nome) }));
       return `<div class="stack">
         <section class="panel"><div class="ph"><h2>Principais hubs</h2><span class="hint">por GMV válido · clique para ver o detalhe</span></div>${items.length ? barRows(items) : '<div class="empty">Nenhum hub com vendas nesta DA no período.</div>'}</section>
-        <section class="panel"><div class="ph"><h2>Todos os hubs com vendas</h2><span class="hint">${num(list.length)} hub(s)</span></div>${tableHtml('hub')}</section></div>`;
+        <section class="panel"><div class="ph"><h2>Todos os hubs com vendas</h2><span class="hint">${num(list.length)} hub(s)</span></div>${tableHtml('hub')}</section>${filterNote('hubs')}</div>`;
     }
 
     // ----- supply ops -----
@@ -3534,19 +3621,21 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
     const itensOf = r => MOTIVOS.reduce((s, m) => s + (r[m.k] || 0), 0);
     const inDA = da => ui.da === 'all' || da === ui.da;
 
-    function prepOps(o, refIso){
+    function prepOps(o, refIso, mes){
       if(!o || !o.semana) return null;
-      const sem = toRows(o.semana), rp = toRows(o.recusa_produto);
+      const rp = toRows(o.recusa_produto);
+      let sem = toRows(o.semana);
+      const filt = !!mes && mes !== 'all';
+      if(filt) sem = sem.filter(r => mesOf(r.semana) === mes);
       const weeks = [...new Set(sem.map(r => r.semana))].sort();
       const refT = new Date(String(o.ref || refIso).slice(0, 10) + 'T23:59:59').getTime();
       const last = weeks[weeks.length - 1];
       const partialW = last && new Date(last + 'T00:00:00').getTime() + 7 * 864e5 > refT ? last : null;
-      // semana "inteira" = não é a semana em curso e começa dentro do período dos dados (o corte pode cair no meio de uma semana)
-      const cutIso = S && S.meses && S.meses.length ? S.meses[0].mes + '-01' : '0000-00-00';
+      const cutIso = filt ? mes + '-01' : (S0 && S0.meses && S0.meses.length ? S0.meses[0].mes + '-01' : '0000-00-00');
       const complete = weeks.filter(w => w !== partialW && w >= cutIso);
       return {
         sem, rp, weeks, partialW, live: !!o.live, fonte: o.fonte || '', ref: String(o.ref || refIso).slice(0, 10),
-        win: weeks.slice(-4), cur4: complete.slice(-4), prev4: complete.length >= 8 ? complete.slice(-8, -4) : [], // sem 4 semanas inteiras de base, não há comparação
+        win: weeks.slice(-4), cur4: complete.slice(-4), prev4: complete.length >= 8 ? complete.slice(-8, -4) : [],
         hasBc: sem.some(r => r.broadcasts_recebidos != null),
       };
     }
@@ -3565,7 +3654,7 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
       const pick = ws => (h => h.wk.filter(r => ws.includes(r.semana)));
       list.forEach(h => {
         if(h.info) h.uf = h.uf || h.info.uf;
-        const win = O ? pick(ui.win === 'all' ? O.weeks : O.win)(h) : [];
+        const win = O ? pick(winEff() === 'all' ? O.weeks : O.win)(h) : [];
         const c4 = O ? pick(O.cur4)(h) : [], p4 = O ? pick(O.prev4)(h) : [];
         h.itensMot = Object.fromEntries(MOTIVOS.map(m => [m.k, sumBy(win, m.k)]));
         h.itens = itensOf(h.itensMot);
@@ -3723,16 +3812,17 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
     function viewSupply(){
       const O = S.ops, da = ui.da, st = da === 'all' ? S.slaAll : S.slaTotals[da], tot = da === 'all' ? null : S.daTotal[da];
       const title = da === 'all' ? 'Todas as DAs' : dn(da), cfg = DA_SCOPE.find(d => d.da === da);
-      const list = opsHubs(), ref = refRates(list), ranked = scoreHubs(list, ref);
+      const listAll = opsHubs(), ref = refRates(listAll), ranked = scoreHubs(listAll, ref);
+      const list = ui.hub ? listAll.filter(h => h.key === ui.hub) : listAll;
       const scopeSeg = `<div class="seg" role="group" aria-label="Hubs considerados"><button type="button" data-act="scope" data-v="ativa" aria-pressed="${ui.scope !== 'todos'}">Rede ativa</button><button type="button" data-act="scope" data-v="todos" aria-pressed="${ui.scope === 'todos'}">Todos com broadcast</button></div>`;
-      S.opsList = list;
-      const winLbl = !O ? '' : ui.win === 'all' ? 'desde ' + wkLabel(O.weeks[0]) : 'últimas 4 semanas (' + wkLabel(O.win[0]) + ' a hoje)';
+      S.opsList = listAll;
+      const winLbl = !O ? '' : winEff() === 'all' ? 'desde ' + wkLabel(O.weeks[0]) : 'últimas 4 semanas (' + wkLabel(O.win[0]) + ' a hoje)';
       const k = (l, v, sub) => `<div class="kpi"><div class="k"><span>${l}</span></div><div class="v">${v}</div><div class="sub">${sub || ''}</div></div>`;
       // ---- cabeçalho e KPIs ----
       const itensTot = sumBy(list, 'itens');
       const d4 = sumBy(list, 'ped4'), p4 = sumBy(list, 'pedPrev4');
       const head = `<div class="drill-h"><h2>${esc(title)}${cfg ? `<span class="tag">${cfg.uf}</span>` : ''}</h2>
-        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"><span class="chip flat">${brlK(da === 'all' ? S.total.gmv_valido : (tot ? tot.gmv_valido : 0))} GMV válido</span>${scopeSeg}${O ? `<div class="seg" role="group" aria-label="Janela"><button type="button" data-act="win" data-v="4" aria-pressed="${ui.win !== 'all'}">Últimas 4 semanas</button><button type="button" data-act="win" data-v="all" aria-pressed="${ui.win === 'all'}">Desde ${sinceLbl()}</button></div>` : ''}</div></div>`;
+        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"><span class="chip flat">${brlK(da === 'all' ? S.total.gmv_valido : (tot ? tot.gmv_valido : 0))} GMV válido</span>${scopeSeg}${O && ui.mes === 'all' ? `<div class="seg" role="group" aria-label="Janela"><button type="button" data-act="win" data-v="4" aria-pressed="${winEff() !== 'all'}">Últimas 4 semanas</button><button type="button" data-act="win" data-v="all" aria-pressed="${winEff() === 'all'}">Desde ${sinceLbl()}</button></div>` : ''}</div></div>`;
       const kp = st || O ? `<div class="grid g-kpi">
         ${k('Aceite', pct(ref.aceite), `<span>${S.ops && S.ops.hasBc ? winLbl : '% dos broadcasts, período todo'}</span>`)}
         ${k('Resposta', pct(ref.resposta), '<span>broadcasts respondidos (aceite ou recusa)</span>')}
@@ -3742,7 +3832,7 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
         ${st ? k('Tempo até despacho', hrs(st.min_medio_ate_despacho), '<span>do pedido à saída do hub</span>') : ''}
       </div>` : '<div class="empty">Sem registros desta DA nas consultas do período.</div>';
       // ---- onde agir primeiro ----
-      const top = ranked.slice(0, 8);
+      const top = (ui.hub ? ranked.filter(h => h.key === ui.hub) : ranked).slice(0, 8);
       const maxS = Math.max(...top.map(h => h.score), 1);
       const actHtml = top.length ? `<div class="bars">${top.map((h, i) => `<button type="button" class="bar-row" data-act="hub" data-key="${esc(h.key)}">
           <span class="bl"><small>${i + 1}</small>${esc(h.nome)}<em>aceite ${pct(h.aceite)} · ${num(h.bc.rec)} broadcasts${h.perda ? ' · ' + brlK(h.perda) + ' potencial perdido' : ''}${domMot(h) ? ' · ' + esc(domMot(h)) : ''}</em></span>
@@ -3796,9 +3886,9 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
       const detailSeg = `<div class="seg" role="group" aria-label="Nível de detalhe"><button type="button" data-act="detail" data-v="0" aria-pressed="${!ui.detail}">Resumo</button><button type="button" data-act="detail" data-v="1" aria-pressed="${ui.detail}">Detalhada</button></div>`;
       const foraSla = S.slaTotals['Fora do escopo'];
       const fonte = O ? `<p class="note">Fonte da série semanal e das recusas por produto: ${O.live ? 'Metabase (ao vivo)' : esc(O.fonte || 'snapshot') + ' · ' + dateBR(O.ref)}. Resposta e aceite por hub: ${S.ops && S.ops.hasBc ? 'série semanal' : 'pergunta 3613 (período todo)'}.</p>` : '';
-      return `<div class="stack"><div class="drill">${head}${kp}</div>${actSec}${evo}${prodSec}
+      return `<div class="stack"><div class="drill">${head}${kp}</div>${actSec}${cmpSecHtml(listAll)}${evo}${prodSec}
         <section class="panel"><div class="ph"><h2>Todos os hubs</h2><span class="hint">ordenado por score e GMV · clique para ver o detalhe</span></div>${tableHtml('sla', detailSeg)}</section>
-        ${foraSla && ui.da === 'all' ? `<p class="note">Fora do escopo do projeto: ${num(S.slaHubs.filter(r => r.da === 'Fora do escopo').length)} hubs receberam ${num(foraSla.broadcasts_recebidos)} broadcasts (${pct(foraSla.pct_recusa)} recusados, ${pct(foraSla.pct_ignorado)} ignorados) e não registraram vendas.</p>` : ''}${fonte}</div>`;
+        ${foraSla && ui.da === 'all' ? `<p class="note">Fora do escopo do projeto: ${num(S.slaHubs.filter(r => r.da === 'Fora do escopo').length)} hubs receberam ${num(foraSla.broadcasts_recebidos)} broadcasts (${pct(foraSla.pct_recusa)} recusados, ${pct(foraSla.pct_ignorado)} ignorados) e não registraram vendas.</p>` : ''}${fonte}${ui.mes !== 'all' ? '<p class="note">Filtro de mês: contam as semanas que começam no mês. Recusas por produto não têm mês nesta consulta e seguem no período todo.</p>' : ''}</div>`;
     }
 
     function modalProd(name){
@@ -3853,7 +3943,7 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
             ['Aceite / resposta', pct(o.aceite) + ' / ' + pct(o.resposta) + (o.bc ? ` (${o.bc.src}, ${num(o.bc.rec)} broadcasts)` : '')],
             ['GMV potencial perdido', o.perda == null ? '—' : brl(o.perda) + ' (recusados + ignorados × ticket)'],
             ['Pedidos válidos, 4 semanas', num(o.ped4) + (o.pedPrev4 ? ' (antes: ' + num(o.pedPrev4) + ')' : '')],
-            ['Itens recusados (' + (ui.win === 'all' ? 'desde ' + sinceLbl() : '4 semanas') + ')', num(o.itens) + (o.itens ? ' · ' + MOTIVOS.filter(m => o.itensMot[m.k]).map(m => m.l.toLowerCase() + ' ' + num(o.itensMot[m.k])).join(', ') : '')],
+            ['Itens recusados (' + (winEff() === 'all' ? 'desde ' + sinceLbl() : '4 semanas') + ')', num(o.itens) + (o.itens ? ' · ' + MOTIVOS.filter(m => o.itensMot[m.k]).map(m => m.l.toLowerCase() + ' ' + num(o.itensMot[m.k])).join(', ') : '')],
           ])}
           <div class="grid g-2e" style="margin-top:12px"><div><div class="sect" style="margin-top:0">Pedidos por semana</div>${weekBars('mPed', O.weeks, [{ k: 'pedidos_validos', l: 'Pedidos válidos', c: 'var(--accent)' }], byW, { h: 150, labelLast: true })}</div>
           <div><div class="sect" style="margin-top:0">Itens recusados por semana</div>${weekBars('mRec', O.weeks, MOTIVOS.map(m => ({ k: m.k, l: m.l, c: m.c })), byW, { h: 150, emptyMsg: 'Sem recusas de itens.' })}</div></div>
@@ -3894,7 +3984,7 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
     const skeleton = () => { root.innerHTML = '<div class="grid g-kpi"><div class="skel"></div><div class="skel"></div><div class="skel"></div><div class="skel"></div></div><div class="grid g-2" style="margin-top:16px"><div class="skel" style="min-height:260px"></div><div class="skel" style="min-height:260px"></div></div>'; };
     function boot(withSkeleton){
       if(withSkeleton) skeleton();
-      return loadDataOps().then(({ d, live }) => { S = prep(d, live); S.ops = prepOps(S.opsRaw, S.ref); renderAll(); }).catch(err => {
+      return loadDataOps().then(({ d, live }) => { S0 = prep(d, live); applyFilters(); renderAll(); }).catch(err => {
         console.error('[resultados]', err);
         root.innerHTML = '<div class="err">Não foi possível carregar os resultados agora. <button type="button" class="btn" data-act="reload" style="margin-left:8px">Tentar novamente</button></div>';
       });
@@ -3928,6 +4018,12 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
       const id = e.target.dataset && e.target.dataset.q; if(!id || !S) return;
       ui.q[id] = e.target.value;
       const tb = document.querySelector('#tbl-' + id + ' tbody'); if(tb) tb.innerHTML = tbodyHtml(id);
+    });
+    root.addEventListener('change', e => {
+      const t = e.target; if(!S || !t || !t.dataset) return;
+      if(t.dataset.filter === 'mes'){ ui.mes = t.value || 'all'; refreshAll(); }
+      else if(t.dataset.filter === 'hub'){ ui.hub = t.value || null; renderBar(); renderView(); }
+      else if(t.dataset.cmp !== undefined){ ui.cmp[+t.dataset.cmp] = t.value || null; renderView(); }
     });
     modalBody.addEventListener('click', e => {
       const t = e.target.closest('[data-act="hub"]'); if(t && S) modalHub(t.dataset.key);
