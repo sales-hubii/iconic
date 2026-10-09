@@ -432,6 +432,32 @@ textarea.f-input{ resize: vertical; }
 .hx .cmp-sel{display:flex;flex-direction:column;align-items:stretch;gap:4px}
 .hx .cmp-sel .fsel{max-width:none;width:100%;border-radius:var(--r-md)}
 @media (max-width:760px){ .hx .cmp-pick{grid-template-columns:1fr} }
+.hx .cmp-wrap{margin-top:4px}
+.hx .cmp-head,.hx .cmp-row{display:grid;grid-template-columns:minmax(150px,1.2fr) 1fr 1fr;gap:14px;align-items:center}
+.hx .cmp-head{padding-bottom:12px}
+.hx .cmp-hub{position:relative;border-radius:var(--r-md);padding:12px 14px 11px;display:flex;flex-direction:column;gap:3px;min-width:0;border:1px solid var(--line-2)}
+.hx .cmp-hub.a{background:var(--accent-soft);border-color:#d9d4ff}
+.hx .cmp-hub.b{background:#fdf1e3;border-color:#f6d7b3}
+.hx .cmp-hub b{font-size:13px;line-height:1.25;color:var(--ink);font-weight:700;overflow-wrap:anywhere}
+.hx .cmp-hub small{color:var(--muted);font-size:11.5px}
+.hx .cmp-tag{position:absolute;top:10px;right:10px;width:20px;height:20px;border-radius:6px;display:grid;place-items:center;font:700 11px/1 var(--f);color:#fff}
+.hx .cmp-hub.a .cmp-tag{background:var(--accent)}
+.hx .cmp-hub.b .cmp-tag{background:#e58a34}
+.hx .cmp-row{padding:11px 0;border-top:1px solid var(--line)}
+.hx .cmp-lbl{font-size:12.5px;color:var(--ink-2)}
+.hx .cmp-val{display:flex;flex-direction:column;gap:6px;min-width:0}
+.hx .cmp-val b{font-size:14px;font-weight:600;color:var(--ink)}
+.hx .cmp-val.win b{color:var(--good)}
+.hx .cb-track{height:6px;background:var(--surface-2);border-radius:var(--r-pill);overflow:hidden}
+.hx .cb{display:block;height:100%;border-radius:var(--r-pill);background:#c9c3f2}
+.hx .cmp-val.b .cb{background:#f5c58f}
+.hx .cb.win{background:var(--good)}
+.hx .cmp-score{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;padding-top:12px;border-top:1px solid var(--line-2);font-size:12.5px;color:var(--ink-2)}
+.hx .cmp-score span{padding:5px 12px;border-radius:var(--r-pill);background:var(--surface-2)}
+.hx .cmp-score span.a{background:var(--accent-soft);color:var(--accent)}
+.hx .cmp-score span.b{background:#fdf1e3;color:#b8641a}
+.hx .cmp-score b{font-size:13px}
+@media (max-width:640px){ .hx .cmp-head,.hx .cmp-row{grid-template-columns:1fr 1fr} .hx .cmp-lbl{grid-column:1/-1} }
 .hx .active .lbl{ font:500 10.5px/1 var(--f); letter-spacing:.07em; text-transform:uppercase; color:var(--muted); margin-right:2px; }
 .hx .fchip{ display:inline-flex; gap:6px; align-items:center; border:1px solid var(--line-2); background:var(--surface); border-radius:999px; padding:3px 6px 3px 10px; font-size:12.5px; cursor:pointer; }
 .hx .fchip b{ font-weight:600; }
@@ -3289,27 +3315,39 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
       if(A.key === B.key) return '<div class="empty">Escolha dois hubs diferentes.</div>';
       const per100 = (n, h) => h.pedWin ? 100 * n / h.pedWin : null;
       const rows = [
-        ['UF', h => h.uf || '—', v => v, null],
         ['Broadcasts recebidos', h => h.bc ? h.bc.rec : null, num, null],
         ['Aceite', h => h.aceite, pct, 'hi'],
         ['Resposta', h => h.resposta, pct, 'hi'],
         ['Entregas no prazo', h => h.sla ? h.sla.pct_no_prazo : null, pct, 'hi'],
         ['Itens recusados por 100 pedidos', h => per100(h.itens, h), dec, 'lo'],
-        ['Recusas operacionais por 100 pedidos (ruptura + qtd.)', h => per100(h.itensOp, h), dec, 'lo'],
+        ['Recusas operacionais por 100 pedidos', h => per100(h.itensOp, h), dec, 'lo'],
         ['Cancelamento', h => h.sla ? h.sla.pct_cancelamento : null, pct, 'lo'],
         ['Tempo até despacho', h => h.sla ? h.sla.min_medio_ate_despacho : null, hrs, 'lo'],
         ['Ticket médio', h => h.ticket, brl, 'hi'],
         ['GMV potencial perdido', h => h.perda, brl, 'lo'],
         ['Score de oportunidade', h => h.score, v => v == null ? '—' : v + ' de 100', null],
       ];
-      const body = rows.map(([l, g, f, dir]) => {
+      let wa = 0, wb = 0;
+      const lines = rows.map(([l, g, f, dir]) => {
         const va = g(A), vb = g(B), ok = !!dir && va != null && vb != null && va !== vb;
         const aWin = ok && (dir === 'hi' ? va > vb : va < vb), bWin = ok && !aWin;
-        const st = w => w ? ' style="font-weight:700;color:var(--good)"' : '';
-        return `<tr><td class="l">${esc(l)}</td><td${st(aWin)}>${f(va)}</td><td${st(bWin)}>${f(vb)}</td></tr>`;
+        if(aWin) wa++; if(bWin) wb++;
+        const nA = typeof va === 'number' ? Math.abs(va) : null, nB = typeof vb === 'number' ? Math.abs(vb) : null;
+        const mx = Math.max(nA || 0, nB || 0) || 1;
+        const bar = (n, w) => n == null ? '' : `<i class="cb${w ? ' win' : ''}" style="width:${(100 * n / mx).toFixed(1)}%"></i>`;
+        return `<div class="cmp-row">
+          <div class="cmp-lbl">${esc(l)}</div>
+          <div class="cmp-val a${aWin ? ' win' : ''}"><b>${f(va)}</b><div class="cb-track">${bar(nA, aWin)}</div></div>
+          <div class="cmp-val b${bWin ? ' win' : ''}"><b>${f(vb)}</b><div class="cb-track">${bar(nB, bWin)}</div></div>
+        </div>`;
       }).join('');
-      return `<div class="tbl-wrap"><table><thead><tr><th class="l">Indicador</th><th>${esc(A.nome)}</th><th>${esc(B.nome)}</th></tr></thead><tbody>${body}</tbody></table></div>
-        <p class="note">Verde = melhor leitura entre os dois. Recusas, cancelamento e despacho: menor é melhor. Taxas por 100 pedidos usam os pedidos válidos da janela ou do mês selecionado.</p>`;
+      const hub = (h, side) => `<div class="cmp-hub ${side}"><span class="cmp-tag">${side === 'a' ? 'A' : 'B'}</span><b>${esc(h.nome)}</b><small>${esc(dn(h.da))} · ${esc(h.uf || '')}</small></div>`;
+      return `<div class="cmp-wrap">
+        <div class="cmp-head"><div></div>${hub(A, 'a')}${hub(B, 'b')}</div>
+        ${lines}
+        <div class="cmp-score"><span class="a"><b>${wa}</b> indicadores melhores em A</span><span class="b"><b>${wb}</b> em B</span></div>
+        <p class="note">Barras proporcionais entre os dois hubs. Verde = melhor leitura. Recusas, cancelamento e despacho: menor é melhor. Taxas por 100 pedidos usam os pedidos válidos da janela ou do mês selecionado.</p>
+      </div>`;
     }
 
     function prep(d, live){
@@ -3429,7 +3467,7 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
       if(un && un.gmv_valido > 0){
         cards.push(`<div class="rc static warn"><span class="mg">SH</span><span class="nm">Sem hub alocado</span><span class="vl">${brlK(un.gmv_valido)} <span class="chip warn">${pct(un.pct_gmv_no_periodo)}</span></span><span class="sh"><i style="width:${Math.min(100, un.pct_gmv_no_periodo)}%"></i></span></div>`);
       }
-      return `<div class="rail-wrap"><div class="rail-h"><h2 class="sect" style="margin:0">Distribuidores autorizados (DA)</h2><span class="hint">Clique em uma DA para filtrar hubs e Supply Ops</span></div><div class="rail">${cards.join('')}</div></div>`;
+      return `<div class="rail-wrap"><div class="rail-h"><h2 class="sect" style="margin:0">Distribuidores autorizados (DA)</h2></div><div class="rail">${cards.join('')}</div></div>`;
     }
 
     const TABS = [['geral', 'Visão geral'], ['produtos', 'Produtos'], ['hubs', 'Hubs'], ['supply', 'Supply Ops']];
