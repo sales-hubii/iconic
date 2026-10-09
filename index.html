@@ -3176,7 +3176,7 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
     // Nome exibido na tela (a base de dados escreve "TreviLub"; a chave interna continua igual)
     const DA_LABEL = { 'TreviLub': 'TreviLub' };
     const dn = da => DA_LABEL[da] || da;
-    const DA_COLOR = { 'TreviLub': '#6348e5', 'Makena': '#746bff', 'BelLub': '#9a9a9a', 'Sem hub alocado': '#f5a524' };
+    const DA_COLOR = { 'TreviLub': '#6348e5', 'Makena': '#746bff', 'BelLub': '#9a9a9a' };
 
     // ---------- formatação (pt-BR) ----------
     const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -3351,7 +3351,11 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
     }
 
     function prep(d, live){
-      const mensalAll = toRows(d.mensal), daRows = toRows(d.da), sla = toRows(d.sla);
+      const mensalAll = toRows(d.mensal), sla = toRows(d.sla);
+      // só DAs do escopo: pedidos sem hub alocado não entram em nenhuma visão
+      const daRows = toRows(d.da).filter(r => r.da !== 'Sem hub alocado');
+      const gSumMes = m => daRows.filter(r => r.mes === m).reduce((s, r) => s + (r.gmv_valido || 0), 0);
+      daRows.forEach(r => { const t = gSumMes(r.mes); r.pct_gmv_no_periodo = t ? 100 * r.gmv_valido / t : 0; });
       const hubs = toRows(d.hub).sort((a, b) => b.gmv_valido - a.gmv_valido);
       const slaTotals = {}; let slaAll = null;
       sla.filter(r => String(r.hub).startsWith('>>>')).forEach(r => { if(r.da) slaTotals[r.da] = r; else slaAll = r; });
@@ -3456,7 +3460,7 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
     }
 
     function railHtml(){
-      const total = S.total.gmv_valido, un = S.daTotal['Sem hub alocado'];
+      const total = S.total.gmv_valido;
       const card = (da, mg, name, val, chip, share, extra) => `<button type="button" class="rc ${extra || ''}" data-act="da" data-da="${esc(da)}" aria-pressed="${ui.da === da}">
         <span class="mg">${mg}</span><span class="nm">${esc(name)}</span><span class="vl">${val} ${chip}</span><span class="sh"><i style="width:${Math.min(100, share || 0)}%"></i></span></button>`;
       const cards = [card('all', 'BR', 'Todas as DAs', brlK(total), `<span class="chip flat">${S.hubs.length} hubs</span>`, 100, 'all')];
@@ -3464,9 +3468,6 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
         const t = S.daTotal[d.da], g = t ? t.gmv_valido : 0;
         cards.push(card(d.da, d.uf, dn(d.da), brlK(g), g > 0 ? `<span class="chip flat">${pct(t.pct_gmv_no_periodo)}</span>` : '<span class="chip flat">sem vendas</span>', t ? t.pct_gmv_no_periodo : 0));
       });
-      if(un && un.gmv_valido > 0){
-        cards.push(`<div class="rc static warn"><span class="mg">SH</span><span class="nm">Sem hub alocado</span><span class="vl">${brlK(un.gmv_valido)} <span class="chip warn">${pct(un.pct_gmv_no_periodo)}</span></span><span class="sh"><i style="width:${Math.min(100, un.pct_gmv_no_periodo)}%"></i></span></div>`);
-      }
       return `<div class="rail-wrap"><div class="rail-h"><h2 class="sect" style="margin:0">Distribuidores autorizados (DA)</h2></div><div class="rail">${cards.join('')}</div></div>`;
     }
 
@@ -3504,8 +3505,6 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
     function insightsItems(){
       const out = [], top = S.hubs[0], last = S.meses[S.meses.length - 1];
       if(top && top.pct_gmv >= 50) out.push(['Concentração', `${esc(top.hub_nome)} responde por ${pct(top.pct_gmv)} do GMV válido atribuído a hubs.`]);
-      const un = (S.daByMes[last.mes] || []).find(r => r.da === 'Sem hub alocado');
-      if(un && un.gmv_valido > 0) out.push(['Alocação', `Em ${esc(mesLabel(last.mes))}, ${pct(un.pct_gmv_no_periodo)} do GMV válido (${brl(un.gmv_valido)}) ainda não está alocado a um hub/DA.`]);
       if(S.lastBuy){
         const dorm = S.hubs.filter(h => (new Date(S.lastBuy) - new Date(h.ultima_compra)) / 864e5 > 14);
         if(dorm.length) out.push(['Recompra', `${dorm.length} de ${S.hubs.length} hubs com vendas não compram há mais de 14 dias (última compra geral em ${dateBR(S.lastBuy)}).`]);
@@ -3519,11 +3518,10 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
     }
     function insightsHtml(){
       if(!SHOW_INSIGHTS) return '';
-      const items = insightsItems(), top = S.hubs[0], un = S.daTotal['Sem hub alocado'];
+      const items = insightsItems(), top = S.hubs[0];
       const stats = [];
       if(top) stats.push([pct(top.pct_gmv), 'do GMV no maior hub']);
       stats.push([num(S.hubs.length), 'hubs com vendas']);
-      if(un) stats.push([pct(un.pct_gmv_no_periodo), 'do GMV sem hub alocado']);
       return `<section class="panel"><div class="ph"><h2>Pontos de atenção</h2><span class="hint">leitura automática dos dados</span></div>
         <div class="conc">${stats.map(([b, s]) => `<div><b>${b}</b>${s}</div>`).join('')}</div>
         ${items.length ? `<ol class="mv">${items.map(([c, t]) => `<li><span class="chip warn">${esc(c)}</span><span>${t}</span></li>`).join('')}</ol>` : '<div class="empty">Nada a destacar no período.</div>'}</section>`;
@@ -4003,7 +4001,7 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
     }
     function footerHtml(){
       return `<footer><p><b>Fonte:</b> Hubii Data Lake (Redshift). ${S.live ? 'Dados lidos ao vivo.' : 'Dados do snapshot' + (S.generatedAt ? ' de ' + dateBR(S.generatedAt) : '') + '.'}</p>
-        <p><b>Regras:</b> GMV válido exclui pedidos cancelados; GMV bruto inclui todos os status. Ticket médio = GMV válido ÷ pedidos válidos. ${S.partial ? 'O mês em curso é parcial (*). ' : ''}A DA é definida pela UF do hub (SP → TreviLub, RS → Makena, MG → BelLub); “Sem hub alocado” são pedidos ainda sem hub atribuído.</p></footer>`;
+        <p><b>Regras:</b> GMV válido exclui pedidos cancelados; GMV bruto inclui todos os status. Ticket médio = GMV válido ÷ pedidos válidos. ${S.partial ? 'O mês em curso é parcial (*). ' : ''}A DA é definida pela UF do hub (SP → TreviLub, RS → Makena, MG → BelLub). Pedidos ainda sem hub alocado não entram nas visões por DA.</p></footer>`;
     }
     function renderRail(){ const el = document.getElementById('hxRail'); if(el) el.innerHTML = railHtml(); }
     function renderBar(){ const el = document.getElementById('hxBar'); if(el) el.innerHTML = barHtml(); }
