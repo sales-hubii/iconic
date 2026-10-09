@@ -3199,8 +3199,16 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
     const MESES = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
     const mesLabel = m => m === 'TOTAL' ? 'Total' : MESES[+m.slice(5, 7) - 1] + '/' + m.slice(2, 4);
     const dateBR = s => s ? s.slice(8, 10) + '/' + s.slice(5, 7) + '/' + s.slice(0, 4) : '—';
-    const norm = s => String(s || '').replace(/^\d+\s*-\s*/, '').trim();
-    const toRows = t => ((t && t.r) || []).map(a => Object.fromEntries(t.c.map((k, i) => [k, a[i]])));
+    // nomes de exibição de hubs (a chave continua a mesma, só muda o rótulo mostrado)
+    const HUB_LABEL = {
+      'IMPERIAL DISTRIBUIDORA - ICONIC': 'Iconic-Imperial Distribuidora',
+      'JetOil Campinas - Valenca - Grupo Rodocamp': 'JetOil-Grupo Rodocamp-Campinas',
+    };
+    const hubLabel = n => HUB_LABEL[n] || n;
+    const norm = s => hubLabel(String(s || '').replace(/^\d+\s*-\s*/, '').trim());
+    // nomes de hub vêm rotulados já na leitura: todas as visões usam o mesmo nome
+    const hubField = (k, v) => (k === 'hub_nome' || k === 'hub') && typeof v === 'string' ? norm(v) : v;
+    const toRows = t => ((t && t.r) || []).map(a => Object.fromEntries(t.c.map((k, i) => [k, hubField(k, a[i])])));
     const chipVar = (cur, prev) => {
       if(!prev) return '';
       const d = (cur / prev - 1) * 100;
