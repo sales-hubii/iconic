@@ -1584,6 +1584,15 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
 .ata-section-label{ font-weight:600; font-size:12px; text-transform:uppercase; letter-spacing:.04em; color:#6b7280; margin-bottom:4px; }
 .ata-old-body ul{ margin:0 0 4px 18px; padding:0; }
 .ata-old-body li{ margin:2px 0; }
+
+.week-nav{ display:flex; flex-wrap:wrap; gap:6px; margin: 4px 0 14px; }
+.week-chip{ font: inherit; font-size:12px; border:1px solid rgba(0,0,0,.12); background:#fff; border-radius:999px; padding:4px 10px; cursor:pointer; color:#374151; }
+.week-chip span{ color:#9ca3af; margin-left:2px; }
+.week-chip.on{ background: var(--purple); border-color: var(--purple); color:#fff; }
+.week-chip.on span{ color:#e9e5ff; }
+.done-repo{ margin-top: 18px; border-top: 1px solid rgba(0,0,0,.08); padding-top: 8px; }
+.done-repo > summary{ cursor:pointer; list-style:none; display:flex; justify-content:space-between; align-items:center; padding:6px 2px; font-weight:600; color:#374151; }
+.ata-views{ display:flex; align-items:center; gap:6px; margin: 16px 0 4px; flex-wrap:wrap; }
 </style>
 </head>
 <body>
@@ -3999,20 +4008,38 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
       <span class="task-chip st-${STATUS[st].cls}">${STATUS[st].label}</span>
     </div>`;
   }
+  let weekFilter = 'all';
+  const weekKey = t => t.week == null ? 'sem' : String(t.week);
+  const weekLabel = w => w === 'sem' ? 'Sem semana definida' : 'Semana ' + w;
+  const weekSort = keys => keys.sort((x, y) => x === 'sem' ? 1 : y === 'sem' ? -1 : Number(y) - Number(x));
+  function weekGroupsHtml(entries){
+    const g = {};
+    entries.forEach(([k, t]) => { (g[weekKey(t)] = g[weekKey(t)] || []).push([k, t]); });
+    return weekSort(Object.keys(g)).map(w => {
+      const items = g[w].sort((x, y) => (x[1].order || 0) - (y[1].order || 0));
+      const done = items.filter(([, t]) => t.status === 'Done').length;
+      return `<div class="week-group"><div class="week-header"><span class="week-badge">${esc(weekLabel(w))}</span><span class="week-count">${done}/${items.length} concluídas</span></div>${items.map(([k, t]) => taskRow(k, t)).join('')}</div>`;
+    }).join('');
+  }
   function renderTasks(){
     const list = Object.entries(state.tasks);
-    const weeks = {};
-    list.forEach(([k, t]) => { const w = t.week == null ? 'sem' : String(t.week); (weeks[w] = weeks[w] || []).push([k, t]); });
-    const keys = Object.keys(weeks).sort((x, y) => x === 'sem' ? 1 : y === 'sem' ? -1 : Number(y) - Number(x));
-    const html = keys.map(w => {
-      const items = weeks[w].sort((x, y) => (x[1].order || 0) - (y[1].order || 0));
-      const label = w === 'sem' ? 'Sem semana definida' : 'Semana ' + w;
-      const done = items.filter(([, t]) => t.status === 'Done').length;
-      return `<div class="week-group"><div class="week-header"><span class="week-badge">${esc(label)}</span><span class="week-count">${done}/${items.length} concluídas</span></div>${items.map(([k, t]) => taskRow(k, t)).join('')}</div>`;
-    }).join('');
-    $('tasks-root').innerHTML = html || '<div class="placeholder-note">Nenhuma tarefa cadastrada.</div>';
-    const done = list.filter(([, t]) => t.status === 'Done').length;
-    $('tabCount').textContent = done + '/' + list.length;
+    const active = list.filter(([, t]) => t.status !== 'Done');
+    const done = list.filter(([, t]) => t.status === 'Done');
+    const weeks = weekSort([...new Set(list.map(([, t]) => weekKey(t)))]);
+    const pick = arr => weekFilter === 'all' ? arr : arr.filter(([, t]) => weekKey(t) === weekFilter);
+    const nav = `<div class="week-nav">${['all', ...weeks].map(w => {
+      const n = w === 'all' ? list.length : list.filter(([, t]) => weekKey(t) === w).length;
+      const label = w === 'all' ? 'Todas' : (w === 'sem' ? 'Sem semana' : 'S' + w);
+      return `<button type="button" class="week-chip${weekFilter === w ? ' on' : ''}" data-week-chip="${esc(w)}">${esc(label)} <span>${n}</span></button>`;
+    }).join('')}</div>`;
+    const wasOpen = !!($('tasks-root').querySelector('.done-repo') || {}).open;
+    const doneList = pick(done);
+    const activeHtml = weekGroupsHtml(pick(active));
+    const doneHtml = doneList.length
+      ? `<details class="done-repo"${wasOpen ? ' open' : ''}><summary><span>Histórico de concluídas</span><span class="week-count">${doneList.length}</span></summary>${weekGroupsHtml(doneList)}</details>`
+      : '';
+    $('tasks-root').innerHTML = nav + (activeHtml || '<div class="placeholder-note">Nenhuma tarefa ativa nesta semana.</div>') + doneHtml;
+    $('tabCount').textContent = done.length + '/' + list.length;
   }
 
   const MESES_LONG = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
@@ -4022,7 +4049,7 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
       return sections.map(s => `<div class="ata-section"><div class="ata-section-label">${esc(s.label)}</div><ul>${s.items.map(i => `<li>${esc(i)}</li>`).join('')}</ul></div>`).join('') + link;
     }
     if(a.teaser) return `<p>${esc(a.teaser)}</p>` + link;
-    return link || '<p class="note">Sem conteúdo disponível.</p>';
+    return '<p class="note">Esta ata não tem texto disponível aqui (o Notion não devolveu o conteúdo).</p>' + link;
   }
   const teaserOf = a => a.teaser || (a.sections && a.sections[0] && a.sections[0].items.slice(0, 2).join(' · ')) || a.sub || '';
   function allAtas(){
@@ -4030,20 +4057,30 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
     const stat = STATIC_ATAS.map(a => ({ id: a.id, date: a.date, title: a.title, teaser: a.teaser, sections: [], loaded: true }));
     return notion.concat(stat).sort((x, y) => String(y.date).localeCompare(String(x.date)));
   }
+  let ataView = 'mes';
+  const ataType = title => String(title || '').replace(/\[.*?\]|\(.*?\)/g, '').replace(/\d.*$/, '').replace(/\s+/g, ' ').trim() || 'Outras';
+  const monthKey = a => a.date.slice(0, 7) || 'sem-data';
+  const monthLabel = m => m === 'sem-data' ? 'Sem data' : MESES_LONG[+m.slice(5,7) - 1] + ' ' + m.slice(0,4);
+  function ataGroups(older){
+    const g = {};
+    const keyOf = a => ataView === 'mes' ? monthKey(a) : ataType(a.title);
+    older.forEach(a => { const k = keyOf(a); (g[k] = g[k] || []).push(a); });
+    const keys = Object.keys(g).sort((x, y) => ataView === 'mes' ? y.localeCompare(x) : g[y].length - g[x].length || x.localeCompare(y));
+    return keys.map(k => {
+      const items = g[k].sort((x, y) => String(y.date).localeCompare(String(x.date)));
+      const label = ataView === 'mes' ? monthLabel(k) : k;
+      return `<details class="ata-group"><summary><span>${esc(label)}</span><span class="week-count">${items.length} ${items.length === 1 ? 'ata' : 'atas'}</span></summary>${items.map(a => `<details class="ata-old" data-ata-old="${esc(a.id)}"><summary><span class="ata-old-date">${esc(dateBR(a.date))}</span> ${esc(a.title)}</summary><div class="ata-old-body" id="ata-body-${esc(a.id)}">${a.loaded ? renderSections(a.sections, a) : '<p class="note">Carregando...</p>'}</div></details>`).join('')}</details>`;
+    }).join('');
+  }
   function renderAtas(){
     const all = allAtas();
     const recent = all.slice(0, 5), older = all.slice(5);
-    let html = recent.map(a => `<div class="ata-card" data-ata="${esc(a.id)}">
+    const cards = recent.map(a => `<div class="ata-card" data-ata="${esc(a.id)}">
       <div class="ata-date">${esc(a.date.slice(8,10))}<span>${esc(MESES[+a.date.slice(5,7) - 1].toUpperCase())}</span></div>
       <div class="ata-info"><div class="ata-title">${esc(a.title)}</div><div class="ata-teaser">${esc(teaserOf(a))}</div></div>
       <div class="ata-arrow">→</div></div>`).join('');
-    const byMonth = {};
-    older.forEach(a => { const k = a.date.slice(0, 7) || 'sem-data'; (byMonth[k] = byMonth[k] || []).push(a); });
-    html += Object.keys(byMonth).sort().reverse().map(m => {
-      const label = m === 'sem-data' ? 'Sem data' : MESES_LONG[+m.slice(5,7) - 1] + ' ' + m.slice(0,4);
-      return `<details class="ata-group"><summary><span>${esc(label)}</span><span class="week-count">${byMonth[m].length} atas</span></summary>${byMonth[m].map(a => `<details class="ata-old" data-ata-old="${esc(a.id)}"><summary><span class="ata-old-date">${esc(dateBR(a.date))}</span> ${esc(a.title)}</summary><div class="ata-old-body" id="ata-body-${esc(a.id)}">${a.loaded ? renderSections(a.sections, a) : '<p class="note">Carregando...</p>'}</div></details>`).join('')}</details>`;
-    }).join('');
-    $('atas-root').innerHTML = html;
+    const views = `<div class="ata-views"><span class="week-count">Anteriores:</span>${[['mes','Por mês'],['tipo','Por tipo']].map(([v, l]) => `<button type="button" class="week-chip${ataView === v ? ' on' : ''}" data-ata-view="${v}">${l}</button>`).join('')}</div>`;
+    $('atas-root').innerHTML = cards + (older.length ? views + ataGroups(older) : '');
   }
   async function loadAtaBody(id){
     const a = state.atas[id]; if(!a || a.loaded) return;
@@ -4130,13 +4167,23 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
     openModal('Tarefa', t.title, OWNER[t.owner] + ' · ' + STATUS[t.status].label, html);
     loadHistory(key);
   }
+  const isoWeek = d => { const t = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate())); const day = t.getUTCDay() || 7; t.setUTCDate(t.getUTCDate() + 4 - day); const y0 = new Date(Date.UTC(t.getUTCFullYear(), 0, 1)); return Math.ceil(((t - y0) / 86400000 + 1) / 7); };
+  function weekOptions(){
+    const cur = isoWeek(new Date());
+    const opts = [];
+    for(let w = cur - 2; w <= cur + 4; w++) opts.push([String(w), 'S' + w + (w === cur ? ' (atual)' : '')]);
+    opts.push(['none', 'Sem semana']);
+    return opts;
+  }
   function openNewTask(){
-    ctx = { type: 'newtask', owner: 'Hubii', status: 'Backlog' };
+    const cur = isoWeek(new Date());
+    ctx = { type: 'newtask', owner: 'Hubii', status: 'Backlog', week: String(cur) };
     openModal('Nova tarefa', 'Adicionar tarefa', 'Criada na Tasks List do Notion, vinculada à Iconic', `
       <div class="modal-section"><div class="modal-section-label">Tarefa</div>
         <input id="ntTitle" class="f-input" maxlength="160" placeholder="Ex.: Enviar proposta de rota para Curitiba"></div>
       <div class="modal-section"><div class="modal-section-label">Responsável</div>${pills('own', OWNER_OPTS, 'Hubii')}</div>
       <div class="modal-section"><div class="modal-section-label">Status</div>${pills('st', STATUS_OPTS, 'Backlog')}</div>
+      <div class="modal-section"><div class="modal-section-label">Semana foco</div>${pills('wk', weekOptions(), String(cur))}</div>
       <div class="modal-section"><div class="modal-section-label">Primeira atualização (opcional)</div>
         <textarea id="ntNote" class="f-input" rows="2" placeholder="Contexto ou próximo passo"></textarea>
         <div class="f-row"><button type="button" class="btn-pill" data-app="nt-save">Criar tarefa</button><span class="f-msg" id="ntMsg"></span></div></div>`);
@@ -4186,9 +4233,13 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
     const b = e.target.closest('[data-app]'); if(!b || !ctx) return;
     const act = b.dataset.app;
 
-    if(act === 'st' || act === 'own'){
+    if(act === 'st' || act === 'own' || act === 'wk'){
       b.parentElement.querySelectorAll('.pill').forEach(p => p.classList.toggle('on', p === b));
-      if(ctx.type === 'newtask'){ ctx[act === 'st' ? 'status' : 'owner'] = b.dataset.v; return; }
+      if(ctx.type === 'newtask'){
+        if(act === 'wk') ctx.week = b.dataset.v;
+        else ctx[act === 'st' ? 'status' : 'owner'] = b.dataset.v;
+        return;
+      }
       if(ctx.type === 'task'){
         const key = ctx.key;
         const ok = await patchTask(key, act === 'st' ? { status: b.dataset.v } : { owner: b.dataset.v });
@@ -4213,7 +4264,8 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
       await submit(b, async () => {
         setMsg('ntMsg', 'Salvando...');
         try{
-          applyState(await api('POST', { action: 'create', title, owner: ctx.owner, status: ctx.status, note: ($('ntNote').value || '').trim() }));
+          const week = ctx.week === 'none' ? null : Number(ctx.week);
+          applyState(await api('POST', { action: 'create', title, owner: ctx.owner, status: ctx.status, week, note: ($('ntNote').value || '').trim() }));
           modal.classList.remove('open'); toast('Tarefa criada.');
         }catch(err){ setMsg('ntMsg', 'Falha ao salvar: ' + err.message, true); }
       });
@@ -4222,6 +4274,8 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
 
   // delegação na lista de tarefas e atas
   $('tasks-root').addEventListener('click', (e) => {
+    const chip = e.target.closest('[data-week-chip]');
+    if(chip){ weekFilter = chip.dataset.weekChip; renderTasks(); return; }
     const row = e.target.closest('[data-task]'); if(!row) return;
     const key = row.dataset.status;
     if(e.target.closest('[data-check]')){
@@ -4233,6 +4287,8 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
     openTask(key);
   });
   $('atas-root').addEventListener('click', (e) => {
+    const view = e.target.closest('[data-ata-view]');
+    if(view){ ataView = view.dataset.ataView; renderAtas(); return; }
     const card = e.target.closest('[data-ata]'); if(card) openAta(card.dataset.ata);
   });
   $('atas-root').addEventListener('toggle', (e) => {
