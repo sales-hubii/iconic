@@ -334,6 +334,8 @@ body{
 .task-chip.st-ongoing{ background: rgba(99,72,229,.12); color: var(--purple); }
 .task-chip.st-waiting{ background: rgba(217,119,6,.12); color:#b45309; }
 .task-chip.st-done{ background: rgba(16,185,129,.12); color:#047857; }
+.task-chip.st-todo{ background: rgba(100,116,139,.12); color:#475569; }
+.task-chip.st-paused{ background: rgba(220,38,38,.10); color:#b91c1c; }
 .pills{ display:flex; flex-wrap:wrap; gap:8px; }
 .pill{
   font-family:'IBM Plex Mono', monospace; font-size:12px; padding:6px 12px; border-radius:999px;
@@ -718,6 +720,7 @@ textarea.f-input{ resize: vertical; }
 }
 .owner-badge.iconic{ color: var(--iconic); background: var(--iconic-bg); }
 .owner-badge.hubii{ color: var(--hubii); background: var(--hubii-bg); }
+.owner-badge.ambos{ color: var(--purple); background: rgba(99,72,229,.12); }
 
 .task{ display:flex; align-items:flex-start; gap: 10px; padding: 10px 4px; border-bottom: 1px solid var(--line); cursor:pointer; }
 .task:last-child{ border-bottom:none; }
@@ -1595,7 +1598,7 @@ textarea.f-input{ resize: vertical; }
             <div class="praca-dot"></div>
             <div class="praca-info">
               <div class="praca-city">São Paulo</div>
-              <div class="praca-partner">Parceiro: Trevilub</div>
+              <div class="praca-partner">Parceiro: TreviLub</div>
             </div>
             <div class="praca-tag">Foco</div>
           </div>
@@ -2092,7 +2095,7 @@ textarea.f-input{ resize: vertical; }
         <div class="uf-card-head">
           <span class="uf-tag uf-sp">SP</span>
           <div class="uf-card-info">
-            <div class="uf-da-name">Trevilub</div>
+            <div class="uf-da-name">TreviLub</div>
             <div class="uf-count">29 hubs</div>
           </div>
           <span class="phase-badge phase-badge-1">Próximo foco · Out</span>
@@ -2184,7 +2187,7 @@ textarea.f-input{ resize: vertical; }
         <div class="uf-card-head">
           <span class="uf-tag uf-mg">MG</span>
           <div class="uf-card-info">
-            <div class="uf-da-name">Bel Lube</div>
+            <div class="uf-da-name">BelLub</div>
             <div class="uf-count">30 hubs</div>
           </div>
           <span class="phase-badge phase-badge-3">Mês 3 · Dez</span>
@@ -2226,7 +2229,7 @@ textarea.f-input{ resize: vertical; }
     <div class="panel hub-panel">
       <details class="hub-accordion">
         <summary>
-          <span class="hub-accordion-title"><span class="uf-tag uf-sp">SP</span> Trevilub <span class="hub-count-badge">29 hubs</span></span>
+          <span class="hub-accordion-title"><span class="uf-tag uf-sp">SP</span> TreviLub <span class="hub-count-badge">29 hubs</span></span>
           <span class="compare-arrow">▾</span>
         </summary>
         <div class="hub-list">
@@ -2415,7 +2418,7 @@ textarea.f-input{ resize: vertical; }
 
       <details class="hub-accordion">
         <summary>
-          <span class="hub-accordion-title"><span class="uf-tag uf-mg">MG</span> Bel Lube <span class="hub-count-badge">30 hubs</span></span>
+          <span class="hub-accordion-title"><span class="uf-tag uf-mg">MG</span> BelLub <span class="hub-count-badge">30 hubs</span></span>
           <span class="compare-arrow">▾</span>
         </summary>
         <div class="hub-list">
@@ -2985,7 +2988,7 @@ textarea.f-input{ resize: vertical; }
         { label: "Situação da Iconic", items: [
           "Todos os DAs estão migrando a força de vendas para a Máxima Tech; expectativa de ambiente mais propício a partir de setembro",
           "DAs têm exclusividade territorial — venda interestadual de lubrificante é inviável hoje por questões tributárias",
-          "RioLube é candidata natural a piloto por ser DA único no estado; BelLube e Trevilube têm entusiasmo mas restrições próprias"
+          "RioLube é candidata natural a piloto por ser DA único no estado; BelLub e TreviLub têm entusiasmo mas restrições próprias"
         ]},
         { label: "Estratégia de canais e modelo", items: [
           "Recomendação: pilotar no canal nacional com varejistas que não sejam sócios de DA, evitando conflito territorial",
@@ -3007,13 +3010,13 @@ textarea.f-input{ resize: vertical; }
       url: "https://app.notion.com/p/3b5ef5854ef3803886f2c59ac5ab986b",
       sections: [
         { label: "Decisões", items: [
-          "Início confirmado por São Paulo (Trevilub) e Porto Alegre (Makena/Máquina), sem abrir todas as praças ao mesmo tempo",
+          "Início confirmado por São Paulo (TreviLub) e Porto Alegre (Makena/Máquina), sem abrir todas as praças ao mesmo tempo",
           "Take rate próprio será tratado via proposta comercial, não cláusula contratual, para não travar no jurídico",
           "Pendências contratuais com expectativa de resolução na semana seguinte"
         ]},
         { label: "Destaques", items: [
-          "Visita da Trevilub ao escritório foi muito positiva; motivada por um distribuidor que vendeu R$75 mil em 6 dias na plataforma",
-          "Trevilub detém cerca de 70% do mercado de São Paulo",
+          "Visita da TreviLub ao escritório foi muito positiva; motivada por um distribuidor que vendeu R$75 mil em 6 dias na plataforma",
+          "TreviLub detém cerca de 70% do mercado de São Paulo",
           "Camila sinalizou interesse em uma loja própria como segundo passo, com prazo estimado de 2 a 3 semanas",
           "Basílio (Millennium SP) já foi acionado e está ciente do projeto"
         ]},
@@ -3034,7 +3037,7 @@ textarea.f-input{ resize: vertical; }
           "Time Iconic sem prática em campanhas digitais — foco atual 100% em material de PDV físico",
           "Verba de trade é repassada ao distribuidor, não diretamente ao PDV; única restrição clara é não mexer em margem de canal",
           "Thatiany prefere receber o plano pronto pra aprovar, sem participar do brainstorm; Hubii tem liberdade para definir boas práticas sem aprovação prévia",
-          "Faz sentido incluir os DAs (Trevilub) nas conversas — já têm know-how na praça"
+          "Faz sentido incluir os DAs (TreviLub) nas conversas — já têm know-how na praça"
         ]},
         { label: "Performance dos R$50k de setembro", items: [
           "Case de sucesso: a cada R$8,50 investidos, R$100 em vendas gerados",
@@ -3105,14 +3108,14 @@ textarea.f-input{ resize: vertical; }
     const SHOW_INSIGHTS = true;
     // DAs do escopo (regra: UF do hub -> DA)
     const DA_SCOPE = [
-      { da: 'Trevilhub', uf: 'SP' },
+      { da: 'TreviLub', uf: 'SP' },
       { da: 'Makena',    uf: 'RS' },
       { da: 'BelLub',    uf: 'MG' },
     ];
-    // Nome exibido na tela (a base de dados escreve "Trevilhub"; a chave interna continua igual)
-    const DA_LABEL = { 'Trevilhub': 'TreviLub' };
+    // Nome exibido na tela (a base de dados escreve "TreviLub"; a chave interna continua igual)
+    const DA_LABEL = { 'TreviLub': 'TreviLub' };
     const dn = da => DA_LABEL[da] || da;
-    const DA_COLOR = { 'Trevilhub': '#6348e5', 'Makena': '#746bff', 'BelLub': '#9a9a9a', 'Sem hub alocado': '#f5a524' };
+    const DA_COLOR = { 'TreviLub': '#6348e5', 'Makena': '#746bff', 'BelLub': '#9a9a9a', 'Sem hub alocado': '#f5a524' };
 
     // ---------- formatação (pt-BR) ----------
     const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -3914,28 +3917,30 @@ textarea.f-input{ resize: vertical; }
 </script>
 
 <script>
-// ===== TAREFAS E ATAS: salvas no servidor (Redis via /api/state) =====
+// ===== TAREFAS E ATAS: Notion via /api/tasks. Atas somente leitura. =====
 (function(){
   const $ = id => document.getElementById(id);
   const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const MESES = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+  // Chaves = valores exatos da propriedade Status na Tasks List do Notion
   const STATUS = {
-    backlog: { label: 'Backlog' },
-    waiting: { label: 'Aguardando' },
-    ongoing: { label: 'Em andamento' },
-    done:    { label: 'Concluída' },
+    'Backlog':  { label: 'Backlog',      cls: 'backlog' },
+    'To-Do':    { label: 'A fazer',      cls: 'todo' },
+    'Waiting':  { label: 'Aguardando',   cls: 'waiting' },
+    'On Going': { label: 'Em andamento', cls: 'ongoing' },
+    'Paused':   { label: 'Pausada',      cls: 'paused' },
+    'Done':     { label: 'Concluída',    cls: 'done' },
   };
-  const OWNER = { iconic: 'Iconic', hubii: 'Hubii' };
+  // Chaves = valores exatos da propriedade Owner (Parceiro = Iconic)
+  const OWNER = { 'Parceiro': 'Iconic', 'Hubii': 'Hubii', 'Ambos': 'Ambos' };
+  const OWNER_GROUPS = [['Parceiro', 'ICONIC', 'iconic'], ['Hubii', 'HUBII', 'hubii'], ['Ambos', 'AMBOS', 'ambos']];
   const CHECK_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M4 12l5 5L20 6"/></svg>';
 
-  // Semente: usada para popular o servidor na primeira vez e como visão somente leitura se ele estiver indisponível.
-  const SEED = {"t_contrato": {"title": "Assinar contrato", "owner": "iconic", "status": "waiting", "order": 10, "updates": [{"date": "07-ago", "text": "ainda em validação do time jurídico"}, {"date": "13-ago", "text": "contrato enviado para time Passinato analisar"}, {"date": "28-ago", "text": "Jurídico da Ipiranga já aprovou a parte da segurança // se possível tentar liberar Iconic compartilhar a base de varejos"}, {"date": "18-set", "text": "iremos enviar ainda hoje o ok nas cáusulas assim como o sugestão de texto referente a multa"}, {"date": "24-set", "text": "enviado para a Iconic o contrato com ok nas cláusulas e sugestão da multa"}, {"date": "01-out", "text": "falta apenas o Marcos"}]}, "t_50k": {"title": "50k de Iconic + cadastro", "owner": "iconic", "status": "ongoing", "order": 20, "updates": [{"date": "18-set", "text": "essa semana evoluimos do preenchimento de documentos para Thaty agilizar internamente"}]}, "t_portfolio_completar": {"title": "Portfólio completar (náuticos, moto, agro)", "owner": "iconic", "status": "done", "order": 30, "updates": [{"date": "18-set", "text": "Rodrigo está em semana de rota, não conseguiu compartilhar as informações ainda"}]}, "t_lista_produtos": {"title": "Enviar lista de produtos", "owner": "iconic", "status": "done", "order": 40, "updates": []}, "t_millenium": {"title": "Peneirar lista de posto Millenium", "owner": "iconic", "status": "done", "order": 50, "updates": [{"date": "09-ago", "text": "reunião com a Marina, ela irá fazer a short list"}, {"date": "28-ago", "text": "tivemos alguns desencontros de agenda, reunião com time millenium irá ocorrer semana que vem"}, {"date": "04-set", "text": "pré-selecionado loja Raposo Tavares"}]}, "t_shortlist": {"title": "Receber a short list dos hubs", "owner": "iconic", "status": "done", "order": 60, "updates": [{"date": "28-ago", "text": "time Iconic informou que pela arquitetura já tem definido os parceiros inicias, premium partner"}]}, "t_bh": {"title": "Agendar rota BH (BelLub + Victor)", "owner": "hubii", "status": "backlog", "order": 70, "updates": [{"date": "28-ago", "text": "aguardando contrato para primeira reunião"}, {"date": "18-set", "text": "atividade em backlog // prioziração lançamento da praça W3"}]}, "t_poa": {"title": "Agendar rotas POA (Makena + Gui)", "owner": "hubii", "status": "backlog", "order": 80, "updates": [{"date": "28-ago", "text": "aguardando contrato para primeira reunião"}, {"date": "18-set", "text": "atividade em backlog // prioziração lançamento da praça W2"}]}, "t_cadastro_produtos": {"title": "Cadastro do produtos", "owner": "hubii", "status": "done", "order": 90, "updates": [{"date": "18-set", "text": "em andamento, deve finalizar semana que vem"}, {"date": "24-set", "text": "cadastro finalizado"}]}, "t_sp": {"title": "Agendar rota SP (Trevilub + Moabe)", "owner": "hubii", "status": "waiting", "order": 100, "updates": [{"date": "18-set", "text": "praça W1, estamos buscando o telefone contato dos clientes para abordagem mais assertiva"}]}, "t_temu": {"title": "Reunião com Temu sobre a Iconic", "owner": "hubii", "status": "done", "order": 110, "updates": [{"date": "11-ago", "text": "fizemos reunião com a Temu e eles disseram que Óleo é uma categoria que faz sentido"}]}, "t_pricing": {"title": "Enviar o estudo de pricing", "owner": "hubii", "status": "done", "order": 120, "updates": []}, "t_ritos": {"title": "Criar os ritos", "owner": "hubii", "status": "done", "order": 130, "updates": [{"date": "28-ago", "text": "aguardando contrato para primeira reunião"}]}};
-  const STATIC_ATAS = [{"id": "m4", "date": "2026-09-29", "title": "Incentivos Comerciais", "teaser": "Governança de verba, performance dos R$50k de setembro e planejamento Q4"}, {"id": "m3", "date": "2026-08-07", "title": "Alinhamento Semanal (07/08)", "teaser": "Decisão de início por SP e POA · take rate via proposta comercial"}, {"id": "m2", "date": "2026-07-31", "title": "Hubii & Iconic — Estratégia Digital GTM", "teaser": "Transição para Máxima Tech · territorialidade dos DAs · piloto com varejistas não-sócios"}, {"id": "m1", "date": "2026-07-29", "title": "Pré alinhamento Iconic", "teaser": "Estratégia de e-commerce · lojas oficiais Ipiranga/Texaco · conflito de canal"}];
+    const STATIC_ATAS = [{"id": "m4", "date": "2026-09-29", "title": "Incentivos Comerciais", "teaser": "Governança de verba, performance dos R$50k de setembro e planejamento Q4"}, {"id": "m3", "date": "2026-08-07", "title": "Alinhamento Semanal (07/08)", "teaser": "Decisão de início por SP e POA · take rate via proposta comercial"}, {"id": "m2", "date": "2026-07-31", "title": "Hubii & Iconic — Estratégia Digital GTM", "teaser": "Transição para Máxima Tech · territorialidade dos DAs · piloto com varejistas não-sócios"}, {"id": "m1", "date": "2026-07-29", "title": "Pré alinhamento Iconic", "teaser": "Estratégia de e-commerce · lojas oficiais Ipiranga/Texaco · conflito de canal"}];
 
-  const state = { tasks: JSON.parse(JSON.stringify(SEED)), atas: {}, updatedAt: null, canEdit: false };
+  const state = { tasks: {}, atas: {}, updatedAt: null, canEdit: false };
   let ctx = null; // o que o modal compartilhado está mostrando
 
-  const todayLabel = () => { const d = new Date(); return String(d.getDate()).padStart(2,'0') + '-' + MESES[d.getMonth()]; };
   const todayIso = () => { const d = new Date(); return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0'); };
   const dateBR = iso => iso ? iso.slice(8,10) + '/' + iso.slice(5,7) + '/' + iso.slice(0,4) : '';
 
@@ -3948,7 +3953,7 @@ textarea.f-input{ resize: vertical; }
   }
 
   async function api(method, body){
-    const r = await fetch('/api/state', {
+    const r = await fetch('/api/tasks', {
       method, credentials: 'same-origin', cache: 'no-store',
       headers: body ? { 'Content-Type': 'application/json' } : undefined,
       body: body ? JSON.stringify(body) : undefined,
@@ -3958,28 +3963,32 @@ textarea.f-input{ resize: vertical; }
     return j;
   }
   function applyState(s){
-    state.tasks = s.tasks || {}; state.atas = s.atas || {}; state.updatedAt = s.updatedAt || null; state.canEdit = true;
+    // preserva o histórico já carregado de cada tarefa (vem de comentários, não da listagem)
+    const prev = state.tasks || {};
+    const tasks = s.tasks || {};
+    Object.keys(tasks).forEach(k => { if(prev[k] && prev[k].updatesLoaded){ tasks[k].updates = prev[k].updates; tasks[k].updatesLoaded = true; } });
+    state.tasks = tasks; state.atas = s.atas || {}; state.updatedAt = s.updatedAt || null; state.canEdit = true;
     renderAll();
   }
 
   // ---------- render ----------
   function taskRow(key, t){
-    const st = STATUS[t.status] ? t.status : 'backlog';
-    return `<div class="task${st === 'done' ? ' done' : ''}" data-task data-status="${esc(key)}">
+    const st = STATUS[t.status] ? t.status : 'Backlog';
+    return `<div class="task${st === 'Done' ? ' done' : ''}" data-task data-status="${esc(key)}">
       <div class="check" data-check>${CHECK_SVG}</div>
       <div class="task-text">${esc(t.title)}</div>
-      <span class="task-chip st-${st}">${STATUS[st].label}</span>
+      <span class="task-chip st-${STATUS[st].cls}">${STATUS[st].label}</span>
     </div>`;
   }
   function renderTasks(){
     const list = Object.entries(state.tasks);
-    const html = [['iconic','ICONIC'], ['hubii','HUBII']].map(([own, label]) => {
+    const html = OWNER_GROUPS.map(([own, label, cls]) => {
       const items = list.filter(([, t]) => t.owner === own).sort((a, b) => (a[1].order || 0) - (b[1].order || 0));
       if(!items.length) return '';
-      return `<div class="owner-group"><div class="owner-header"><span class="owner-badge ${own}">${label}</span></div>${items.map(([k, t]) => taskRow(k, t)).join('')}</div>`;
+      return `<div class="owner-group"><div class="owner-header"><span class="owner-badge ${cls}">${label}</span></div>${items.map(([k, t]) => taskRow(k, t)).join('')}</div>`;
     }).join('');
     $('tasks-root').innerHTML = html || '<div class="placeholder-note">Nenhuma tarefa cadastrada.</div>';
-    const done = list.filter(([, t]) => t.status === 'done').length;
+    const done = list.filter(([, t]) => t.status === 'Done').length;
     $('tabCount').textContent = done + '/' + list.length;
   }
   function renderAtas(){
@@ -4003,17 +4012,15 @@ textarea.f-input{ resize: vertical; }
   function renderAll(){
     renderTasks(); renderAtas(); renderBadge();
     $('btnAddTask').classList.toggle('hidden', !state.canEdit);
-    $('btnAddAta').classList.toggle('hidden', !state.canEdit);
+    $('btnAddAta').classList.add('hidden'); // atas são somente leitura
   }
 
   // ---------- carga ----------
   async function load(){
     try{
-      let s = await api('GET');
-      if(!Object.keys(s.tasks || {}).length) s = await api('POST', { action: 'seed', tasks: SEED });
-      applyState(s);
+      applyState(await api('GET'));
     }catch(e){
-      console.warn('[tarefas] armazenamento indisponível, abrindo em modo leitura:', e.message);
+      console.warn('[tarefas] Notion indisponível, abrindo em modo leitura:', e.message);
       state.canEdit = false; renderAll();
     }
   }
@@ -4035,8 +4042,23 @@ textarea.f-input{ resize: vertical; }
   const OWNER_OPTS = Object.entries(OWNER);
 
   function historyHtml(t){
+    if(!t.updatesLoaded) return '<li>Carregando histórico...</li>';
     const ups = (t.updates || []).slice().reverse();
     return ups.length ? ups.map(u => `<li><b>${esc(u.date)}:</b> ${esc(u.text)}</li>`).join('') : '<li>Nenhuma atualização registrada ainda.</li>';
+  }
+  async function loadHistory(key){
+    const t = state.tasks[key]; if(!t) return;
+    try{
+      const r = await fetch('/api/tasks?comments=' + encodeURIComponent(key), { credentials: 'same-origin', cache: 'no-store' });
+      if(!r.ok) throw new Error('HTTP ' + r.status);
+      const j = await r.json();
+      t.updates = j.updates || []; t.updatesLoaded = true;
+      if(ctx && ctx.type === 'task' && ctx.key === key && $('tkHistory')) $('tkHistory').innerHTML = historyHtml(t);
+    }catch(e){
+      console.warn('[tarefas] histórico indisponível:', e.message);
+      t.updatesLoaded = true;
+      if(ctx && ctx.type === 'task' && ctx.key === key && $('tkHistory')) $('tkHistory').innerHTML = '<li>Histórico indisponível no momento.</li>';
+    }
   }
   function openTask(key){
     const t = state.tasks[key]; if(!t) return;
@@ -4050,40 +4072,32 @@ textarea.f-input{ resize: vertical; }
         <textarea id="tkNote" class="f-input" rows="2" placeholder="Ex.: cliente confirmou reunião para sexta-feira"></textarea>
         <div class="f-row"><button type="button" class="btn-pill" data-app="tk-save">Salvar</button><span class="f-msg" id="tkMsg"></span></div></div>` : ''}`;
     openModal('Tarefa', t.title, OWNER[t.owner] + ' · ' + STATUS[t.status].label, html);
+    loadHistory(key);
   }
   function openNewTask(){
-    ctx = { type: 'newtask', owner: 'hubii', status: 'backlog' };
-    openModal('Nova tarefa', 'Adicionar tarefa', 'Aparece para todos que abrirem o dashboard', `
+    ctx = { type: 'newtask', owner: 'Hubii', status: 'Backlog' };
+    openModal('Nova tarefa', 'Adicionar tarefa', 'Criada na Tasks List do Notion, vinculada à Iconic', `
       <div class="modal-section"><div class="modal-section-label">Tarefa</div>
         <input id="ntTitle" class="f-input" maxlength="160" placeholder="Ex.: Enviar proposta de rota para Curitiba"></div>
-      <div class="modal-section"><div class="modal-section-label">Responsável</div>${pills('own', OWNER_OPTS, 'hubii')}</div>
-      <div class="modal-section"><div class="modal-section-label">Status</div>${pills('st', STATUS_OPTS, 'backlog')}</div>
+      <div class="modal-section"><div class="modal-section-label">Responsável</div>${pills('own', OWNER_OPTS, 'Hubii')}</div>
+      <div class="modal-section"><div class="modal-section-label">Status</div>${pills('st', STATUS_OPTS, 'Backlog')}</div>
       <div class="modal-section"><div class="modal-section-label">Primeira atualização (opcional)</div>
         <textarea id="ntNote" class="f-input" rows="2" placeholder="Contexto ou próximo passo"></textarea>
         <div class="f-row"><button type="button" class="btn-pill" data-app="nt-save">Criar tarefa</button><span class="f-msg" id="ntMsg"></span></div></div>`);
     setTimeout(() => { const i = $('ntTitle'); if(i) i.focus(); }, 50);
   }
-  function openNewAta(){
-    ctx = { type: 'newata' };
-    openModal('Nova ata', 'Adicionar ata de reunião', 'Um item por linha em cada campo', `
-      <div class="modal-section"><div class="modal-section-label">Título</div>
-        <input id="naTitle" class="f-input" maxlength="160" placeholder="Ex.: Alinhamento semanal"></div>
-      <div class="modal-section"><div class="modal-section-label">Data</div>
-        <input id="naDate" class="f-input" type="date" value="${todayIso()}"></div>
-      <div class="modal-section"><div class="modal-section-label">Participantes / contexto (opcional)</div>
-        <input id="naSub" class="f-input" maxlength="300" placeholder="Ex.: Hubii, Marcos e Camila (Iconic)"></div>
-      <div class="modal-section"><div class="modal-section-label">Resumo</div><textarea id="naResumo" class="f-input" rows="3"></textarea></div>
-      <div class="modal-section"><div class="modal-section-label">Decisões</div><textarea id="naDecisoes" class="f-input" rows="3"></textarea></div>
-      <div class="modal-section"><div class="modal-section-label">Próximos passos</div><textarea id="naProx" class="f-input" rows="3"></textarea>
-        <div class="f-row"><button type="button" class="btn-pill" data-app="na-save">Salvar ata</button><span class="f-msg" id="naMsg"></span></div></div>`);
-    setTimeout(() => { const i = $('naTitle'); if(i) i.focus(); }, 50);
-  }
   function openAta(id){
     if(typeof MEETINGS !== 'undefined' && MEETINGS[id]){ openMeeting(id); return; }
-    const a = state.atas[id]; if(!a) return;
+    const a = state.atas[id];
+    if(a){
+      ctx = { type: 'ata', id };
+      openModal('Ata de reunião', a.title, dateBR(a.date),
+        `<div class="modal-section"><a class="modal-link" href="${esc(a.url)}" target="_blank" rel="noopener">Abrir ata no Notion ↗</a></div>`);
+      return;
+    }
+    const s = STATIC_ATAS.find(x => x.id === id); if(!s) return;
     ctx = { type: 'ata', id };
-    openModal('Ata de reunião', a.title, dateBR(a.date) + (a.sub ? ' · ' + a.sub : ''),
-      (a.sections || []).map(s => `<div class="modal-section"><div class="modal-section-label">${esc(s.label)}</div><ul>${s.items.map(i => `<li>${esc(i)}</li>`).join('')}</ul></div>`).join(''));
+    openModal('Ata de reunião', s.title, dateBR(s.date), `<div class="modal-section"><p>${esc(s.teaser)}</p></div>`);
   }
 
   // ---------- ações ----------
@@ -4092,10 +4106,15 @@ textarea.f-input{ resize: vertical; }
     const prev = JSON.parse(JSON.stringify(t));
     if(patch.status) t.status = patch.status;
     if(patch.owner) t.owner = patch.owner;
-    if(note) t.updates = (t.updates || []).concat([{ date: todayLabel(), text: note }]);
     renderTasks();
     try{
-      applyState(await api('POST', { action: 'update_task', key, status: patch.status, owner: patch.owner, note }));
+      if(patch.status || patch.owner){
+        applyState(await api('POST', { action: 'update', pageId: key, status: patch.status, owner: patch.owner }));
+      }
+      if(note){
+        await api('POST', { action: 'comment', pageId: key, text: note });
+        await loadHistory(key);
+      }
       return true;
     }catch(e){
       state.tasks[key] = prev; renderTasks();
@@ -4111,7 +4130,6 @@ textarea.f-input{ resize: vertical; }
     btn.disabled = true;
     try{ await fn(); } finally { btn.disabled = false; }
   }
-  const lines = v => String(v || '').split('\n').map(s => s.trim().replace(/^[-•*]\s*/, '')).filter(Boolean);
 
   modalBody.addEventListener('click', async (e) => {
     const b = e.target.closest('[data-app]'); if(!b || !ctx) return;
@@ -4133,7 +4151,7 @@ textarea.f-input{ resize: vertical; }
       if(!note){ setMsg('tkMsg', 'Escreva algo antes de salvar.', true); return; }
       await submit(b, async () => {
         setMsg('tkMsg', 'Salvando...');
-        if(await patchTask(key, {}, note)){ const t = state.tasks[key]; $('tkHistory').innerHTML = historyHtml(t); $('tkNote').value = ''; setMsg('tkMsg', 'Salvo.'); }
+        if(await patchTask(key, {}, note)){ $('tkNote').value = ''; setMsg('tkMsg', 'Salvo.'); }
         else setMsg('tkMsg', 'Falha ao salvar.', true);
       });
       return;
@@ -4144,24 +4162,9 @@ textarea.f-input{ resize: vertical; }
       await submit(b, async () => {
         setMsg('ntMsg', 'Salvando...');
         try{
-          applyState(await api('POST', { action: 'add_task', title, owner: ctx.owner, status: ctx.status, note: ($('ntNote').value || '').trim() }));
+          applyState(await api('POST', { action: 'create', title, owner: ctx.owner, status: ctx.status, note: ($('ntNote').value || '').trim() }));
           modal.classList.remove('open'); toast('Tarefa criada.');
         }catch(err){ setMsg('ntMsg', 'Falha ao salvar: ' + err.message, true); }
-      });
-      return;
-    }
-    if(act === 'na-save'){
-      const title = ($('naTitle').value || '').trim(), date = $('naDate').value;
-      const sections = [['Resumo', lines($('naResumo').value)], ['Decisões', lines($('naDecisoes').value)], ['Próximos passos', lines($('naProx').value)]]
-        .filter(([, items]) => items.length).map(([label, items]) => ({ label, items }));
-      if(!title || !date){ setMsg('naMsg', 'Preencha título e data.', true); return; }
-      if(!sections.length){ setMsg('naMsg', 'Escreva pelo menos um item em Resumo, Decisões ou Próximos passos.', true); return; }
-      await submit(b, async () => {
-        setMsg('naMsg', 'Salvando...');
-        try{
-          applyState(await api('POST', { action: 'add_ata', title, date, sub: ($('naSub').value || '').trim(), sections }));
-          modal.classList.remove('open'); toast('Ata salva.');
-        }catch(err){ setMsg('naMsg', 'Falha ao salvar: ' + err.message, true); }
       });
     }
   });
@@ -4173,7 +4176,7 @@ textarea.f-input{ resize: vertical; }
     if(e.target.closest('[data-check]')){
       e.stopPropagation();
       if(!state.canEdit){ openTask(key); return; }
-      patchTask(key, { status: state.tasks[key].status === 'done' ? 'ongoing' : 'done' });
+      patchTask(key, { status: state.tasks[key].status === 'Done' ? 'On Going' : 'Done' });
       return;
     }
     openTask(key);
@@ -4182,9 +4185,8 @@ textarea.f-input{ resize: vertical; }
     const card = e.target.closest('[data-ata]'); if(card) openAta(card.dataset.ata);
   });
   $('btnAddTask').addEventListener('click', openNewTask);
-  $('btnAddAta').addEventListener('click', openNewAta);
   const badge = $('updateBadge');
-  if(badge){ badge.title = 'Clique para recarregar tarefas e atas'; badge.addEventListener('click', () => { load().then(() => toast('Atualizado.')); }); }
+  if(badge){ badge.title = 'Clique para recarregar tarefas'; badge.addEventListener('click', () => { load().then(() => toast('Atualizado.')); }); }
 
   renderAll();
   load();
