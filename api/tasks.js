@@ -224,15 +224,14 @@ export default async function handler(req, res) {
       if (!title) return res.status(400).json({ error: 'título obrigatório' });
       const owner = OWNERS.includes(body.owner) ? body.owner : 'Hubii';
       const status = STATUSES.includes(body.status) ? body.status : 'Backlog';
-      const page = await notion(token, 'POST', '/pages', {
-        parent: { database_id: TASKS_DB },
-        properties: {
-          'Nome da tarefa': { title: [{ type: 'text', text: { content: title } }] },
-          Status: { status: { name: status } },
-          Owner: { select: { name: owner } },
-          Companies: { relation: [{ id: ICONIC_ID }] },
-        },
-      });
+      const properties = {
+        'Nome da tarefa': { title: [{ type: 'text', text: { content: title } }] },
+        Status: { status: { name: status } },
+        Owner: { select: { name: owner } },
+        Companies: { relation: [{ id: ICONIC_ID }] },
+      };
+      if (Number.isInteger(body.week) && body.week >= 1 && body.week <= 60) properties.Week = { number: body.week };
+      const page = await notion(token, 'POST', '/pages', { parent: { database_id: TASKS_DB }, properties });
       const note = longStr(body.note, 2000);
       if (note) await addComment(token, page.id, note);
       return res.status(200).json(await readState(token));
