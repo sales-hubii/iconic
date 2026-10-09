@@ -68,6 +68,7 @@ function mapTask(p) {
     title: plain(props['Nome da tarefa'] && props['Nome da tarefa'].title),
     status: props.Status && props.Status.status ? props.Status.status.name : 'Backlog',
     owner: props.Owner && props.Owner.select ? props.Owner.select.name : 'Parceiro',
+    week: props.Week && typeof props.Week.number === 'number' ? props.Week.number : null,
     updates: [],
     updatesLoaded: false,
     url: p.url,
@@ -78,6 +79,55 @@ function mapAta(p) {
   const props = p.properties || {};
   const iso = props.Date && props.Date.date ? props.Date.date.start : (p.created_time || '');
   return { title: titleOf(props), date: String(iso).slice(0, 10), sub: '', sections: [], url: p.url };
+}
+
+// Conteúdo das atas: lido dos blocos da página, com cache em memória (10 min).
+const ATA_CACHE = new Map();
+const ATA_TTL = 10 * 60 * 1000;
+const TEXT_TYPES = ['paragraph', 'bulleted_list_item', 'numbered_list_item', 'to_do', 'quote', 'callout'];
+const HEAD_TYPES = ['heading_1', 'heading_2', 'heading_3'];
+const SKIP_CHILDREN = ['child_page', 'child_database', 'synced_block'];
+
+async function listChildren(token, blockId) {
+  const out = [];
+  let cursor = null;
+  do {
+    const j = await notion(token, 'GET', `/blocks/${blockId}/children?page_size=100${cursor ? '&start_cursor=' + cursor : ''}`);
+    out.push(...(j.results || []));
+    cursor = j.has_more ? j.next_cursor : null;
+  } while (cursor && out.length < 300);
+  return out;
+}
+
+async function collectAta(token, blockId, depth, acc) {
+  if (depth > 3) return;
+  const blocks = await listChildren(token, blockId);
+  for (const b of blocks) {
+    if (acc.items >= 80) return;
+    const body = b[b.type];
+    if (HEAD_TYPES.includes(b.type)) {
+      const t = body ? plain(body.rich_text) : '';
+      if (t) acc.sections.push({ label: t, items: [] });
+    } else if (TEXT_TYPES.includes(b.type)) {
+      const t = body ? plain(body.rich_text) : '';
+      if (t) {
+        if (!acc.sections.length) acc.sections.push({ label: 'Resumo', items: [] });
+        acc.sections[acc.sections.length - 1].items.push(t);
+        acc.items++;
+      }
+    }
+    if (b.has_children && !SKIP_CHILDREN.includes(b.type)) await collectAta(token, b.id, depth + 1, acc);
+  }
+}
+
+async function fetchAtaContent(token, pageId) {
+  const hit = ATA_CACHE.get(pageId);
+  if (hit && Date.now() - hit.at < ATA_TTL) return hit.sections;
+  const acc = { sections: [], items: 0 };
+  await collectAta(token, pageId, 0, acc);
+  const sections = acc.sections.filter((s) => s.items.length);
+  ATA_CACHE.set(pageId, { at: Date.now(), sections });
+  return sections;
 }
 
 async function readState(token) {
@@ -91,7 +141,16 @@ async function readState(token) {
   const tasks = {};
   tasksRaw.forEach((p, i) => { tasks[p.id] = { ...mapTask(p), order: i }; });
   const atas = {};
-  atasRaw.forEach((p) => { atas[p.id] = mapAta(p); });
+  const ordered = atasRaw.map((p) => ({ id: p.id, ...mapAta(p) })).sort((a, b) => b.date.localeCompare(a.date));
+  for (let i = 0; i < ordered.length; i++) {
+    const a = ordered[i];
+    const { id, ...rest } = a;
+    if (i < 5) {
+      try { rest.sections = await fetchAtaContent(token, id); rest.loaded = true; }
+      catch (e) { console.error('[tasks] ata sem conteúdo:', e.message); }
+    }
+    atas[id] = rest;
+  }
   return { tasks, atas, updatedAt: new Date().toISOString() };
 }
 
@@ -117,6 +176,11 @@ export default async function handler(req, res) {
 
   try {
     if (req.method === 'GET') {
+      const ataId = req.query && req.query.ata;
+      if (ataId) {
+        if (!UUID_RE.test(ataId)) return res.status(400).json({ error: 'ataId inválido' });
+        return res.status(200).json({ sections: await fetchAtaContent(token, ataId) });
+      }
       const pid = req.query && req.query.comments;
       if (pid) {
         if (!UUID_RE.test(pid)) return res.status(400).json({ error: 'pageId inválido' });
