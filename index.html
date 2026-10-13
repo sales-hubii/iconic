@@ -1786,6 +1786,52 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
 .ata-old-body ul{margin-left:0}
 .ata-old-body .ata-section{margin-bottom:12px}
 .modal-box .ata-section p,.ata-old-body p{font-size:13px;font-weight:400;line-height:1.5}
+
+/* ROADMAP semanal */
+.rm-legend{display:flex;flex-wrap:wrap;gap:14px;font-size:12px;color:var(--ink-soft);margin:0 0 12px}
+.rm-legend span{display:inline-flex;align-items:center;gap:6px}
+.rm-sw{width:12px;height:8px;border-radius:4px;display:inline-block}
+.rm-sw.fast{background:var(--foco)}
+.rm-sw.mid{background:var(--amber)}
+.rm-sw.slow{background:var(--purple-deep)}
+.rm-sw.na{background:repeating-linear-gradient(90deg,#cfc9e8 0 3px,transparent 3px 6px)}
+.rm-panel{padding:18px 20px 20px}
+.rm-scroll{overflow-x:auto}
+#rm-root{position:relative;min-width:980px;--lbl:170px}
+.rm-head{display:grid;grid-template-columns:var(--lbl) 1fr;align-items:end}
+.rm-months,.rm-weeks,.rm-phases{position:relative;height:18px}
+.rm-phases{height:40px;margin-bottom:4px}
+.rm-weeks{height:16px;margin-bottom:2px}
+.rm-months{height:16px;margin-bottom:2px}
+.rm-trk{position:relative;height:100%}
+.rm-m{position:absolute;top:0;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.04em;padding-left:6px;border-left:1px solid var(--line-2);height:100%}
+.rm-w{position:absolute;top:0;font-family:'IBM Plex Mono',monospace;font-size:9.5px;color:var(--potencial);transform:translateX(-50%)}
+.rm-ph-seg{position:absolute;top:0;bottom:0;display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:500;border-right:2px solid #fff}
+.rm-ph-seg.setup{background:var(--foco)}
+.rm-ph-seg.p1{background:var(--purple)}
+.rm-ph-seg.p2{background:var(--purple-deep)}
+.rm-ph-seg.p3{background:#362a80}
+.rm-lbl-cell{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);display:flex;align-items:center}
+.rm-group{margin-top:20px;padding-top:4px}
+.rm-gh{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.rm-gh b{font-size:13.5px;font-weight:500;color:var(--ink)}
+.rm-gh em{font-style:normal;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-soft)}
+.rm-row{display:grid;grid-template-columns:var(--lbl) 1fr;align-items:center;height:26px;margin-bottom:4px}
+.rm-row .rm-lbl{font-size:12.5px;color:var(--ink-2);padding-right:10px}
+.rm-row.na .rm-lbl{color:var(--potencial)}
+.rm-track{position:relative;height:16px;border-radius:var(--r-pill);background:var(--paper)}
+.rm-track.hasbg{background:transparent}
+.rm-wl{position:absolute;top:0;bottom:0;width:1px;background:var(--line)}
+.rm-bar{position:absolute;top:0;bottom:0;border-radius:var(--r-pill)}
+.rm-bar.fast{background:var(--foco)}
+.rm-bar.mid{background:var(--amber)}
+.rm-bar.slow{background:var(--purple-deep)}
+.rm-d{position:absolute;top:50%;transform:translateY(-50%);font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--ink-soft);white-space:nowrap}
+.rm-d.in{color:#fff;font-weight:500}
+.rm-na{position:absolute;left:6px;top:50%;transform:translateY(-50%);font-family:'IBM Plex Mono',monospace;font-size:10.5px;font-style:italic;color:var(--potencial)}
+.rm-today{position:absolute;top:0;bottom:0;width:0;border-left:2px solid #e58a34;z-index:5;pointer-events:none}
+.rm-today span{position:absolute;top:-6px;left:6px;white-space:nowrap;background:#e58a34;color:#fff;font-family:'IBM Plex Mono',monospace;font-size:10px;padding:2px 7px;border-radius:999px}
+.rm-note{font-size:11.5px;color:var(--ink-soft);margin-top:18px;padding-top:12px;border-top:1px solid var(--line)}
 </style>
 </head>
 <body>
@@ -2054,7 +2100,7 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
           <details class="ic-item pf-item" data-ean="7896587320852">
             <summary>
               <span class="pf-dot "></span>
-              <span class="pf-img"><img src="https://lalist-product-images-ue1.s3.amazonaws.com/7896587320852_0-8e13b309-707a-4d6c-8cab-141bd9622c87.jpg" alt="Óleo Lubrificante Ipiranga F1 Master Sintético 5W40 API SP 1L" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('none');this.parentNode.innerHTML='<i>sem foto</i>'"></span>
+              <span class="pf-img"><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCACgAKADASIAAhEBAxEB/8QAHQABAAICAwEBAAAAAAAAAAAAAAUGBwgBAwQCCf/EAEgQAAEDAwMCAwIJBQ4HAQAAAAECAwQABREGEiEHMRNBURRhCBUiMnGBkbHRFiNzlKEzNEJSVFVicoSTssHC0hcYJDVGgqLw/8QAGwEBAAIDAQEAAAAAAAAAAAAAAAEEAgMFBgf/xAA3EQACAQMCAgYIAwkAAAAAAAAAAQIDBBEFIRIxQVFhcZHRBhMUUoGhscEiYpIVIyQyM0NTVHL/2gAMAwEAAhEDEQA/ANy6UpQClKUApSlAKUpQClKUBTrjryGzPdhxIjr62llClqVtTkHBx5moSX1KnMS/BFsjFP6RWap4kBV0lSgUeEt5akqOeQVHngVHzi/InBbC2ikY7AHP2qFfKqnpBq1W6kozxHfGEvI9dT06zhFca8WZqtuoX5LXiuRm0gJCiAo55HlU3BlNTI4fZJ2k4IPcH0rG1luD5hBsGOHeAUr3jgD1SFVd9JL3W91BGFIdORnOMgGvT6DqF5VdOFy8tqWcrDymsdXRk4F3RhCUuDoJmlKV64oClKUApSlAKUpQClKUApSlAKUpQCvFfZiLfZ5cxzs00oj3nHA+3Fd0uXHijLzgBPZI5J+gVT9X3eLLY8CWrbGSoKLQVysjtuPp7hWMn0AotmjEpBDSUo8zj/OvZKkwIg3LWFrHoe1R171EzgtxkpQkcADtVTlTnH1k5qIpRWIoyy28svUPUigrY0sbc/NUAR9hq76HvUVSlxVoQyp1W5G3hJOO3urBTTy0KyFGrpo2X7UoNqVhY7VDWSDOVK8VkkqkwEKc/dEfJX7z617a2IgUpSgFKUoBSlKAUpSgFKV8PuoZaU64cJSMk0By862y2XHVhCR3JqvXnUbUdtXhrDSf4x+cfoHl9dVvVWpTvU4peEpzsTntWM7vfJlxklpgOOqUeEpBJrXKSSzJ4RKWXhFt1BrEArSyo7j3UTkn6TVHuN4kS1klZ5rn8n728N6opGfJTiQfvrn8m7z/ACVP94n8a5b1zTU8O4h+peZvVpX9x+DIsrUo5JJr6Sc1JjTl4/ko/vE/jXI05eM/vYf3ifxqP27pn+xD9S8yfZK/uPwZGg1ZdAqPxujnzqO/J67hJPso49HE/jUtodlpozpkqSIoiBJO7A5Jx51btr+1u8+oqRnjnhp48DXUpTp/zxaM42XaE4TgZQCR9ZqRqvaHXFkQVTGGHkKdCQVuoKS4BnCueSOTzVhq6jUKUpUgUpSgFKUoBSlKAVDatdLdtUAcDG4//vrqZqua6Xttb2O+wffUMGENWTnpE/2ZrJK17UgeZruuV6sWhYjDMtLr0x9O5QZSCtQ8zyRhOeBXhY/OavhZ5Hj5ruv2jJV9181dbgpk2lhtCUthRK17edpGOAVE591eN1240+pfwtdUqOFvGEqkknhza2jBfHfBZ/i4WznZRzUclFZ3UU+bZL6f1ZAvdz9giMu7xGEhS9yShKTjCSQeFc9qm4sqNKjokR323WljchaVcKHqPdUHatPSGLhfrg8+ht+5nw2vDTnwWgkpT6c+ePdUdH0IgmR7RMKAUFhjwk8pa8NLYyT57QrgcZUTzXz28sfRytWn6qu6UYqGNnPLazLq5SeM9UW8bo6lvdatTpx46am25Z5Rwk9vFb/HsLkVtgElaAB35FN6Oflp45PPaqrN0TFkpKfa1o8R1xx/80D4m5QIHPbakbQfIE+tdFx0W6GpDtvmj2t9WVFxACFErWs7u+RlSeP6AqpR0nQqrjH27DbxvTaS35t55c34dpvqX+pQy/ZspdUl9MFxC2yQAtJJGRgjkVXrHhWrpaVAFJfOQRwea4sWk2bXc2ZomOPeA0W2kKbA25QlPfvgBJwP6Rr5sqgnV0onAAfVkmvW+hFvZ2+pVYWlb1keBZfC478XLD7MblXUKtxVt4yrw4HnlnO2OZnCzfMT+jH3mpGofTMgSGSpDbgbShIC1DAXye1TFfUkcUUpSpApSlAKUpQClKUAqjdYYc6XYfDizlxWl4DvhJ/OLGewV/B796vNVfqAlKrasqGShIKfdknP3VDBrb1NeNu00lmxrVElQYhQl8HJ37yd2fPg4rDrGoepEiQ3HZ1Q+486sIQhJyVKJwAPfmsr9UWpUiy3JiDHekSVtENtNIKlrORwAOSax50Z+MNN9R4OodX6M1XKgW/c6yzEti3FLeHzCQcDAyT37gVZoStI0266jnozjPzNcvaHJKk3jsz9jIupdDav07MZtVy6s3Jy8PRQ+3ChWJ+SSog4RuQSnOUkc49cYrFNwvnVG3zXYMy9XNmU04WnWS0SpCwMlJx/CA7juKyRpHqZrB/qTddYa1sWv5MVh552wWZi1rcjR1qSpCFrypOClJxjnJUTmqVprqR1rsdidtTHThyV4r8mQ7KkWuQX1uyM+KvcCMEg447ACtMK1nHnGD/T5G6ULp8pSXxZXxq3qOtaUNX65OKWjxEhDKiSn+MPUe+ul7VvVNA4ud3P9lX+FW1fVHreGVNHpghCjbE2s7bM+lPgpKikBOcAgrOMduPSutHVHrkl9T6unbyyq5IuG1VtklIU2hKG28bv3NASMD1ySTk1MrqxX9uHy8jFU7r35fMx9c+pfUa3ueFJv8xhzGdjrZQrHrg1tD0Nurk3RcadOR7dc5kJlxClnG5ZwVEk9q1a6nRuq3ULVr2pL7pC8iS42hpDTNvdDbTaBgJSCCcdzyTyTWzHQqNJg6asUOYw7Hksw2kOtOJKVoUE8gg8g1rlWt6n9KMU+zH2M3Gql+8bffk2S0UiY1akInOMrcI3YaSQEDJ457/TU9UNppRLSE+Raz/9GpmiMBSlKkClKUApSlAKUpQCqh1IlR4dplyZTyGWUNo3LWcAcqq31SOrNug3C2siQwl15s7kFSSQnBHJHb1xmokDXfW2ondM2terosb2hMdkyo6FkoDozjOcZA7/AGVjYfCwvo/8Yj/rqv8AbV4+EFLXI0HdmiAG40AtNjzxuB5+smtN6oXOmW13JTrRy1tza+jRZo3laguGm8LuX3NnIPwv9RQ0rDelIKyvGSuWo/6a7f8AnI1P4oc/JWBxjKRKUAcZ7/J9/wCwVq+ATXOw1lT0m3jFRjF4X5peYleVZNttZ7l5GzyPhj6mSpROlYSgc8GWvz/9a6pnwvNRzQhCtKRU7ecNy18nH9X3VrMUmsodFrRabxqGzWS8xmGLZMmIXcJzrhb/ADaQpXhBXZIUQAT39MVmtEt60XBxeP8AqXmY+31KbUsrPcvIvp+Fbfc86YZ/XVf7azR0vu8nU0KNqRUQtqlsIlOtpVuDe/yyff51rp8Iu3dNvy3LPT4tNxUQyJaI6T7OHweC0T3yMbscccVnToHIdb6f2qE24ppMm3MIUtPzk4APFKGj29i+OlDDfa39Wyat9VuFwzecdi+xszovxHLf7Q64lRUAlKEjhA54z51P1WtBxo0O3pYjpKQUblZOSo5PJPmastWkVxSlKkClKUApSlAKUpQCqrr394Sf6jf3qq1VQ+r1xkW20K9mt70x6RtQ2E8ISQTkrV5DkVDBrF1ySpeir6hAKiqMrAH0itX4ukb6+yw97EpDT5w2tfAJ+mttuq1rmq0yWAqOqdNheJt3bW0qKsYyfLjvWLGNNdQ4luXHk2wGKvlhW0Fto+oWnOa6NhbUqsW5lavUnBpRwYw0ho9u9TRF+MUIdC9ikBpasHOO4GKzLD+DfcH4AkNSGXAU5HdP31AWfpXrNxxb1rvjcPCy4ApJwCTnGU8+fmKyXod/rzpadGD9ztV5t6FgPQ5M8/nUHghJWOFeY5710OJUo4gsfAqScpy57d5gDqJ05uelHleOyoIB+d3B+uvJo/WMiz2KVZghtHiqCm5GwlSMEEg4IOK276kWFOq7LIjxtNMxJqhkFCkFCleiglX7RWrl/wCl2omfHkR7Jc45Z3F9l+KpJbA7ndjCk+hB5qWoz/EsJkwqNJqe66zzan1vIu9gRbHY8Iq8UuuSkNEOK4wEjJ+Sn6O9bI9DFZ0nYT5exNf4a1HdsN2RkKjLH1Vt70KibdCW9594Mex25lS93vwKoahGUYxysFi2cMvheTZbRhCmk4OcNYPu+VVjqpdMpLL9m/NsuIKvlb1pwXBnGfU+XerbXMiWxSlKkClKUApSlAKUpQCqj1HSp2AUnZ4TaQSCOSSTj6vk1bqqfUH/ALe//VR/qqGDWfqSpx+HMG7KyjAye3IqGs2rb1pe1Oy/HCGo7RWpLh4IA9PMV6OsUkxNNXaSlSklpkqBT3HyhWMLVqV/UNkTAdFulRRgvjaW3ijuRgHYo48to+muxpi4qclz3Ofevhkm9i+9O77qC4ajuSNW3ViJI2sy4rzQbSU70hW1KU4C0AHBAyQQTmsqadj6R1AsWq/Tnnvzy3fH8dDiVhR5b5wQjPIBBIx37Ctbb3drbYYsJ646YVbpKIqlQ5TL5cbVle0JT2SR4fmnj3VVol7MyaZcjXc23NbvksxYxUUpzwANwBPvJrJtOO/P4EqDzlcjYzrnpDTejib1Y5wMZlCVPpK3AWwokJIWOCMjHJyOPUVUNIdb7fbSmLMu73hDgF1ZWnHpkg8fXVAndS77CtjtrsUeRcorydr0i5LDhdH6NJAH15qjS7zHeWpU7RkFKj3LKFs/dUSrcK4W896ZnGlnfGDadq46B1yM2kW/4xXyWoryAVn9GSD9gqe0xCdtU82t1pTKmMNONKHbHkRWpmhbrZkX5pECB8XzVkhtxbpVk+SQT80k4Ga2i6fzJU2PDmThITKdaSt4SP3QKxzu99Vruo50o79JNCjGFRtI2K0Gctj9Ef8AFVrqo9OT40VbyUq8NKdgUeyiTnj3Vbq50S2KUpWQFKUoBSlKAUpSgFUDrLHub9mQi3zfZUOqCX1Jb3OEDOAkngd+9X+qh1DZQqKt45K0pSlPJwAd2eO1Qwawdc4DT2jnrTagp6SqChhW5fK3lLA5UfPkc9qxrpPpLfYNphIl6TuZuSHZC5UiM+wcJU0UspH/AFACglfyzwkntn1yF1sW9F0jeJTJKHGWd6FeigoEH7a9nT/4RGjkaeSudLat85zaqQ1IbdO1xPmkpGCM5+o8iuXfXt3aShKhHK3y0m2urZdZ0LO1t7iMo1ZYe2E2kn17sxCjpp1EU+pu8aGiXBsE7XHZDDbuPU7XO5qC1jpSBpp9lnUuk51oW+kqZW2+VoWB32qBUk49K3Kt1ybu7EW9vvGSZbSFtLLe3a0RlJCSBgkHPI86sNth267SPARIlhKElR8YJxnIAxwcVybb04rzrulOlGW+MPaXzb+JcuvRy3hT44Tku1PK+h+dkpnTyc+xTbo17jyPuFRr6yj97zJS/Mbm6/Sm62CBbo6HnpyCXFhKUpShRHbJOB2HJ+z1rn4hgIh+0ql+MgpUvc0lGEpAJGcjPOAMY7mr8/Suam4O1SaWX+NbFSno8FFS9c2n+U/MwypwVuypR9S3zW4/RNbf5DQXJaFOSjbWS0knkrOM9/dnvWQLhLbhxlPLS2T/AAU7B8o+lViwNrVcC4r5ylZP11lpGuS1aEqipuMVyy857u4X9grKSjx5bM5dKlSk24tSVN8o3BKBwnntnz71dqp3TgYbV7m/86uNdiJzhSlKyApSlAKUpQClKUAqr9QkH4uCgOFcE/Rn8atFdE+IxOirjSEbm1jB93vqGDWbWNohXOHJgTmQ7GkoU26gnGUnvWJIvRDRMea1ILt0dDbgX4S30lCsHO0/Jzjy71tLqnpvdXFqXaX40hB7IdUUKH7CKqLnTTW27i1xj/a0VhnoJIn49dSMBtoAdgE8D9tcpvjyuNjf2H8akj001v8AzVG/XEUR011wDzao/wCuIrjvQNNe7orwL61O75esZHG9vA4KG/sP41wq9unOA2D64qQc6aa6J4tMc/2xFfP/AAz13/NMYfTNRRaDpqefULwD1O7/AMjIV+R7Q5vcWVq9T5VJ2JpId3Y869COmWvCoD4shp96pqcfsFXjR/TSfHUh2+zWAByWYxKs/SogfsFdWnGMIqMFhLoxgpSk5PMnllq6eR1JtqpCkkBZ2p94HerRXxHZaYZQyygIbQMJSOwFfdbksGApSlSBSlKA/9k=" alt="7896587320852"></span>
               <span class="ic-name">Óleo Lubrificante Ipiranga F1 Master Sintético 5W40 API SP 1L</span>
               <span class="ic-ean">7896587320852</span>
               <span class="pf-brand">Ipiranga</span>
@@ -2270,7 +2316,7 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
           <details class="ic-item pf-item" data-ean="7891165011788">
             <summary>
               <span class="pf-dot "></span>
-              <span class="pf-img none"><i>sem foto</i></span>
+              <span class="pf-img"><img src="data:image/jpeg;base64,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" alt="7891165011788"></span>
               <span class="ic-name">Aditivo para Radiador Ipiranga Verde 1L</span>
               <span class="ic-ean">7891165011788</span>
               <span class="pf-brand">Ipiranga</span>
@@ -3793,81 +3839,14 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
   <!-- ROADMAP -->
   <div class="tab-panel" id="panel-roadmap">
     <div class="section-label first">Roadmap gerencial</div>
-    <div class="roadmap-intro">Faseamento de praças e ativação de canais numa visão única — cada canal passa a contar seu prazo a partir do momento em que a praça correspondente é ativada.</div>
-
-    <div class="section-label">Faseamento de praças e ativação de canais</div>
-    <div class="panel gantt-panel gantt-unified">
-
-      <div class="gantt-grid-row gantt-axis-row">
-        <div class="gantt-gutter"></div>
-        <div class="gantt-scale">
-          <span style="left:0%;">Set</span>
-          <span style="left:20%;">Out</span>
-          <span style="left:40%;">Nov</span>
-          <span style="left:60%;">Dez</span>
-          <span style="left:80%;">Jan</span>
-        </div>
-      </div>
-
-      <div class="gantt-grid-row">
-        <div class="gantt-gutter gantt-gutter-label">Praças</div>
-        <div class="gantt-scale">
-          <div class="phase-track">
-            <div class="phase-seg phase-seg-setup" style="width:20%;">
-              <span class="phase-seg-name">Setup</span>
-            </div>
-            <div class="phase-seg phase-seg-1" style="width:20%;">
-              <span class="phase-seg-name">GSP</span>
-            </div>
-            <div class="phase-seg phase-seg-2" style="width:20%;">
-              <span class="phase-seg-name">POA</span>
-            </div>
-            <div class="phase-seg phase-seg-3" style="width:20%;">
-              <span class="phase-seg-name">BH</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="gantt-group-divider"></div>
-
-      <div class="gantt-group">
-        <div class="gantt-group-title"><span class="uf-tag uf-sp" style="width:26px;height:26px;font-size:10px;">SP</span> Grande São Paulo <span class="gantt-group-start">ativa em outubro</span></div>
-        <div class="gantt-grid-row"><div class="gantt-gutter">Shopee</div><div class="gantt-scale"><div class="gantt-bar-track"><div class="gantt-bar gantt-fast" style="left:20%;width:4.67%;"></div><span class="gantt-bar-days" style="left:calc(20% + 4.67% + 6px);">7 dias</span></div></div></div>
-        <div class="gantt-grid-row"><div class="gantt-gutter">Mercado Livre</div><div class="gantt-scale"><div class="gantt-bar-track"><div class="gantt-bar gantt-fast" style="left:20%;width:10%;"></div><span class="gantt-bar-days" style="left:calc(30% + 6px);">15 dias</span></div></div></div>
-        <div class="gantt-grid-row"><div class="gantt-gutter">Shopee Turbo</div><div class="gantt-scale"><div class="gantt-bar-track"><div class="gantt-bar gantt-fast" style="left:20%;width:10%;"></div><span class="gantt-bar-days" style="left:calc(30% + 6px);">15 dias</span></div></div></div>
-        <div class="gantt-grid-row"><div class="gantt-gutter">iFood</div><div class="gantt-scale"><div class="gantt-bar-track"><div class="gantt-bar gantt-mid" style="left:20%;width:13.33%;"></div><span class="gantt-bar-days" style="left:calc(33.33% + 6px);">20 dias</span></div></div></div>
-        <div class="gantt-grid-row"><div class="gantt-gutter">99</div><div class="gantt-scale"><div class="gantt-bar-track"><div class="gantt-bar gantt-slow" style="left:20%;width:80%;"></div><span class="gantt-bar-days gantt-bar-days-inside" style="right:10px;">120 dias</span></div></div></div>
-        <div class="gantt-grid-row gantt-row-na"><div class="gantt-gutter">Magalu Delivery</div><div class="gantt-scale"><span class="gantt-na-label">não disponível</span></div></div>
-      </div>
-
-      <div class="gantt-group">
-        <div class="gantt-group-title"><span class="uf-tag uf-rs" style="width:26px;height:26px;font-size:10px;">RS</span> Porto Alegre <span class="gantt-group-start">ativa em novembro</span></div>
-        <div class="gantt-grid-row"><div class="gantt-gutter">Shopee</div><div class="gantt-scale"><div class="gantt-bar-track"><div class="gantt-bar gantt-fast" style="left:40%;width:4.67%;"></div><span class="gantt-bar-days" style="left:calc(40% + 4.67% + 6px);">7 dias</span></div></div></div>
-        <div class="gantt-grid-row"><div class="gantt-gutter">iFood</div><div class="gantt-scale"><div class="gantt-bar-track"><div class="gantt-bar gantt-mid" style="left:40%;width:26.67%;"></div><span class="gantt-bar-days" style="left:calc(66.67% + 6px);">40 dias</span></div></div></div>
-        <div class="gantt-grid-row gantt-row-na"><div class="gantt-gutter">Mercado Livre</div><div class="gantt-scale"><span class="gantt-na-label">não disponível</span></div></div>
-        <div class="gantt-grid-row gantt-row-na"><div class="gantt-gutter">Shopee Turbo</div><div class="gantt-scale"><span class="gantt-na-label">não disponível</span></div></div>
-        <div class="gantt-grid-row gantt-row-na"><div class="gantt-gutter">99</div><div class="gantt-scale"><span class="gantt-na-label">não disponível</span></div></div>
-        <div class="gantt-grid-row gantt-row-na"><div class="gantt-gutter">Magalu Delivery</div><div class="gantt-scale"><span class="gantt-na-label">não disponível</span></div></div>
-      </div>
-
-      <div class="gantt-group">
-        <div class="gantt-group-title"><span class="uf-tag uf-mg" style="width:26px;height:26px;font-size:10px;">MG</span> Belo Horizonte <span class="gantt-group-start">ativa em dezembro</span></div>
-        <div class="gantt-grid-row"><div class="gantt-gutter">Shopee</div><div class="gantt-scale"><div class="gantt-bar-track"><div class="gantt-bar gantt-fast" style="left:60%;width:4.67%;"></div><span class="gantt-bar-days" style="left:calc(60% + 4.67% + 6px);">7 dias</span></div></div></div>
-        <div class="gantt-grid-row"><div class="gantt-gutter">Shopee Turbo</div><div class="gantt-scale"><div class="gantt-bar-track"><div class="gantt-bar gantt-fast" style="left:60%;width:10%;"></div><span class="gantt-bar-days" style="left:calc(70% + 6px);">15 dias</span></div></div></div>
-        <div class="gantt-grid-row"><div class="gantt-gutter">iFood</div><div class="gantt-scale"><div class="gantt-bar-track"><div class="gantt-bar gantt-mid" style="left:60%;width:26.67%;"></div><span class="gantt-bar-days" style="left:calc(86.67% + 6px);">40 dias</span></div></div></div>
-        <div class="gantt-grid-row gantt-row-na"><div class="gantt-gutter">Mercado Livre</div><div class="gantt-scale"><span class="gantt-na-label">não disponível</span></div></div>
-        <div class="gantt-grid-row gantt-row-na"><div class="gantt-gutter">99</div><div class="gantt-scale"><span class="gantt-na-label">não disponível</span></div></div>
-        <div class="gantt-grid-row gantt-row-na"><div class="gantt-gutter">Magalu Delivery</div><div class="gantt-scale"><span class="gantt-na-label">não disponível</span></div></div>
-      </div>
-
-      <div class="gantt-legend">
-        <span class="legend-chip"><span class="legend-dot gantt-fast"></span>Até 15 dias após a praça ativar</span>
-        <span class="legend-chip"><span class="legend-dot gantt-mid"></span>16 a 40 dias após a praça ativar</span>
-        <span class="legend-chip"><span class="legend-dot gantt-slow"></span>Acima de 40 dias após a praça ativar</span>
-      </div>
-      <div class="gantt-note">Setembro é setup interno. A partir da ativação de cada praça (outubro/novembro/dezembro), a contagem de dias de cada canal começa do zero naquela praça. Magalu Delivery ainda sem previsão para as três praças prioritárias.</div>
+    <div class="roadmap-intro">Faseamento de praças e ativação de canais, semana a semana. A linha vertical marca a semana atual e avança conforme o tempo passa. Cada canal começa a contar seu prazo a partir da ativação da praça.</div>
+    <div class="rm-legend">
+      <span><i class="rm-sw fast"></i>até 15 dias</span>
+      <span><i class="rm-sw mid"></i>16 a 40 dias</span>
+      <span><i class="rm-sw slow"></i>acima de 40 dias</span>
+      <span><i class="rm-sw na"></i>não disponível</span>
     </div>
+    <div class="panel rm-panel"><div class="rm-scroll"><div id="rm-root"></div></div></div>
   </div>
 
   <!-- TAREFAS -->
@@ -5757,6 +5736,96 @@ const IC = {
     else if(diff < -2){ verdict.className = 'ic-verdict ok';  verdict.textContent = 'Abaixo da média (' + diff.toFixed(1).replace('.', ',') + '%) · competitivo'; }
     else { verdict.className = 'ic-verdict mid'; verdict.textContent = 'Na média do mercado'; }
   });
+})();
+</script>
+
+
+<script>
+// ===== ROADMAP SEMANAL =====
+(function(){
+  const root = document.getElementById('rm-root'); if(!root) return;
+  const DAY = 864e5;
+  const START = new Date(2026, 7, 31);          // segunda-feira
+  const END = new Date(2027, 0, 31);
+  const TOTAL = END - START;
+  const WEEKS = Math.ceil(TOTAL / (7 * DAY));
+  const pct = d => (d - START) / TOTAL * 100;
+  const addD = (d, n) => new Date(d.getTime() + n * DAY);
+  const isoWeek = d => { const t = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate())); const day = t.getUTCDay() || 7; t.setUTCDate(t.getUTCDate() + 4 - day); const y0 = new Date(Date.UTC(t.getUTCFullYear(), 0, 1)); return Math.ceil(((t - y0) / DAY + 1) / 7); };
+  const MON = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+  const MON_LONG = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
+  const PH = [
+    { n: 'Setup', s: new Date(2026, 8, 1), e: new Date(2026, 9, 1), c: 'setup' },
+    { n: 'GSP',   s: new Date(2026, 9, 1), e: new Date(2026, 10, 1), c: 'p1' },
+    { n: 'POA',   s: new Date(2026, 10, 1), e: new Date(2026, 11, 1), c: 'p2' },
+    { n: 'BH',    s: new Date(2026, 11, 1), e: new Date(2027, 0, 1), c: 'p3' },
+  ];
+  // mesmos dados do roadmap anterior: prazo de cada canal a partir da ativação da praça
+  const PRACAS = [
+    { uf: 'SP', cls: 'uf-sp', nome: 'Grande São Paulo', ativa: new Date(2026, 9, 1), canais: [['Shopee',7],['Mercado Livre',15],['Shopee Turbo',15],['iFood',20],['99',120],['Magalu Delivery',null]] },
+    { uf: 'RS', cls: 'uf-rs', nome: 'Porto Alegre',     ativa: new Date(2026, 10, 1), canais: [['Shopee',7],['iFood',40],['Mercado Livre',null],['Shopee Turbo',null],['99',null],['Magalu Delivery',null]] },
+    { uf: 'MG', cls: 'uf-mg', nome: 'Belo Horizonte',   ativa: new Date(2026, 11, 1), canais: [['Shopee',7],['Shopee Turbo',15],['iFood',40],['Mercado Livre',null],['99',null],['Magalu Delivery',null]] },
+  ];
+  const cat = d => d <= 15 ? 'fast' : d <= 40 ? 'mid' : 'slow';
+  const fmtD = d => String(d.getDate()).padStart(2,'0') + '/' + String(d.getMonth()+1).padStart(2,'0');
+
+  function weekLines(){
+    let h = '';
+    for(let i = 0; i < WEEKS; i++){ h += '<i class="rm-wl" style="left:' + (i*7*DAY/TOTAL*100).toFixed(3) + '%"></i>'; }
+    return h;
+  }
+  function header(){
+    // meses
+    let months = '';
+    for(let m = new Date(2026,8,1); m < END; m = new Date(m.getFullYear(), m.getMonth()+1, 1)){
+      const left = Math.max(0, pct(m)), next = new Date(m.getFullYear(), m.getMonth()+1, 1);
+      months += '<div class="rm-m" style="left:' + left.toFixed(3) + '%;width:' + (pct(next) - left).toFixed(3) + '%">' + MON[m.getMonth()] + '</div>';
+    }
+    // semanas (ISO)
+    let weeks = '';
+    for(let i = 0; i < WEEKS; i++){
+      const d = addD(START, i*7);
+      weeks += '<span class="rm-w" style="left:' + (pct(d) + (7*DAY/TOTAL*100)/2).toFixed(3) + '%">S' + isoWeek(d) + '</span>';
+    }
+    // fases
+    let ph = '';
+    PH.forEach(p => {
+      const l = Math.max(0, pct(p.s)), r = Math.min(100, pct(p.e));
+      ph += '<div class="rm-ph-seg ' + p.c + '" style="left:' + l.toFixed(3) + '%;width:' + (r-l).toFixed(3) + '%">' + p.n + '</div>';
+    });
+    return '<div class="rm-head">' +
+      '<div class="rm-lbl-cell">Fases</div><div class="rm-trk rm-phases">' + ph + '</div>' +
+      '<div></div><div class="rm-trk rm-months">' + months + '</div>' +
+      '<div></div><div class="rm-trk rm-weeks">' + weeks + '</div>' +
+      '</div>';
+  }
+  function group(p){
+    let rows = '';
+    p.canais.forEach(([nome, dias]) => {
+      if(dias == null){
+        rows += '<div class="rm-row na"><div class="rm-lbl">' + nome + '</div><div class="rm-track">' + weekLines() + '<span class="rm-na">não disponível</span></div></div>';
+        return;
+      }
+      const l = pct(p.ativa), end = addD(p.ativa, dias), r = Math.min(100, pct(end));
+      const w = r - l, inside = dias > 40;
+      const bar = '<i class="rm-bar ' + cat(dias) + '" style="left:' + l.toFixed(3) + '%;width:' + w.toFixed(3) + '%"></i>';
+      const lab = '<span class="rm-d' + (inside ? ' in' : '') + '" style="' + (inside ? 'right:8px' : 'left:calc(' + r.toFixed(3) + '% + 6px)') + '">' + dias + ' dias</span>';
+      rows += '<div class="rm-row"><div class="rm-lbl">' + nome + '</div><div class="rm-track">' + weekLines() + bar + lab + '</div></div>';
+    });
+    return '<div class="rm-group"><div class="rm-gh"><span class="uf-tag ' + p.cls + '" style="width:26px;height:26px;font-size:10px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-weight:800">' + p.uf + '</span><b>' + p.nome + '</b><em>ativa em ' + MON_LONG[p.ativa.getMonth()] + '</em></div>' + rows + '</div>';
+  }
+  function today(){
+    const now = new Date();
+    if(now < START || now > END) return '';
+    const p = pct(now);
+    return '<div class="rm-today" style="left:calc(var(--lbl) + (100% - var(--lbl)) * ' + (p/100).toFixed(5) + ')"><span>hoje · ' + fmtD(now) + '</span></div>';
+  }
+  function render(){
+    root.innerHTML = header() + PRACAS.map(group).join('') + today() +
+      '<div class="rm-note">Semanas no padrão ISO (S41 = semana 41 do ano). Prazos a partir da data de ativação de cada praça: SP em 01/10, POA em 01/11 e BH em 01/12.</div>';
+  }
+  render();
+  setInterval(render, 60 * 1000);   // a linha de hoje avança sozinha
 })();
 </script>
 
