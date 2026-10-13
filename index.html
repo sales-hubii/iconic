@@ -1725,6 +1725,44 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
   .ic-channels{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 @media (max-width:640px){ .ic-own-grid{grid-template-columns:1fr} }
+
+/* PORTFÓLIO · lista unificada (ativos e inativos com índice de competitividade) */
+.pf-main{padding:18px 20px}
+.pf-listhead,.pf-item summary{display:grid;grid-template-columns:10px 44px minmax(0,1fr) 116px 90px 100px 100px 150px 14px;gap:14px;align-items:center}
+.pf-listhead{padding:0 4px 8px;border-bottom:1px solid var(--line-2);font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--potencial);margin-top:16px}
+.pf-listhead .pf-price{text-align:right}
+.pf-item{border-bottom:1px solid var(--line)}
+.pf-item summary{cursor:pointer;list-style:none;padding:10px 4px}
+.pf-item summary::-webkit-details-marker{display:none}
+.pf-item[open] summary{background:var(--paper);border-radius:var(--radius-sm)}
+.pf-item .pf-dot.off{background:#cfc9e8;box-shadow:0 0 0 4px var(--line)}
+.pf-item .pf-price{text-align:right;font-size:13px;color:var(--ink-2);font-variant-numeric:tabular-nums;font-weight:500}
+.pf-item .pf-brand{justify-self:start}
+.pf-item .ic-name{font-size:13px;font-weight:500;line-height:1.3;min-width:0}
+.pf-item .ic-ean{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-soft);white-space:nowrap}
+.pf-item .ic-verdict{justify-self:start}
+.pf-item .ic-body{padding:4px 6px 18px}
+.pf-list2 .ic-group{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-soft);margin:18px 0 6px;font-weight:500;display:flex;align-items:center;gap:10px}
+.pf-list2 .ic-group::after{content:'';flex:1;height:1px;background:var(--line)}
+@media (max-width:1100px){
+  .pf-listhead,.pf-item summary{grid-template-columns:10px 44px minmax(0,1fr) 90px 100px 14px}
+  .pf-listhead span:nth-child(4),.pf-listhead span:nth-child(5),.pf-item .ic-ean,.pf-item .pf-brand{display:none}
+}
+@media (max-width:640px){
+  .pf-listhead,.pf-item summary{grid-template-columns:10px 40px minmax(0,1fr) auto 14px}
+  .pf-listhead span:nth-child(n+6),.pf-item .pf-price:nth-of-type(2),.pf-item .ic-verdict{display:none}
+  .pf-listhead span:nth-child(7){display:none}
+}
+
+/* inativos recolhidos por padrão */
+.pf-inact{margin-top:18px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--card)}
+.pf-inact summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;padding:12px 14px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-soft);font-weight:500}
+.pf-inact summary::-webkit-details-marker{display:none}
+.pf-inact summary .pf-chev{color:var(--purple);transition:transform .2s ease;font-size:11px}
+.pf-inact[open] summary .pf-chev{transform:rotate(180deg)}
+.pf-inact[open] summary{border-bottom:1px solid var(--line)}
+.pf-inact .pf-item:last-child{border-bottom:0}
+.pf-inact .pf-item{padding:0 10px}
 </style>
 </head>
 <body>
@@ -1884,339 +1922,41 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
 
   <!-- PORTFÓLIO -->
   <div class="tab-panel" id="panel-portfolio">
-
-
-        <div class="section-label first">SKUs selecionados</div>
-        <div class="panel store-panel">
-        <div class="pf-wrap">
-          <div class="pf-stats">
-            <div class="pf-stat"><b>44</b><span>SKUs cadastrados</span></div>
-            <div class="pf-stat ok"><b>14</b><span>ativos · venderam ao menos 1 un.</span></div>
-            <div class="pf-stat off"><b>30</b><span>sem venda no período</span></div>
-            <div class="pf-stat"><b>set–out/26</b><span>período (out parcial)</span></div>
-          </div>
-          <div class="pf-sub">Ativos</div>
-          <div class="pf-list">
-            <div class="pf-row pf-head"><span></span><span></span><span>Produto</span><span>EAN</span><span>Marca</span><span class="pf-price">Preço médio</span><span class="pf-price">Repasse</span></div>
-            <div class="pf-row">
-              <span class="pf-dot"></span>
-              <span class="pf-img"><img src="https://lalist-product-images-ue1.s3.amazonaws.com/7891165007453_0-d3ae6f17-d2ff-466e-a871-0db88b75008b.png" alt="Óleo de Motor Texaco Havoline 15W40 SL Semissintético 1L" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('none');this.parentNode.innerHTML='<i>sem foto</i>'"></span>
-              <div class="pf-name">Óleo de Motor Texaco Havoline 15W40 SL Semissintético 1L</div>
-              <span class="pf-ean">7891165007453</span>
-              <span class="pf-brand">Texaco</span>
-              <div class="pf-price">R$ 58,78</div>
-              <div class="pf-price">R$ 29,49</div>
-            </div>
-            <div class="pf-row">
-              <span class="pf-dot"></span>
-              <span class="pf-img"><img src="https://lalist-product-images-ue1.s3.amazonaws.com/7891165012600_0-f280fc39-ca93-4357-b2ba-f5261552c1e3.png" alt="Óleo de Motor Texaco Havoline 5W30 SQ Sintético Dexos1 1L" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('none');this.parentNode.innerHTML='<i>sem foto</i>'"></span>
-              <div class="pf-name">Óleo de Motor Texaco Havoline 5W30 SQ Sintético Dexos1 1L</div>
-              <span class="pf-ean">7891165012600</span>
-              <span class="pf-brand">Texaco</span>
-              <div class="pf-price">R$ 44,25</div>
-              <div class="pf-price">R$ 39,90</div>
-            </div>
-            <div class="pf-row">
-              <span class="pf-dot"></span>
-              <span class="pf-img none"><i>sem foto</i></span>
-              <div class="pf-name">Aditivo para Radiador Ipiranga Verde 1L</div>
-              <span class="pf-ean">7891165011788</span>
-              <span class="pf-brand">Ipiranga</span>
-              <div class="pf-price">R$ 19,55</div>
-              <div class="pf-price">R$ 17,18</div>
-            </div>
-            <div class="pf-row">
-              <span class="pf-dot"></span>
-              <span class="pf-img"><img src="https://lalist-product-images-ue1.s3.amazonaws.com/7891165012150_0-5a6750d2-c012-437c-a319-e07394ae4e2d.jpg" alt="Óleo Lubrificante Ipiranga F1 Master Sintético 10w40 SP 1L" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('none');this.parentNode.innerHTML='<i>sem foto</i>'"></span>
-              <div class="pf-name">Óleo Lubrificante Ipiranga F1 Master Sintético 10w40 SP 1L</div>
-              <span class="pf-ean">7891165012150</span>
-              <span class="pf-brand">Ipiranga</span>
-              <div class="pf-price">R$ 50,34</div>
-              <div class="pf-price">R$ 56,00</div>
-            </div>
-            <div class="pf-row">
-              <span class="pf-dot"></span>
-              <span class="pf-img"><img src="https://lalist-product-images-ue1.s3.amazonaws.com/7896587302506_0-51ba3c91-558d-4f3e-a306-dfdf0252deca.jpg" alt="Aditivo para Radiador Ipiranga 1L" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('none');this.parentNode.innerHTML='<i>sem foto</i>'"></span>
-              <div class="pf-name">Aditivo para Radiador Ipiranga 1L</div>
-              <span class="pf-ean">7891165009730</span>
-              <span class="pf-brand">Ipiranga</span>
-              <div class="pf-price">R$ 20,65</div>
-              <div class="pf-price">R$ 18,59</div>
-            </div>
-            <div class="pf-row">
-              <span class="pf-dot"></span>
-              <span class="pf-img"><img src="https://lalist-product-images-ue1.s3.amazonaws.com/7896587325901_0-ed3abd33-8347-4840-9850-753de3ce1db7.jpg" alt="Óleo Lubrificante Ipiranga F1 Sintético 0w20 SP 1L" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('none');this.parentNode.innerHTML='<i>sem foto</i>'"></span>
-              <div class="pf-name">Óleo Lubrificante Ipiranga F1 Sintético 0w20 SP 1L</div>
-              <span class="pf-ean">7896587325901</span>
-              <span class="pf-brand">Ipiranga</span>
-              <div class="pf-price">R$ 46,26</div>
-              <div class="pf-price">R$ 44,90</div>
-            </div>
-            <div class="pf-row">
-              <span class="pf-dot"></span>
-              <span class="pf-img"><img src="https://lalist-product-images-ue1.s3.amazonaws.com/7891165011689_0-1e14b1dd-5ada-443f-ae75-83d9e0204a95.jpg" alt="Óleo Lubrificante Ipiranga F1 Master Performance 10w40 SP 1L" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('none');this.parentNode.innerHTML='<i>sem foto</i>'"></span>
-              <div class="pf-name">Óleo Lubrificante Ipiranga F1 Master Performance 10w40 SP 1L</div>
-              <span class="pf-ean">7891165011689</span>
-              <span class="pf-brand">Ipiranga</span>
-              <div class="pf-price">R$ 38,41</div>
-              <div class="pf-price">R$ 39,99</div>
-            </div>
-            <div class="pf-row">
-              <span class="pf-dot"></span>
-              <span class="pf-img"><img src="https://lalist-product-images-ue1.s3.amazonaws.com/7896587325628_0-1c725747-5ef5-4c76-9f0d-94697d9db450.jpg" alt="Óleo Lubrificante Ipiranga Moto Protection 20w50 SL 1L" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('none');this.parentNode.innerHTML='<i>sem foto</i>'"></span>
-              <div class="pf-name">Óleo Lubrificante Ipiranga Moto Protection 20w50 SL 1L</div>
-              <span class="pf-ean">7896587325628</span>
-              <span class="pf-brand">Ipiranga</span>
-              <div class="pf-price">R$ 32,86</div>
-              <div class="pf-price">R$ 31,40</div>
-            </div>
-            <div class="pf-row">
-              <span class="pf-dot"></span>
-              <span class="pf-img"><img src="https://lalist-product-images-ue1.s3.amazonaws.com/7891165007613_0-16779626-5256-4bb7-849b-07a1dcb533f2.jpg" alt="Óleo Lubrificante de Motor Texaco Havoline Superior SL 20W50 1L" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('none');this.parentNode.innerHTML='<i>sem foto</i>'"></span>
-              <div class="pf-name">Óleo Lubrificante de Motor Texaco Havoline Superior SL 20W50 1L</div>
-              <span class="pf-ean">7891165007613</span>
-              <span class="pf-brand">Texaco</span>
-              <div class="pf-price">R$ 29,27</div>
-              <div class="pf-price">R$ 26,99</div>
-            </div>
-            <div class="pf-row">
-              <span class="pf-dot"></span>
-              <span class="pf-img"><img src="https://lalist-product-images-ue1.s3.amazonaws.com/7896587324034_0-e4163d2a-8d58-4a01-9ab8-db082a74b241.jpg" alt="Óleo Lubrificante Ipiranga Moto Performance 10w30 SL 1L" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('none');this.parentNode.innerHTML='<i>sem foto</i>'"></span>
-              <div class="pf-name">Óleo Lubrificante Ipiranga Moto Performance 10w30 SL 1L</div>
-              <span class="pf-ean">7896587324034</span>
-              <span class="pf-brand">Ipiranga</span>
-              <div class="pf-price">R$ 38,27</div>
-              <div class="pf-price">R$ 37,19</div>
-            </div>
-            <div class="pf-row">
-              <span class="pf-dot"></span>
-              <span class="pf-img"><img src="https://lalist-product-images-ue1.s3.amazonaws.com/7896587320852_0-8e13b309-707a-4d6c-8cab-141bd9622c87.jpg" alt="Óleo Lubrificante Ipiranga F1 Master Sintético 5W40 API SP 1L" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('none');this.parentNode.innerHTML='<i>sem foto</i>'"></span>
-              <div class="pf-name">Óleo Lubrificante Ipiranga F1 Master Sintético 5W40 API SP 1L</div>
-              <span class="pf-ean">7896587320852</span>
-              <span class="pf-brand">Ipiranga</span>
-              <div class="pf-price">R$ 45,68</div>
-              <div class="pf-price">R$ 46,79</div>
-            </div>
-            <div class="pf-row">
-              <span class="pf-dot"></span>
-              <span class="pf-img"><img src="https://lalist-product-images-ue1.s3.amazonaws.com/7891165012914_0-3a2937ad-dc07-4265-b906-69f2850263d0.jpg" alt="Óleo Ipiranga 5w30 Api Sq F1 Master Sintético 1lt Original" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('none');this.parentNode.innerHTML='<i>sem foto</i>'"></span>
-              <div class="pf-name">Óleo Ipiranga 5w30 Api Sq F1 Master Sintético 1lt Original</div>
-              <span class="pf-ean">7891165012914</span>
-              <span class="pf-brand">Ipiranga</span>
-              <div class="pf-price">R$ 34,71</div>
-              <div class="pf-price">R$ 34,13</div>
-            </div>
-            <div class="pf-row">
-              <span class="pf-dot"></span>
-              <span class="pf-img"><img src="https://lalist-product-images-ue1.s3.amazonaws.com/7896587310419_0-ca223b4c-3029-412a-9583-98a69a341f91.jpg" alt="Óleo Lubrificante Ipiranga F1 Master Protection 20W50 API SL 1L" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('none');this.parentNode.innerHTML='<i>sem foto</i>'"></span>
-              <div class="pf-name">Óleo Lubrificante Ipiranga F1 Master Protection 20W50 API SL 1L</div>
-              <span class="pf-ean">7896587310419</span>
-              <span class="pf-brand">Ipiranga</span>
-              <div class="pf-price">R$ 27,37</div>
-              <div class="pf-price">R$ 26,39</div>
-            </div>
-            <div class="pf-row">
-              <span class="pf-dot"></span>
+    <div class="section-label first">SKUs</div>
+    <div class="panel pf-main">
+      <div class="pf-stats">
+        <div class="pf-stat"><b>44</b><span>SKUs cadastrados</span></div>
+        <div class="pf-stat ok"><b>14</b><span>ativos · venderam ao menos 1 un.</span></div>
+        <div class="pf-stat off"><b>30</b><span>sem venda no período</span></div>
+        <div class="pf-stat"><b>set–out/26</b><span>período (out parcial)</span></div>
+      </div>
+      <div class="pf-listhead">
+        <span></span><span></span><span>Produto</span><span>EAN</span><span>Marca</span><span class="pf-price">Preço médio</span><span class="pf-price">Repasse</span><span>Competitividade</span><span></span>
+      </div>
+      <div class="pf-list2">
+        <div class="ic-group">Ativos · ordenados pelos mais vendidos</div>
+          <details class="ic-item pf-item" data-ean="7896587310211">
+            <summary>
+              <span class="pf-dot "></span>
               <span class="pf-img"><img src="https://lalist-product-images-ue1.s3.amazonaws.com/7896587310211_0-7357782e-3014-4c50-bc7b-08e2a3150785.jpg" alt="Óleo Lubrificante Ipiranga F1 Master Performance 15W40 API SL 1L" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('none');this.parentNode.innerHTML='<i>sem foto</i>'"></span>
-              <div class="pf-name">Óleo Lubrificante Ipiranga F1 Master Performance 15W40 API SL 1L</div>
-              <span class="pf-ean">7896587310211</span>
+              <span class="ic-name">Óleo Lubrificante Ipiranga F1 Master Performance 15W40 API SL 1L</span>
+              <span class="ic-ean">7896587310211</span>
               <span class="pf-brand">Ipiranga</span>
-              <div class="pf-price">R$ 29,90</div>
-              <div class="pf-price">R$ 28,90</div>
-            </div>
-          </div>
-          <details class="pf-off">
-            <summary><span>Sem venda no período · 30 SKUs</span><span>▾</span></summary>
-            <ul><li>Aditivo Fluido para Radiador de Carro Verde Ipiranga 1L<small>Ipiranga</small></li><li>Óleo Diesel Ipiranga Brutus AP 15W40 CI-4 20L<small>Ipiranga</small></li><li>Óleo Diesel Ipiranga Brutus AP 15W40 CI-4 4L<small>Ipiranga</small></li><li>Óleo Diesel Ipiranga Brutus Performance CI 15W40 20L<small>Ipiranga</small></li><li>Óleo Diesel Ipiranga Brutus Performance CI 15W40 4L<small>Ipiranga</small></li><li>Óleo Diesel Ipiranga Brutus Proteção T5 15W40 CH-4 20L<small>Ipiranga</small></li><li>Óleo Diesel Ipiranga Brutus Proteção T5 15W40 CH-4 4L<small>Ipiranga</small></li><li>Óleo Diesel Ursa Premium TDS SAE 15W-40 20L<small>Texaco</small></li><li>Óleo Diesel Ursa Premium TDX SAE 15W-40 1L<small>Texaco</small></li><li>Óleo Diesel Ursa Premium TDX SAE 15W-40 20L<small>Texaco</small></li><li>Óleo Diesel Ursa Premium TDX SAE 15W-40 4L<small>Texaco</small></li><li>Óleo Diesel Ursa Super TD SAE 15W-40 CH-4 1L<small>Texaco</small></li><li>Óleo Diesel Ursa Super TD SAE 15W-40 CH-4 20L<small>Texaco</small></li><li>Óleo Diesel Ursa Super TD SAE 15W-40 CH-4 4L<small>Texaco</small></li><li>Óleo Lubrificante Ipiranga F1 Master Sintético 5W30 API SP 1L<small>Ipiranga</small></li><li>Óleo Motor Havoline 4T SAE 20W-50 1L<small>Texaco</small></li><li>Óleo Motor Havoline 4T Semissintético 10W30 1L<small>Texaco</small></li><li>Óleo Motor Havoline ProDS Full Synthetic SQ 0W20 1L<small>Texaco</small></li><li>Óleo Motor Havoline ProDS Full Synthetic SQ 5W30 4L<small>Texaco</small></li><li>Óleo Motor Havoline ProDS V SAE 0W-30 1L<small>Texaco</small></li><li>Óleo Motor Havoline ProDS V SAE 0W-30 4L<small>Texaco</small></li><li>Óleo Motor Havoline Semissintético SL 15W40 4L<small>Texaco</small></li><li>Óleo Motor Havoline Superior SL SAE 20W50 4L<small>Texaco</small></li><li>Óleo Motor Ipiranga 2T STL 500ML<small>Ipiranga</small></li><li>Óleo Motor Ipiranga F1 Master Performance 15W40 SL 4L<small>Ipiranga</small></li><li>Óleo Motor Ipiranga F1 Master Proteção 20W50 SL 4L<small>Ipiranga</small></li><li>Óleo Motor Ipiranga F1 Master Sintético 0W20 SQ 1L<small>Ipiranga</small></li><li>Óleo Motor Ipiranga F1 Master Sintético 5W30 SQ 4L<small>Ipiranga</small></li><li>Óleo Motor Ipiranga F1 Master Sintético C2 0W30 1L<small>Ipiranga</small></li><li>Óleo Motor Marítimo Ipiranga Marina 2T Plus 1L<small>Ipiranga</small></li></ul>
-          </details>
-          <p class="pf-note">Preço médio = GMV válido ÷ unidades vendidas no período. Repasse e imagens vêm do cadastro (Godmode). Ativo = SKU com venda válida. Cruzamento por EAN.</p>
-        </div>
-        <div class="pf-divider"></div>
-
-
-        </div>
-
-    <div class="section-label">Índice de competitividade</div>
-    <div class="ic-legend">
-      <span><i class="ic-dot own"></i>Nosso preço</span>
-      <span><i class="ic-dot ch"></i>Outros canais (benchmark)</span>
-      <span><i class="ic-dot comp"></i>Concorrentes</span>
-    </div>
-    <div class="panel ic-panel">
-      <details class="ic-item" data-ean="7891165009730">
-        <summary>
-          <span class="ic-st ativo">Ativo</span>
-          <span class="ic-name">Aditivo para Radiador Ipiranga 1L</span>
-          <span class="ic-ean">7891165009730</span>
-          <span class="ic-own">Nosso preço <b class="ic-own-val">—</b></span>
-          <span class="ic-verdict nd">Sem benchmark</span>
-          <span class="ic-arrow">▾</span>
-        </summary>
-        <div class="ic-body">
-          <div class="ic-sub">Nosso produto</div>
-          <div class="ic-own-grid">
-            <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-            <div class="ic-card"><span>Preço médio realizado</span><b>R$ 20,65</b><small>GMV ÷ unidades · set–out/26</small></div>
-          </div>
-          <div class="ic-sub">Outros canais</div>
-          <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
-          <div class="ic-sub">Concorrentes</div>
-          <div class="ic-empty">Sem concorrentes mapeados nesta base ainda.</div>
-        </div>
-      </details>
-      <details class="ic-item" data-ean="7891165011788">
-        <summary>
-          <span class="ic-st ativo">Ativo</span>
-          <span class="ic-name">Aditivo para Radiador Ipiranga Verde 1L</span>
-          <span class="ic-ean">7891165011788</span>
-          <span class="ic-own">Nosso preço <b class="ic-own-val">—</b></span>
-          <span class="ic-verdict nd">Sem benchmark</span>
-          <span class="ic-arrow">▾</span>
-        </summary>
-        <div class="ic-body">
-          <div class="ic-sub">Nosso produto</div>
-          <div class="ic-own-grid">
-            <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-            <div class="ic-card"><span>Preço médio realizado</span><b>R$ 19,55</b><small>GMV ÷ unidades · set–out/26</small></div>
-          </div>
-          <div class="ic-sub">Outros canais</div>
-          <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
-          <div class="ic-sub">Concorrentes</div>
-          <div class="ic-empty">Sem concorrentes mapeados nesta base ainda.</div>
-        </div>
-      </details>
-      <details class="ic-item" data-ean="7891165007453">
-        <summary>
-          <span class="ic-st ativo">Ativo</span>
-          <span class="ic-name">Óleo de Motor Texaco Havoline 15W40 SL Semissintético 1L</span>
-          <span class="ic-ean">7891165007453</span>
-          <span class="ic-own">Nosso preço <b class="ic-own-val">—</b></span>
-          <span class="ic-verdict nd">Sem benchmark</span>
-          <span class="ic-arrow">▾</span>
-        </summary>
-        <div class="ic-body">
-          <div class="ic-sub">Nosso produto</div>
-          <div class="ic-own-grid">
-            <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-            <div class="ic-card"><span>Preço médio realizado</span><b>R$ 58,78</b><small>GMV ÷ unidades · set–out/26</small></div>
-          </div>
-          <div class="ic-sub">Outros canais</div>
-          <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
-          <div class="ic-sub">Concorrentes</div>
-          <div class="ic-empty">Sem concorrentes mapeados nesta base ainda.</div>
-        </div>
-      </details>
-      <details class="ic-item" data-ean="7891165012600">
-        <summary>
-          <span class="ic-st ativo">Ativo</span>
-          <span class="ic-name">Óleo de Motor Texaco Havoline 5W30 SQ Sintético Dexos1 1L</span>
-          <span class="ic-ean">7891165012600</span>
-          <span class="ic-own">Nosso preço <b class="ic-own-val">—</b></span>
-          <span class="ic-verdict nd">Sem benchmark</span>
-          <span class="ic-arrow">▾</span>
-        </summary>
-        <div class="ic-body">
-          <div class="ic-sub">Nosso produto</div>
-          <div class="ic-own-grid">
-            <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-            <div class="ic-card"><span>Preço médio realizado</span><b>R$ 44,25</b><small>GMV ÷ unidades · set–out/26</small></div>
-          </div>
-          <div class="ic-sub">Outros canais</div>
-          <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
-          <div class="ic-sub">Concorrentes</div>
-          <div class="ic-empty">Sem concorrentes mapeados nesta base ainda.</div>
-        </div>
-      </details>
-      <details class="ic-item" data-ean="7891165012914">
-        <summary>
-          <span class="ic-st ativo">Ativo</span>
-          <span class="ic-name">Óleo Ipiranga 5w30 Api Sq F1 Master Sintético 1lt Original</span>
-          <span class="ic-ean">7891165012914</span>
-          <span class="ic-own">Nosso preço <b class="ic-own-val">—</b></span>
-          <span class="ic-verdict nd">Sem benchmark</span>
-          <span class="ic-arrow">▾</span>
-        </summary>
-        <div class="ic-body">
-          <div class="ic-sub">Nosso produto</div>
-          <div class="ic-own-grid">
-            <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-            <div class="ic-card"><span>Preço médio realizado</span><b>R$ 34,71</b><small>GMV ÷ unidades · set–out/26</small></div>
-          </div>
-          <div class="ic-sub">Outros canais</div>
-          <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
-          <div class="ic-sub">Concorrentes</div>
-          <div class="compare-grid">
-          <div class="compare-chip own"><span>Texaco</span>Havoline Prods Fullsyn SQ 5W30<div class="chip-prices"><span class="chip-price price-med">Méd R$ 39,59</span><span class="chip-price price-min">Mín R$ 36,86</span></div></div>
-          <div class="compare-chip"><span>Mobil</span>Mobil Super 5W-30 Sintético D1<div class="chip-prices"><span class="chip-price price-med">Méd R$ 63,05</span><span class="chip-price price-min">Mín R$ 63,05</span></div></div>
-          <div class="compare-chip"><span>Vibra</span>Lubrax Supera Premium 5W-30<div class="chip-prices"><span class="chip-price price-med">Méd R$ 50,38</span><span class="chip-price price-min">Mín R$ 50,38</span></div></div>
-          <div class="compare-chip"><span>Petronas</span>Petronas Syntium 3000 AM 5W-30 SP<div class="chip-prices"><span class="chip-price price-med">Méd R$ 44,35</span><span class="chip-price price-min">Mín R$ 39,42</span></div></div>
-          <div class="compare-chip"><span>Shell</span>Shell Helix HX8 SP 5W30<div class="chip-prices"><span class="chip-price price-med">Méd R$ 55,97</span><span class="chip-price price-min">Mín R$ 41,90</span></div></div>
-          <div class="compare-chip"><span>Castrol</span>Magnatec 5W-30<div class="chip-prices"><span class="chip-price price-med">Méd R$ 52,28</span><span class="chip-price price-min">Mín R$ 52,28</span></div></div>
-          <div class="compare-chip"><span>YPF</span>Elaion FS 530<div class="chip-prices"><span class="chip-price price-med">Méd R$ 50,00</span><span class="chip-price price-min">Mín R$ 44,98</span></div></div>
-        </div>
-        </div>
-      </details>
-      <details class="ic-item" data-ean="7891165007613">
-        <summary>
-          <span class="ic-st ativo">Ativo</span>
-          <span class="ic-name">Óleo Lubrificante de Motor Texaco Havoline Superior SL 20W50 1L</span>
-          <span class="ic-ean">7891165007613</span>
-          <span class="ic-own">Nosso preço <b class="ic-own-val">—</b></span>
-          <span class="ic-verdict nd">Sem benchmark</span>
-          <span class="ic-arrow">▾</span>
-        </summary>
-        <div class="ic-body">
-          <div class="ic-sub">Nosso produto</div>
-          <div class="ic-own-grid">
-            <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-            <div class="ic-card"><span>Preço médio realizado</span><b>R$ 29,27</b><small>GMV ÷ unidades · set–out/26</small></div>
-          </div>
-          <div class="ic-sub">Outros canais</div>
-          <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
-          <div class="ic-sub">Concorrentes</div>
-          <div class="ic-empty">Sem concorrentes mapeados nesta base ainda.</div>
-        </div>
-      </details>
-      <details class="ic-item" data-ean="7891165011689">
-        <summary>
-          <span class="ic-st ativo">Ativo</span>
-          <span class="ic-name">Óleo Lubrificante Ipiranga F1 Master Performance 10w40 SP 1L</span>
-          <span class="ic-ean">7891165011689</span>
-          <span class="ic-own">Nosso preço <b class="ic-own-val">—</b></span>
-          <span class="ic-verdict nd">Sem benchmark</span>
-          <span class="ic-arrow">▾</span>
-        </summary>
-        <div class="ic-body">
-          <div class="ic-sub">Nosso produto</div>
-          <div class="ic-own-grid">
-            <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-            <div class="ic-card"><span>Preço médio realizado</span><b>R$ 38,41</b><small>GMV ÷ unidades · set–out/26</small></div>
-          </div>
-          <div class="ic-sub">Outros canais</div>
-          <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
-          <div class="ic-sub">Concorrentes</div>
-          <div class="ic-empty">Sem concorrentes mapeados nesta base ainda.</div>
-        </div>
-      </details>
-      <details class="ic-item" data-ean="7896587310211">
-        <summary>
-          <span class="ic-st ativo">Ativo</span>
-          <span class="ic-name">Óleo Lubrificante Ipiranga F1 Master Performance 15W40 API SL 1L</span>
-          <span class="ic-ean">7896587310211</span>
-          <span class="ic-own">Nosso preço <b class="ic-own-val">—</b></span>
-          <span class="ic-verdict nd">Sem benchmark</span>
-          <span class="ic-arrow">▾</span>
-        </summary>
-        <div class="ic-body">
-          <div class="ic-sub">Nosso produto</div>
-          <div class="ic-own-grid">
-            <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-            <div class="ic-card"><span>Preço médio realizado</span><b>R$ 29,90</b><small>GMV ÷ unidades · set–out/26</small></div>
-          </div>
-          <div class="ic-sub">Outros canais</div>
-          <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
-          <div class="ic-sub">Concorrentes</div>
-          <div class="compare-grid">
+              <span class="pf-price">R$ 29,90</span>
+              <span class="pf-price">R$ 28,90</span>
+              <span class="ic-verdict nd">Sem benchmark</span>
+              <span class="ic-arrow">▾</span>
+            </summary>
+            <div class="ic-body">
+              <div class="ic-sub">Nosso produto</div>
+              <div class="ic-own-grid">
+                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
+                <div class="ic-card"><span>Preço médio realizado</span><b>R$ 29,90</b><small>GMV ÷ unidades · set–out/26</small></div>
+              </div>
+              <div class="ic-sub">Outros canais</div>
+              <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
+              <div class="ic-sub">Concorrentes</div>
+              <div class="compare-grid">
           <div class="compare-chip own"><span>Texaco</span>Havoline Semissint SL 15W40<div class="chip-prices"><span class="chip-price price-med">Méd R$ 36,48</span><span class="chip-price price-min">Mín R$ 31,90</span></div></div>
           <div class="compare-chip"><span>Mobil</span>Mobil Super 15W40 Semissintético<div class="chip-prices"><span class="chip-price price-med">Méd R$ 35,03</span><span class="chip-price price-min">Mín R$ 33,99</span></div></div>
           <div class="compare-chip"><span>Vibra</span>Lubrax Tecno SL<div class="chip-prices"><span class="chip-price price-med">Méd R$ 26,91</span><span class="chip-price price-min">Mín R$ 22,85</span></div></div>
@@ -2225,27 +1965,30 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
           <div class="compare-chip"><span>Castrol</span>Castrol GTX Ultraclean 15W-40<div class="chip-prices"><span class="chip-price price-med">Méd R$ 34,92</span><span class="chip-price price-min">Mín R$ 34,92</span></div></div>
           <div class="compare-chip"><span>YPF</span>Elaion MI 1540<div class="chip-prices"><span class="chip-price price-med">Méd R$ 44,80</span><span class="chip-price price-min">Mín R$ 42,00</span></div></div>
         </div>
-        </div>
-      </details>
-      <details class="ic-item" data-ean="7896587310419">
-        <summary>
-          <span class="ic-st ativo">Ativo</span>
-          <span class="ic-name">Óleo Lubrificante Ipiranga F1 Master Protection 20W50 API SL 1L</span>
-          <span class="ic-ean">7896587310419</span>
-          <span class="ic-own">Nosso preço <b class="ic-own-val">—</b></span>
-          <span class="ic-verdict nd">Sem benchmark</span>
-          <span class="ic-arrow">▾</span>
-        </summary>
-        <div class="ic-body">
-          <div class="ic-sub">Nosso produto</div>
-          <div class="ic-own-grid">
-            <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-            <div class="ic-card"><span>Preço médio realizado</span><b>R$ 27,37</b><small>GMV ÷ unidades · set–out/26</small></div>
-          </div>
-          <div class="ic-sub">Outros canais</div>
-          <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
-          <div class="ic-sub">Concorrentes</div>
-          <div class="compare-grid">
+            </div>
+          </details>
+          <details class="ic-item pf-item" data-ean="7896587310419">
+            <summary>
+              <span class="pf-dot "></span>
+              <span class="pf-img"><img src="https://lalist-product-images-ue1.s3.amazonaws.com/7896587310419_0-ca223b4c-3029-412a-9583-98a69a341f91.jpg" alt="Óleo Lubrificante Ipiranga F1 Master Protection 20W50 API SL 1L" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('none');this.parentNode.innerHTML='<i>sem foto</i>'"></span>
+              <span class="ic-name">Óleo Lubrificante Ipiranga F1 Master Protection 20W50 API SL 1L</span>
+              <span class="ic-ean">7896587310419</span>
+              <span class="pf-brand">Ipiranga</span>
+              <span class="pf-price">R$ 27,37</span>
+              <span class="pf-price">R$ 26,39</span>
+              <span class="ic-verdict nd">Sem benchmark</span>
+              <span class="ic-arrow">▾</span>
+            </summary>
+            <div class="ic-body">
+              <div class="ic-sub">Nosso produto</div>
+              <div class="ic-own-grid">
+                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
+                <div class="ic-card"><span>Preço médio realizado</span><b>R$ 27,37</b><small>GMV ÷ unidades · set–out/26</small></div>
+              </div>
+              <div class="ic-sub">Outros canais</div>
+              <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
+              <div class="ic-sub">Concorrentes</div>
+              <div class="compare-grid">
           <div class="compare-chip own"><span>Texaco</span>Havoline Superior SL SAE 20W50<div class="chip-prices"><span class="chip-price price-med">Méd R$ 32,80</span><span class="chip-price price-min">Mín R$ 27,45</span></div></div>
           <div class="compare-chip"><span>Mobil</span>Mobil Super 20W50 Mineral<div class="chip-prices"><span class="chip-price price-med">Méd R$ 30,36</span><span class="chip-price price-min">Mín R$ 21,60</span></div></div>
           <div class="compare-chip"><span>Vibra</span>Lubrax Essencial SL<div class="chip-prices"><span class="chip-price price-med">Méd R$ 34,88</span><span class="chip-price price-min">Mín R$ 28,96</span></div></div>
@@ -2254,48 +1997,62 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
           <div class="compare-chip"><span>Castrol</span>Castrol GTX 20W-50<div class="chip-prices"><span class="chip-price price-med">Méd R$ 31,91</span><span class="chip-price price-min">Mín R$ 31,91</span></div></div>
           <div class="compare-chip"><span>YPF</span>Elaion MI 2050<div class="chip-prices"><span class="chip-price price-med">Méd R$ 38,76</span><span class="chip-price price-min">Mín R$ 35,90</span></div></div>
         </div>
+            </div>
+          </details>
+          <details class="ic-item pf-item" data-ean="7891165012914">
+            <summary>
+              <span class="pf-dot "></span>
+              <span class="pf-img"><img src="https://lalist-product-images-ue1.s3.amazonaws.com/7891165012914_0-3a2937ad-dc07-4265-b906-69f2850263d0.jpg" alt="Óleo Ipiranga 5w30 Api Sq F1 Master Sintético 1lt Original" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('none');this.parentNode.innerHTML='<i>sem foto</i>'"></span>
+              <span class="ic-name">Óleo Ipiranga 5w30 Api Sq F1 Master Sintético 1lt Original</span>
+              <span class="ic-ean">7891165012914</span>
+              <span class="pf-brand">Ipiranga</span>
+              <span class="pf-price">R$ 34,71</span>
+              <span class="pf-price">R$ 34,13</span>
+              <span class="ic-verdict nd">Sem benchmark</span>
+              <span class="ic-arrow">▾</span>
+            </summary>
+            <div class="ic-body">
+              <div class="ic-sub">Nosso produto</div>
+              <div class="ic-own-grid">
+                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
+                <div class="ic-card"><span>Preço médio realizado</span><b>R$ 34,71</b><small>GMV ÷ unidades · set–out/26</small></div>
+              </div>
+              <div class="ic-sub">Outros canais</div>
+              <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
+              <div class="ic-sub">Concorrentes</div>
+              <div class="compare-grid">
+          <div class="compare-chip own"><span>Texaco</span>Havoline Prods Fullsyn SQ 5W30<div class="chip-prices"><span class="chip-price price-med">Méd R$ 39,59</span><span class="chip-price price-min">Mín R$ 36,86</span></div></div>
+          <div class="compare-chip"><span>Mobil</span>Mobil Super 5W-30 Sintético D1<div class="chip-prices"><span class="chip-price price-med">Méd R$ 63,05</span><span class="chip-price price-min">Mín R$ 63,05</span></div></div>
+          <div class="compare-chip"><span>Vibra</span>Lubrax Supera Premium 5W-30<div class="chip-prices"><span class="chip-price price-med">Méd R$ 50,38</span><span class="chip-price price-min">Mín R$ 50,38</span></div></div>
+          <div class="compare-chip"><span>Petronas</span>Petronas Syntium 3000 AM 5W-30 SP<div class="chip-prices"><span class="chip-price price-med">Méd R$ 44,35</span><span class="chip-price price-min">Mín R$ 39,42</span></div></div>
+          <div class="compare-chip"><span>Shell</span>Shell Helix HX8 SP 5W30<div class="chip-prices"><span class="chip-price price-med">Méd R$ 55,97</span><span class="chip-price price-min">Mín R$ 41,90</span></div></div>
+          <div class="compare-chip"><span>Castrol</span>Magnatec 5W-30<div class="chip-prices"><span class="chip-price price-med">Méd R$ 52,28</span><span class="chip-price price-min">Mín R$ 52,28</span></div></div>
+          <div class="compare-chip"><span>YPF</span>Elaion FS 530<div class="chip-prices"><span class="chip-price price-med">Méd R$ 50,00</span><span class="chip-price price-min">Mín R$ 44,98</span></div></div>
         </div>
-      </details>
-      <details class="ic-item" data-ean="7891165012150">
-        <summary>
-          <span class="ic-st ativo">Ativo</span>
-          <span class="ic-name">Óleo Lubrificante Ipiranga F1 Master Sintético 10w40 SP 1L</span>
-          <span class="ic-ean">7891165012150</span>
-          <span class="ic-own">Nosso preço <b class="ic-own-val">—</b></span>
-          <span class="ic-verdict nd">Sem benchmark</span>
-          <span class="ic-arrow">▾</span>
-        </summary>
-        <div class="ic-body">
-          <div class="ic-sub">Nosso produto</div>
-          <div class="ic-own-grid">
-            <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-            <div class="ic-card"><span>Preço médio realizado</span><b>R$ 50,34</b><small>GMV ÷ unidades · set–out/26</small></div>
-          </div>
-          <div class="ic-sub">Outros canais</div>
-          <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
-          <div class="ic-sub">Concorrentes</div>
-          <div class="ic-empty">Sem concorrentes mapeados nesta base ainda.</div>
-        </div>
-      </details>
-      <details class="ic-item" data-ean="7896587320852">
-        <summary>
-          <span class="ic-st ativo">Ativo</span>
-          <span class="ic-name">Óleo Lubrificante Ipiranga F1 Master Sintético 5W40 API SP 1L</span>
-          <span class="ic-ean">7896587320852</span>
-          <span class="ic-own">Nosso preço <b class="ic-own-val">—</b></span>
-          <span class="ic-verdict nd">Sem benchmark</span>
-          <span class="ic-arrow">▾</span>
-        </summary>
-        <div class="ic-body">
-          <div class="ic-sub">Nosso produto</div>
-          <div class="ic-own-grid">
-            <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-            <div class="ic-card"><span>Preço médio realizado</span><b>R$ 45,68</b><small>GMV ÷ unidades · set–out/26</small></div>
-          </div>
-          <div class="ic-sub">Outros canais</div>
-          <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
-          <div class="ic-sub">Concorrentes</div>
-          <div class="compare-grid">
+            </div>
+          </details>
+          <details class="ic-item pf-item" data-ean="7896587320852">
+            <summary>
+              <span class="pf-dot "></span>
+              <span class="pf-img"><img src="https://lalist-product-images-ue1.s3.amazonaws.com/7896587320852_0-8e13b309-707a-4d6c-8cab-141bd9622c87.jpg" alt="Óleo Lubrificante Ipiranga F1 Master Sintético 5W40 API SP 1L" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('none');this.parentNode.innerHTML='<i>sem foto</i>'"></span>
+              <span class="ic-name">Óleo Lubrificante Ipiranga F1 Master Sintético 5W40 API SP 1L</span>
+              <span class="ic-ean">7896587320852</span>
+              <span class="pf-brand">Ipiranga</span>
+              <span class="pf-price">R$ 45,68</span>
+              <span class="pf-price">R$ 46,79</span>
+              <span class="ic-verdict nd">Sem benchmark</span>
+              <span class="ic-arrow">▾</span>
+            </summary>
+            <div class="ic-body">
+              <div class="ic-sub">Nosso produto</div>
+              <div class="ic-own-grid">
+                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
+                <div class="ic-card"><span>Preço médio realizado</span><b>R$ 45,68</b><small>GMV ÷ unidades · set–out/26</small></div>
+              </div>
+              <div class="ic-sub">Outros canais</div>
+              <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
+              <div class="ic-sub">Concorrentes</div>
+              <div class="compare-grid">
           <div class="compare-chip own"><span>Texaco</span>Havoline Ultra W SAE 5W40<div class="chip-prices"><span class="chip-price price-med">Méd R$ 68,56</span><span class="chip-price price-min">Mín R$ 39,90</span></div></div>
           <div class="compare-chip"><span>Mobil</span>Mobil Super 5W40 Sintético<div class="chip-prices"><span class="chip-price price-med">Méd R$ 63,46</span><span class="chip-price price-min">Mín R$ 49,55</span></div></div>
           <div class="compare-chip"><span>Vibra</span>Lubrax Supera Flex<div class="chip-prices"><span class="chip-price price-med">Méd R$ 83,30</span><span class="chip-price price-min">Mín R$ 83,30</span></div></div>
@@ -2304,56 +2061,30 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
           <div class="compare-chip"><span>Castrol</span>Castrol Magnatec 5W-40<div class="chip-prices"><span class="chip-price price-med">Méd R$ 67,70</span><span class="chip-price price-min">Mín R$ 64,50</span></div></div>
           <div class="compare-chip"><span>YPF</span>Elaion Auro Plus 540<div class="chip-prices"><span class="chip-price price-med">Méd R$ 45,76</span><span class="chip-price price-min">Mín R$ 44,90</span></div></div>
         </div>
-        </div>
-      </details>
-      <details class="ic-item" data-ean="7896587325901">
-        <summary>
-          <span class="ic-st ativo">Ativo</span>
-          <span class="ic-name">Óleo Lubrificante Ipiranga F1 Sintético 0w20 SP 1L</span>
-          <span class="ic-ean">7896587325901</span>
-          <span class="ic-own">Nosso preço <b class="ic-own-val">—</b></span>
-          <span class="ic-verdict nd">Sem benchmark</span>
-          <span class="ic-arrow">▾</span>
-        </summary>
-        <div class="ic-body">
-          <div class="ic-sub">Nosso produto</div>
-          <div class="ic-own-grid">
-            <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-            <div class="ic-card"><span>Preço médio realizado</span><b>R$ 46,26</b><small>GMV ÷ unidades · set–out/26</small></div>
-          </div>
-          <div class="ic-sub">Outros canais</div>
-          <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
-          <div class="ic-sub">Concorrentes</div>
-          <div class="compare-grid">
-          <div class="compare-chip own"><span>Texaco</span>Havoline Prods Fullsyn SP 0W20<div class="chip-prices"><span class="chip-price price-med">Méd R$ 46,82</span><span class="chip-price price-min">Mín R$ 36,00</span></div></div>
-          <div class="compare-chip"><span>Mobil</span>Mobil Super 0W20 Hybrid<div class="chip-prices"><span class="chip-price price-med">Méd R$ 102,17</span><span class="chip-price price-min">Mín R$ 95,30</span></div></div>
-          <div class="compare-chip"><span>Vibra</span>Lubrax Supera Premium 0W-20<div class="chip-prices"><span class="chip-price price-med">Méd R$ 83,04</span><span class="chip-price price-min">Mín R$ 79,99</span></div></div>
-          <div class="compare-chip"><span>Petronas</span>Petronas Syntium Hybrid 0W-20 SP<div class="chip-prices"><span class="chip-price price-med">Méd R$ 53,33</span><span class="chip-price price-min">Mín R$ 47,56</span></div></div>
-          <div class="compare-chip"><span>Shell</span>Shell Helix HX8 Professional AG 0W-20<div class="chip-prices"><span class="chip-price price-med">Méd R$ 50,80</span><span class="chip-price price-min">Mín R$ 46,05</span></div></div>
-          <div class="compare-chip"><span>Castrol</span>Castrol Magnatec 0W-20 DX<div class="chip-prices"><span class="chip-price price-med">Méd R$ 73,65</span><span class="chip-price price-min">Mín R$ 72,78</span></div></div>
-          <div class="compare-chip empty"><span>YPF</span>Sem equivalente</div>
-        </div>
-        </div>
-      </details>
-      <details class="ic-item" data-ean="7896587324034">
-        <summary>
-          <span class="ic-st ativo">Ativo</span>
-          <span class="ic-name">Óleo Lubrificante Ipiranga Moto Performance 10w30 SL 1L</span>
-          <span class="ic-ean">7896587324034</span>
-          <span class="ic-own">Nosso preço <b class="ic-own-val">—</b></span>
-          <span class="ic-verdict nd">Sem benchmark</span>
-          <span class="ic-arrow">▾</span>
-        </summary>
-        <div class="ic-body">
-          <div class="ic-sub">Nosso produto</div>
-          <div class="ic-own-grid">
-            <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-            <div class="ic-card"><span>Preço médio realizado</span><b>R$ 38,27</b><small>GMV ÷ unidades · set–out/26</small></div>
-          </div>
-          <div class="ic-sub">Outros canais</div>
-          <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
-          <div class="ic-sub">Concorrentes</div>
-          <div class="compare-grid">
+            </div>
+          </details>
+          <details class="ic-item pf-item" data-ean="7896587324034">
+            <summary>
+              <span class="pf-dot "></span>
+              <span class="pf-img"><img src="https://lalist-product-images-ue1.s3.amazonaws.com/7896587324034_0-e4163d2a-8d58-4a01-9ab8-db082a74b241.jpg" alt="Óleo Lubrificante Ipiranga Moto Performance 10w30 SL 1L" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('none');this.parentNode.innerHTML='<i>sem foto</i>'"></span>
+              <span class="ic-name">Óleo Lubrificante Ipiranga Moto Performance 10w30 SL 1L</span>
+              <span class="ic-ean">7896587324034</span>
+              <span class="pf-brand">Ipiranga</span>
+              <span class="pf-price">R$ 38,27</span>
+              <span class="pf-price">R$ 37,19</span>
+              <span class="ic-verdict nd">Sem benchmark</span>
+              <span class="ic-arrow">▾</span>
+            </summary>
+            <div class="ic-body">
+              <div class="ic-sub">Nosso produto</div>
+              <div class="ic-own-grid">
+                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
+                <div class="ic-card"><span>Preço médio realizado</span><b>R$ 38,27</b><small>GMV ÷ unidades · set–out/26</small></div>
+              </div>
+              <div class="ic-sub">Outros canais</div>
+              <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
+              <div class="ic-sub">Concorrentes</div>
+              <div class="compare-grid">
           <div class="compare-chip own"><span>Texaco</span>Havoline 4T Semissint 10W30<div class="chip-prices"><span class="chip-price price-med">Méd R$ 39,26</span><span class="chip-price price-min">Mín R$ 28,00</span></div></div>
           <div class="compare-chip"><span>Mobil</span>Mobil Super Moto 10W30 MX<div class="chip-prices"><span class="chip-price price-med">Méd R$ 51,87</span><span class="chip-price price-min">Mín R$ 33,83</span></div></div>
           <div class="compare-chip"><span>Vibra</span>Lubrax Moto 4T Profissional 10W-30<div class="chip-prices"><span class="chip-price price-med">Méd R$ 42,81</span><span class="chip-price price-min">Mín R$ 38,54</span></div></div>
@@ -2362,27 +2093,54 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
           <div class="compare-chip"><span>Castrol</span>Actevo Stop-Start 4T 10W-30<div class="chip-prices"><span class="chip-price price-med">Méd R$ 52,27</span><span class="chip-price price-min">Mín R$ 46,93</span></div></div>
           <div class="compare-chip"><span>YPF</span>Rod 4T 10W30<div class="chip-prices"><span class="chip-price price-med">Méd R$ 60,67</span><span class="chip-price price-min">Mín R$ 56,34</span></div></div>
         </div>
-        </div>
-      </details>
-      <details class="ic-item" data-ean="7896587325628">
-        <summary>
-          <span class="ic-st ativo">Ativo</span>
-          <span class="ic-name">Óleo Lubrificante Ipiranga Moto Protection 20w50 SL 1L</span>
-          <span class="ic-ean">7896587325628</span>
-          <span class="ic-own">Nosso preço <b class="ic-own-val">—</b></span>
-          <span class="ic-verdict nd">Sem benchmark</span>
-          <span class="ic-arrow">▾</span>
-        </summary>
-        <div class="ic-body">
-          <div class="ic-sub">Nosso produto</div>
-          <div class="ic-own-grid">
-            <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-            <div class="ic-card"><span>Preço médio realizado</span><b>R$ 32,86</b><small>GMV ÷ unidades · set–out/26</small></div>
-          </div>
-          <div class="ic-sub">Outros canais</div>
-          <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
-          <div class="ic-sub">Concorrentes</div>
-          <div class="compare-grid">
+            </div>
+          </details>
+          <details class="ic-item pf-item" data-ean="7891165007613">
+            <summary>
+              <span class="pf-dot "></span>
+              <span class="pf-img"><img src="https://lalist-product-images-ue1.s3.amazonaws.com/7891165007613_0-16779626-5256-4bb7-849b-07a1dcb533f2.jpg" alt="Óleo Lubrificante de Motor Texaco Havoline Superior SL 20W50 1L" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('none');this.parentNode.innerHTML='<i>sem foto</i>'"></span>
+              <span class="ic-name">Óleo Lubrificante de Motor Texaco Havoline Superior SL 20W50 1L</span>
+              <span class="ic-ean">7891165007613</span>
+              <span class="pf-brand">Texaco</span>
+              <span class="pf-price">R$ 29,27</span>
+              <span class="pf-price">R$ 26,99</span>
+              <span class="ic-verdict nd">Sem benchmark</span>
+              <span class="ic-arrow">▾</span>
+            </summary>
+            <div class="ic-body">
+              <div class="ic-sub">Nosso produto</div>
+              <div class="ic-own-grid">
+                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
+                <div class="ic-card"><span>Preço médio realizado</span><b>R$ 29,27</b><small>GMV ÷ unidades · set–out/26</small></div>
+              </div>
+              <div class="ic-sub">Outros canais</div>
+              <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
+              <div class="ic-sub">Concorrentes</div>
+              <div class="ic-empty">Sem concorrentes mapeados nesta base ainda.</div>
+            </div>
+          </details>
+          <details class="ic-item pf-item" data-ean="7896587325628">
+            <summary>
+              <span class="pf-dot "></span>
+              <span class="pf-img"><img src="https://lalist-product-images-ue1.s3.amazonaws.com/7896587325628_0-1c725747-5ef5-4c76-9f0d-94697d9db450.jpg" alt="Óleo Lubrificante Ipiranga Moto Protection 20w50 SL 1L" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('none');this.parentNode.innerHTML='<i>sem foto</i>'"></span>
+              <span class="ic-name">Óleo Lubrificante Ipiranga Moto Protection 20w50 SL 1L</span>
+              <span class="ic-ean">7896587325628</span>
+              <span class="pf-brand">Ipiranga</span>
+              <span class="pf-price">R$ 32,86</span>
+              <span class="pf-price">R$ 31,40</span>
+              <span class="ic-verdict nd">Sem benchmark</span>
+              <span class="ic-arrow">▾</span>
+            </summary>
+            <div class="ic-body">
+              <div class="ic-sub">Nosso produto</div>
+              <div class="ic-own-grid">
+                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
+                <div class="ic-card"><span>Preço médio realizado</span><b>R$ 32,86</b><small>GMV ÷ unidades · set–out/26</small></div>
+              </div>
+              <div class="ic-sub">Outros canais</div>
+              <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
+              <div class="ic-sub">Concorrentes</div>
+              <div class="compare-grid">
           <div class="compare-chip own"><span>Texaco</span>Havoline 4T SAE 20W50<div class="chip-prices"><span class="chip-price price-med">Méd R$ 39,90</span><span class="chip-price price-min">Mín R$ 39,90</span></div></div>
           <div class="compare-chip"><span>Mobil</span>Mobil Super Moto 4T 20W50<div class="chip-prices"><span class="chip-price price-med">Méd R$ 36,76</span><span class="chip-price price-min">Mín R$ 36,76</span></div></div>
           <div class="compare-chip"><span>Vibra</span>Lubrax Moto 4T<div class="chip-prices"><span class="chip-price price-med">Méd R$ 29,19</span><span class="chip-price price-min">Mín R$ 24,70</span></div></div>
@@ -2391,48 +2149,232 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
           <div class="compare-chip"><span>Castrol</span>Actevo Essential 4T 20W50<div class="chip-prices"><span class="chip-price price-med">Méd R$ 30,21</span><span class="chip-price price-min">Mín R$ 28,49</span></div></div>
           <div class="compare-chip empty"><span>YPF</span>Rod 4T 20W50</div>
         </div>
+            </div>
+          </details>
+          <details class="ic-item pf-item" data-ean="7891165011689">
+            <summary>
+              <span class="pf-dot "></span>
+              <span class="pf-img"><img src="https://lalist-product-images-ue1.s3.amazonaws.com/7891165011689_0-1e14b1dd-5ada-443f-ae75-83d9e0204a95.jpg" alt="Óleo Lubrificante Ipiranga F1 Master Performance 10w40 SP 1L" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('none');this.parentNode.innerHTML='<i>sem foto</i>'"></span>
+              <span class="ic-name">Óleo Lubrificante Ipiranga F1 Master Performance 10w40 SP 1L</span>
+              <span class="ic-ean">7891165011689</span>
+              <span class="pf-brand">Ipiranga</span>
+              <span class="pf-price">R$ 38,41</span>
+              <span class="pf-price">R$ 39,99</span>
+              <span class="ic-verdict nd">Sem benchmark</span>
+              <span class="ic-arrow">▾</span>
+            </summary>
+            <div class="ic-body">
+              <div class="ic-sub">Nosso produto</div>
+              <div class="ic-own-grid">
+                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
+                <div class="ic-card"><span>Preço médio realizado</span><b>R$ 38,41</b><small>GMV ÷ unidades · set–out/26</small></div>
+              </div>
+              <div class="ic-sub">Outros canais</div>
+              <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
+              <div class="ic-sub">Concorrentes</div>
+              <div class="ic-empty">Sem concorrentes mapeados nesta base ainda.</div>
+            </div>
+          </details>
+          <details class="ic-item pf-item" data-ean="7896587325901">
+            <summary>
+              <span class="pf-dot "></span>
+              <span class="pf-img"><img src="https://lalist-product-images-ue1.s3.amazonaws.com/7896587325901_0-ed3abd33-8347-4840-9850-753de3ce1db7.jpg" alt="Óleo Lubrificante Ipiranga F1 Sintético 0w20 SP 1L" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('none');this.parentNode.innerHTML='<i>sem foto</i>'"></span>
+              <span class="ic-name">Óleo Lubrificante Ipiranga F1 Sintético 0w20 SP 1L</span>
+              <span class="ic-ean">7896587325901</span>
+              <span class="pf-brand">Ipiranga</span>
+              <span class="pf-price">R$ 46,26</span>
+              <span class="pf-price">R$ 44,90</span>
+              <span class="ic-verdict nd">Sem benchmark</span>
+              <span class="ic-arrow">▾</span>
+            </summary>
+            <div class="ic-body">
+              <div class="ic-sub">Nosso produto</div>
+              <div class="ic-own-grid">
+                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
+                <div class="ic-card"><span>Preço médio realizado</span><b>R$ 46,26</b><small>GMV ÷ unidades · set–out/26</small></div>
+              </div>
+              <div class="ic-sub">Outros canais</div>
+              <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
+              <div class="ic-sub">Concorrentes</div>
+              <div class="compare-grid">
+          <div class="compare-chip own"><span>Texaco</span>Havoline Prods Fullsyn SP 0W20<div class="chip-prices"><span class="chip-price price-med">Méd R$ 46,82</span><span class="chip-price price-min">Mín R$ 36,00</span></div></div>
+          <div class="compare-chip"><span>Mobil</span>Mobil Super 0W20 Hybrid<div class="chip-prices"><span class="chip-price price-med">Méd R$ 102,17</span><span class="chip-price price-min">Mín R$ 95,30</span></div></div>
+          <div class="compare-chip"><span>Vibra</span>Lubrax Supera Premium 0W-20<div class="chip-prices"><span class="chip-price price-med">Méd R$ 83,04</span><span class="chip-price price-min">Mín R$ 79,99</span></div></div>
+          <div class="compare-chip"><span>Petronas</span>Petronas Syntium Hybrid 0W-20 SP<div class="chip-prices"><span class="chip-price price-med">Méd R$ 53,33</span><span class="chip-price price-min">Mín R$ 47,56</span></div></div>
+          <div class="compare-chip"><span>Shell</span>Shell Helix HX8 Professional AG 0W-20<div class="chip-prices"><span class="chip-price price-med">Méd R$ 50,80</span><span class="chip-price price-min">Mín R$ 46,05</span></div></div>
+          <div class="compare-chip"><span>Castrol</span>Castrol Magnatec 0W-20 DX<div class="chip-prices"><span class="chip-price price-med">Méd R$ 73,65</span><span class="chip-price price-min">Mín R$ 72,78</span></div></div>
+          <div class="compare-chip empty"><span>YPF</span>Sem equivalente</div>
         </div>
-      </details>
-      <details class="ic-item" data-ean="7891165011214">
-        <summary>
-          <span class="ic-st inativo">Inativo</span>
-          <span class="ic-name">Aditivo Fluido para Radiador de Carro Verde Ipiranga 1L</span>
-          <span class="ic-ean">7891165011214</span>
-          <span class="ic-own">Nosso preço <b class="ic-own-val">—</b></span>
-          <span class="ic-verdict nd">Sem benchmark</span>
-          <span class="ic-arrow">▾</span>
-        </summary>
-        <div class="ic-body">
-          <div class="ic-sub">Nosso produto</div>
-          <div class="ic-own-grid">
-            <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-            <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
-          </div>
-          <div class="ic-sub">Outros canais</div>
-          <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
-          <div class="ic-sub">Concorrentes</div>
-          <div class="ic-empty">Sem concorrentes mapeados nesta base ainda.</div>
-        </div>
-      </details>
-      <details class="ic-item" data-ean="7896587307464">
-        <summary>
-          <span class="ic-st inativo">Inativo</span>
-          <span class="ic-name">Óleo Diesel Ipiranga Brutus AP 15W40 CI-4 20L</span>
-          <span class="ic-ean">7896587307464</span>
-          <span class="ic-own">Nosso preço <b class="ic-own-val">—</b></span>
-          <span class="ic-verdict nd">Sem benchmark</span>
-          <span class="ic-arrow">▾</span>
-        </summary>
-        <div class="ic-body">
-          <div class="ic-sub">Nosso produto</div>
-          <div class="ic-own-grid">
-            <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-            <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
-          </div>
-          <div class="ic-sub">Outros canais</div>
-          <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
-          <div class="ic-sub">Concorrentes</div>
-          <div class="compare-grid">
+            </div>
+          </details>
+          <details class="ic-item pf-item" data-ean="7891165009730">
+            <summary>
+              <span class="pf-dot "></span>
+              <span class="pf-img"><img src="https://lalist-product-images-ue1.s3.amazonaws.com/7896587302506_0-51ba3c91-558d-4f3e-a306-dfdf0252deca.jpg" alt="Aditivo para Radiador Ipiranga 1L" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('none');this.parentNode.innerHTML='<i>sem foto</i>'"></span>
+              <span class="ic-name">Aditivo para Radiador Ipiranga 1L</span>
+              <span class="ic-ean">7891165009730</span>
+              <span class="pf-brand">Ipiranga</span>
+              <span class="pf-price">R$ 20,65</span>
+              <span class="pf-price">R$ 18,59</span>
+              <span class="ic-verdict nd">Sem benchmark</span>
+              <span class="ic-arrow">▾</span>
+            </summary>
+            <div class="ic-body">
+              <div class="ic-sub">Nosso produto</div>
+              <div class="ic-own-grid">
+                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
+                <div class="ic-card"><span>Preço médio realizado</span><b>R$ 20,65</b><small>GMV ÷ unidades · set–out/26</small></div>
+              </div>
+              <div class="ic-sub">Outros canais</div>
+              <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
+              <div class="ic-sub">Concorrentes</div>
+              <div class="ic-empty">Sem concorrentes mapeados nesta base ainda.</div>
+            </div>
+          </details>
+          <details class="ic-item pf-item" data-ean="7891165012150">
+            <summary>
+              <span class="pf-dot "></span>
+              <span class="pf-img"><img src="https://lalist-product-images-ue1.s3.amazonaws.com/7891165012150_0-5a6750d2-c012-437c-a319-e07394ae4e2d.jpg" alt="Óleo Lubrificante Ipiranga F1 Master Sintético 10w40 SP 1L" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('none');this.parentNode.innerHTML='<i>sem foto</i>'"></span>
+              <span class="ic-name">Óleo Lubrificante Ipiranga F1 Master Sintético 10w40 SP 1L</span>
+              <span class="ic-ean">7891165012150</span>
+              <span class="pf-brand">Ipiranga</span>
+              <span class="pf-price">R$ 50,34</span>
+              <span class="pf-price">R$ 56,00</span>
+              <span class="ic-verdict nd">Sem benchmark</span>
+              <span class="ic-arrow">▾</span>
+            </summary>
+            <div class="ic-body">
+              <div class="ic-sub">Nosso produto</div>
+              <div class="ic-own-grid">
+                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
+                <div class="ic-card"><span>Preço médio realizado</span><b>R$ 50,34</b><small>GMV ÷ unidades · set–out/26</small></div>
+              </div>
+              <div class="ic-sub">Outros canais</div>
+              <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
+              <div class="ic-sub">Concorrentes</div>
+              <div class="ic-empty">Sem concorrentes mapeados nesta base ainda.</div>
+            </div>
+          </details>
+          <details class="ic-item pf-item" data-ean="7891165011788">
+            <summary>
+              <span class="pf-dot "></span>
+              <span class="pf-img none"><i>sem foto</i></span>
+              <span class="ic-name">Aditivo para Radiador Ipiranga Verde 1L</span>
+              <span class="ic-ean">7891165011788</span>
+              <span class="pf-brand">Ipiranga</span>
+              <span class="pf-price">R$ 19,55</span>
+              <span class="pf-price">R$ 17,18</span>
+              <span class="ic-verdict nd">Sem benchmark</span>
+              <span class="ic-arrow">▾</span>
+            </summary>
+            <div class="ic-body">
+              <div class="ic-sub">Nosso produto</div>
+              <div class="ic-own-grid">
+                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
+                <div class="ic-card"><span>Preço médio realizado</span><b>R$ 19,55</b><small>GMV ÷ unidades · set–out/26</small></div>
+              </div>
+              <div class="ic-sub">Outros canais</div>
+              <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
+              <div class="ic-sub">Concorrentes</div>
+              <div class="ic-empty">Sem concorrentes mapeados nesta base ainda.</div>
+            </div>
+          </details>
+          <details class="ic-item pf-item" data-ean="7891165012600">
+            <summary>
+              <span class="pf-dot "></span>
+              <span class="pf-img"><img src="https://lalist-product-images-ue1.s3.amazonaws.com/7891165012600_0-f280fc39-ca93-4357-b2ba-f5261552c1e3.png" alt="Óleo de Motor Texaco Havoline 5W30 SQ Sintético Dexos1 1L" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('none');this.parentNode.innerHTML='<i>sem foto</i>'"></span>
+              <span class="ic-name">Óleo de Motor Texaco Havoline 5W30 SQ Sintético Dexos1 1L</span>
+              <span class="ic-ean">7891165012600</span>
+              <span class="pf-brand">Texaco</span>
+              <span class="pf-price">R$ 44,25</span>
+              <span class="pf-price">R$ 39,90</span>
+              <span class="ic-verdict nd">Sem benchmark</span>
+              <span class="ic-arrow">▾</span>
+            </summary>
+            <div class="ic-body">
+              <div class="ic-sub">Nosso produto</div>
+              <div class="ic-own-grid">
+                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
+                <div class="ic-card"><span>Preço médio realizado</span><b>R$ 44,25</b><small>GMV ÷ unidades · set–out/26</small></div>
+              </div>
+              <div class="ic-sub">Outros canais</div>
+              <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
+              <div class="ic-sub">Concorrentes</div>
+              <div class="ic-empty">Sem concorrentes mapeados nesta base ainda.</div>
+            </div>
+          </details>
+          <details class="ic-item pf-item" data-ean="7891165007453">
+            <summary>
+              <span class="pf-dot "></span>
+              <span class="pf-img"><img src="https://lalist-product-images-ue1.s3.amazonaws.com/7891165007453_0-d3ae6f17-d2ff-466e-a871-0db88b75008b.png" alt="Óleo de Motor Texaco Havoline 15W40 SL Semissintético 1L" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('none');this.parentNode.innerHTML='<i>sem foto</i>'"></span>
+              <span class="ic-name">Óleo de Motor Texaco Havoline 15W40 SL Semissintético 1L</span>
+              <span class="ic-ean">7891165007453</span>
+              <span class="pf-brand">Texaco</span>
+              <span class="pf-price">R$ 58,78</span>
+              <span class="pf-price">R$ 29,49</span>
+              <span class="ic-verdict nd">Sem benchmark</span>
+              <span class="ic-arrow">▾</span>
+            </summary>
+            <div class="ic-body">
+              <div class="ic-sub">Nosso produto</div>
+              <div class="ic-own-grid">
+                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
+                <div class="ic-card"><span>Preço médio realizado</span><b>R$ 58,78</b><small>GMV ÷ unidades · set–out/26</small></div>
+              </div>
+              <div class="ic-sub">Outros canais</div>
+              <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
+              <div class="ic-sub">Concorrentes</div>
+              <div class="ic-empty">Sem concorrentes mapeados nesta base ainda.</div>
+            </div>
+          </details>
+        <details class="pf-inact">
+          <summary><span>Sem venda no período · 30 SKUs</span><span class="pf-chev">▾</span></summary>
+          <details class="ic-item pf-item" data-ean="7891165011214">
+            <summary>
+              <span class="pf-dot off"></span>
+              <span class="pf-img"><img src="https://lalist-product-images-ue1.s3.amazonaws.com/7891165011214_0-addbd7c9-ca34-45ad-af2a-45ba45024910.jpg" alt="Aditivo Fluido para Radiador de Carro Verde Ipiranga 1L" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('none');this.parentNode.innerHTML='<i>sem foto</i>'"></span>
+              <span class="ic-name">Aditivo Fluido para Radiador de Carro Verde Ipiranga 1L</span>
+              <span class="ic-ean">7891165011214</span>
+              <span class="pf-brand">Ipiranga</span>
+              <span class="pf-price">—</span>
+              <span class="pf-price">R$ 18,59</span>
+              <span class="ic-verdict nd">Sem benchmark</span>
+              <span class="ic-arrow">▾</span>
+            </summary>
+            <div class="ic-body">
+              <div class="ic-sub">Nosso produto</div>
+              <div class="ic-own-grid">
+                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
+                <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
+              </div>
+              <div class="ic-sub">Outros canais</div>
+              <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
+              <div class="ic-sub">Concorrentes</div>
+              <div class="ic-empty">Sem concorrentes mapeados nesta base ainda.</div>
+            </div>
+          </details>
+          <details class="ic-item pf-item" data-ean="7896587307464">
+            <summary>
+              <span class="pf-dot off"></span>
+              <span class="pf-img"><img src="https://lalist-product-images-ue1.s3.amazonaws.com/7896587307464_0-ae1259c5-4cef-44d6-9631-559f52297e08.png" alt="Óleo Diesel Ipiranga Brutus AP 15W40 CI-4 20L" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('none');this.parentNode.innerHTML='<i>sem foto</i>'"></span>
+              <span class="ic-name">Óleo Diesel Ipiranga Brutus AP 15W40 CI-4 20L</span>
+              <span class="ic-ean">7896587307464</span>
+              <span class="pf-brand">Ipiranga</span>
+              <span class="pf-price">—</span>
+              <span class="pf-price">R$ 586,58</span>
+              <span class="ic-verdict nd">Sem benchmark</span>
+              <span class="ic-arrow">▾</span>
+            </summary>
+            <div class="ic-body">
+              <div class="ic-sub">Nosso produto</div>
+              <div class="ic-own-grid">
+                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
+                <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
+              </div>
+              <div class="ic-sub">Outros canais</div>
+              <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
+              <div class="ic-sub">Concorrentes</div>
+              <div class="compare-grid">
           <div class="compare-chip own"><span>Texaco</span>Ursa Premium TDX<div class="chip-prices"><span class="chip-price price-med">Méd R$ 23,09</span><span class="chip-price price-min">Mín R$ 22,50</span></div></div>
           <div class="compare-chip"><span>Mobil</span>Mobil Delvac Modern 15W-40 Super Defense V3<div class="chip-prices"><span class="chip-price price-med">Méd R$ 32,96</span><span class="chip-price price-min">Mín R$ 31,75</span></div></div>
           <div class="compare-chip"><span>Vibra</span>Lubrax Top Turbo<div class="chip-prices"><span class="chip-price price-med">Méd R$ 50,22</span><span class="chip-price price-min">Mín R$ 50,22</span></div></div>
@@ -2441,48 +2383,54 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
           <div class="compare-chip"><span>Castrol</span>CRB Turbomax 15W-40 CI-4<div class="chip-prices"><span class="chip-price price-med">Méd R$ 21,74</span><span class="chip-price price-min">Mín R$ 18,49</span></div></div>
           <div class="compare-chip"><span>YPF</span>Extravida XV200 15W-40<div class="chip-prices"><span class="chip-price price-med">Méd R$ 24,70</span><span class="chip-price price-min">Mín R$ 24,70</span></div></div>
         </div>
-        </div>
-      </details>
-      <details class="ic-item" data-ean="7896587326502">
-        <summary>
-          <span class="ic-st inativo">Inativo</span>
-          <span class="ic-name">Óleo Diesel Ipiranga Brutus AP 15W40 CI-4 4L</span>
-          <span class="ic-ean">7896587326502</span>
-          <span class="ic-own">Nosso preço <b class="ic-own-val">—</b></span>
-          <span class="ic-verdict nd">Sem benchmark</span>
-          <span class="ic-arrow">▾</span>
-        </summary>
-        <div class="ic-body">
-          <div class="ic-sub">Nosso produto</div>
-          <div class="ic-own-grid">
-            <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-            <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
-          </div>
-          <div class="ic-sub">Outros canais</div>
-          <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
-          <div class="ic-sub">Concorrentes</div>
-          <div class="ic-empty">Sem concorrentes mapeados nesta base ainda.</div>
-        </div>
-      </details>
-      <details class="ic-item" data-ean="7891165010026">
-        <summary>
-          <span class="ic-st inativo">Inativo</span>
-          <span class="ic-name">Óleo Diesel Ipiranga Brutus Performance CI 15W40 20L</span>
-          <span class="ic-ean">7891165010026</span>
-          <span class="ic-own">Nosso preço <b class="ic-own-val">—</b></span>
-          <span class="ic-verdict nd">Sem benchmark</span>
-          <span class="ic-arrow">▾</span>
-        </summary>
-        <div class="ic-body">
-          <div class="ic-sub">Nosso produto</div>
-          <div class="ic-own-grid">
-            <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-            <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
-          </div>
-          <div class="ic-sub">Outros canais</div>
-          <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
-          <div class="ic-sub">Concorrentes</div>
-          <div class="compare-grid">
+            </div>
+          </details>
+          <details class="ic-item pf-item" data-ean="7896587326502">
+            <summary>
+              <span class="pf-dot off"></span>
+              <span class="pf-img"><img src="https://lalist-product-images-ue1.s3.amazonaws.com/7896587326502_0-a3697fd6-5ba1-435f-9b43-bd3c838af054.png" alt="Óleo Diesel Ipiranga Brutus AP 15W40 CI-4 4L" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('none');this.parentNode.innerHTML='<i>sem foto</i>'"></span>
+              <span class="ic-name">Óleo Diesel Ipiranga Brutus AP 15W40 CI-4 4L</span>
+              <span class="ic-ean">7896587326502</span>
+              <span class="pf-brand">Ipiranga</span>
+              <span class="pf-price">—</span>
+              <span class="pf-price">R$ 201,06</span>
+              <span class="ic-verdict nd">Sem benchmark</span>
+              <span class="ic-arrow">▾</span>
+            </summary>
+            <div class="ic-body">
+              <div class="ic-sub">Nosso produto</div>
+              <div class="ic-own-grid">
+                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
+                <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
+              </div>
+              <div class="ic-sub">Outros canais</div>
+              <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
+              <div class="ic-sub">Concorrentes</div>
+              <div class="ic-empty">Sem concorrentes mapeados nesta base ainda.</div>
+            </div>
+          </details>
+          <details class="ic-item pf-item" data-ean="7891165010026">
+            <summary>
+              <span class="pf-dot off"></span>
+              <span class="pf-img"><img src="https://lalist-product-images-ue1.s3.amazonaws.com/7891165010026_0-e9023571-778a-47d3-8d51-3515645629d6.png" alt="Óleo Diesel Ipiranga Brutus Performance CI 15W40 20L" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('none');this.parentNode.innerHTML='<i>sem foto</i>'"></span>
+              <span class="ic-name">Óleo Diesel Ipiranga Brutus Performance CI 15W40 20L</span>
+              <span class="ic-ean">7891165010026</span>
+              <span class="pf-brand">Ipiranga</span>
+              <span class="pf-price">—</span>
+              <span class="pf-price">R$ 670,39</span>
+              <span class="ic-verdict nd">Sem benchmark</span>
+              <span class="ic-arrow">▾</span>
+            </summary>
+            <div class="ic-body">
+              <div class="ic-sub">Nosso produto</div>
+              <div class="ic-own-grid">
+                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
+                <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
+              </div>
+              <div class="ic-sub">Outros canais</div>
+              <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
+              <div class="ic-sub">Concorrentes</div>
+              <div class="compare-grid">
           <div class="compare-chip own"><span>Texaco</span>Ursa Premium TDS 15W40<div class="chip-prices"><span class="chip-price price-med">Méd R$ 30,52</span><span class="chip-price price-min">Mín R$ 25,15</span></div></div>
           <div class="compare-chip"><span>Mobil</span>Mobil Delvac Legend 15W-40 Protection<div class="chip-prices"><span class="chip-price price-med">Méd R$ 25,18</span><span class="chip-price price-min">Mín R$ 25,18</span></div></div>
           <div class="compare-chip"><span>Vibra</span>Lubrax Top Turbo Essencial<div class="chip-prices"><span class="chip-price price-med">Méd R$ 25,45</span><span class="chip-price price-min">Mín R$ 24,55</span></div></div>
@@ -2491,48 +2439,54 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
           <div class="compare-chip"><span>Castrol</span>CRB Multi 15W-40 CI-4<div class="chip-prices"><span class="chip-price price-med">Méd R$ 29,04</span><span class="chip-price price-min">Mín R$ 27,67</span></div></div>
           <div class="compare-chip empty"><span>YPF</span>Sem equivalente</div>
         </div>
-        </div>
-      </details>
-      <details class="ic-item" data-ean="7891165011207">
-        <summary>
-          <span class="ic-st inativo">Inativo</span>
-          <span class="ic-name">Óleo Diesel Ipiranga Brutus Performance CI 15W40 4L</span>
-          <span class="ic-ean">7891165011207</span>
-          <span class="ic-own">Nosso preço <b class="ic-own-val">—</b></span>
-          <span class="ic-verdict nd">Sem benchmark</span>
-          <span class="ic-arrow">▾</span>
-        </summary>
-        <div class="ic-body">
-          <div class="ic-sub">Nosso produto</div>
-          <div class="ic-own-grid">
-            <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-            <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
-          </div>
-          <div class="ic-sub">Outros canais</div>
-          <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
-          <div class="ic-sub">Concorrentes</div>
-          <div class="ic-empty">Sem concorrentes mapeados nesta base ainda.</div>
-        </div>
-      </details>
-      <details class="ic-item" data-ean="7896587325505">
-        <summary>
-          <span class="ic-st inativo">Inativo</span>
-          <span class="ic-name">Óleo Diesel Ipiranga Brutus Proteção T5 15W40 CH-4 20L</span>
-          <span class="ic-ean">7896587325505</span>
-          <span class="ic-own">Nosso preço <b class="ic-own-val">—</b></span>
-          <span class="ic-verdict nd">Sem benchmark</span>
-          <span class="ic-arrow">▾</span>
-        </summary>
-        <div class="ic-body">
-          <div class="ic-sub">Nosso produto</div>
-          <div class="ic-own-grid">
-            <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-            <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
-          </div>
-          <div class="ic-sub">Outros canais</div>
-          <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
-          <div class="ic-sub">Concorrentes</div>
-          <div class="compare-grid">
+            </div>
+          </details>
+          <details class="ic-item pf-item" data-ean="7891165011207">
+            <summary>
+              <span class="pf-dot off"></span>
+              <span class="pf-img none"><i>sem foto</i></span>
+              <span class="ic-name">Óleo Diesel Ipiranga Brutus Performance CI 15W40 4L</span>
+              <span class="ic-ean">7891165011207</span>
+              <span class="pf-brand">Ipiranga</span>
+              <span class="pf-price">—</span>
+              <span class="pf-price">R$ 142,39</span>
+              <span class="ic-verdict nd">Sem benchmark</span>
+              <span class="ic-arrow">▾</span>
+            </summary>
+            <div class="ic-body">
+              <div class="ic-sub">Nosso produto</div>
+              <div class="ic-own-grid">
+                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
+                <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
+              </div>
+              <div class="ic-sub">Outros canais</div>
+              <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
+              <div class="ic-sub">Concorrentes</div>
+              <div class="ic-empty">Sem concorrentes mapeados nesta base ainda.</div>
+            </div>
+          </details>
+          <details class="ic-item pf-item" data-ean="7896587325505">
+            <summary>
+              <span class="pf-dot off"></span>
+              <span class="pf-img"><img src="https://lalist-product-images-ue1.s3.amazonaws.com/7896587325505_0-db78c6e7-bfcb-4e52-bde0-5a7baf152b6f.png" alt="Óleo Diesel Ipiranga Brutus Proteção T5 15W40 CH-4 20L" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('none');this.parentNode.innerHTML='<i>sem foto</i>'"></span>
+              <span class="ic-name">Óleo Diesel Ipiranga Brutus Proteção T5 15W40 CH-4 20L</span>
+              <span class="ic-ean">7896587325505</span>
+              <span class="pf-brand">Ipiranga</span>
+              <span class="pf-price">—</span>
+              <span class="pf-price">R$ 418,96</span>
+              <span class="ic-verdict nd">Sem benchmark</span>
+              <span class="ic-arrow">▾</span>
+            </summary>
+            <div class="ic-body">
+              <div class="ic-sub">Nosso produto</div>
+              <div class="ic-own-grid">
+                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
+                <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
+              </div>
+              <div class="ic-sub">Outros canais</div>
+              <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
+              <div class="ic-sub">Concorrentes</div>
+              <div class="compare-grid">
           <div class="compare-chip own"><span>Texaco</span>Ursa Super TD SAE 15W40 CH-4<div class="chip-prices"><span class="chip-price price-med">Méd R$ 23,56</span><span class="chip-price price-min">Mín R$ 18,45</span></div></div>
           <div class="compare-chip"><span>Mobil</span>Mobil Delvac Legend<div class="chip-prices"><span class="chip-price price-med">Méd R$ 25,18</span><span class="chip-price price-min">Mín R$ 25,18</span></div></div>
           <div class="compare-chip"><span>Vibra</span>Lubrax Extra Turbo SAE 15W-40<div class="chip-prices"><span class="chip-price price-med">Méd R$ 33,55</span><span class="chip-price price-min">Mín R$ 28,98</span></div></div>
@@ -2541,489 +2495,558 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
           <div class="compare-chip"><span>Castrol</span>CRB Multi 15W-40<div class="chip-prices"><span class="chip-price price-med">Méd R$ 18,77</span><span class="chip-price price-min">Mín R$ 15,50</span></div></div>
           <div class="compare-chip"><span>YPF</span>Extravida XV 100<div class="chip-prices"><span class="chip-price price-med">Méd R$ 38,25</span><span class="chip-price price-min">Mín R$ 34,50</span></div></div>
         </div>
-        </div>
-      </details>
-      <details class="ic-item" data-ean="7896587326496">
-        <summary>
-          <span class="ic-st inativo">Inativo</span>
-          <span class="ic-name">Óleo Diesel Ipiranga Brutus Proteção T5 15W40 CH-4 4L</span>
-          <span class="ic-ean">7896587326496</span>
-          <span class="ic-own">Nosso preço <b class="ic-own-val">—</b></span>
-          <span class="ic-verdict nd">Sem benchmark</span>
-          <span class="ic-arrow">▾</span>
-        </summary>
-        <div class="ic-body">
-          <div class="ic-sub">Nosso produto</div>
-          <div class="ic-own-grid">
-            <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-            <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
-          </div>
-          <div class="ic-sub">Outros canais</div>
-          <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
-          <div class="ic-sub">Concorrentes</div>
-          <div class="ic-empty">Sem concorrentes mapeados nesta base ainda.</div>
-        </div>
-      </details>
-      <details class="ic-item" data-ean="7891165010088">
-        <summary>
-          <span class="ic-st inativo">Inativo</span>
-          <span class="ic-name">Óleo Diesel Ursa Premium TDS SAE 15W-40 20L</span>
-          <span class="ic-ean">7891165010088</span>
-          <span class="ic-own">Nosso preço <b class="ic-own-val">—</b></span>
-          <span class="ic-verdict nd">Sem benchmark</span>
-          <span class="ic-arrow">▾</span>
-        </summary>
-        <div class="ic-body">
-          <div class="ic-sub">Nosso produto</div>
-          <div class="ic-own-grid">
-            <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-            <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
-          </div>
-          <div class="ic-sub">Outros canais</div>
-          <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
-          <div class="ic-sub">Concorrentes</div>
-          <div class="ic-empty">Sem concorrentes mapeados nesta base ainda.</div>
-        </div>
-      </details>
-      <details class="ic-item" data-ean="7891165153242">
-        <summary>
-          <span class="ic-st inativo">Inativo</span>
-          <span class="ic-name">Óleo Diesel Ursa Premium TDX SAE 15W-40 1L</span>
-          <span class="ic-ean">7891165153242</span>
-          <span class="ic-own">Nosso preço <b class="ic-own-val">—</b></span>
-          <span class="ic-verdict nd">Sem benchmark</span>
-          <span class="ic-arrow">▾</span>
-        </summary>
-        <div class="ic-body">
-          <div class="ic-sub">Nosso produto</div>
-          <div class="ic-own-grid">
-            <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-            <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
-          </div>
-          <div class="ic-sub">Outros canais</div>
-          <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
-          <div class="ic-sub">Concorrentes</div>
-          <div class="ic-empty">Sem concorrentes mapeados nesta base ainda.</div>
-        </div>
-      </details>
-      <details class="ic-item" data-ean="7891165153013">
-        <summary>
-          <span class="ic-st inativo">Inativo</span>
-          <span class="ic-name">Óleo Diesel Ursa Premium TDX SAE 15W-40 20L</span>
-          <span class="ic-ean">7891165153013</span>
-          <span class="ic-own">Nosso preço <b class="ic-own-val">—</b></span>
-          <span class="ic-verdict nd">Sem benchmark</span>
-          <span class="ic-arrow">▾</span>
-        </summary>
-        <div class="ic-body">
-          <div class="ic-sub">Nosso produto</div>
-          <div class="ic-own-grid">
-            <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-            <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
-          </div>
-          <div class="ic-sub">Outros canais</div>
-          <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
-          <div class="ic-sub">Concorrentes</div>
-          <div class="ic-empty">Sem concorrentes mapeados nesta base ainda.</div>
-        </div>
-      </details>
-      <details class="ic-item" data-ean="7891165004179">
-        <summary>
-          <span class="ic-st inativo">Inativo</span>
-          <span class="ic-name">Óleo Diesel Ursa Premium TDX SAE 15W-40 4L</span>
-          <span class="ic-ean">7891165004179</span>
-          <span class="ic-own">Nosso preço <b class="ic-own-val">—</b></span>
-          <span class="ic-verdict nd">Sem benchmark</span>
-          <span class="ic-arrow">▾</span>
-        </summary>
-        <div class="ic-body">
-          <div class="ic-sub">Nosso produto</div>
-          <div class="ic-own-grid">
-            <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-            <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
-          </div>
-          <div class="ic-sub">Outros canais</div>
-          <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
-          <div class="ic-sub">Concorrentes</div>
-          <div class="ic-empty">Sem concorrentes mapeados nesta base ainda.</div>
-        </div>
-      </details>
-      <details class="ic-item" data-ean="7891165007705">
-        <summary>
-          <span class="ic-st inativo">Inativo</span>
-          <span class="ic-name">Óleo Diesel Ursa Super TD SAE 15W-40 CH-4 1L</span>
-          <span class="ic-ean">7891165007705</span>
-          <span class="ic-own">Nosso preço <b class="ic-own-val">—</b></span>
-          <span class="ic-verdict nd">Sem benchmark</span>
-          <span class="ic-arrow">▾</span>
-        </summary>
-        <div class="ic-body">
-          <div class="ic-sub">Nosso produto</div>
-          <div class="ic-own-grid">
-            <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-            <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
-          </div>
-          <div class="ic-sub">Outros canais</div>
-          <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
-          <div class="ic-sub">Concorrentes</div>
-          <div class="ic-empty">Sem concorrentes mapeados nesta base ainda.</div>
-        </div>
-      </details>
-      <details class="ic-item" data-ean="7891165007675">
-        <summary>
-          <span class="ic-st inativo">Inativo</span>
-          <span class="ic-name">Óleo Diesel Ursa Super TD SAE 15W-40 CH-4 20L</span>
-          <span class="ic-ean">7891165007675</span>
-          <span class="ic-own">Nosso preço <b class="ic-own-val">—</b></span>
-          <span class="ic-verdict nd">Sem benchmark</span>
-          <span class="ic-arrow">▾</span>
-        </summary>
-        <div class="ic-body">
-          <div class="ic-sub">Nosso produto</div>
-          <div class="ic-own-grid">
-            <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-            <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
-          </div>
-          <div class="ic-sub">Outros canais</div>
-          <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
-          <div class="ic-sub">Concorrentes</div>
-          <div class="ic-empty">Sem concorrentes mapeados nesta base ainda.</div>
-        </div>
-      </details>
-      <details class="ic-item" data-ean="7891165007682">
-        <summary>
-          <span class="ic-st inativo">Inativo</span>
-          <span class="ic-name">Óleo Diesel Ursa Super TD SAE 15W-40 CH-4 4L</span>
-          <span class="ic-ean">7891165007682</span>
-          <span class="ic-own">Nosso preço <b class="ic-own-val">—</b></span>
-          <span class="ic-verdict nd">Sem benchmark</span>
-          <span class="ic-arrow">▾</span>
-        </summary>
-        <div class="ic-body">
-          <div class="ic-sub">Nosso produto</div>
-          <div class="ic-own-grid">
-            <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-            <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
-          </div>
-          <div class="ic-sub">Outros canais</div>
-          <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
-          <div class="ic-sub">Concorrentes</div>
-          <div class="ic-empty">Sem concorrentes mapeados nesta base ainda.</div>
-        </div>
-      </details>
-      <details class="ic-item" data-ean="7896587320838">
-        <summary>
-          <span class="ic-st inativo">Inativo</span>
-          <span class="ic-name">Óleo Lubrificante Ipiranga F1 Master Sintético 5W30 API SP 1L</span>
-          <span class="ic-ean">7896587320838</span>
-          <span class="ic-own">Nosso preço <b class="ic-own-val">—</b></span>
-          <span class="ic-verdict nd">Sem benchmark</span>
-          <span class="ic-arrow">▾</span>
-        </summary>
-        <div class="ic-body">
-          <div class="ic-sub">Nosso produto</div>
-          <div class="ic-own-grid">
-            <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-            <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
-          </div>
-          <div class="ic-sub">Outros canais</div>
-          <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
-          <div class="ic-sub">Concorrentes</div>
-          <div class="ic-empty">Sem concorrentes mapeados nesta base ainda.</div>
-        </div>
-      </details>
-      <details class="ic-item" data-ean="7891165007439">
-        <summary>
-          <span class="ic-st inativo">Inativo</span>
-          <span class="ic-name">Óleo Motor Havoline 4T SAE 20W-50 1L</span>
-          <span class="ic-ean">7891165007439</span>
-          <span class="ic-own">Nosso preço <b class="ic-own-val">—</b></span>
-          <span class="ic-verdict nd">Sem benchmark</span>
-          <span class="ic-arrow">▾</span>
-        </summary>
-        <div class="ic-body">
-          <div class="ic-sub">Nosso produto</div>
-          <div class="ic-own-grid">
-            <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-            <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
-          </div>
-          <div class="ic-sub">Outros canais</div>
-          <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
-          <div class="ic-sub">Concorrentes</div>
-          <div class="ic-empty">Sem concorrentes mapeados nesta base ainda.</div>
-        </div>
-      </details>
-      <details class="ic-item" data-ean="7891165006142">
-        <summary>
-          <span class="ic-st inativo">Inativo</span>
-          <span class="ic-name">Óleo Motor Havoline 4T Semissintético 10W30 1L</span>
-          <span class="ic-ean">7891165006142</span>
-          <span class="ic-own">Nosso preço <b class="ic-own-val">—</b></span>
-          <span class="ic-verdict nd">Sem benchmark</span>
-          <span class="ic-arrow">▾</span>
-        </summary>
-        <div class="ic-body">
-          <div class="ic-sub">Nosso produto</div>
-          <div class="ic-own-grid">
-            <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-            <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
-          </div>
-          <div class="ic-sub">Outros canais</div>
-          <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
-          <div class="ic-sub">Concorrentes</div>
-          <div class="ic-empty">Sem concorrentes mapeados nesta base ainda.</div>
-        </div>
-      </details>
-      <details class="ic-item" data-ean="7891165012655">
-        <summary>
-          <span class="ic-st inativo">Inativo</span>
-          <span class="ic-name">Óleo Motor Havoline ProDS Full Synthetic SQ 0W20 1L</span>
-          <span class="ic-ean">7891165012655</span>
-          <span class="ic-own">Nosso preço <b class="ic-own-val">—</b></span>
-          <span class="ic-verdict nd">Sem benchmark</span>
-          <span class="ic-arrow">▾</span>
-        </summary>
-        <div class="ic-body">
-          <div class="ic-sub">Nosso produto</div>
-          <div class="ic-own-grid">
-            <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-            <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
-          </div>
-          <div class="ic-sub">Outros canais</div>
-          <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
-          <div class="ic-sub">Concorrentes</div>
-          <div class="ic-empty">Sem concorrentes mapeados nesta base ainda.</div>
-        </div>
-      </details>
-      <details class="ic-item" data-ean="7891165012631">
-        <summary>
-          <span class="ic-st inativo">Inativo</span>
-          <span class="ic-name">Óleo Motor Havoline ProDS Full Synthetic SQ 5W30 4L</span>
-          <span class="ic-ean">7891165012631</span>
-          <span class="ic-own">Nosso preço <b class="ic-own-val">—</b></span>
-          <span class="ic-verdict nd">Sem benchmark</span>
-          <span class="ic-arrow">▾</span>
-        </summary>
-        <div class="ic-body">
-          <div class="ic-sub">Nosso produto</div>
-          <div class="ic-own-grid">
-            <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-            <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
-          </div>
-          <div class="ic-sub">Outros canais</div>
-          <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
-          <div class="ic-sub">Concorrentes</div>
-          <div class="ic-empty">Sem concorrentes mapeados nesta base ainda.</div>
-        </div>
-      </details>
-      <details class="ic-item" data-ean="7891165012242">
-        <summary>
-          <span class="ic-st inativo">Inativo</span>
-          <span class="ic-name">Óleo Motor Havoline ProDS V SAE 0W-30 1L</span>
-          <span class="ic-ean">7891165012242</span>
-          <span class="ic-own">Nosso preço <b class="ic-own-val">—</b></span>
-          <span class="ic-verdict nd">Sem benchmark</span>
-          <span class="ic-arrow">▾</span>
-        </summary>
-        <div class="ic-body">
-          <div class="ic-sub">Nosso produto</div>
-          <div class="ic-own-grid">
-            <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-            <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
-          </div>
-          <div class="ic-sub">Outros canais</div>
-          <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
-          <div class="ic-sub">Concorrentes</div>
-          <div class="ic-empty">Sem concorrentes mapeados nesta base ainda.</div>
-        </div>
-      </details>
-      <details class="ic-item" data-ean="7891165011849">
-        <summary>
-          <span class="ic-st inativo">Inativo</span>
-          <span class="ic-name">Óleo Motor Havoline ProDS V SAE 0W-30 4L</span>
-          <span class="ic-ean">7891165011849</span>
-          <span class="ic-own">Nosso preço <b class="ic-own-val">—</b></span>
-          <span class="ic-verdict nd">Sem benchmark</span>
-          <span class="ic-arrow">▾</span>
-        </summary>
-        <div class="ic-body">
-          <div class="ic-sub">Nosso produto</div>
-          <div class="ic-own-grid">
-            <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-            <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
-          </div>
-          <div class="ic-sub">Outros canais</div>
-          <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
-          <div class="ic-sub">Concorrentes</div>
-          <div class="ic-empty">Sem concorrentes mapeados nesta base ainda.</div>
-        </div>
-      </details>
-      <details class="ic-item" data-ean="7891165011115">
-        <summary>
-          <span class="ic-st inativo">Inativo</span>
-          <span class="ic-name">Óleo Motor Havoline Semissintético SL 15W40 4L</span>
-          <span class="ic-ean">7891165011115</span>
-          <span class="ic-own">Nosso preço <b class="ic-own-val">—</b></span>
-          <span class="ic-verdict nd">Sem benchmark</span>
-          <span class="ic-arrow">▾</span>
-        </summary>
-        <div class="ic-body">
-          <div class="ic-sub">Nosso produto</div>
-          <div class="ic-own-grid">
-            <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-            <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
-          </div>
-          <div class="ic-sub">Outros canais</div>
-          <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
-          <div class="ic-sub">Concorrentes</div>
-          <div class="ic-empty">Sem concorrentes mapeados nesta base ainda.</div>
-        </div>
-      </details>
-      <details class="ic-item" data-ean="7891165011108">
-        <summary>
-          <span class="ic-st inativo">Inativo</span>
-          <span class="ic-name">Óleo Motor Havoline Superior SL SAE 20W50 4L</span>
-          <span class="ic-ean">7891165011108</span>
-          <span class="ic-own">Nosso preço <b class="ic-own-val">—</b></span>
-          <span class="ic-verdict nd">Sem benchmark</span>
-          <span class="ic-arrow">▾</span>
-        </summary>
-        <div class="ic-body">
-          <div class="ic-sub">Nosso produto</div>
-          <div class="ic-own-grid">
-            <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-            <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
-          </div>
-          <div class="ic-sub">Outros canais</div>
-          <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
-          <div class="ic-sub">Concorrentes</div>
-          <div class="ic-empty">Sem concorrentes mapeados nesta base ainda.</div>
-        </div>
-      </details>
-      <details class="ic-item" data-ean="7891165011993">
-        <summary>
-          <span class="ic-st inativo">Inativo</span>
-          <span class="ic-name">Óleo Motor Ipiranga 2T STL 500ML</span>
-          <span class="ic-ean">7891165011993</span>
-          <span class="ic-own">Nosso preço <b class="ic-own-val">—</b></span>
-          <span class="ic-verdict nd">Sem benchmark</span>
-          <span class="ic-arrow">▾</span>
-        </summary>
-        <div class="ic-body">
-          <div class="ic-sub">Nosso produto</div>
-          <div class="ic-own-grid">
-            <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-            <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
-          </div>
-          <div class="ic-sub">Outros canais</div>
-          <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
-          <div class="ic-sub">Concorrentes</div>
-          <div class="ic-empty">Sem concorrentes mapeados nesta base ainda.</div>
-        </div>
-      </details>
-      <details class="ic-item" data-ean="7891165011122">
-        <summary>
-          <span class="ic-st inativo">Inativo</span>
-          <span class="ic-name">Óleo Motor Ipiranga F1 Master Performance 15W40 SL 4L</span>
-          <span class="ic-ean">7891165011122</span>
-          <span class="ic-own">Nosso preço <b class="ic-own-val">—</b></span>
-          <span class="ic-verdict nd">Sem benchmark</span>
-          <span class="ic-arrow">▾</span>
-        </summary>
-        <div class="ic-body">
-          <div class="ic-sub">Nosso produto</div>
-          <div class="ic-own-grid">
-            <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-            <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
-          </div>
-          <div class="ic-sub">Outros canais</div>
-          <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
-          <div class="ic-sub">Concorrentes</div>
-          <div class="ic-empty">Sem concorrentes mapeados nesta base ainda.</div>
-        </div>
-      </details>
-      <details class="ic-item" data-ean="7891165011092">
-        <summary>
-          <span class="ic-st inativo">Inativo</span>
-          <span class="ic-name">Óleo Motor Ipiranga F1 Master Proteção 20W50 SL 4L</span>
-          <span class="ic-ean">7891165011092</span>
-          <span class="ic-own">Nosso preço <b class="ic-own-val">—</b></span>
-          <span class="ic-verdict nd">Sem benchmark</span>
-          <span class="ic-arrow">▾</span>
-        </summary>
-        <div class="ic-body">
-          <div class="ic-sub">Nosso produto</div>
-          <div class="ic-own-grid">
-            <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-            <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
-          </div>
-          <div class="ic-sub">Outros canais</div>
-          <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
-          <div class="ic-sub">Concorrentes</div>
-          <div class="ic-empty">Sem concorrentes mapeados nesta base ainda.</div>
-        </div>
-      </details>
-      <details class="ic-item" data-ean="7891165012945">
-        <summary>
-          <span class="ic-st inativo">Inativo</span>
-          <span class="ic-name">Óleo Motor Ipiranga F1 Master Sintético 0W20 SQ 1L</span>
-          <span class="ic-ean">7891165012945</span>
-          <span class="ic-own">Nosso preço <b class="ic-own-val">—</b></span>
-          <span class="ic-verdict nd">Sem benchmark</span>
-          <span class="ic-arrow">▾</span>
-        </summary>
-        <div class="ic-body">
-          <div class="ic-sub">Nosso produto</div>
-          <div class="ic-own-grid">
-            <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-            <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
-          </div>
-          <div class="ic-sub">Outros canais</div>
-          <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
-          <div class="ic-sub">Concorrentes</div>
-          <div class="ic-empty">Sem concorrentes mapeados nesta base ainda.</div>
-        </div>
-      </details>
-      <details class="ic-item" data-ean="7891165012921">
-        <summary>
-          <span class="ic-st inativo">Inativo</span>
-          <span class="ic-name">Óleo Motor Ipiranga F1 Master Sintético 5W30 SQ 4L</span>
-          <span class="ic-ean">7891165012921</span>
-          <span class="ic-own">Nosso preço <b class="ic-own-val">—</b></span>
-          <span class="ic-verdict nd">Sem benchmark</span>
-          <span class="ic-arrow">▾</span>
-        </summary>
-        <div class="ic-body">
-          <div class="ic-sub">Nosso produto</div>
-          <div class="ic-own-grid">
-            <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-            <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
-          </div>
-          <div class="ic-sub">Outros canais</div>
-          <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
-          <div class="ic-sub">Concorrentes</div>
-          <div class="ic-empty">Sem concorrentes mapeados nesta base ainda.</div>
-        </div>
-      </details>
-      <details class="ic-item" data-ean="7891165011764">
-        <summary>
-          <span class="ic-st inativo">Inativo</span>
-          <span class="ic-name">Óleo Motor Ipiranga F1 Master Sintético C2 0W30 1L</span>
-          <span class="ic-ean">7891165011764</span>
-          <span class="ic-own">Nosso preço <b class="ic-own-val">—</b></span>
-          <span class="ic-verdict nd">Sem benchmark</span>
-          <span class="ic-arrow">▾</span>
-        </summary>
-        <div class="ic-body">
-          <div class="ic-sub">Nosso produto</div>
-          <div class="ic-own-grid">
-            <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-            <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
-          </div>
-          <div class="ic-sub">Outros canais</div>
-          <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
-          <div class="ic-sub">Concorrentes</div>
-          <div class="compare-grid">
+            </div>
+          </details>
+          <details class="ic-item pf-item" data-ean="7896587326496">
+            <summary>
+              <span class="pf-dot off"></span>
+              <span class="pf-img"><img src="https://lalist-product-images-ue1.s3.amazonaws.com/7896587326496_0-aec2bc6b-b35c-4fab-a056-499b087f7d71.png" alt="Óleo Diesel Ipiranga Brutus Proteção T5 15W40 CH-4 4L" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('none');this.parentNode.innerHTML='<i>sem foto</i>'"></span>
+              <span class="ic-name">Óleo Diesel Ipiranga Brutus Proteção T5 15W40 CH-4 4L</span>
+              <span class="ic-ean">7896587326496</span>
+              <span class="pf-brand">Ipiranga</span>
+              <span class="pf-price">—</span>
+              <span class="pf-price">R$ 150,77</span>
+              <span class="ic-verdict nd">Sem benchmark</span>
+              <span class="ic-arrow">▾</span>
+            </summary>
+            <div class="ic-body">
+              <div class="ic-sub">Nosso produto</div>
+              <div class="ic-own-grid">
+                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
+                <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
+              </div>
+              <div class="ic-sub">Outros canais</div>
+              <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
+              <div class="ic-sub">Concorrentes</div>
+              <div class="ic-empty">Sem concorrentes mapeados nesta base ainda.</div>
+            </div>
+          </details>
+          <details class="ic-item pf-item" data-ean="7891165010088">
+            <summary>
+              <span class="pf-dot off"></span>
+              <span class="pf-img none"><i>sem foto</i></span>
+              <span class="ic-name">Óleo Diesel Ursa Premium TDS SAE 15W-40 20L</span>
+              <span class="ic-ean">7891165010088</span>
+              <span class="pf-brand">Texaco</span>
+              <span class="pf-price">—</span>
+              <span class="pf-price">R$ 402,20</span>
+              <span class="ic-verdict nd">Sem benchmark</span>
+              <span class="ic-arrow">▾</span>
+            </summary>
+            <div class="ic-body">
+              <div class="ic-sub">Nosso produto</div>
+              <div class="ic-own-grid">
+                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
+                <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
+              </div>
+              <div class="ic-sub">Outros canais</div>
+              <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
+              <div class="ic-sub">Concorrentes</div>
+              <div class="ic-empty">Sem concorrentes mapeados nesta base ainda.</div>
+            </div>
+          </details>
+          <details class="ic-item pf-item" data-ean="7891165153242">
+            <summary>
+              <span class="pf-dot off"></span>
+              <span class="pf-img"><img src="https://lalist-product-images-ue1.s3.amazonaws.com/7891165153242_0-e81a33e0-2e70-4a89-bcb6-0c210904c408.png" alt="Óleo Diesel Ursa Premium TDX SAE 15W-40 1L" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('none');this.parentNode.innerHTML='<i>sem foto</i>'"></span>
+              <span class="ic-name">Óleo Diesel Ursa Premium TDX SAE 15W-40 1L</span>
+              <span class="ic-ean">7891165153242</span>
+              <span class="pf-brand">Texaco</span>
+              <span class="pf-price">—</span>
+              <span class="pf-price">R$ 43,50</span>
+              <span class="ic-verdict nd">Sem benchmark</span>
+              <span class="ic-arrow">▾</span>
+            </summary>
+            <div class="ic-body">
+              <div class="ic-sub">Nosso produto</div>
+              <div class="ic-own-grid">
+                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
+                <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
+              </div>
+              <div class="ic-sub">Outros canais</div>
+              <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
+              <div class="ic-sub">Concorrentes</div>
+              <div class="ic-empty">Sem concorrentes mapeados nesta base ainda.</div>
+            </div>
+          </details>
+          <details class="ic-item pf-item" data-ean="7891165153013">
+            <summary>
+              <span class="pf-dot off"></span>
+              <span class="pf-img"><img src="https://lalist-product-images-ue1.s3.amazonaws.com/7891165153013_0-b5163c01-d501-4992-a9ed-3991842e1851.png" alt="Óleo Diesel Ursa Premium TDX SAE 15W-40 20L" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('none');this.parentNode.innerHTML='<i>sem foto</i>'"></span>
+              <span class="ic-name">Óleo Diesel Ursa Premium TDX SAE 15W-40 20L</span>
+              <span class="ic-ean">7891165153013</span>
+              <span class="pf-brand">Texaco</span>
+              <span class="pf-price">—</span>
+              <span class="pf-price">R$ 477,63</span>
+              <span class="ic-verdict nd">Sem benchmark</span>
+              <span class="ic-arrow">▾</span>
+            </summary>
+            <div class="ic-body">
+              <div class="ic-sub">Nosso produto</div>
+              <div class="ic-own-grid">
+                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
+                <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
+              </div>
+              <div class="ic-sub">Outros canais</div>
+              <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
+              <div class="ic-sub">Concorrentes</div>
+              <div class="ic-empty">Sem concorrentes mapeados nesta base ainda.</div>
+            </div>
+          </details>
+          <details class="ic-item pf-item" data-ean="7891165004179">
+            <summary>
+              <span class="pf-dot off"></span>
+              <span class="pf-img"><img src="https://lalist-product-images-ue1.s3.amazonaws.com/7891165004179_0-cef3adaf-f9b7-4324-b7b0-9d090d8de9b7.png" alt="Óleo Diesel Ursa Premium TDX SAE 15W-40 4L" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('none');this.parentNode.innerHTML='<i>sem foto</i>'"></span>
+              <span class="ic-name">Óleo Diesel Ursa Premium TDX SAE 15W-40 4L</span>
+              <span class="ic-ean">7891165004179</span>
+              <span class="pf-brand">Texaco</span>
+              <span class="pf-price">—</span>
+              <span class="pf-price">R$ 150,77</span>
+              <span class="ic-verdict nd">Sem benchmark</span>
+              <span class="ic-arrow">▾</span>
+            </summary>
+            <div class="ic-body">
+              <div class="ic-sub">Nosso produto</div>
+              <div class="ic-own-grid">
+                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
+                <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
+              </div>
+              <div class="ic-sub">Outros canais</div>
+              <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
+              <div class="ic-sub">Concorrentes</div>
+              <div class="ic-empty">Sem concorrentes mapeados nesta base ainda.</div>
+            </div>
+          </details>
+          <details class="ic-item pf-item" data-ean="7891165007705">
+            <summary>
+              <span class="pf-dot off"></span>
+              <span class="pf-img"><img src="https://lalist-product-images-ue1.s3.amazonaws.com/7891165007705_0-87ef9899-1c23-43d5-8b42-78127ff5f807.png" alt="Óleo Diesel Ursa Super TD SAE 15W-40 CH-4 1L" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('none');this.parentNode.innerHTML='<i>sem foto</i>'"></span>
+              <span class="ic-name">Óleo Diesel Ursa Super TD SAE 15W-40 CH-4 1L</span>
+              <span class="ic-ean">7891165007705</span>
+              <span class="pf-brand">Texaco</span>
+              <span class="pf-price">—</span>
+              <span class="pf-price">R$ 41,82</span>
+              <span class="ic-verdict nd">Sem benchmark</span>
+              <span class="ic-arrow">▾</span>
+            </summary>
+            <div class="ic-body">
+              <div class="ic-sub">Nosso produto</div>
+              <div class="ic-own-grid">
+                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
+                <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
+              </div>
+              <div class="ic-sub">Outros canais</div>
+              <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
+              <div class="ic-sub">Concorrentes</div>
+              <div class="ic-empty">Sem concorrentes mapeados nesta base ainda.</div>
+            </div>
+          </details>
+          <details class="ic-item pf-item" data-ean="7891165007675">
+            <summary>
+              <span class="pf-dot off"></span>
+              <span class="pf-img none"><i>sem foto</i></span>
+              <span class="ic-name">Óleo Diesel Ursa Super TD SAE 15W-40 CH-4 20L</span>
+              <span class="ic-ean">7891165007675</span>
+              <span class="pf-brand">Texaco</span>
+              <span class="pf-price">—</span>
+              <span class="pf-price">R$ 586,58</span>
+              <span class="ic-verdict nd">Sem benchmark</span>
+              <span class="ic-arrow">▾</span>
+            </summary>
+            <div class="ic-body">
+              <div class="ic-sub">Nosso produto</div>
+              <div class="ic-own-grid">
+                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
+                <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
+              </div>
+              <div class="ic-sub">Outros canais</div>
+              <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
+              <div class="ic-sub">Concorrentes</div>
+              <div class="ic-empty">Sem concorrentes mapeados nesta base ainda.</div>
+            </div>
+          </details>
+          <details class="ic-item pf-item" data-ean="7891165007682">
+            <summary>
+              <span class="pf-dot off"></span>
+              <span class="pf-img"><img src="https://lalist-product-images-ue1.s3.amazonaws.com/7891165007682_0-d41f943e-7040-48aa-84a8-383545ceb6c5.png" alt="Óleo Diesel Ursa Super TD SAE 15W-40 CH-4 4L" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('none');this.parentNode.innerHTML='<i>sem foto</i>'"></span>
+              <span class="ic-name">Óleo Diesel Ursa Super TD SAE 15W-40 CH-4 4L</span>
+              <span class="ic-ean">7891165007682</span>
+              <span class="pf-brand">Texaco</span>
+              <span class="pf-price">—</span>
+              <span class="pf-price">R$ 125,63</span>
+              <span class="ic-verdict nd">Sem benchmark</span>
+              <span class="ic-arrow">▾</span>
+            </summary>
+            <div class="ic-body">
+              <div class="ic-sub">Nosso produto</div>
+              <div class="ic-own-grid">
+                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
+                <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
+              </div>
+              <div class="ic-sub">Outros canais</div>
+              <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
+              <div class="ic-sub">Concorrentes</div>
+              <div class="ic-empty">Sem concorrentes mapeados nesta base ainda.</div>
+            </div>
+          </details>
+          <details class="ic-item pf-item" data-ean="7896587320838">
+            <summary>
+              <span class="pf-dot off"></span>
+              <span class="pf-img"><img src="https://lalist-product-images-ue1.s3.amazonaws.com/7896587320838_0-c0485111-1c59-47a2-b76c-ff16bc114a5d.jpg" alt="Óleo Lubrificante Ipiranga F1 Master Sintético 5W30 API SP 1L" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('none');this.parentNode.innerHTML='<i>sem foto</i>'"></span>
+              <span class="ic-name">Óleo Lubrificante Ipiranga F1 Master Sintético 5W30 API SP 1L</span>
+              <span class="ic-ean">7896587320838</span>
+              <span class="pf-brand">Ipiranga</span>
+              <span class="pf-price">—</span>
+              <span class="pf-price">R$ 34,13</span>
+              <span class="ic-verdict nd">Sem benchmark</span>
+              <span class="ic-arrow">▾</span>
+            </summary>
+            <div class="ic-body">
+              <div class="ic-sub">Nosso produto</div>
+              <div class="ic-own-grid">
+                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
+                <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
+              </div>
+              <div class="ic-sub">Outros canais</div>
+              <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
+              <div class="ic-sub">Concorrentes</div>
+              <div class="ic-empty">Sem concorrentes mapeados nesta base ainda.</div>
+            </div>
+          </details>
+          <details class="ic-item pf-item" data-ean="7891165007439">
+            <summary>
+              <span class="pf-dot off"></span>
+              <span class="pf-img"><img src="https://lalist-product-images-ue1.s3.amazonaws.com/7891165007439_0-8043cb7d-05f0-4a56-97f5-7c57fc8b8fa0.png" alt="Óleo Motor Havoline 4T SAE 20W-50 1L" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('none');this.parentNode.innerHTML='<i>sem foto</i>'"></span>
+              <span class="ic-name">Óleo Motor Havoline 4T SAE 20W-50 1L</span>
+              <span class="ic-ean">7891165007439</span>
+              <span class="pf-brand">Texaco</span>
+              <span class="pf-price">—</span>
+              <span class="pf-price">R$ 27,67</span>
+              <span class="ic-verdict nd">Sem benchmark</span>
+              <span class="ic-arrow">▾</span>
+            </summary>
+            <div class="ic-body">
+              <div class="ic-sub">Nosso produto</div>
+              <div class="ic-own-grid">
+                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
+                <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
+              </div>
+              <div class="ic-sub">Outros canais</div>
+              <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
+              <div class="ic-sub">Concorrentes</div>
+              <div class="ic-empty">Sem concorrentes mapeados nesta base ainda.</div>
+            </div>
+          </details>
+          <details class="ic-item pf-item" data-ean="7891165006142">
+            <summary>
+              <span class="pf-dot off"></span>
+              <span class="pf-img"><img src="https://lalist-product-images-ue1.s3.amazonaws.com/7891165006142_0-5dadb30b-c8bf-4914-8d5e-206c82f38d1c.png" alt="Óleo Motor Havoline 4T Semissintético 10W30 1L" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('none');this.parentNode.innerHTML='<i>sem foto</i>'"></span>
+              <span class="ic-name">Óleo Motor Havoline 4T Semissintético 10W30 1L</span>
+              <span class="ic-ean">7891165006142</span>
+              <span class="pf-brand">Texaco</span>
+              <span class="pf-price">—</span>
+              <span class="pf-price">R$ 40,98</span>
+              <span class="ic-verdict nd">Sem benchmark</span>
+              <span class="ic-arrow">▾</span>
+            </summary>
+            <div class="ic-body">
+              <div class="ic-sub">Nosso produto</div>
+              <div class="ic-own-grid">
+                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
+                <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
+              </div>
+              <div class="ic-sub">Outros canais</div>
+              <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
+              <div class="ic-sub">Concorrentes</div>
+              <div class="ic-empty">Sem concorrentes mapeados nesta base ainda.</div>
+            </div>
+          </details>
+          <details class="ic-item pf-item" data-ean="7891165012655">
+            <summary>
+              <span class="pf-dot off"></span>
+              <span class="pf-img"><img src="https://lalist-product-images-ue1.s3.amazonaws.com/7891165012655_0-4269b031-bd7c-4826-b55a-dd3db5c273c3.png" alt="Óleo Motor Havoline ProDS Full Synthetic SQ 0W20 1L" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('none');this.parentNode.innerHTML='<i>sem foto</i>'"></span>
+              <span class="ic-name">Óleo Motor Havoline ProDS Full Synthetic SQ 0W20 1L</span>
+              <span class="ic-ean">7891165012655</span>
+              <span class="pf-brand">Texaco</span>
+              <span class="pf-price">—</span>
+              <span class="pf-price">R$ 58,58</span>
+              <span class="ic-verdict nd">Sem benchmark</span>
+              <span class="ic-arrow">▾</span>
+            </summary>
+            <div class="ic-body">
+              <div class="ic-sub">Nosso produto</div>
+              <div class="ic-own-grid">
+                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
+                <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
+              </div>
+              <div class="ic-sub">Outros canais</div>
+              <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
+              <div class="ic-sub">Concorrentes</div>
+              <div class="ic-empty">Sem concorrentes mapeados nesta base ainda.</div>
+            </div>
+          </details>
+          <details class="ic-item pf-item" data-ean="7891165012631">
+            <summary>
+              <span class="pf-dot off"></span>
+              <span class="pf-img"><img src="https://lalist-product-images-ue1.s3.amazonaws.com/7891165012631_0-c9ebea28-26ad-4f5a-86a4-dcb4fbab01dc.png" alt="Óleo Motor Havoline ProDS Full Synthetic SQ 5W30 4L" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('none');this.parentNode.innerHTML='<i>sem foto</i>'"></span>
+              <span class="ic-name">Óleo Motor Havoline ProDS Full Synthetic SQ 5W30 4L</span>
+              <span class="ic-ean">7891165012631</span>
+              <span class="pf-brand">Texaco</span>
+              <span class="pf-price">—</span>
+              <span class="pf-price">R$ 234,58</span>
+              <span class="ic-verdict nd">Sem benchmark</span>
+              <span class="ic-arrow">▾</span>
+            </summary>
+            <div class="ic-body">
+              <div class="ic-sub">Nosso produto</div>
+              <div class="ic-own-grid">
+                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
+                <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
+              </div>
+              <div class="ic-sub">Outros canais</div>
+              <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
+              <div class="ic-sub">Concorrentes</div>
+              <div class="ic-empty">Sem concorrentes mapeados nesta base ainda.</div>
+            </div>
+          </details>
+          <details class="ic-item pf-item" data-ean="7891165012242">
+            <summary>
+              <span class="pf-dot off"></span>
+              <span class="pf-img"><img src="https://lalist-product-images-ue1.s3.amazonaws.com/7891165012242_0-c7f53a78-2349-4fd5-a935-abc2eb82d822.png" alt="Óleo Motor Havoline ProDS V SAE 0W-30 1L" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('none');this.parentNode.innerHTML='<i>sem foto</i>'"></span>
+              <span class="ic-name">Óleo Motor Havoline ProDS V SAE 0W-30 1L</span>
+              <span class="ic-ean">7891165012242</span>
+              <span class="pf-brand">Texaco</span>
+              <span class="pf-price">—</span>
+              <span class="pf-price">R$ 40,98</span>
+              <span class="ic-verdict nd">Sem benchmark</span>
+              <span class="ic-arrow">▾</span>
+            </summary>
+            <div class="ic-body">
+              <div class="ic-sub">Nosso produto</div>
+              <div class="ic-own-grid">
+                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
+                <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
+              </div>
+              <div class="ic-sub">Outros canais</div>
+              <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
+              <div class="ic-sub">Concorrentes</div>
+              <div class="ic-empty">Sem concorrentes mapeados nesta base ainda.</div>
+            </div>
+          </details>
+          <details class="ic-item pf-item" data-ean="7891165011849">
+            <summary>
+              <span class="pf-dot off"></span>
+              <span class="pf-img"><img src="https://lalist-product-images-ue1.s3.amazonaws.com/7891165011849_0-4b3fe3c8-9e02-4248-aa56-79b5df326d63.png" alt="Óleo Motor Havoline ProDS V SAE 0W-30 4L" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('none');this.parentNode.innerHTML='<i>sem foto</i>'"></span>
+              <span class="ic-name">Óleo Motor Havoline ProDS V SAE 0W-30 4L</span>
+              <span class="ic-ean">7891165011849</span>
+              <span class="pf-brand">Texaco</span>
+              <span class="pf-price">—</span>
+              <span class="pf-price">R$ 335,15</span>
+              <span class="ic-verdict nd">Sem benchmark</span>
+              <span class="ic-arrow">▾</span>
+            </summary>
+            <div class="ic-body">
+              <div class="ic-sub">Nosso produto</div>
+              <div class="ic-own-grid">
+                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
+                <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
+              </div>
+              <div class="ic-sub">Outros canais</div>
+              <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
+              <div class="ic-sub">Concorrentes</div>
+              <div class="ic-empty">Sem concorrentes mapeados nesta base ainda.</div>
+            </div>
+          </details>
+          <details class="ic-item pf-item" data-ean="7891165011115">
+            <summary>
+              <span class="pf-dot off"></span>
+              <span class="pf-img"><img src="https://lalist-product-images-ue1.s3.amazonaws.com/7891165011115_0-77b5d394-03ce-40e3-b41a-e54ed8974189.png" alt="Óleo Motor Havoline Semissintético SL 15W40 4L" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('none');this.parentNode.innerHTML='<i>sem foto</i>'"></span>
+              <span class="ic-name">Óleo Motor Havoline Semissintético SL 15W40 4L</span>
+              <span class="ic-ean">7891165011115</span>
+              <span class="pf-brand">Texaco</span>
+              <span class="pf-price">—</span>
+              <span class="pf-price">R$ 108,87</span>
+              <span class="ic-verdict nd">Sem benchmark</span>
+              <span class="ic-arrow">▾</span>
+            </summary>
+            <div class="ic-body">
+              <div class="ic-sub">Nosso produto</div>
+              <div class="ic-own-grid">
+                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
+                <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
+              </div>
+              <div class="ic-sub">Outros canais</div>
+              <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
+              <div class="ic-sub">Concorrentes</div>
+              <div class="ic-empty">Sem concorrentes mapeados nesta base ainda.</div>
+            </div>
+          </details>
+          <details class="ic-item pf-item" data-ean="7891165011108">
+            <summary>
+              <span class="pf-dot off"></span>
+              <span class="pf-img"><img src="https://lalist-product-images-ue1.s3.amazonaws.com/7891165011108_0-da3d611b-715a-4024-aabf-fe4bcc5de1b4.png" alt="Óleo Motor Havoline Superior SL SAE 20W50 4L" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('none');this.parentNode.innerHTML='<i>sem foto</i>'"></span>
+              <span class="ic-name">Óleo Motor Havoline Superior SL SAE 20W50 4L</span>
+              <span class="ic-ean">7891165011108</span>
+              <span class="pf-brand">Texaco</span>
+              <span class="pf-price">—</span>
+              <span class="pf-price">R$ 125,63</span>
+              <span class="ic-verdict nd">Sem benchmark</span>
+              <span class="ic-arrow">▾</span>
+            </summary>
+            <div class="ic-body">
+              <div class="ic-sub">Nosso produto</div>
+              <div class="ic-own-grid">
+                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
+                <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
+              </div>
+              <div class="ic-sub">Outros canais</div>
+              <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
+              <div class="ic-sub">Concorrentes</div>
+              <div class="ic-empty">Sem concorrentes mapeados nesta base ainda.</div>
+            </div>
+          </details>
+          <details class="ic-item pf-item" data-ean="7891165011993">
+            <summary>
+              <span class="pf-dot off"></span>
+              <span class="pf-img"><img src="https://lalist-product-images-ue1.s3.amazonaws.com/7891165011993_0-d5580ea3-eb44-42cc-9c26-3d84209c3667.png" alt="Óleo Motor Ipiranga 2T STL 500ML" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('none');this.parentNode.innerHTML='<i>sem foto</i>'"></span>
+              <span class="ic-name">Óleo Motor Ipiranga 2T STL 500ML</span>
+              <span class="ic-ean">7891165011993</span>
+              <span class="pf-brand">Ipiranga</span>
+              <span class="pf-price">—</span>
+              <span class="pf-price">R$ 38,47</span>
+              <span class="ic-verdict nd">Sem benchmark</span>
+              <span class="ic-arrow">▾</span>
+            </summary>
+            <div class="ic-body">
+              <div class="ic-sub">Nosso produto</div>
+              <div class="ic-own-grid">
+                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
+                <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
+              </div>
+              <div class="ic-sub">Outros canais</div>
+              <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
+              <div class="ic-sub">Concorrentes</div>
+              <div class="ic-empty">Sem concorrentes mapeados nesta base ainda.</div>
+            </div>
+          </details>
+          <details class="ic-item pf-item" data-ean="7891165011122">
+            <summary>
+              <span class="pf-dot off"></span>
+              <span class="pf-img none"><i>sem foto</i></span>
+              <span class="ic-name">Óleo Motor Ipiranga F1 Master Performance 15W40 SL 4L</span>
+              <span class="ic-ean">7891165011122</span>
+              <span class="pf-brand">Ipiranga</span>
+              <span class="pf-price">—</span>
+              <span class="pf-price">R$ 150,77</span>
+              <span class="ic-verdict nd">Sem benchmark</span>
+              <span class="ic-arrow">▾</span>
+            </summary>
+            <div class="ic-body">
+              <div class="ic-sub">Nosso produto</div>
+              <div class="ic-own-grid">
+                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
+                <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
+              </div>
+              <div class="ic-sub">Outros canais</div>
+              <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
+              <div class="ic-sub">Concorrentes</div>
+              <div class="ic-empty">Sem concorrentes mapeados nesta base ainda.</div>
+            </div>
+          </details>
+          <details class="ic-item pf-item" data-ean="7891165011092">
+            <summary>
+              <span class="pf-dot off"></span>
+              <span class="pf-img none"><i>sem foto</i></span>
+              <span class="ic-name">Óleo Motor Ipiranga F1 Master Proteção 20W50 SL 4L</span>
+              <span class="ic-ean">7891165011092</span>
+              <span class="pf-brand">Ipiranga</span>
+              <span class="pf-price">—</span>
+              <span class="pf-price">R$ 142,39</span>
+              <span class="ic-verdict nd">Sem benchmark</span>
+              <span class="ic-arrow">▾</span>
+            </summary>
+            <div class="ic-body">
+              <div class="ic-sub">Nosso produto</div>
+              <div class="ic-own-grid">
+                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
+                <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
+              </div>
+              <div class="ic-sub">Outros canais</div>
+              <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
+              <div class="ic-sub">Concorrentes</div>
+              <div class="ic-empty">Sem concorrentes mapeados nesta base ainda.</div>
+            </div>
+          </details>
+          <details class="ic-item pf-item" data-ean="7891165012945">
+            <summary>
+              <span class="pf-dot off"></span>
+              <span class="pf-img none"><i>sem foto</i></span>
+              <span class="ic-name">Óleo Motor Ipiranga F1 Master Sintético 0W20 SQ 1L</span>
+              <span class="ic-ean">7891165012945</span>
+              <span class="pf-brand">Ipiranga</span>
+              <span class="pf-price">—</span>
+              <span class="pf-price">R$ 50,20</span>
+              <span class="ic-verdict nd">Sem benchmark</span>
+              <span class="ic-arrow">▾</span>
+            </summary>
+            <div class="ic-body">
+              <div class="ic-sub">Nosso produto</div>
+              <div class="ic-own-grid">
+                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
+                <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
+              </div>
+              <div class="ic-sub">Outros canais</div>
+              <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
+              <div class="ic-sub">Concorrentes</div>
+              <div class="ic-empty">Sem concorrentes mapeados nesta base ainda.</div>
+            </div>
+          </details>
+          <details class="ic-item pf-item" data-ean="7891165012921">
+            <summary>
+              <span class="pf-dot off"></span>
+              <span class="pf-img none"><i>sem foto</i></span>
+              <span class="ic-name">Óleo Motor Ipiranga F1 Master Sintético 5W30 SQ 4L</span>
+              <span class="ic-ean">7891165012921</span>
+              <span class="pf-brand">Ipiranga</span>
+              <span class="pf-price">—</span>
+              <span class="pf-price">R$ 226,20</span>
+              <span class="ic-verdict nd">Sem benchmark</span>
+              <span class="ic-arrow">▾</span>
+            </summary>
+            <div class="ic-body">
+              <div class="ic-sub">Nosso produto</div>
+              <div class="ic-own-grid">
+                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
+                <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
+              </div>
+              <div class="ic-sub">Outros canais</div>
+              <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
+              <div class="ic-sub">Concorrentes</div>
+              <div class="ic-empty">Sem concorrentes mapeados nesta base ainda.</div>
+            </div>
+          </details>
+          <details class="ic-item pf-item" data-ean="7891165011764">
+            <summary>
+              <span class="pf-dot off"></span>
+              <span class="pf-img none"><i>sem foto</i></span>
+              <span class="ic-name">Óleo Motor Ipiranga F1 Master Sintético C2 0W30 1L</span>
+              <span class="ic-ean">7891165011764</span>
+              <span class="pf-brand">Ipiranga</span>
+              <span class="pf-price">—</span>
+              <span class="pf-price">R$ 66,96</span>
+              <span class="ic-verdict nd">Sem benchmark</span>
+              <span class="ic-arrow">▾</span>
+            </summary>
+            <div class="ic-body">
+              <div class="ic-sub">Nosso produto</div>
+              <div class="ic-own-grid">
+                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
+                <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
+              </div>
+              <div class="ic-sub">Outros canais</div>
+              <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
+              <div class="ic-sub">Concorrentes</div>
+              <div class="compare-grid">
           <div class="compare-chip own empty"><span>Texaco</span>Sem equivalente</div>
           <div class="compare-chip"><span>Mobil</span>Mobil Super 0W-30 Sintético<div class="chip-prices"><span class="chip-price price-med">Méd R$ 70,72</span><span class="chip-price price-min">Mín R$ 66,80</span></div></div>
           <div class="compare-chip empty"><span>Vibra</span>Sem equivalente</div>
@@ -3032,31 +3055,37 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
           <div class="compare-chip empty"><span>Castrol</span>Sem equivalente</div>
           <div class="compare-chip empty"><span>YPF</span>Sem equivalente</div>
         </div>
-        </div>
-      </details>
-      <details class="ic-item" data-ean="7896587320975">
-        <summary>
-          <span class="ic-st inativo">Inativo</span>
-          <span class="ic-name">Óleo Motor Marítimo Ipiranga Marina 2T Plus 1L</span>
-          <span class="ic-ean">7896587320975</span>
-          <span class="ic-own">Nosso preço <b class="ic-own-val">—</b></span>
-          <span class="ic-verdict nd">Sem benchmark</span>
-          <span class="ic-arrow">▾</span>
-        </summary>
-        <div class="ic-body">
-          <div class="ic-sub">Nosso produto</div>
-          <div class="ic-own-grid">
-            <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-            <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
-          </div>
-          <div class="ic-sub">Outros canais</div>
-          <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
-          <div class="ic-sub">Concorrentes</div>
-          <div class="ic-empty">Sem concorrentes mapeados nesta base ainda.</div>
-        </div>
-      </details>
-    </div>
+            </div>
+          </details>
+          <details class="ic-item pf-item" data-ean="7896587320975">
+            <summary>
+              <span class="pf-dot off"></span>
+              <span class="pf-img"><img src="https://lalist-product-images-ue1.s3.amazonaws.com/7896587320975_0-355c3ee4-353b-4237-92e0-84825474dd4d.png" alt="Óleo Motor Marítimo Ipiranga Marina 2T Plus 1L" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('none');this.parentNode.innerHTML='<i>sem foto</i>'"></span>
+              <span class="ic-name">Óleo Motor Marítimo Ipiranga Marina 2T Plus 1L</span>
+              <span class="ic-ean">7896587320975</span>
+              <span class="pf-brand">Ipiranga</span>
+              <span class="pf-price">—</span>
+              <span class="pf-price">R$ 38,47</span>
+              <span class="ic-verdict nd">Sem benchmark</span>
+              <span class="ic-arrow">▾</span>
+            </summary>
+            <div class="ic-body">
+              <div class="ic-sub">Nosso produto</div>
+              <div class="ic-own-grid">
+                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
+                <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
+              </div>
+              <div class="ic-sub">Outros canais</div>
+              <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
+              <div class="ic-sub">Concorrentes</div>
+              <div class="ic-empty">Sem concorrentes mapeados nesta base ainda.</div>
+            </div>
+          </details>
 
+        </details>
+      </div>
+      <p class="pf-note">Preço médio = GMV válido ÷ unidades vendidas no período. Repasse e imagens vêm do cadastro (Godmode). Competitividade = nosso preço de ativação contra a média dos canais; sem canais preenchidos, aparece "sem benchmark". Cruzamento por EAN.</p>
+    </div>
   </div>
 
   </div>
