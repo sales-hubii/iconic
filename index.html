@@ -1730,7 +1730,7 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
 .pf-main{padding:18px 20px}
 .pf-listhead,.pf-item summary{display:grid;grid-template-columns:10px 44px minmax(0,1fr) 116px 90px 100px 100px 150px 14px;gap:14px;align-items:center}
 .pf-listhead{padding:0 4px 8px;border-bottom:1px solid var(--line-2);font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--potencial);margin-top:16px}
-.pf-listhead .pf-price{text-align:right}
+.pf-listhead .pf-price{text-align:right;font-size:10.5px;font-weight:500;color:var(--potencial);font-family:'IBM Plex Mono',monospace;letter-spacing:.06em;text-transform:uppercase}
 .pf-item{border-bottom:1px solid var(--line)}
 .pf-item summary{cursor:pointer;list-style:none;padding:10px 4px}
 .pf-item summary::-webkit-details-marker{display:none}
@@ -1763,6 +1763,29 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
 .pf-inact[open] summary{border-bottom:1px solid var(--line)}
 .pf-inact .pf-item:last-child{border-bottom:0}
 .pf-inact .pf-item{padding:0 10px}
+
+/* referência de anúncio e índice de competitividade */
+.cmp-ref{margin-top:8px;padding-top:8px;border-top:1px solid var(--line)}
+.cmp-ref-l{display:block;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--potencial)}
+.cmp-ref-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:4px}
+.cmp-ref-row b{font-size:13px;font-weight:600;color:var(--ink);font-variant-numeric:tabular-nums}
+.cmp-tag{font-style:normal;font-size:10.5px;font-weight:500;padding:2px 8px;border-radius:999px;line-height:1.4}
+.cmp-tag.ok{background:var(--foco-bg);color:var(--foco)}
+.cmp-tag.no{background:#fbe7ec;color:#b3435c}
+.cmp-idx{display:block;width:100%;font-size:10.5px;color:var(--ink-soft);margin-top:3px}
+.ic-own-grid.one{grid-template-columns:minmax(0,320px)}
+
+/* ATAS: leitura mais leve e compacta (modal e lista de atas anteriores) */
+.ata-section,.ata-old-body{font-size:13px;font-weight:400;line-height:1.5;color:var(--ink-2)}
+.ata-section-label{font-family:'IBM Plex Mono',monospace;font-size:10.5px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;color:var(--purple-deep);margin:0 0 6px}
+.ata-section ul,.ata-old-body ul{list-style:none;margin:0 0 4px 0;padding:0}
+.ata-section li,.ata-old-body li{position:relative;padding-left:14px;margin:4px 0;font-size:13px;font-weight:400;line-height:1.5;color:var(--ink-2)}
+.ata-section li::before,.ata-old-body li::before{content:'—';position:absolute;left:0;top:0;color:var(--purple);font-weight:400}
+.ata-section + .ata-section{margin-top:16px}
+.ata-old-body{padding-left:0}
+.ata-old-body ul{margin-left:0}
+.ata-old-body .ata-section{margin-bottom:12px}
+.modal-box .ata-section p,.ata-old-body p{font-size:13px;font-weight:400;line-height:1.5}
 </style>
 </head>
 <body>
@@ -1922,7 +1945,7 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
 
   <!-- PORTFÓLIO -->
   <div class="tab-panel" id="panel-portfolio">
-    <div class="section-label first">SKUs</div>
+    <div class="section-label first">SKUs · pricing atualizado em 09/10/2026</div>
     <div class="panel pf-main">
       <div class="pf-stats">
         <div class="pf-stat"><b>44</b><span>SKUs cadastrados</span></div>
@@ -1949,21 +1972,20 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
             </summary>
             <div class="ic-body">
               <div class="ic-sub">Nosso produto</div>
-              <div class="ic-own-grid">
-                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-                <div class="ic-card"><span>Preço médio realizado</span><b>R$ 29,90</b><small>GMV ÷ unidades · set–out/26</small></div>
+              <div class="ic-own-grid one">
+                <div class="ic-card"><span>Preço médio de venda</span><b class="ic-own-val">R$ 29,90</b><small>GMV ÷ unidades · set–out/26</small></div>
               </div>
               <div class="ic-sub">Outros canais</div>
               <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
               <div class="ic-sub">Concorrentes</div>
               <div class="compare-grid">
-          <div class="compare-chip own"><span>Texaco</span>Havoline Semissint SL 15W40<div class="chip-prices"><span class="chip-price price-med">Méd R$ 36,48</span><span class="chip-price price-min">Mín R$ 31,90</span></div></div>
-          <div class="compare-chip"><span>Mobil</span>Mobil Super 15W40 Semissintético<div class="chip-prices"><span class="chip-price price-med">Méd R$ 35,03</span><span class="chip-price price-min">Mín R$ 33,99</span></div></div>
-          <div class="compare-chip"><span>Vibra</span>Lubrax Tecno SL<div class="chip-prices"><span class="chip-price price-med">Méd R$ 26,91</span><span class="chip-price price-min">Mín R$ 22,85</span></div></div>
-          <div class="compare-chip"><span>Petronas</span>Petronas Syntium 800 AM 15W-40<div class="chip-prices"><span class="chip-price price-med">Méd R$ 44,28</span><span class="chip-price price-min">Mín R$ 44,28</span></div></div>
-          <div class="compare-chip"><span>Shell</span>Shell Helix HX6 Flex 15W40<div class="chip-prices"><span class="chip-price price-med">Méd R$ 43,46</span><span class="chip-price price-min">Mín R$ 34,92</span></div></div>
-          <div class="compare-chip"><span>Castrol</span>Castrol GTX Ultraclean 15W-40<div class="chip-prices"><span class="chip-price price-med">Méd R$ 34,92</span><span class="chip-price price-min">Mín R$ 34,92</span></div></div>
-          <div class="compare-chip"><span>YPF</span>Elaion MI 1540<div class="chip-prices"><span class="chip-price price-med">Méd R$ 44,80</span><span class="chip-price price-min">Mín R$ 42,00</span></div></div>
+          <div class="compare-chip own"><span>Texaco</span>Havoline Semissint SL 15W40<div class="cmp-ref"><span class="cmp-ref-l">Anúncio referência</span><div class="cmp-ref-row"><b>R$ 31,90</b><em class="cmp-tag ok">Competitivo</em><small class="cmp-idx">índice 94 · 6% abaixo</small></div></div></div>
+          <div class="compare-chip"><span>Mobil</span>Mobil Super 15W40 Semissintético<div class="cmp-ref"><span class="cmp-ref-l">Anúncio referência</span><div class="cmp-ref-row"><b>R$ 33,99</b><em class="cmp-tag ok">Competitivo</em><small class="cmp-idx">índice 88 · 12% abaixo</small></div></div></div>
+          <div class="compare-chip"><span>Vibra</span>Lubrax Tecno SL<div class="cmp-ref"><span class="cmp-ref-l">Anúncio referência</span><div class="cmp-ref-row"><b>R$ 22,85</b><em class="cmp-tag no">Não competitivo</em><small class="cmp-idx">índice 131 · 31% acima</small></div></div></div>
+          <div class="compare-chip"><span>Petronas</span>Petronas Syntium 800 AM 15W-40<div class="cmp-ref"><span class="cmp-ref-l">Anúncio referência</span><div class="cmp-ref-row"><b>R$ 44,28</b><em class="cmp-tag ok">Competitivo</em><small class="cmp-idx">índice 68 · 32% abaixo</small></div></div></div>
+          <div class="compare-chip"><span>Shell</span>Shell Helix HX6 Flex 15W40<div class="cmp-ref"><span class="cmp-ref-l">Anúncio referência</span><div class="cmp-ref-row"><b>R$ 34,92</b><em class="cmp-tag ok">Competitivo</em><small class="cmp-idx">índice 86 · 14% abaixo</small></div></div></div>
+          <div class="compare-chip"><span>Castrol</span>Castrol GTX Ultraclean 15W-40<div class="cmp-ref"><span class="cmp-ref-l">Anúncio referência</span><div class="cmp-ref-row"><b>R$ 34,92</b><em class="cmp-tag ok">Competitivo</em><small class="cmp-idx">índice 86 · 14% abaixo</small></div></div></div>
+          <div class="compare-chip"><span>YPF</span>Elaion MI 1540<div class="cmp-ref"><span class="cmp-ref-l">Anúncio referência</span><div class="cmp-ref-row"><b>R$ 42,00</b><em class="cmp-tag ok">Competitivo</em><small class="cmp-idx">índice 71 · 29% abaixo</small></div></div></div>
         </div>
             </div>
           </details>
@@ -1981,21 +2003,20 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
             </summary>
             <div class="ic-body">
               <div class="ic-sub">Nosso produto</div>
-              <div class="ic-own-grid">
-                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-                <div class="ic-card"><span>Preço médio realizado</span><b>R$ 27,37</b><small>GMV ÷ unidades · set–out/26</small></div>
+              <div class="ic-own-grid one">
+                <div class="ic-card"><span>Preço médio de venda</span><b class="ic-own-val">R$ 27,37</b><small>GMV ÷ unidades · set–out/26</small></div>
               </div>
               <div class="ic-sub">Outros canais</div>
               <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
               <div class="ic-sub">Concorrentes</div>
               <div class="compare-grid">
-          <div class="compare-chip own"><span>Texaco</span>Havoline Superior SL SAE 20W50<div class="chip-prices"><span class="chip-price price-med">Méd R$ 32,80</span><span class="chip-price price-min">Mín R$ 27,45</span></div></div>
-          <div class="compare-chip"><span>Mobil</span>Mobil Super 20W50 Mineral<div class="chip-prices"><span class="chip-price price-med">Méd R$ 30,36</span><span class="chip-price price-min">Mín R$ 21,60</span></div></div>
-          <div class="compare-chip"><span>Vibra</span>Lubrax Essencial SL<div class="chip-prices"><span class="chip-price price-med">Méd R$ 34,88</span><span class="chip-price price-min">Mín R$ 28,96</span></div></div>
-          <div class="compare-chip"><span>Petronas</span>Petronas Syntium 300 20W-50<div class="chip-prices"><span class="chip-price price-med">Méd R$ 23,61</span><span class="chip-price price-min">Mín R$ 22,36</span></div></div>
-          <div class="compare-chip"><span>Shell</span>Shell Helix HX3 20W50<div class="chip-prices"><span class="chip-price price-med">Méd R$ 31,58</span><span class="chip-price price-min">Mín R$ 31,58</span></div></div>
-          <div class="compare-chip"><span>Castrol</span>Castrol GTX 20W-50<div class="chip-prices"><span class="chip-price price-med">Méd R$ 31,91</span><span class="chip-price price-min">Mín R$ 31,91</span></div></div>
-          <div class="compare-chip"><span>YPF</span>Elaion MI 2050<div class="chip-prices"><span class="chip-price price-med">Méd R$ 38,76</span><span class="chip-price price-min">Mín R$ 35,90</span></div></div>
+          <div class="compare-chip own"><span>Texaco</span>Havoline Superior SL SAE 20W50<div class="cmp-ref"><span class="cmp-ref-l">Anúncio referência</span><div class="cmp-ref-row"><b>R$ 27,45</b><em class="cmp-tag ok">Competitivo</em><small class="cmp-idx">índice 100 · 0% abaixo</small></div></div></div>
+          <div class="compare-chip"><span>Mobil</span>Mobil Super 20W50 Mineral<div class="cmp-ref"><span class="cmp-ref-l">Anúncio referência</span><div class="cmp-ref-row"><b>R$ 21,60</b><em class="cmp-tag no">Não competitivo</em><small class="cmp-idx">índice 127 · 27% acima</small></div></div></div>
+          <div class="compare-chip"><span>Vibra</span>Lubrax Essencial SL<div class="cmp-ref"><span class="cmp-ref-l">Anúncio referência</span><div class="cmp-ref-row"><b>R$ 28,96</b><em class="cmp-tag ok">Competitivo</em><small class="cmp-idx">índice 95 · 5% abaixo</small></div></div></div>
+          <div class="compare-chip"><span>Petronas</span>Petronas Syntium 300 20W-50<div class="cmp-ref"><span class="cmp-ref-l">Anúncio referência</span><div class="cmp-ref-row"><b>R$ 22,36</b><em class="cmp-tag no">Não competitivo</em><small class="cmp-idx">índice 122 · 22% acima</small></div></div></div>
+          <div class="compare-chip"><span>Shell</span>Shell Helix HX3 20W50<div class="cmp-ref"><span class="cmp-ref-l">Anúncio referência</span><div class="cmp-ref-row"><b>R$ 31,58</b><em class="cmp-tag ok">Competitivo</em><small class="cmp-idx">índice 87 · 13% abaixo</small></div></div></div>
+          <div class="compare-chip"><span>Castrol</span>Castrol GTX 20W-50<div class="cmp-ref"><span class="cmp-ref-l">Anúncio referência</span><div class="cmp-ref-row"><b>R$ 31,91</b><em class="cmp-tag ok">Competitivo</em><small class="cmp-idx">índice 86 · 14% abaixo</small></div></div></div>
+          <div class="compare-chip"><span>YPF</span>Elaion MI 2050<div class="cmp-ref"><span class="cmp-ref-l">Anúncio referência</span><div class="cmp-ref-row"><b>R$ 35,90</b><em class="cmp-tag ok">Competitivo</em><small class="cmp-idx">índice 76 · 24% abaixo</small></div></div></div>
         </div>
             </div>
           </details>
@@ -2013,21 +2034,20 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
             </summary>
             <div class="ic-body">
               <div class="ic-sub">Nosso produto</div>
-              <div class="ic-own-grid">
-                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-                <div class="ic-card"><span>Preço médio realizado</span><b>R$ 34,71</b><small>GMV ÷ unidades · set–out/26</small></div>
+              <div class="ic-own-grid one">
+                <div class="ic-card"><span>Preço médio de venda</span><b class="ic-own-val">R$ 34,71</b><small>GMV ÷ unidades · set–out/26</small></div>
               </div>
               <div class="ic-sub">Outros canais</div>
               <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
               <div class="ic-sub">Concorrentes</div>
               <div class="compare-grid">
-          <div class="compare-chip own"><span>Texaco</span>Havoline Prods Fullsyn SQ 5W30<div class="chip-prices"><span class="chip-price price-med">Méd R$ 39,59</span><span class="chip-price price-min">Mín R$ 36,86</span></div></div>
-          <div class="compare-chip"><span>Mobil</span>Mobil Super 5W-30 Sintético D1<div class="chip-prices"><span class="chip-price price-med">Méd R$ 63,05</span><span class="chip-price price-min">Mín R$ 63,05</span></div></div>
-          <div class="compare-chip"><span>Vibra</span>Lubrax Supera Premium 5W-30<div class="chip-prices"><span class="chip-price price-med">Méd R$ 50,38</span><span class="chip-price price-min">Mín R$ 50,38</span></div></div>
-          <div class="compare-chip"><span>Petronas</span>Petronas Syntium 3000 AM 5W-30 SP<div class="chip-prices"><span class="chip-price price-med">Méd R$ 44,35</span><span class="chip-price price-min">Mín R$ 39,42</span></div></div>
-          <div class="compare-chip"><span>Shell</span>Shell Helix HX8 SP 5W30<div class="chip-prices"><span class="chip-price price-med">Méd R$ 55,97</span><span class="chip-price price-min">Mín R$ 41,90</span></div></div>
-          <div class="compare-chip"><span>Castrol</span>Magnatec 5W-30<div class="chip-prices"><span class="chip-price price-med">Méd R$ 52,28</span><span class="chip-price price-min">Mín R$ 52,28</span></div></div>
-          <div class="compare-chip"><span>YPF</span>Elaion FS 530<div class="chip-prices"><span class="chip-price price-med">Méd R$ 50,00</span><span class="chip-price price-min">Mín R$ 44,98</span></div></div>
+          <div class="compare-chip own"><span>Texaco</span>Havoline Prods Fullsyn SQ 5W30<div class="cmp-ref"><span class="cmp-ref-l">Anúncio referência</span><div class="cmp-ref-row"><b>R$ 36,86</b><em class="cmp-tag ok">Competitivo</em><small class="cmp-idx">índice 94 · 6% abaixo</small></div></div></div>
+          <div class="compare-chip"><span>Mobil</span>Mobil Super 5W-30 Sintético D1<div class="cmp-ref"><span class="cmp-ref-l">Anúncio referência</span><div class="cmp-ref-row"><b>R$ 63,05</b><em class="cmp-tag ok">Competitivo</em><small class="cmp-idx">índice 55 · 45% abaixo</small></div></div></div>
+          <div class="compare-chip"><span>Vibra</span>Lubrax Supera Premium 5W-30<div class="cmp-ref"><span class="cmp-ref-l">Anúncio referência</span><div class="cmp-ref-row"><b>R$ 50,38</b><em class="cmp-tag ok">Competitivo</em><small class="cmp-idx">índice 69 · 31% abaixo</small></div></div></div>
+          <div class="compare-chip"><span>Petronas</span>Petronas Syntium 3000 AM 5W-30 SP<div class="cmp-ref"><span class="cmp-ref-l">Anúncio referência</span><div class="cmp-ref-row"><b>R$ 39,42</b><em class="cmp-tag ok">Competitivo</em><small class="cmp-idx">índice 88 · 12% abaixo</small></div></div></div>
+          <div class="compare-chip"><span>Shell</span>Shell Helix HX8 SP 5W30<div class="cmp-ref"><span class="cmp-ref-l">Anúncio referência</span><div class="cmp-ref-row"><b>R$ 41,90</b><em class="cmp-tag ok">Competitivo</em><small class="cmp-idx">índice 83 · 17% abaixo</small></div></div></div>
+          <div class="compare-chip"><span>Castrol</span>Magnatec 5W-30<div class="cmp-ref"><span class="cmp-ref-l">Anúncio referência</span><div class="cmp-ref-row"><b>R$ 52,28</b><em class="cmp-tag ok">Competitivo</em><small class="cmp-idx">índice 66 · 34% abaixo</small></div></div></div>
+          <div class="compare-chip"><span>YPF</span>Elaion FS 530<div class="cmp-ref"><span class="cmp-ref-l">Anúncio referência</span><div class="cmp-ref-row"><b>R$ 44,98</b><em class="cmp-tag ok">Competitivo</em><small class="cmp-idx">índice 77 · 23% abaixo</small></div></div></div>
         </div>
             </div>
           </details>
@@ -2045,21 +2065,20 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
             </summary>
             <div class="ic-body">
               <div class="ic-sub">Nosso produto</div>
-              <div class="ic-own-grid">
-                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-                <div class="ic-card"><span>Preço médio realizado</span><b>R$ 45,68</b><small>GMV ÷ unidades · set–out/26</small></div>
+              <div class="ic-own-grid one">
+                <div class="ic-card"><span>Preço médio de venda</span><b class="ic-own-val">R$ 45,68</b><small>GMV ÷ unidades · set–out/26</small></div>
               </div>
               <div class="ic-sub">Outros canais</div>
               <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
               <div class="ic-sub">Concorrentes</div>
               <div class="compare-grid">
-          <div class="compare-chip own"><span>Texaco</span>Havoline Ultra W SAE 5W40<div class="chip-prices"><span class="chip-price price-med">Méd R$ 68,56</span><span class="chip-price price-min">Mín R$ 39,90</span></div></div>
-          <div class="compare-chip"><span>Mobil</span>Mobil Super 5W40 Sintético<div class="chip-prices"><span class="chip-price price-med">Méd R$ 63,46</span><span class="chip-price price-min">Mín R$ 49,55</span></div></div>
-          <div class="compare-chip"><span>Vibra</span>Lubrax Supera Flex<div class="chip-prices"><span class="chip-price price-med">Méd R$ 83,30</span><span class="chip-price price-min">Mín R$ 83,30</span></div></div>
-          <div class="compare-chip"><span>Petronas</span>Petronas Syntium 3000 BV 5W40<div class="chip-prices"><span class="chip-price price-med">Méd R$ 67,37</span><span class="chip-price price-min">Mín R$ 62,64</span></div></div>
-          <div class="compare-chip"><span>Shell</span>Shell Helix HX8 Professional AV 5W40<div class="chip-prices"><span class="chip-price price-med">Méd R$ 77,23</span><span class="chip-price price-min">Mín R$ 69,57</span></div></div>
-          <div class="compare-chip"><span>Castrol</span>Castrol Magnatec 5W-40<div class="chip-prices"><span class="chip-price price-med">Méd R$ 67,70</span><span class="chip-price price-min">Mín R$ 64,50</span></div></div>
-          <div class="compare-chip"><span>YPF</span>Elaion Auro Plus 540<div class="chip-prices"><span class="chip-price price-med">Méd R$ 45,76</span><span class="chip-price price-min">Mín R$ 44,90</span></div></div>
+          <div class="compare-chip own"><span>Texaco</span>Havoline Ultra W SAE 5W40<div class="cmp-ref"><span class="cmp-ref-l">Anúncio referência</span><div class="cmp-ref-row"><b>R$ 39,90</b><em class="cmp-tag no">Não competitivo</em><small class="cmp-idx">índice 114 · 14% acima</small></div></div></div>
+          <div class="compare-chip"><span>Mobil</span>Mobil Super 5W40 Sintético<div class="cmp-ref"><span class="cmp-ref-l">Anúncio referência</span><div class="cmp-ref-row"><b>R$ 49,55</b><em class="cmp-tag ok">Competitivo</em><small class="cmp-idx">índice 92 · 8% abaixo</small></div></div></div>
+          <div class="compare-chip"><span>Vibra</span>Lubrax Supera Flex<div class="cmp-ref"><span class="cmp-ref-l">Anúncio referência</span><div class="cmp-ref-row"><b>R$ 83,30</b><em class="cmp-tag ok">Competitivo</em><small class="cmp-idx">índice 55 · 45% abaixo</small></div></div></div>
+          <div class="compare-chip"><span>Petronas</span>Petronas Syntium 3000 BV 5W40<div class="cmp-ref"><span class="cmp-ref-l">Anúncio referência</span><div class="cmp-ref-row"><b>R$ 62,64</b><em class="cmp-tag ok">Competitivo</em><small class="cmp-idx">índice 73 · 27% abaixo</small></div></div></div>
+          <div class="compare-chip"><span>Shell</span>Shell Helix HX8 Professional AV 5W40<div class="cmp-ref"><span class="cmp-ref-l">Anúncio referência</span><div class="cmp-ref-row"><b>R$ 69,57</b><em class="cmp-tag ok">Competitivo</em><small class="cmp-idx">índice 66 · 34% abaixo</small></div></div></div>
+          <div class="compare-chip"><span>Castrol</span>Castrol Magnatec 5W-40<div class="cmp-ref"><span class="cmp-ref-l">Anúncio referência</span><div class="cmp-ref-row"><b>R$ 64,50</b><em class="cmp-tag ok">Competitivo</em><small class="cmp-idx">índice 71 · 29% abaixo</small></div></div></div>
+          <div class="compare-chip"><span>YPF</span>Elaion Auro Plus 540<div class="cmp-ref"><span class="cmp-ref-l">Anúncio referência</span><div class="cmp-ref-row"><b>R$ 44,90</b><em class="cmp-tag no">Não competitivo</em><small class="cmp-idx">índice 102 · 2% acima</small></div></div></div>
         </div>
             </div>
           </details>
@@ -2077,21 +2096,20 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
             </summary>
             <div class="ic-body">
               <div class="ic-sub">Nosso produto</div>
-              <div class="ic-own-grid">
-                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-                <div class="ic-card"><span>Preço médio realizado</span><b>R$ 38,27</b><small>GMV ÷ unidades · set–out/26</small></div>
+              <div class="ic-own-grid one">
+                <div class="ic-card"><span>Preço médio de venda</span><b class="ic-own-val">R$ 38,27</b><small>GMV ÷ unidades · set–out/26</small></div>
               </div>
               <div class="ic-sub">Outros canais</div>
               <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
               <div class="ic-sub">Concorrentes</div>
               <div class="compare-grid">
-          <div class="compare-chip own"><span>Texaco</span>Havoline 4T Semissint 10W30<div class="chip-prices"><span class="chip-price price-med">Méd R$ 39,26</span><span class="chip-price price-min">Mín R$ 28,00</span></div></div>
-          <div class="compare-chip"><span>Mobil</span>Mobil Super Moto 10W30 MX<div class="chip-prices"><span class="chip-price price-med">Méd R$ 51,87</span><span class="chip-price price-min">Mín R$ 33,83</span></div></div>
-          <div class="compare-chip"><span>Vibra</span>Lubrax Moto 4T Profissional 10W-30<div class="chip-prices"><span class="chip-price price-med">Méd R$ 42,81</span><span class="chip-price price-min">Mín R$ 38,54</span></div></div>
-          <div class="compare-chip"><span>Petronas</span>Petronas Sprinta F500 10W30<div class="chip-prices"><span class="chip-price price-med">Méd R$ 41,40</span><span class="chip-price price-min">Mín R$ 36,90</span></div></div>
-          <div class="compare-chip"><span>Shell</span>Shell Advance 4T AX7<div class="chip-prices"><span class="chip-price price-med">Méd R$ 45,28</span><span class="chip-price price-min">Mín R$ 39,90</span></div></div>
-          <div class="compare-chip"><span>Castrol</span>Actevo Stop-Start 4T 10W-30<div class="chip-prices"><span class="chip-price price-med">Méd R$ 52,27</span><span class="chip-price price-min">Mín R$ 46,93</span></div></div>
-          <div class="compare-chip"><span>YPF</span>Rod 4T 10W30<div class="chip-prices"><span class="chip-price price-med">Méd R$ 60,67</span><span class="chip-price price-min">Mín R$ 56,34</span></div></div>
+          <div class="compare-chip own"><span>Texaco</span>Havoline 4T Semissint 10W30<div class="cmp-ref"><span class="cmp-ref-l">Anúncio referência</span><div class="cmp-ref-row"><b>R$ 28,00</b><em class="cmp-tag no">Não competitivo</em><small class="cmp-idx">índice 137 · 37% acima</small></div></div></div>
+          <div class="compare-chip"><span>Mobil</span>Mobil Super Moto 10W30 MX<div class="cmp-ref"><span class="cmp-ref-l">Anúncio referência</span><div class="cmp-ref-row"><b>R$ 33,83</b><em class="cmp-tag no">Não competitivo</em><small class="cmp-idx">índice 113 · 13% acima</small></div></div></div>
+          <div class="compare-chip"><span>Vibra</span>Lubrax Moto 4T Profissional 10W-30<div class="cmp-ref"><span class="cmp-ref-l">Anúncio referência</span><div class="cmp-ref-row"><b>R$ 38,54</b><em class="cmp-tag ok">Competitivo</em><small class="cmp-idx">índice 99 · 1% abaixo</small></div></div></div>
+          <div class="compare-chip"><span>Petronas</span>Petronas Sprinta F500 10W30<div class="cmp-ref"><span class="cmp-ref-l">Anúncio referência</span><div class="cmp-ref-row"><b>R$ 36,90</b><em class="cmp-tag no">Não competitivo</em><small class="cmp-idx">índice 104 · 4% acima</small></div></div></div>
+          <div class="compare-chip"><span>Shell</span>Shell Advance 4T AX7<div class="cmp-ref"><span class="cmp-ref-l">Anúncio referência</span><div class="cmp-ref-row"><b>R$ 39,90</b><em class="cmp-tag ok">Competitivo</em><small class="cmp-idx">índice 96 · 4% abaixo</small></div></div></div>
+          <div class="compare-chip"><span>Castrol</span>Actevo Stop-Start 4T 10W-30<div class="cmp-ref"><span class="cmp-ref-l">Anúncio referência</span><div class="cmp-ref-row"><b>R$ 46,93</b><em class="cmp-tag ok">Competitivo</em><small class="cmp-idx">índice 82 · 18% abaixo</small></div></div></div>
+          <div class="compare-chip"><span>YPF</span>Rod 4T 10W30<div class="cmp-ref"><span class="cmp-ref-l">Anúncio referência</span><div class="cmp-ref-row"><b>R$ 56,34</b><em class="cmp-tag ok">Competitivo</em><small class="cmp-idx">índice 68 · 32% abaixo</small></div></div></div>
         </div>
             </div>
           </details>
@@ -2109,9 +2127,8 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
             </summary>
             <div class="ic-body">
               <div class="ic-sub">Nosso produto</div>
-              <div class="ic-own-grid">
-                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-                <div class="ic-card"><span>Preço médio realizado</span><b>R$ 29,27</b><small>GMV ÷ unidades · set–out/26</small></div>
+              <div class="ic-own-grid one">
+                <div class="ic-card"><span>Preço médio de venda</span><b class="ic-own-val">R$ 29,27</b><small>GMV ÷ unidades · set–out/26</small></div>
               </div>
               <div class="ic-sub">Outros canais</div>
               <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
@@ -2133,20 +2150,19 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
             </summary>
             <div class="ic-body">
               <div class="ic-sub">Nosso produto</div>
-              <div class="ic-own-grid">
-                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-                <div class="ic-card"><span>Preço médio realizado</span><b>R$ 32,86</b><small>GMV ÷ unidades · set–out/26</small></div>
+              <div class="ic-own-grid one">
+                <div class="ic-card"><span>Preço médio de venda</span><b class="ic-own-val">R$ 32,86</b><small>GMV ÷ unidades · set–out/26</small></div>
               </div>
               <div class="ic-sub">Outros canais</div>
               <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
               <div class="ic-sub">Concorrentes</div>
               <div class="compare-grid">
-          <div class="compare-chip own"><span>Texaco</span>Havoline 4T SAE 20W50<div class="chip-prices"><span class="chip-price price-med">Méd R$ 39,90</span><span class="chip-price price-min">Mín R$ 39,90</span></div></div>
-          <div class="compare-chip"><span>Mobil</span>Mobil Super Moto 4T 20W50<div class="chip-prices"><span class="chip-price price-med">Méd R$ 36,76</span><span class="chip-price price-min">Mín R$ 36,76</span></div></div>
-          <div class="compare-chip"><span>Vibra</span>Lubrax Moto 4T<div class="chip-prices"><span class="chip-price price-med">Méd R$ 29,19</span><span class="chip-price price-min">Mín R$ 24,70</span></div></div>
-          <div class="compare-chip"><span>Petronas</span>Petronas Sprinta F300 20W50 API SL<div class="chip-prices"><span class="chip-price price-med">Méd R$ 25,70</span><span class="chip-price price-min">Mín R$ 22,95</span></div></div>
-          <div class="compare-chip"><span>Shell</span>Shell Advance AX5<div class="chip-prices"><span class="chip-price price-med">Méd R$ 33,15</span><span class="chip-price price-min">Mín R$ 31,03</span></div></div>
-          <div class="compare-chip"><span>Castrol</span>Actevo Essential 4T 20W50<div class="chip-prices"><span class="chip-price price-med">Méd R$ 30,21</span><span class="chip-price price-min">Mín R$ 28,49</span></div></div>
+          <div class="compare-chip own"><span>Texaco</span>Havoline 4T SAE 20W50<div class="cmp-ref"><span class="cmp-ref-l">Anúncio referência</span><div class="cmp-ref-row"><b>R$ 39,90</b><em class="cmp-tag ok">Competitivo</em><small class="cmp-idx">índice 82 · 18% abaixo</small></div></div></div>
+          <div class="compare-chip"><span>Mobil</span>Mobil Super Moto 4T 20W50<div class="cmp-ref"><span class="cmp-ref-l">Anúncio referência</span><div class="cmp-ref-row"><b>R$ 36,76</b><em class="cmp-tag ok">Competitivo</em><small class="cmp-idx">índice 89 · 11% abaixo</small></div></div></div>
+          <div class="compare-chip"><span>Vibra</span>Lubrax Moto 4T<div class="cmp-ref"><span class="cmp-ref-l">Anúncio referência</span><div class="cmp-ref-row"><b>R$ 24,70</b><em class="cmp-tag no">Não competitivo</em><small class="cmp-idx">índice 133 · 33% acima</small></div></div></div>
+          <div class="compare-chip"><span>Petronas</span>Petronas Sprinta F300 20W50 API SL<div class="cmp-ref"><span class="cmp-ref-l">Anúncio referência</span><div class="cmp-ref-row"><b>R$ 22,95</b><em class="cmp-tag no">Não competitivo</em><small class="cmp-idx">índice 143 · 43% acima</small></div></div></div>
+          <div class="compare-chip"><span>Shell</span>Shell Advance AX5<div class="cmp-ref"><span class="cmp-ref-l">Anúncio referência</span><div class="cmp-ref-row"><b>R$ 31,03</b><em class="cmp-tag no">Não competitivo</em><small class="cmp-idx">índice 106 · 6% acima</small></div></div></div>
+          <div class="compare-chip"><span>Castrol</span>Actevo Essential 4T 20W50<div class="cmp-ref"><span class="cmp-ref-l">Anúncio referência</span><div class="cmp-ref-row"><b>R$ 28,49</b><em class="cmp-tag no">Não competitivo</em><small class="cmp-idx">índice 115 · 15% acima</small></div></div></div>
           <div class="compare-chip empty"><span>YPF</span>Rod 4T 20W50</div>
         </div>
             </div>
@@ -2165,9 +2181,8 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
             </summary>
             <div class="ic-body">
               <div class="ic-sub">Nosso produto</div>
-              <div class="ic-own-grid">
-                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-                <div class="ic-card"><span>Preço médio realizado</span><b>R$ 38,41</b><small>GMV ÷ unidades · set–out/26</small></div>
+              <div class="ic-own-grid one">
+                <div class="ic-card"><span>Preço médio de venda</span><b class="ic-own-val">R$ 38,41</b><small>GMV ÷ unidades · set–out/26</small></div>
               </div>
               <div class="ic-sub">Outros canais</div>
               <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
@@ -2189,20 +2204,19 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
             </summary>
             <div class="ic-body">
               <div class="ic-sub">Nosso produto</div>
-              <div class="ic-own-grid">
-                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-                <div class="ic-card"><span>Preço médio realizado</span><b>R$ 46,26</b><small>GMV ÷ unidades · set–out/26</small></div>
+              <div class="ic-own-grid one">
+                <div class="ic-card"><span>Preço médio de venda</span><b class="ic-own-val">R$ 46,26</b><small>GMV ÷ unidades · set–out/26</small></div>
               </div>
               <div class="ic-sub">Outros canais</div>
               <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
               <div class="ic-sub">Concorrentes</div>
               <div class="compare-grid">
-          <div class="compare-chip own"><span>Texaco</span>Havoline Prods Fullsyn SP 0W20<div class="chip-prices"><span class="chip-price price-med">Méd R$ 46,82</span><span class="chip-price price-min">Mín R$ 36,00</span></div></div>
-          <div class="compare-chip"><span>Mobil</span>Mobil Super 0W20 Hybrid<div class="chip-prices"><span class="chip-price price-med">Méd R$ 102,17</span><span class="chip-price price-min">Mín R$ 95,30</span></div></div>
-          <div class="compare-chip"><span>Vibra</span>Lubrax Supera Premium 0W-20<div class="chip-prices"><span class="chip-price price-med">Méd R$ 83,04</span><span class="chip-price price-min">Mín R$ 79,99</span></div></div>
-          <div class="compare-chip"><span>Petronas</span>Petronas Syntium Hybrid 0W-20 SP<div class="chip-prices"><span class="chip-price price-med">Méd R$ 53,33</span><span class="chip-price price-min">Mín R$ 47,56</span></div></div>
-          <div class="compare-chip"><span>Shell</span>Shell Helix HX8 Professional AG 0W-20<div class="chip-prices"><span class="chip-price price-med">Méd R$ 50,80</span><span class="chip-price price-min">Mín R$ 46,05</span></div></div>
-          <div class="compare-chip"><span>Castrol</span>Castrol Magnatec 0W-20 DX<div class="chip-prices"><span class="chip-price price-med">Méd R$ 73,65</span><span class="chip-price price-min">Mín R$ 72,78</span></div></div>
+          <div class="compare-chip own"><span>Texaco</span>Havoline Prods Fullsyn SP 0W20<div class="cmp-ref"><span class="cmp-ref-l">Anúncio referência</span><div class="cmp-ref-row"><b>R$ 36,00</b><em class="cmp-tag no">Não competitivo</em><small class="cmp-idx">índice 128 · 28% acima</small></div></div></div>
+          <div class="compare-chip"><span>Mobil</span>Mobil Super 0W20 Hybrid<div class="cmp-ref"><span class="cmp-ref-l">Anúncio referência</span><div class="cmp-ref-row"><b>R$ 95,30</b><em class="cmp-tag ok">Competitivo</em><small class="cmp-idx">índice 49 · 51% abaixo</small></div></div></div>
+          <div class="compare-chip"><span>Vibra</span>Lubrax Supera Premium 0W-20<div class="cmp-ref"><span class="cmp-ref-l">Anúncio referência</span><div class="cmp-ref-row"><b>R$ 79,99</b><em class="cmp-tag ok">Competitivo</em><small class="cmp-idx">índice 58 · 42% abaixo</small></div></div></div>
+          <div class="compare-chip"><span>Petronas</span>Petronas Syntium Hybrid 0W-20 SP<div class="cmp-ref"><span class="cmp-ref-l">Anúncio referência</span><div class="cmp-ref-row"><b>R$ 47,56</b><em class="cmp-tag ok">Competitivo</em><small class="cmp-idx">índice 97 · 3% abaixo</small></div></div></div>
+          <div class="compare-chip"><span>Shell</span>Shell Helix HX8 Professional AG 0W-20<div class="cmp-ref"><span class="cmp-ref-l">Anúncio referência</span><div class="cmp-ref-row"><b>R$ 46,05</b><em class="cmp-tag no">Não competitivo</em><small class="cmp-idx">índice 100 · 0% acima</small></div></div></div>
+          <div class="compare-chip"><span>Castrol</span>Castrol Magnatec 0W-20 DX<div class="cmp-ref"><span class="cmp-ref-l">Anúncio referência</span><div class="cmp-ref-row"><b>R$ 72,78</b><em class="cmp-tag ok">Competitivo</em><small class="cmp-idx">índice 64 · 36% abaixo</small></div></div></div>
           <div class="compare-chip empty"><span>YPF</span>Sem equivalente</div>
         </div>
             </div>
@@ -2221,9 +2235,8 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
             </summary>
             <div class="ic-body">
               <div class="ic-sub">Nosso produto</div>
-              <div class="ic-own-grid">
-                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-                <div class="ic-card"><span>Preço médio realizado</span><b>R$ 20,65</b><small>GMV ÷ unidades · set–out/26</small></div>
+              <div class="ic-own-grid one">
+                <div class="ic-card"><span>Preço médio de venda</span><b class="ic-own-val">R$ 20,65</b><small>GMV ÷ unidades · set–out/26</small></div>
               </div>
               <div class="ic-sub">Outros canais</div>
               <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
@@ -2245,9 +2258,8 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
             </summary>
             <div class="ic-body">
               <div class="ic-sub">Nosso produto</div>
-              <div class="ic-own-grid">
-                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-                <div class="ic-card"><span>Preço médio realizado</span><b>R$ 50,34</b><small>GMV ÷ unidades · set–out/26</small></div>
+              <div class="ic-own-grid one">
+                <div class="ic-card"><span>Preço médio de venda</span><b class="ic-own-val">R$ 50,34</b><small>GMV ÷ unidades · set–out/26</small></div>
               </div>
               <div class="ic-sub">Outros canais</div>
               <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
@@ -2269,9 +2281,8 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
             </summary>
             <div class="ic-body">
               <div class="ic-sub">Nosso produto</div>
-              <div class="ic-own-grid">
-                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-                <div class="ic-card"><span>Preço médio realizado</span><b>R$ 19,55</b><small>GMV ÷ unidades · set–out/26</small></div>
+              <div class="ic-own-grid one">
+                <div class="ic-card"><span>Preço médio de venda</span><b class="ic-own-val">R$ 19,55</b><small>GMV ÷ unidades · set–out/26</small></div>
               </div>
               <div class="ic-sub">Outros canais</div>
               <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
@@ -2293,9 +2304,8 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
             </summary>
             <div class="ic-body">
               <div class="ic-sub">Nosso produto</div>
-              <div class="ic-own-grid">
-                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-                <div class="ic-card"><span>Preço médio realizado</span><b>R$ 44,25</b><small>GMV ÷ unidades · set–out/26</small></div>
+              <div class="ic-own-grid one">
+                <div class="ic-card"><span>Preço médio de venda</span><b class="ic-own-val">R$ 44,25</b><small>GMV ÷ unidades · set–out/26</small></div>
               </div>
               <div class="ic-sub">Outros canais</div>
               <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
@@ -2317,9 +2327,8 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
             </summary>
             <div class="ic-body">
               <div class="ic-sub">Nosso produto</div>
-              <div class="ic-own-grid">
-                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-                <div class="ic-card"><span>Preço médio realizado</span><b>R$ 58,78</b><small>GMV ÷ unidades · set–out/26</small></div>
+              <div class="ic-own-grid one">
+                <div class="ic-card"><span>Preço médio de venda</span><b class="ic-own-val">R$ 58,78</b><small>GMV ÷ unidades · set–out/26</small></div>
               </div>
               <div class="ic-sub">Outros canais</div>
               <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
@@ -2343,9 +2352,8 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
             </summary>
             <div class="ic-body">
               <div class="ic-sub">Nosso produto</div>
-              <div class="ic-own-grid">
-                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-                <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
+              <div class="ic-own-grid one">
+                <div class="ic-card"><span>Preço médio de venda</span><b class="ic-own-val">sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
               </div>
               <div class="ic-sub">Outros canais</div>
               <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
@@ -2367,21 +2375,20 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
             </summary>
             <div class="ic-body">
               <div class="ic-sub">Nosso produto</div>
-              <div class="ic-own-grid">
-                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-                <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
+              <div class="ic-own-grid one">
+                <div class="ic-card"><span>Preço médio de venda</span><b class="ic-own-val">sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
               </div>
               <div class="ic-sub">Outros canais</div>
               <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
               <div class="ic-sub">Concorrentes</div>
               <div class="compare-grid">
-          <div class="compare-chip own"><span>Texaco</span>Ursa Premium TDX<div class="chip-prices"><span class="chip-price price-med">Méd R$ 23,09</span><span class="chip-price price-min">Mín R$ 22,50</span></div></div>
-          <div class="compare-chip"><span>Mobil</span>Mobil Delvac Modern 15W-40 Super Defense V3<div class="chip-prices"><span class="chip-price price-med">Méd R$ 32,96</span><span class="chip-price price-min">Mín R$ 31,75</span></div></div>
-          <div class="compare-chip"><span>Vibra</span>Lubrax Top Turbo<div class="chip-prices"><span class="chip-price price-med">Méd R$ 50,22</span><span class="chip-price price-min">Mín R$ 50,22</span></div></div>
-          <div class="compare-chip"><span>Petronas</span>Urania 3000<div class="chip-prices"><span class="chip-price price-med">Méd R$ 24,50</span><span class="chip-price price-min">Mín R$ 24,50</span></div></div>
-          <div class="compare-chip"><span>Shell</span>Rimula RT4X<div class="chip-prices"><span class="chip-price price-med">Méd R$ 20,45</span><span class="chip-price price-min">Mín R$ 20,45</span></div></div>
-          <div class="compare-chip"><span>Castrol</span>CRB Turbomax 15W-40 CI-4<div class="chip-prices"><span class="chip-price price-med">Méd R$ 21,74</span><span class="chip-price price-min">Mín R$ 18,49</span></div></div>
-          <div class="compare-chip"><span>YPF</span>Extravida XV200 15W-40<div class="chip-prices"><span class="chip-price price-med">Méd R$ 24,70</span><span class="chip-price price-min">Mín R$ 24,70</span></div></div>
+          <div class="compare-chip own"><span>Texaco</span>Ursa Premium TDX<div class="cmp-ref"><span class="cmp-ref-l">Anúncio referência</span><div class="cmp-ref-row"><b>R$ 22,50</b><small class="cmp-idx">sem venda para comparar</small></div></div></div>
+          <div class="compare-chip"><span>Mobil</span>Mobil Delvac Modern 15W-40 Super Defense V3<div class="cmp-ref"><span class="cmp-ref-l">Anúncio referência</span><div class="cmp-ref-row"><b>R$ 31,75</b><small class="cmp-idx">sem venda para comparar</small></div></div></div>
+          <div class="compare-chip"><span>Vibra</span>Lubrax Top Turbo<div class="cmp-ref"><span class="cmp-ref-l">Anúncio referência</span><div class="cmp-ref-row"><b>R$ 50,22</b><small class="cmp-idx">sem venda para comparar</small></div></div></div>
+          <div class="compare-chip"><span>Petronas</span>Urania 3000<div class="cmp-ref"><span class="cmp-ref-l">Anúncio referência</span><div class="cmp-ref-row"><b>R$ 24,50</b><small class="cmp-idx">sem venda para comparar</small></div></div></div>
+          <div class="compare-chip"><span>Shell</span>Rimula RT4X<div class="cmp-ref"><span class="cmp-ref-l">Anúncio referência</span><div class="cmp-ref-row"><b>R$ 20,45</b><small class="cmp-idx">sem venda para comparar</small></div></div></div>
+          <div class="compare-chip"><span>Castrol</span>CRB Turbomax 15W-40 CI-4<div class="cmp-ref"><span class="cmp-ref-l">Anúncio referência</span><div class="cmp-ref-row"><b>R$ 18,49</b><small class="cmp-idx">sem venda para comparar</small></div></div></div>
+          <div class="compare-chip"><span>YPF</span>Extravida XV200 15W-40<div class="cmp-ref"><span class="cmp-ref-l">Anúncio referência</span><div class="cmp-ref-row"><b>R$ 24,70</b><small class="cmp-idx">sem venda para comparar</small></div></div></div>
         </div>
             </div>
           </details>
@@ -2399,9 +2406,8 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
             </summary>
             <div class="ic-body">
               <div class="ic-sub">Nosso produto</div>
-              <div class="ic-own-grid">
-                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-                <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
+              <div class="ic-own-grid one">
+                <div class="ic-card"><span>Preço médio de venda</span><b class="ic-own-val">sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
               </div>
               <div class="ic-sub">Outros canais</div>
               <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
@@ -2423,20 +2429,19 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
             </summary>
             <div class="ic-body">
               <div class="ic-sub">Nosso produto</div>
-              <div class="ic-own-grid">
-                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-                <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
+              <div class="ic-own-grid one">
+                <div class="ic-card"><span>Preço médio de venda</span><b class="ic-own-val">sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
               </div>
               <div class="ic-sub">Outros canais</div>
               <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
               <div class="ic-sub">Concorrentes</div>
               <div class="compare-grid">
-          <div class="compare-chip own"><span>Texaco</span>Ursa Premium TDS 15W40<div class="chip-prices"><span class="chip-price price-med">Méd R$ 30,52</span><span class="chip-price price-min">Mín R$ 25,15</span></div></div>
-          <div class="compare-chip"><span>Mobil</span>Mobil Delvac Legend 15W-40 Protection<div class="chip-prices"><span class="chip-price price-med">Méd R$ 25,18</span><span class="chip-price price-min">Mín R$ 25,18</span></div></div>
-          <div class="compare-chip"><span>Vibra</span>Lubrax Top Turbo Essencial<div class="chip-prices"><span class="chip-price price-med">Méd R$ 25,45</span><span class="chip-price price-min">Mín R$ 24,55</span></div></div>
-          <div class="compare-chip"><span>Petronas</span>Urania 1000E<div class="chip-prices"><span class="chip-price price-med">Méd R$ 42,90</span><span class="chip-price price-min">Mín R$ 37,90</span></div></div>
-          <div class="compare-chip"><span>Shell</span>Rimula R3 Extra 15W-40<div class="chip-prices"><span class="chip-price price-med">Méd R$ 25,00</span><span class="chip-price price-min">Mín R$ 25,00</span></div></div>
-          <div class="compare-chip"><span>Castrol</span>CRB Multi 15W-40 CI-4<div class="chip-prices"><span class="chip-price price-med">Méd R$ 29,04</span><span class="chip-price price-min">Mín R$ 27,67</span></div></div>
+          <div class="compare-chip own"><span>Texaco</span>Ursa Premium TDS 15W40<div class="cmp-ref"><span class="cmp-ref-l">Anúncio referência</span><div class="cmp-ref-row"><b>R$ 25,15</b><small class="cmp-idx">sem venda para comparar</small></div></div></div>
+          <div class="compare-chip"><span>Mobil</span>Mobil Delvac Legend 15W-40 Protection<div class="cmp-ref"><span class="cmp-ref-l">Anúncio referência</span><div class="cmp-ref-row"><b>R$ 25,18</b><small class="cmp-idx">sem venda para comparar</small></div></div></div>
+          <div class="compare-chip"><span>Vibra</span>Lubrax Top Turbo Essencial<div class="cmp-ref"><span class="cmp-ref-l">Anúncio referência</span><div class="cmp-ref-row"><b>R$ 24,55</b><small class="cmp-idx">sem venda para comparar</small></div></div></div>
+          <div class="compare-chip"><span>Petronas</span>Urania 1000E<div class="cmp-ref"><span class="cmp-ref-l">Anúncio referência</span><div class="cmp-ref-row"><b>R$ 37,90</b><small class="cmp-idx">sem venda para comparar</small></div></div></div>
+          <div class="compare-chip"><span>Shell</span>Rimula R3 Extra 15W-40<div class="cmp-ref"><span class="cmp-ref-l">Anúncio referência</span><div class="cmp-ref-row"><b>R$ 25,00</b><small class="cmp-idx">sem venda para comparar</small></div></div></div>
+          <div class="compare-chip"><span>Castrol</span>CRB Multi 15W-40 CI-4<div class="cmp-ref"><span class="cmp-ref-l">Anúncio referência</span><div class="cmp-ref-row"><b>R$ 27,67</b><small class="cmp-idx">sem venda para comparar</small></div></div></div>
           <div class="compare-chip empty"><span>YPF</span>Sem equivalente</div>
         </div>
             </div>
@@ -2455,9 +2460,8 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
             </summary>
             <div class="ic-body">
               <div class="ic-sub">Nosso produto</div>
-              <div class="ic-own-grid">
-                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-                <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
+              <div class="ic-own-grid one">
+                <div class="ic-card"><span>Preço médio de venda</span><b class="ic-own-val">sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
               </div>
               <div class="ic-sub">Outros canais</div>
               <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
@@ -2479,21 +2483,20 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
             </summary>
             <div class="ic-body">
               <div class="ic-sub">Nosso produto</div>
-              <div class="ic-own-grid">
-                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-                <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
+              <div class="ic-own-grid one">
+                <div class="ic-card"><span>Preço médio de venda</span><b class="ic-own-val">sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
               </div>
               <div class="ic-sub">Outros canais</div>
               <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
               <div class="ic-sub">Concorrentes</div>
               <div class="compare-grid">
-          <div class="compare-chip own"><span>Texaco</span>Ursa Super TD SAE 15W40 CH-4<div class="chip-prices"><span class="chip-price price-med">Méd R$ 23,56</span><span class="chip-price price-min">Mín R$ 18,45</span></div></div>
-          <div class="compare-chip"><span>Mobil</span>Mobil Delvac Legend<div class="chip-prices"><span class="chip-price price-med">Méd R$ 25,18</span><span class="chip-price price-min">Mín R$ 25,18</span></div></div>
-          <div class="compare-chip"><span>Vibra</span>Lubrax Extra Turbo SAE 15W-40<div class="chip-prices"><span class="chip-price price-med">Méd R$ 33,55</span><span class="chip-price price-min">Mín R$ 28,98</span></div></div>
-          <div class="compare-chip"><span>Petronas</span>Urania 1000 CH-4 15W-40<div class="chip-prices"><span class="chip-price price-med">Méd R$ 38,19</span><span class="chip-price price-min">Mín R$ 34,20</span></div></div>
-          <div class="compare-chip"><span>Shell</span>Rimula R3 Multi 15W-40<div class="chip-prices"><span class="chip-price price-med">Méd R$ 39,52</span><span class="chip-price price-min">Mín R$ 39,52</span></div></div>
-          <div class="compare-chip"><span>Castrol</span>CRB Multi 15W-40<div class="chip-prices"><span class="chip-price price-med">Méd R$ 18,77</span><span class="chip-price price-min">Mín R$ 15,50</span></div></div>
-          <div class="compare-chip"><span>YPF</span>Extravida XV 100<div class="chip-prices"><span class="chip-price price-med">Méd R$ 38,25</span><span class="chip-price price-min">Mín R$ 34,50</span></div></div>
+          <div class="compare-chip own"><span>Texaco</span>Ursa Super TD SAE 15W40 CH-4<div class="cmp-ref"><span class="cmp-ref-l">Anúncio referência</span><div class="cmp-ref-row"><b>R$ 18,45</b><small class="cmp-idx">sem venda para comparar</small></div></div></div>
+          <div class="compare-chip"><span>Mobil</span>Mobil Delvac Legend<div class="cmp-ref"><span class="cmp-ref-l">Anúncio referência</span><div class="cmp-ref-row"><b>R$ 25,18</b><small class="cmp-idx">sem venda para comparar</small></div></div></div>
+          <div class="compare-chip"><span>Vibra</span>Lubrax Extra Turbo SAE 15W-40<div class="cmp-ref"><span class="cmp-ref-l">Anúncio referência</span><div class="cmp-ref-row"><b>R$ 28,98</b><small class="cmp-idx">sem venda para comparar</small></div></div></div>
+          <div class="compare-chip"><span>Petronas</span>Urania 1000 CH-4 15W-40<div class="cmp-ref"><span class="cmp-ref-l">Anúncio referência</span><div class="cmp-ref-row"><b>R$ 34,20</b><small class="cmp-idx">sem venda para comparar</small></div></div></div>
+          <div class="compare-chip"><span>Shell</span>Rimula R3 Multi 15W-40<div class="cmp-ref"><span class="cmp-ref-l">Anúncio referência</span><div class="cmp-ref-row"><b>R$ 39,52</b><small class="cmp-idx">sem venda para comparar</small></div></div></div>
+          <div class="compare-chip"><span>Castrol</span>CRB Multi 15W-40<div class="cmp-ref"><span class="cmp-ref-l">Anúncio referência</span><div class="cmp-ref-row"><b>R$ 15,50</b><small class="cmp-idx">sem venda para comparar</small></div></div></div>
+          <div class="compare-chip"><span>YPF</span>Extravida XV 100<div class="cmp-ref"><span class="cmp-ref-l">Anúncio referência</span><div class="cmp-ref-row"><b>R$ 34,50</b><small class="cmp-idx">sem venda para comparar</small></div></div></div>
         </div>
             </div>
           </details>
@@ -2511,9 +2514,8 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
             </summary>
             <div class="ic-body">
               <div class="ic-sub">Nosso produto</div>
-              <div class="ic-own-grid">
-                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-                <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
+              <div class="ic-own-grid one">
+                <div class="ic-card"><span>Preço médio de venda</span><b class="ic-own-val">sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
               </div>
               <div class="ic-sub">Outros canais</div>
               <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
@@ -2535,9 +2537,8 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
             </summary>
             <div class="ic-body">
               <div class="ic-sub">Nosso produto</div>
-              <div class="ic-own-grid">
-                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-                <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
+              <div class="ic-own-grid one">
+                <div class="ic-card"><span>Preço médio de venda</span><b class="ic-own-val">sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
               </div>
               <div class="ic-sub">Outros canais</div>
               <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
@@ -2559,9 +2560,8 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
             </summary>
             <div class="ic-body">
               <div class="ic-sub">Nosso produto</div>
-              <div class="ic-own-grid">
-                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-                <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
+              <div class="ic-own-grid one">
+                <div class="ic-card"><span>Preço médio de venda</span><b class="ic-own-val">sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
               </div>
               <div class="ic-sub">Outros canais</div>
               <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
@@ -2583,9 +2583,8 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
             </summary>
             <div class="ic-body">
               <div class="ic-sub">Nosso produto</div>
-              <div class="ic-own-grid">
-                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-                <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
+              <div class="ic-own-grid one">
+                <div class="ic-card"><span>Preço médio de venda</span><b class="ic-own-val">sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
               </div>
               <div class="ic-sub">Outros canais</div>
               <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
@@ -2607,9 +2606,8 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
             </summary>
             <div class="ic-body">
               <div class="ic-sub">Nosso produto</div>
-              <div class="ic-own-grid">
-                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-                <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
+              <div class="ic-own-grid one">
+                <div class="ic-card"><span>Preço médio de venda</span><b class="ic-own-val">sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
               </div>
               <div class="ic-sub">Outros canais</div>
               <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
@@ -2631,9 +2629,8 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
             </summary>
             <div class="ic-body">
               <div class="ic-sub">Nosso produto</div>
-              <div class="ic-own-grid">
-                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-                <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
+              <div class="ic-own-grid one">
+                <div class="ic-card"><span>Preço médio de venda</span><b class="ic-own-val">sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
               </div>
               <div class="ic-sub">Outros canais</div>
               <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
@@ -2655,9 +2652,8 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
             </summary>
             <div class="ic-body">
               <div class="ic-sub">Nosso produto</div>
-              <div class="ic-own-grid">
-                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-                <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
+              <div class="ic-own-grid one">
+                <div class="ic-card"><span>Preço médio de venda</span><b class="ic-own-val">sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
               </div>
               <div class="ic-sub">Outros canais</div>
               <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
@@ -2679,9 +2675,8 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
             </summary>
             <div class="ic-body">
               <div class="ic-sub">Nosso produto</div>
-              <div class="ic-own-grid">
-                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-                <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
+              <div class="ic-own-grid one">
+                <div class="ic-card"><span>Preço médio de venda</span><b class="ic-own-val">sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
               </div>
               <div class="ic-sub">Outros canais</div>
               <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
@@ -2703,9 +2698,8 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
             </summary>
             <div class="ic-body">
               <div class="ic-sub">Nosso produto</div>
-              <div class="ic-own-grid">
-                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-                <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
+              <div class="ic-own-grid one">
+                <div class="ic-card"><span>Preço médio de venda</span><b class="ic-own-val">sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
               </div>
               <div class="ic-sub">Outros canais</div>
               <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
@@ -2727,9 +2721,8 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
             </summary>
             <div class="ic-body">
               <div class="ic-sub">Nosso produto</div>
-              <div class="ic-own-grid">
-                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-                <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
+              <div class="ic-own-grid one">
+                <div class="ic-card"><span>Preço médio de venda</span><b class="ic-own-val">sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
               </div>
               <div class="ic-sub">Outros canais</div>
               <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
@@ -2751,9 +2744,8 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
             </summary>
             <div class="ic-body">
               <div class="ic-sub">Nosso produto</div>
-              <div class="ic-own-grid">
-                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-                <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
+              <div class="ic-own-grid one">
+                <div class="ic-card"><span>Preço médio de venda</span><b class="ic-own-val">sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
               </div>
               <div class="ic-sub">Outros canais</div>
               <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
@@ -2775,9 +2767,8 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
             </summary>
             <div class="ic-body">
               <div class="ic-sub">Nosso produto</div>
-              <div class="ic-own-grid">
-                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-                <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
+              <div class="ic-own-grid one">
+                <div class="ic-card"><span>Preço médio de venda</span><b class="ic-own-val">sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
               </div>
               <div class="ic-sub">Outros canais</div>
               <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
@@ -2799,9 +2790,8 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
             </summary>
             <div class="ic-body">
               <div class="ic-sub">Nosso produto</div>
-              <div class="ic-own-grid">
-                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-                <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
+              <div class="ic-own-grid one">
+                <div class="ic-card"><span>Preço médio de venda</span><b class="ic-own-val">sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
               </div>
               <div class="ic-sub">Outros canais</div>
               <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
@@ -2823,9 +2813,8 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
             </summary>
             <div class="ic-body">
               <div class="ic-sub">Nosso produto</div>
-              <div class="ic-own-grid">
-                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-                <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
+              <div class="ic-own-grid one">
+                <div class="ic-card"><span>Preço médio de venda</span><b class="ic-own-val">sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
               </div>
               <div class="ic-sub">Outros canais</div>
               <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
@@ -2847,9 +2836,8 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
             </summary>
             <div class="ic-body">
               <div class="ic-sub">Nosso produto</div>
-              <div class="ic-own-grid">
-                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-                <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
+              <div class="ic-own-grid one">
+                <div class="ic-card"><span>Preço médio de venda</span><b class="ic-own-val">sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
               </div>
               <div class="ic-sub">Outros canais</div>
               <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
@@ -2871,9 +2859,8 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
             </summary>
             <div class="ic-body">
               <div class="ic-sub">Nosso produto</div>
-              <div class="ic-own-grid">
-                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-                <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
+              <div class="ic-own-grid one">
+                <div class="ic-card"><span>Preço médio de venda</span><b class="ic-own-val">sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
               </div>
               <div class="ic-sub">Outros canais</div>
               <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
@@ -2895,9 +2882,8 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
             </summary>
             <div class="ic-body">
               <div class="ic-sub">Nosso produto</div>
-              <div class="ic-own-grid">
-                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-                <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
+              <div class="ic-own-grid one">
+                <div class="ic-card"><span>Preço médio de venda</span><b class="ic-own-val">sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
               </div>
               <div class="ic-sub">Outros canais</div>
               <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
@@ -2919,9 +2905,8 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
             </summary>
             <div class="ic-body">
               <div class="ic-sub">Nosso produto</div>
-              <div class="ic-own-grid">
-                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-                <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
+              <div class="ic-own-grid one">
+                <div class="ic-card"><span>Preço médio de venda</span><b class="ic-own-val">sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
               </div>
               <div class="ic-sub">Outros canais</div>
               <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
@@ -2943,9 +2928,8 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
             </summary>
             <div class="ic-body">
               <div class="ic-sub">Nosso produto</div>
-              <div class="ic-own-grid">
-                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-                <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
+              <div class="ic-own-grid one">
+                <div class="ic-card"><span>Preço médio de venda</span><b class="ic-own-val">sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
               </div>
               <div class="ic-sub">Outros canais</div>
               <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
@@ -2967,9 +2951,8 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
             </summary>
             <div class="ic-body">
               <div class="ic-sub">Nosso produto</div>
-              <div class="ic-own-grid">
-                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-                <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
+              <div class="ic-own-grid one">
+                <div class="ic-card"><span>Preço médio de venda</span><b class="ic-own-val">sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
               </div>
               <div class="ic-sub">Outros canais</div>
               <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
@@ -2991,9 +2974,8 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
             </summary>
             <div class="ic-body">
               <div class="ic-sub">Nosso produto</div>
-              <div class="ic-own-grid">
-                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-                <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
+              <div class="ic-own-grid one">
+                <div class="ic-card"><span>Preço médio de venda</span><b class="ic-own-val">sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
               </div>
               <div class="ic-sub">Outros canais</div>
               <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
@@ -3015,9 +2997,8 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
             </summary>
             <div class="ic-body">
               <div class="ic-sub">Nosso produto</div>
-              <div class="ic-own-grid">
-                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-                <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
+              <div class="ic-own-grid one">
+                <div class="ic-card"><span>Preço médio de venda</span><b class="ic-own-val">sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
               </div>
               <div class="ic-sub">Outros canais</div>
               <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
@@ -3039,18 +3020,17 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
             </summary>
             <div class="ic-body">
               <div class="ic-sub">Nosso produto</div>
-              <div class="ic-own-grid">
-                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-                <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
+              <div class="ic-own-grid one">
+                <div class="ic-card"><span>Preço médio de venda</span><b class="ic-own-val">sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
               </div>
               <div class="ic-sub">Outros canais</div>
               <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
               <div class="ic-sub">Concorrentes</div>
               <div class="compare-grid">
           <div class="compare-chip own empty"><span>Texaco</span>Sem equivalente</div>
-          <div class="compare-chip"><span>Mobil</span>Mobil Super 0W-30 Sintético<div class="chip-prices"><span class="chip-price price-med">Méd R$ 70,72</span><span class="chip-price price-min">Mín R$ 66,80</span></div></div>
+          <div class="compare-chip"><span>Mobil</span>Mobil Super 0W-30 Sintético<div class="cmp-ref"><span class="cmp-ref-l">Anúncio referência</span><div class="cmp-ref-row"><b>R$ 66,80</b><small class="cmp-idx">sem venda para comparar</small></div></div></div>
           <div class="compare-chip empty"><span>Vibra</span>Sem equivalente</div>
-          <div class="compare-chip"><span>Petronas</span>Petronas Syntium 7000 E 0W30<div class="chip-prices"><span class="chip-price price-med">Méd R$ 72,91</span><span class="chip-price price-min">Mín R$ 57,13</span></div></div>
+          <div class="compare-chip"><span>Petronas</span>Petronas Syntium 7000 E 0W30<div class="cmp-ref"><span class="cmp-ref-l">Anúncio referência</span><div class="cmp-ref-row"><b>R$ 57,13</b><small class="cmp-idx">sem venda para comparar</small></div></div></div>
           <div class="compare-chip empty"><span>Shell</span>Sem equivalente</div>
           <div class="compare-chip empty"><span>Castrol</span>Sem equivalente</div>
           <div class="compare-chip empty"><span>YPF</span>Sem equivalente</div>
@@ -3071,9 +3051,8 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
             </summary>
             <div class="ic-body">
               <div class="ic-sub">Nosso produto</div>
-              <div class="ic-own-grid">
-                <div class="ic-card own"><span>Preço de ativação</span><b class="ic-own-val">—</b><small>cadastro Godmode</small></div>
-                <div class="ic-card"><span>Preço médio realizado</span><b>sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
+              <div class="ic-own-grid one">
+                <div class="ic-card"><span>Preço médio de venda</span><b class="ic-own-val">sem venda</b><small>GMV ÷ unidades · set–out/26</small></div>
               </div>
               <div class="ic-sub">Outros canais</div>
               <div class="ic-channels"><div class="ic-ch" data-ch="shopee"><span>Shopee</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="mercadolivre"><span>Mercado Livre</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="magalu"><span>Magazine Luiza</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="amazon"><span>Amazon</span><b>aguardando planilha</b></div><div class="ic-ch" data-ch="google"><span>Google</span><b>aguardando planilha</b></div></div>
@@ -5400,176 +5379,8 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
 // ===== ÍNDICE DE COMPETITIVIDADE =====
 // Preço próprio (ativação do cadastro) e preços dos canais externos. Preencher os canais quando chegar a planilha de benchmark.
 const IC = {
- "7891165011214": {
-  "own": 19.52,
-  "shopee": null,
-  "mercadolivre": null,
-  "magalu": null,
-  "amazon": null,
-  "google": null
- },
- "7891165009730": {
-  "own": 19.52,
-  "shopee": null,
-  "mercadolivre": null,
-  "magalu": null,
-  "amazon": null,
-  "google": null
- },
- "7891165011788": {
-  "own": 18.04,
-  "shopee": null,
-  "mercadolivre": null,
-  "magalu": null,
-  "amazon": null,
-  "google": null
- },
- "7891165007453": {
-  "own": 30.96,
-  "shopee": null,
-  "mercadolivre": null,
-  "magalu": null,
-  "amazon": null,
-  "google": null
- },
- "7891165012600": {
-  "own": 36.65,
-  "shopee": null,
-  "mercadolivre": null,
-  "magalu": null,
-  "amazon": null,
-  "google": null
- },
- "7896587307464": {
-  "own": 615.91,
-  "shopee": null,
-  "mercadolivre": null,
-  "magalu": null,
-  "amazon": null,
-  "google": null
- },
- "7896587326502": {
-  "own": 211.11,
-  "shopee": null,
-  "mercadolivre": null,
-  "magalu": null,
-  "amazon": null,
-  "google": null
- },
- "7891165010026": {
-  "own": 703.91,
-  "shopee": null,
-  "mercadolivre": null,
-  "magalu": null,
-  "amazon": null,
-  "google": null
- },
- "7891165011207": {
-  "own": 149.51,
-  "shopee": null,
-  "mercadolivre": null,
-  "magalu": null,
-  "amazon": null,
-  "google": null
- },
- "7896587325505": {
-  "own": 439.91,
-  "shopee": null,
-  "mercadolivre": null,
-  "magalu": null,
-  "amazon": null,
-  "google": null
- },
- "7896587326496": {
-  "own": 158.31,
-  "shopee": null,
-  "mercadolivre": null,
-  "magalu": null,
-  "amazon": null,
-  "google": null
- },
- "7891165010088": {
-  "own": 422.31,
-  "shopee": null,
-  "mercadolivre": null,
-  "magalu": null,
-  "amazon": null,
-  "google": null
- },
- "7891165153242": {
-  "own": 45.68,
-  "shopee": null,
-  "mercadolivre": null,
-  "magalu": null,
-  "amazon": null,
-  "google": null
- },
- "7891165153013": {
-  "own": 501.51,
-  "shopee": null,
-  "mercadolivre": null,
-  "magalu": null,
-  "amazon": null,
-  "google": null
- },
- "7891165004179": {
-  "own": 158.31,
-  "shopee": null,
-  "mercadolivre": null,
-  "magalu": null,
-  "amazon": null,
-  "google": null
- },
- "7891165007705": {
-  "own": 43.91,
-  "shopee": null,
-  "mercadolivre": null,
-  "magalu": null,
-  "amazon": null,
-  "google": null
- },
- "7891165007675": {
-  "own": 615.91,
-  "shopee": null,
-  "mercadolivre": null,
-  "magalu": null,
-  "amazon": null,
-  "google": null
- },
- "7891165007682": {
-  "own": 131.91,
-  "shopee": null,
-  "mercadolivre": null,
-  "magalu": null,
-  "amazon": null,
-  "google": null
- },
- "7891165012914": {
-  "own": 35.84,
-  "shopee": null,
-  "mercadolivre": null,
-  "magalu": null,
-  "amazon": null,
-  "google": null
- },
- "7891165007613": {
-  "own": 28.34,
-  "shopee": null,
-  "mercadolivre": null,
-  "magalu": null,
-  "amazon": null,
-  "google": null
- },
- "7891165011689": {
-  "own": 41.99,
-  "shopee": null,
-  "mercadolivre": null,
-  "magalu": null,
-  "amazon": null,
-  "google": null
- },
  "7896587310211": {
-  "own": 30.35,
+  "own": 29.90075283272518,
   "shopee": null,
   "mercadolivre": null,
   "magalu": null,
@@ -5577,23 +5388,15 @@ const IC = {
   "google": null
  },
  "7896587310419": {
-  "own": 27.71,
+  "own": 27.369493554327807,
   "shopee": null,
   "mercadolivre": null,
   "magalu": null,
   "amazon": null,
   "google": null
  },
- "7891165012150": {
-  "own": 49.05,
-  "shopee": null,
-  "mercadolivre": null,
-  "magalu": null,
-  "amazon": null,
-  "google": null
- },
- "7896587320838": {
-  "own": 35.84,
+ "7891165012914": {
+  "own": 34.71251994368841,
   "shopee": null,
   "mercadolivre": null,
   "magalu": null,
@@ -5601,15 +5404,7 @@ const IC = {
   "google": null
  },
  "7896587320852": {
-  "own": 49.13,
-  "shopee": null,
-  "mercadolivre": null,
-  "magalu": null,
-  "amazon": null,
-  "google": null
- },
- "7896587325901": {
-  "own": 47.15,
+  "own": 45.67552752293578,
   "shopee": null,
   "mercadolivre": null,
   "magalu": null,
@@ -5617,7 +5412,15 @@ const IC = {
   "google": null
  },
  "7896587324034": {
-  "own": 39.05,
+  "own": 38.26675760755509,
+  "shopee": null,
+  "mercadolivre": null,
+  "magalu": null,
+  "amazon": null,
+  "google": null
+ },
+ "7891165007613": {
+  "own": 29.267525179856115,
   "shopee": null,
   "mercadolivre": null,
   "magalu": null,
@@ -5625,7 +5428,183 @@ const IC = {
   "google": null
  },
  "7896587325628": {
-  "own": 32.97,
+  "own": 32.864153225806454,
+  "shopee": null,
+  "mercadolivre": null,
+  "magalu": null,
+  "amazon": null,
+  "google": null
+ },
+ "7891165011689": {
+  "own": 38.412053571428565,
+  "shopee": null,
+  "mercadolivre": null,
+  "magalu": null,
+  "amazon": null,
+  "google": null
+ },
+ "7896587325901": {
+  "own": 46.25806122448979,
+  "shopee": null,
+  "mercadolivre": null,
+  "magalu": null,
+  "amazon": null,
+  "google": null
+ },
+ "7891165009730": {
+  "own": 20.645454545454545,
+  "shopee": null,
+  "mercadolivre": null,
+  "magalu": null,
+  "amazon": null,
+  "google": null
+ },
+ "7891165012150": {
+  "own": 50.34172839506173,
+  "shopee": null,
+  "mercadolivre": null,
+  "magalu": null,
+  "amazon": null,
+  "google": null
+ },
+ "7891165011788": {
+  "own": 19.5525,
+  "shopee": null,
+  "mercadolivre": null,
+  "magalu": null,
+  "amazon": null,
+  "google": null
+ },
+ "7891165012600": {
+  "own": 44.25333333333333,
+  "shopee": null,
+  "mercadolivre": null,
+  "magalu": null,
+  "amazon": null,
+  "google": null
+ },
+ "7891165007453": {
+  "own": 58.78,
+  "shopee": null,
+  "mercadolivre": null,
+  "magalu": null,
+  "amazon": null,
+  "google": null
+ },
+ "7891165011214": {
+  "own": null,
+  "shopee": null,
+  "mercadolivre": null,
+  "magalu": null,
+  "amazon": null,
+  "google": null
+ },
+ "7896587307464": {
+  "own": null,
+  "shopee": null,
+  "mercadolivre": null,
+  "magalu": null,
+  "amazon": null,
+  "google": null
+ },
+ "7896587326502": {
+  "own": null,
+  "shopee": null,
+  "mercadolivre": null,
+  "magalu": null,
+  "amazon": null,
+  "google": null
+ },
+ "7891165010026": {
+  "own": null,
+  "shopee": null,
+  "mercadolivre": null,
+  "magalu": null,
+  "amazon": null,
+  "google": null
+ },
+ "7891165011207": {
+  "own": null,
+  "shopee": null,
+  "mercadolivre": null,
+  "magalu": null,
+  "amazon": null,
+  "google": null
+ },
+ "7896587325505": {
+  "own": null,
+  "shopee": null,
+  "mercadolivre": null,
+  "magalu": null,
+  "amazon": null,
+  "google": null
+ },
+ "7896587326496": {
+  "own": null,
+  "shopee": null,
+  "mercadolivre": null,
+  "magalu": null,
+  "amazon": null,
+  "google": null
+ },
+ "7891165010088": {
+  "own": null,
+  "shopee": null,
+  "mercadolivre": null,
+  "magalu": null,
+  "amazon": null,
+  "google": null
+ },
+ "7891165153242": {
+  "own": null,
+  "shopee": null,
+  "mercadolivre": null,
+  "magalu": null,
+  "amazon": null,
+  "google": null
+ },
+ "7891165153013": {
+  "own": null,
+  "shopee": null,
+  "mercadolivre": null,
+  "magalu": null,
+  "amazon": null,
+  "google": null
+ },
+ "7891165004179": {
+  "own": null,
+  "shopee": null,
+  "mercadolivre": null,
+  "magalu": null,
+  "amazon": null,
+  "google": null
+ },
+ "7891165007705": {
+  "own": null,
+  "shopee": null,
+  "mercadolivre": null,
+  "magalu": null,
+  "amazon": null,
+  "google": null
+ },
+ "7891165007675": {
+  "own": null,
+  "shopee": null,
+  "mercadolivre": null,
+  "magalu": null,
+  "amazon": null,
+  "google": null
+ },
+ "7891165007682": {
+  "own": null,
+  "shopee": null,
+  "mercadolivre": null,
+  "magalu": null,
+  "amazon": null,
+  "google": null
+ },
+ "7896587320838": {
+  "own": null,
   "shopee": null,
   "mercadolivre": null,
   "magalu": null,
@@ -5633,7 +5612,7 @@ const IC = {
   "google": null
  },
  "7891165007439": {
-  "own": 29.05,
+  "own": null,
   "shopee": null,
   "mercadolivre": null,
   "magalu": null,
@@ -5641,7 +5620,7 @@ const IC = {
   "google": null
  },
  "7891165006142": {
-  "own": 43.03,
+  "own": null,
   "shopee": null,
   "mercadolivre": null,
   "magalu": null,
@@ -5649,7 +5628,7 @@ const IC = {
   "google": null
  },
  "7891165012655": {
-  "own": 61.51,
+  "own": null,
   "shopee": null,
   "mercadolivre": null,
   "magalu": null,
@@ -5657,7 +5636,7 @@ const IC = {
   "google": null
  },
  "7891165012631": {
-  "own": 246.31,
+  "own": null,
   "shopee": null,
   "mercadolivre": null,
   "magalu": null,
@@ -5665,7 +5644,7 @@ const IC = {
   "google": null
  },
  "7891165012242": {
-  "own": 43.03,
+  "own": null,
   "shopee": null,
   "mercadolivre": null,
   "magalu": null,
@@ -5673,7 +5652,7 @@ const IC = {
   "google": null
  },
  "7891165011849": {
-  "own": 351.91,
+  "own": null,
   "shopee": null,
   "mercadolivre": null,
   "magalu": null,
@@ -5681,7 +5660,7 @@ const IC = {
   "google": null
  },
  "7891165011115": {
-  "own": 114.31,
+  "own": null,
   "shopee": null,
   "mercadolivre": null,
   "magalu": null,
@@ -5689,7 +5668,7 @@ const IC = {
   "google": null
  },
  "7891165011108": {
-  "own": 131.91,
+  "own": null,
   "shopee": null,
   "mercadolivre": null,
   "magalu": null,
@@ -5697,7 +5676,7 @@ const IC = {
   "google": null
  },
  "7891165011993": {
-  "own": 40.39,
+  "own": null,
   "shopee": null,
   "mercadolivre": null,
   "magalu": null,
@@ -5705,7 +5684,7 @@ const IC = {
   "google": null
  },
  "7891165011122": {
-  "own": 158.31,
+  "own": null,
   "shopee": null,
   "mercadolivre": null,
   "magalu": null,
@@ -5713,7 +5692,7 @@ const IC = {
   "google": null
  },
  "7891165011092": {
-  "own": 149.51,
+  "own": null,
   "shopee": null,
   "mercadolivre": null,
   "magalu": null,
@@ -5721,7 +5700,7 @@ const IC = {
   "google": null
  },
  "7891165012945": {
-  "own": 52.71,
+  "own": null,
   "shopee": null,
   "mercadolivre": null,
   "magalu": null,
@@ -5729,7 +5708,7 @@ const IC = {
   "google": null
  },
  "7891165012921": {
-  "own": 237.51,
+  "own": null,
   "shopee": null,
   "mercadolivre": null,
   "magalu": null,
@@ -5737,7 +5716,7 @@ const IC = {
   "google": null
  },
  "7891165011764": {
-  "own": 70.31,
+  "own": null,
   "shopee": null,
   "mercadolivre": null,
   "magalu": null,
@@ -5745,7 +5724,7 @@ const IC = {
   "google": null
  },
  "7896587320975": {
-  "own": 40.39,
+  "own": null,
   "shopee": null,
   "mercadolivre": null,
   "magalu": null,
@@ -5758,7 +5737,7 @@ const IC = {
   const CH = ['shopee','mercadolivre','magalu','amazon','google'];
   document.querySelectorAll('.ic-item[data-ean]').forEach(el => {
     const d = IC[el.dataset.ean] || {};
-    el.querySelectorAll('.ic-own-val').forEach(x => x.textContent = brl(d.own));
+    el.querySelectorAll('.ic-own-val').forEach(x => x.textContent = typeof d.own === 'number' ? brl(d.own) : 'sem venda');
     CH.forEach(c => {
       el.querySelectorAll('[data-ch="' + c + '"]').forEach(box => {
         const v = d[c], ok = typeof v === 'number';
