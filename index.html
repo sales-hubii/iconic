@@ -1832,185 +1832,6 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
 .rm-today{position:absolute;top:0;bottom:0;width:0;border-left:2px solid #e58a34;z-index:5;pointer-events:none}
 .rm-today span{position:absolute;top:-6px;left:6px;white-space:nowrap;background:#e58a34;color:#fff;font-family:'IBM Plex Mono',monospace;font-size:10px;padding:2px 7px;border-radius:999px}
 .rm-note{font-size:11.5px;color:var(--ink-soft);margin-top:18px;padding-top:12px;border-top:1px solid var(--line)}
-
-/* GTM OPORTUNIDADES (Hubii) */
-.gtm-hero{ background: linear-gradient(135deg, var(--purple-deep), var(--purple)); color:#fff; border-radius: 20px; padding: 26px 32px; display:flex; justify-content:space-between; align-items:center; gap:24px; flex-wrap:wrap; margin-bottom:16px; }
-.gtm-hero .eyebrow{ color:#d9d0ff; }
-.gtm-hero h2{ font-size:24px; font-weight:800; line-height:1.2; margin:6px 0 8px; }
-.gtm-hero p{ font-size:14px; opacity:.92; max-width:640px; }
-.gtm-core{ width:150px; height:150px; flex:none; border-radius:50%; background: rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.35); display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; }
-.gtm-core b{ font-family:'IBM Plex Mono', monospace; font-size:16px; letter-spacing:.04em; }
-.gtm-core small{ font-size:11px; opacity:.85; margin-top:4px; padding:0 16px; }
-.journey{ display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:16px; }
-@media (max-width:820px){ .journey{ grid-template-columns:1fr; } }
-.journey-step{ background:var(--card); border:1px solid var(--line); border-radius:var(--radius-sm); padding:14px 16px; display:flex; gap:12px; align-items:flex-start; }
-.journey-n{ width:28px; height:28px; border-radius:50%; background:var(--purple); color:#fff; font-weight:700; font-family:'IBM Plex Mono', monospace; display:flex; align-items:center; justify-content:center; flex:none; }
-.journey-step b{ display:block; font-size:13.5px; }
-.journey-step span{ font-size:12.5px; color:var(--ink-soft); }
-.gtm-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px; align-items:stretch; }
-@media (max-width:1000px){ .gtm-grid{ grid-template-columns:1fr; } }
-.pillar{ background:var(--card); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; display:flex; flex-direction:column; }
-.pillar-top{ padding:18px 20px; background:var(--hubii-bg); }
-.pillar-kicker{ font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--purple); }
-.pillar-title{ font-size:17px; font-weight:800; margin-top:4px; }
-.pillar-promise{ font-size:13px; color:var(--ink-soft); margin-top:6px; line-height:1.4; }
-.pillar-partners{ display:flex; flex-wrap:wrap; gap:6px; padding:12px 20px; border-bottom:1px solid var(--line); }
-.chip{ font-size:11.5px; padding:4px 9px; border-radius:999px; border:1px solid var(--line); background:#fff; color:var(--ink-soft); }
-.chip.tbd{ border-style:dashed; color:var(--potencial); }
-.chip.hubii{ background:var(--purple); border-color:var(--purple); color:#fff; font-weight:700; }
-.pillar-body{ padding:14px 20px 18px; display:flex; flex-direction:column; gap:12px; flex:1; }
-.opp-item b{ display:block; font-size:13.5px; color:var(--ink); margin-bottom:2px; }
-.opp-item span{ font-size:12.5px; color:var(--ink-soft); line-height:1.45; }
-.pillar-navi .pillar-top{ background:#ece8fb; }
-.pillar-impulso .pillar-top{ background:var(--iconic-bg); }
-.pillar-impulso .pillar-kicker{ color:#b35f16; }
-.pillar-conecta{ border:2px solid var(--purple); }
-.pillar-conecta .pillar-top{ background:var(--purple); color:#fff; }
-.pillar-conecta .pillar-kicker{ color:#e0d8ff; }
-.pillar-conecta .pillar-promise{ color:#ebe6ff; }
-.pillar-conecta .pillar-partners{ background:var(--hubii-bg); }
-.tension{ margin-top:auto; background:var(--amber-bg); border:1px solid #f0d9a6; border-radius:var(--radius-sm); padding:10px 12px; font-size:12.5px; color:#6b4a0a; }
-.tension b{ display:block; margin-bottom:2px; color:#6b4a0a; }
-/* MANDALA GTM v3 — triângulo à esquerda, painéis compactos */
-.mq{ background:#fff; border:1px solid var(--line); border-radius:var(--radius); padding:16px 18px 14px; margin-bottom:18px; }
-.mq-title{ text-align:center; font-weight:800; font-size:20px; color:var(--purple-deep); letter-spacing:.01em; }
-.mq-sub{ text-align:center; color:var(--ink-soft); font-size:12px; margin:4px 0 12px; }
-.mq-grid{ display:grid; grid-template-columns:420px minmax(0,1fr) minmax(0,1fr); grid-template-areas:"tri navi impulso" "conecta conecta conecta"; gap:12px; }
-.mq-tri{ grid-area:tri; display:flex; align-items:center; justify-content:center; }
-.tri-svg{ width:100%; max-width:420px; height:auto; }
-.tri-f-navi{ fill:#8e8b99; stroke:#fff; stroke-width:3; stroke-linejoin:round; }
-.tri-f-impulso{ fill:#b4a5f5; stroke:#fff; stroke-width:3; stroke-linejoin:round; }
-.tri-f-conecta{ fill:#4a34b8; stroke:#fff; stroke-width:3; stroke-linejoin:round; }
-.tri-core{ fill:#fff; stroke:#6348e5; stroke-width:2.5; stroke-linejoin:round; }
-.tri-t-w{ fill:#fff; font-family:'Onest', sans-serif; }
-.tri-t-i{ fill:#1b1730; font-family:'Onest', sans-serif; }
-.tri-c-t{ fill:var(--purple-deep); font-family:'Onest', sans-serif; }
-.tri-c-s{ fill:var(--ink-soft); font-family:'IBM Plex Mono', monospace; }
-.pl{ border-radius:18px; padding:12px 12px 12px; display:flex; flex-direction:column; gap:7px; min-width:0; }
-.pl-navi{ grid-area:navi; background:#8e8b99; color:#fff; }
-.pl-impulso{ grid-area:impulso; background:#cfc5fb; color:var(--ink); }
-.pl-conecta{ grid-area:conecta; background:#6348e5; color:#fff; }
-.pl-head{ padding:2px 4px 4px; }
-.pl-title{ font-size:20px; font-weight:800; line-height:1; }
-.pl-sub{ font-family:'IBM Plex Mono', monospace; font-size:9.5px; letter-spacing:.06em; opacity:.92; margin-top:3px; }
-.pl-tag{ margin-top:7px; font-size:11.5px; font-weight:600; display:flex; align-items:center; gap:7px; }
-.pl-num{ width:18px; height:18px; border-radius:50%; background:#fff; color:var(--purple); font-weight:800; font-size:11px; display:inline-flex; align-items:center; justify-content:center; flex:none; }
-.pl-conecta .pl-num{ color:var(--purple); }
-.cd{ background:#fff; color:var(--ink); border-radius:12px; padding:8px 11px; display:flex; gap:10px; align-items:stretch; }
-.cd-txt{ flex:1; min-width:0; }
-.cd h4{ font-size:10.5px; font-weight:800; letter-spacing:.02em; text-transform:uppercase; color:var(--purple-deep); margin-bottom:3px; }
-.cd ul{ list-style:none; }
-.cd li{ font-size:11.5px; line-height:1.35; color:var(--ink-soft); padding-left:11px; position:relative; }
-.cd li::before{ content:'•'; position:absolute; left:0; color:var(--purple); }
-.cd-par{ width:88px; flex:none; border-left:1px dashed var(--line); padding-left:9px; display:flex; flex-direction:column; justify-content:center; }
-.cd-par small{ font-size:9.5px; color:var(--ink-soft); font-family:'IBM Plex Mono', monospace; line-height:1.3; }
-.cd-par b{ font-size:12.5px; color:var(--ink); margin-top:1px; }
-.cd-par.tbd b{ color:#7b74a6; }
-.cd-par.hubii b{ color:var(--purple); font-weight:800; }
-.cd-chips{ display:flex; flex-wrap:wrap; gap:4px; margin-top:2px; }
-.cd-chips span{ font-size:10.5px; font-weight:600; padding:3px 7px; border:1px solid var(--line); border-radius:7px; background:#faf9ff; color:var(--ink); }
-.cd-3{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:4px; padding:8px 6px; text-align:center; }
-.cd-logo + .cd-logo{ border-left:1px solid var(--line); }
-.cd-logo b{ display:block; font-size:12.5px; color:var(--purple-deep); }
-.cd-logo small{ display:block; font-size:8.5px; color:var(--ink-soft); font-family:'IBM Plex Mono', monospace; line-height:1.3; margin-top:2px; }
-.cd-grid4{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:8px; }
-.cd-grid4 .cd{ flex-direction:column; }
-.cd-grid4 .cd-par{ width:auto; border-left:none; border-top:1px dashed var(--line); padding:6px 0 0; flex-direction:row; align-items:center; gap:6px; }
-.cd-grid4 .cd-par b{ margin-top:0; }
-.mq-foot{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; margin-top:12px; }
-.mq-foot div{ font-size:11px; color:var(--ink-soft); line-height:1.35; border-top:2px solid var(--purple); padding-top:6px; }
-.mq-foot b{ display:block; font-size:10.5px; letter-spacing:.04em; color:var(--purple-deep); font-family:'IBM Plex Mono', monospace; margin-bottom:2px; }
-@media (max-width:1000px){
-  .mq-grid{ grid-template-columns:1fr; grid-template-areas:"tri" "navi" "impulso" "conecta"; }
-  .tri-svg{ max-width:320px; margin:0 auto; }
-  .cd-grid4{ grid-template-columns:1fr 1fr; }
-  .mq-foot{ grid-template-columns:1fr 1fr; }
-  .cd-grid4{ grid-template-columns:1fr; }
-  .mq-foot{ grid-template-columns:1fr; }
-/* VISÃO GERAL — status de praças e canais */
-.praca-dot.off{ background:#b9b5c9; box-shadow:0 0 0 4px #ecebf2; }
-.praca-tag.off-tag{ color:var(--ink-soft); background:#ecebf2; }
-.channel-chip.active{ color:#fff; background:var(--purple); border-color:var(--purple); }
-.channel-chip.setup{ color:var(--purple-deep); background:#fff; border:1px dashed var(--purple); font-weight:500; }
-.cd-chips span.st-on{ background:var(--purple); border-color:var(--purple); color:#fff; font-weight:700; }
-.cd-chips span.st-set{ border-style:dashed; color:#5d5690; border-color:#bdb5ec; }
-.vg-title{ margin-top:24px; }
-.vg-title h2{ font-size:20px; font-weight:800; color:var(--ink); margin:0 0 4px; text-transform:uppercase; }
-.vg-title p{ font-size:13px; color:var(--ink-soft); margin:0 0 16px; max-width:none; line-height:1.5; }
-/* ROADMAP — cabeçalho em linhas separadas, barras pendentes em cinza */
-.rm-head{ display:block; margin-bottom:6px; }
-.rm-hrow{ display:grid; grid-template-columns:var(--lbl) 1fr; align-items:center; }
-.rm-phases{ height:24px; }
-.rm-ph-seg{ line-height:24px; font-size:11px; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; padding:0 4px; }
-.rm-todayrow{ height:18px; }
-.rm-tlabel{ position:absolute; top:1px; transform:translateX(-50%); white-space:nowrap; background:#e58a34; color:#fff; font-family:'IBM Plex Mono',monospace; font-size:10px; padding:1px 8px; border-radius:999px; }
-.rm-months{ height:14px; }
-.rm-weeks{ height:14px; margin-bottom:4px; }
-.rm-m{ top:0; height:14px; line-height:14px; font-size:10px; }
-.rm-w{ top:0; line-height:14px; font-size:9px; }
-.rm-bar.pend{ background:#d6d2e2; }
-.rm-d.pend{ color:#8b86a2; }
-.rm-d.in.pend{ color:#4a4560; }
-.rm-sw.pend{ background:#d6d2e2; }
-.vg-resumo{ align-items:start !important; }
-.vg-resumo > div{ display:flex; flex-direction:column; min-width:0; }
-.vg-resumo .section-label{ margin:0 0 10px; }
-.vg-resumo .panel{ flex:1; padding:12px; margin:0; display:flex; flex-direction:column; justify-content:flex-start; gap:8px; }
-.vg-resumo .praca-foco{ margin:0; }
-.vg-resumo .potencial-list, .vg-resumo .channel-list{ align-content:flex-start; }
-@media (max-width:1000px){ .vg-resumo{ grid-template-columns:1fr !important; } }
-/* VISÃO GERAL — bloco único de praças em duas colunas */
-.vg-resumo .vg-pairwrap{ display:flex; flex-direction:column; }
-.vg-pair{ display:grid !important; grid-template-columns:1fr 1fr; gap:18px; padding:14px !important; }
-.vg-col{ display:flex; flex-direction:column; gap:8px; min-width:0; }
-.vg-col .section-label{ margin:0 0 6px; }
-.vg-col .praca-foco{ margin:0; }
-.vg-canais{ display:flex; flex-direction:column; gap:10px; padding:14px !important; }
-.vg-canais .section-label{ margin:0 0 4px; }
-.vg-canais-wrap{ display:flex; flex-direction:column; }
-.vg-canais .potencial-list{ align-content:flex-start; }
-.praca-dot.active-dot{ background:var(--purple); box-shadow:0 0 0 4px var(--hubii-bg); }
-.praca-tag.setup-tag{ color:var(--purple); background:var(--hubii-bg); border:1px dashed var(--purple); }
-.vg-canais .praca-foco{ margin:0; }
-.praca-dot.setup-dot{ background:var(--purple-glow); box-shadow:0 0 0 4px var(--hubii-bg); }
-/* MANDALA CÍRCULO + BLOCO HUBII */
-.mq-layout{ display:grid; grid-template-columns:60% 40%; gap:0; align-items:start; background:#fff; border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; margin-bottom:18px; }
-.mq-circle-wrap{ padding:20px 16px 16px; background:var(--paper); display:flex; flex-direction:column; align-items:center; }
-.mq-circle-title{ font-size:16px; font-weight:800; color:var(--purple-deep); text-align:center; letter-spacing:.01em; }
-.mq-circle-sub{ font-size:11px; color:var(--ink-soft); text-align:center; margin:4px 0 10px; max-width:400px; line-height:1.4; }
-.manda-circle{ width:100%; height:auto; display:block; }
-.mq-hubii-block{ padding:28px 24px; border-left:1px solid var(--line); display:flex; flex-direction:column; gap:14px; }
-.mq-hubii-eyebrow{ font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.1em; color:var(--purple); text-transform:uppercase; }
-.mq-hubii-title{ font-size:20px; font-weight:800; color:var(--ink); margin:0; line-height:1.2; }
-.mq-hubii-desc{ font-size:13px; color:var(--ink-soft); line-height:1.55; margin:0; }
-.hubii-opp-list{ display:flex; flex-direction:column; gap:12px; }
-.hubii-opp{ display:flex; gap:12px; align-items:flex-start; }
-.hubii-opp-icon{ font-size:20px; flex:none; margin-top:1px; }
-.hubii-opp-title{ font-size:13px; font-weight:700; color:var(--ink); margin-bottom:2px; }
-.hubii-opp-body{ font-size:12px; color:var(--ink-soft); line-height:1.45; }
-.hubii-opp-note{ font-size:11px; color:var(--potencial); font-style:italic; padding:8px 12px; background:var(--potencial-bg); border-radius:8px; margin-top:4px; }
-@media (max-width:1000px){ .mq-layout{ grid-template-columns:1fr; } .mq-hubii-block{ border-left:none; border-top:1px solid var(--line); } }
-/* PILAR CONECTA — detalhe no lado direito */
-.conecta-detail{ background:#6348e5; border-radius:14px; padding:18px 20px; color:#fff; margin-bottom:14px; }
-.cd-header-kicker{ font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.1em; opacity:.85; margin-bottom:8px; }
-.cd-header-title{ font-size:18px; font-weight:800; line-height:1.15; margin-bottom:6px; }
-.cd-header-sub{ font-size:12.5px; opacity:.9; line-height:1.4; margin-bottom:14px; }
-.cd-chips-row{ display:flex; flex-wrap:wrap; gap:6px; margin-bottom:14px; }
-.cd-chip{ font-size:11px; font-weight:600; padding:4px 10px; border-radius:999px; border:1px solid rgba(255,255,255,.35); background:rgba(255,255,255,.12); color:#fff; }
-.cd-chip.hubii{ background:#fff; color:#6348e5; border-color:#fff; font-weight:700; }
-.cd-chip.active{ background:rgba(255,255,255,.25); border-color:#fff; }
-.cd-chip.setup{ border-style:dashed; }
-.cd-chip.neutral{ opacity:.7; }
-.cd-items{ display:flex; flex-direction:column; gap:10px; margin-bottom:14px; }
-.cd-item-title{ font-size:13px; font-weight:700; margin-bottom:2px; }
-.cd-item-body{ font-size:12px; opacity:.88; line-height:1.4; }
-.cd-risk{ background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.25); border-radius:10px; padding:10px 12px; font-size:12px; line-height:1.45; opacity:.95; }
-.cd-risk b{ display:block; margin-bottom:3px; font-size:12.5px; }
-/* RESUMO EXECUTIVO — esquerda empilhada, direita canais */
-.vg-resumo-outer{ display:grid; grid-template-columns:1fr 1fr; gap:14px; align-items:start; margin-bottom:0; }
-.vg-left-stack{ display:flex; flex-direction:column; gap:14px; }
-.vg-right-col{ display:flex; flex-direction:column; }
-@media (max-width:900px){ .vg-resumo-outer{ grid-template-columns:1fr; } }
 </style>
 </head>
 <body>
@@ -2036,229 +1857,137 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
 
   <!-- ESCOPO -->
   <div class="tab-panel active" id="panel-escopo">
-    <div class="vg-resumo-outer">
-      <div class="vg-left-stack">
-        <div class="panel vg-canais">
-          <div class="section-label">Praças foco</div>
+    <div class="grid">
+      <div>
+        <div class="section-label first">Praças foco</div>
+        <div class="panel">
           <div class="praca-foco">
-              <div class="praca-dot"></div>
-              <div class="praca-info">
-                <div class="praca-city">São Paulo</div>
-                <div class="praca-partner">Parceiro: TreviLub</div>
-              </div>
-              <div class="praca-tag">Foco</div>
+            <div class="praca-dot"></div>
+            <div class="praca-info">
+              <div class="praca-city">São Paulo</div>
+              <div class="praca-partner">Parceiro: TreviLub</div>
             </div>
+            <div class="praca-tag">Foco</div>
+          </div>
           <div class="praca-foco">
-              <div class="praca-dotoff"></div>
-              <div class="praca-info">
-                <div class="praca-city">Porto Alegre</div>
-                <div class="praca-partner">Parceiro: Makena</div>
-              </div>
-              <div class="praca-tag off-tag">Inativa · a plugar</div>
+            <div class="praca-dot"></div>
+            <div class="praca-info">
+              <div class="praca-city">Porto Alegre</div>
+              <div class="praca-partner">Parceiro: Makena</div>
             </div>
+            <div class="praca-tag">Foco</div>
+          </div>
           <div class="praca-foco">
-              <div class="praca-dotoff"></div>
-              <div class="praca-info">
-                <div class="praca-city">Belo Horizonte</div>
-                <div class="praca-partner">Parceiro: BelLub</div>
-              </div>
-              <div class="praca-tag off-tag">Inativa · a plugar</div>
+            <div class="praca-dot"></div>
+            <div class="praca-info">
+              <div class="praca-city">Belo Horizonte</div>
+              <div class="praca-partner">Parceiro: BelLub</div>
             </div>
+            <div class="praca-tag">Foco</div>
+          </div>
         </div>
-        <div class="panel vg-canais">
-          <div class="section-label">Outras praças potenciais</div>
-          <div class="praca-foco">
-              <div class="praca-dot off"></div>
-              <div class="praca-info">
-                <div class="praca-city">Rio de Janeiro</div>
-                <div class="praca-partner">Parceiro: RioLub</div>
-              </div>
-              <div class="praca-tag off-tag">Potencial</div>
-            </div>
-          <div class="praca-foco">
-              <div class="praca-dot off"></div>
-              <div class="praca-info">
-                <div class="praca-city">Curitiba</div>
-                <div class="praca-partner">Parceiro:</div>
-              </div>
-              <div class="praca-tag off-tag">Potencial</div>
-            </div>
-          <div class="praca-foco">
-              <div class="praca-dot off"></div>
-              <div class="praca-info">
-                <div class="praca-city">Goiânia</div>
-                <div class="praca-partner">Parceiro:</div>
-              </div>
-              <div class="praca-tag off-tag">Potencial</div>
-            </div>
+
+        <div class="section-label">Outras praças potenciais</div>
+        <div class="panel">
+          <div class="potencial-list">
+            <div class="potencial-chip"><b>RJ</b> · RioLub</div>
+            <div class="potencial-chip">Curitiba</div>
+            <div class="potencial-chip">Fortaleza</div>
+            <div class="potencial-chip">Goiânia</div>
+          </div>
         </div>
       </div>
-      <div class="vg-right-col">
-        <div class="panel vg-canais">
-          <div class="section-label">Canais do projeto</div>
-          <div class="praca-foco">
-              <div class="praca-dot active-dot"></div>
-              <div class="praca-info">
-                <div class="praca-city">Shopee</div>
-                <div class="praca-partner">shopee.com.br</div>
-              </div>
-              <div class="praca-tag">Ativo</div>
-            </div>
-          <div class="praca-foco">
-              <div class="praca-dot setup-dot"></div>
-              <div class="praca-info">
-                <div class="praca-city">iFood</div>
-                <div class="praca-partner">set-up em andamento</div>
-              </div>
-              <div class="praca-tag setup-tag">Set-up</div>
-            </div>
-          <div class="praca-foco">
-              <div class="praca-dot setup-dot"></div>
-              <div class="praca-info">
-                <div class="praca-city">Shopee Turbo</div>
-                <div class="praca-partner">set-up em andamento</div>
-              </div>
-              <div class="praca-tag setup-tag">Set-up</div>
-            </div>
-          <div class="praca-foco">
-              <div class="praca-dot setup-dot"></div>
-              <div class="praca-info">
-                <div class="praca-city">Mercado Livre</div>
-                <div class="praca-partner">set-up em andamento</div>
-              </div>
-              <div class="praca-tag setup-tag">Set-up</div>
-            </div>
-          <div class="praca-foco">
-              <div class="praca-dot off"></div>
-              <div class="praca-info">
-                <div class="praca-city">99</div>
-                <div class="praca-partner">em negociação</div>
-              </div>
-              <div class="praca-tag off-tag">Em negociação</div>
-            </div>
-          <div class="praca-foco">
-              <div class="praca-dot off"></div>
-              <div class="praca-info">
-                <div class="praca-city">Magalu Delivery</div>
-                <div class="praca-partner">em integração</div>
-              </div>
-              <div class="praca-tag off-tag">Em integração</div>
-            </div>
-          <div class="praca-foco">
-              <div class="praca-dot off"></div>
-              <div class="praca-info">
-                <div class="praca-city">Temu</div>
-                <div class="praca-partner">em integração</div>
-              </div>
-              <div class="praca-tag off-tag">Em integração</div>
-            </div>
+
+      <div>
+        <div class="section-label first">Canais do projeto</div>
+        <div class="panel">
+          <div class="potencial-list">
+            <div class="channel-chip">Shopee</div>
+            <div class="channel-chip">Mercado Livre</div>
+            <div class="channel-chip">Shopee Turbo</div>
+            <div class="channel-chip">iFood</div>
+            <div class="channel-chip negotiating">99 · em negociação</div>
+            <div class="channel-chip integrating">Magalu Delivery · em integração</div>
+            <div class="channel-chip integrating">Temu · em integração</div>
+          </div>
         </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- OPORTUNIDADES -->
+  <div class="tab-panel" id="panel-oportunidades">
+
+    <div class="stat-row">
+      <div class="stat"><div class="stat-num">7</div><div class="stat-lbl">ERPs em operação</div></div>
+      <div class="stat"><div class="stat-num">19</div><div class="stat-lbl">Integrações ativas</div></div>
+      <div class="stat"><div class="stat-num">100k</div><div class="stat-lbl">PDVs atendidos</div></div>
+      <div class="stat"><div class="stat-num">R$800mi</div><div class="stat-lbl">Faturamento/ano por DA</div></div>
+      <div class="stat"><div class="stat-num">22k</div><div class="stat-lbl">Varejistas no +Parceiro</div></div>
+    </div>
+
+    <div class="opp-grid">
+      <div class="opp-card">
+        <div class="opp-head"><div class="opp-icon">◆</div><div class="opp-title">Programa +Parceiro</div></div>
+        <ul>
+          <li>Segmentação <b>diamante / ouro / prata / bronze</b> entre os 22 mil varejistas</li>
+          <li>Objetivo: ativar venda online (Shopee, ML etc.)</li>
+          <li>Sellout monitorado retorna ao DA para orientar reposição</li>
+        </ul>
+      </div>
+
+      <div class="opp-card">
+        <div class="opp-head"><div class="opp-icon">⇄</div><div class="opp-title">Portal B2B</div></div>
+        <ul>
+          <li>Oportunidade de criar portal nos moldes do <b>BEES</b> para o varejo comprar do DA</li>
+          <li>WhatsApp já é canal muito utilizado — possível porta de entrada natural</li>
+        </ul>
+      </div>
+
+      <div class="opp-card flag">
+        <div class="opp-head"><div class="opp-icon">⚑</div><div class="opp-title">Marca e mix — ponto em aberto</div></div>
+        <ul>
+          <li>Lojas oficiais <b>não deveriam ser Texaco/Ipiranga</b>, pois isso pode restringir o mix</li>
+          <li>Fica como decisão de negócio a ser definida</li>
+        </ul>
+      </div>
+
+      <div class="opp-card flag">
+        <div class="opp-head"><div class="opp-icon">⚑</div><div class="opp-title">E-commerce — sem estratégia</div></div>
+        <ul>
+          <li>Hoje está <b>"em demolição"</b>, sem direção definida</li>
+        </ul>
+      </div>
+
+      <div class="opp-card">
+        <div class="opp-head"><div class="opp-icon">$</div><div class="opp-title">Modelo de valor para o DA</div></div>
+        <ul>
+          <li>O diferencial passa a ser <b>dado</b>, não incentivo comercial</li>
+          <li>Margem está no varejo — DA não vai subsidiar</li>
+        </ul>
+      </div>
+
+      <div class="opp-card">
+        <div class="opp-head"><div class="opp-icon">⚙</div><div class="opp-title">Peças</div></div>
+        <ul>
+          <li>Mercado de peça online é forte</li>
+          <li>Mecânico costuma pedir para o cliente comprar direto</li>
+        </ul>
       </div>
     </div>
 
-  <!-- OPORTUNIDADES (mesclada na Visão geral) -->
-  <div class="vg-merge">
-
-    <div class="vg-title">
-      <h2>Do distribuidor ao consumidor final, numa jornada conectada</h2>
-      <p>Três frentes sustentam a estratégia: vender mais com o DA (NAVI), dar ao PDV mais formas de comprar (IMPULSO) e chegar ao consumidor final com a Hubii (CONECTA).</p>
-    </div>
-
-    <div class="section-label">Mandala GTM Digital · Onde a Hubii atua</div>
-    <div class="mq-layout">
-
-      <div class="mq-circle-wrap">
-        <div class="mq-circle-title">ECOSSISTEMA DIGITAL GO TO MARKET</div>
-        <div class="mq-circle-sub">Conectando Distribuidores Autorizados, Pontos de Venda e Clientes Finais em uma jornada omnicanal integrada.</div>
-        <svg class="manda-circle" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 840"><defs><filter id="sh"><feDropShadow dx="0" dy="2" stdDeviation="5" flood-opacity="0.10"/></filter></defs><rect width="900" height="840" fill="#f8f9fc"/><circle cx="450" cy="420" r="328" fill="none" stroke="#d8dff0" stroke-width="1" stroke-dasharray="5 8"/><path fill="#1a2f6e" stroke="#f0f4fa" stroke-width="6" stroke-linejoin="round" filter="url(#sh)" d="M369.8,120.6 A310,310 0 0 0 369.8,719.4 L396.9,618.0 A205,205 0 0 1 396.9,222.0 Z"/><path fill="#f07b1d" stroke="#f0f4fa" stroke-width="6" stroke-linejoin="round" filter="url(#sh)" d="M530.2,719.4 A310,310 0 0 0 530.2,120.6 L503.1,222.0 A205,205 0 0 1 503.1,618.0 Z"/><path fill="#1a6fbe" stroke="#f0f4fa" stroke-width="6" stroke-linejoin="round" filter="url(#sh)" d="M150.6,500.2 A310,310 0 0 0 749.4,500.2 L648.0,473.1 A205,205 0 0 1 252.0,473.1 Z"/><path fill="#2a4090" stroke="#f0f4fa" stroke-width="5" stroke-linejoin="round" d="M396.9,222.0 A205,205 0 0 0 396.9,618.0 L411.7,563.0 A148,148 0 0 1 411.7,277.0 Z"/><path fill="#f5a050" stroke="#f0f4fa" stroke-width="5" stroke-linejoin="round" d="M503.1,618.0 A205,205 0 0 0 503.1,222.0 L488.3,277.0 A148,148 0 0 1 488.3,563.0 Z"/><path fill="#2a90e0" stroke="#f0f4fa" stroke-width="5" stroke-linejoin="round" d="M252.0,473.1 A205,205 0 0 0 648.0,473.1 L593.0,458.3 A148,148 0 0 1 307.0,458.3 Z"/><circle cx="450" cy="420" r="105" fill="#ffffff" stroke="#c8d4ee" stroke-width="1.5"/><text x="450" y="398" text-anchor="middle" font-family="Onest,sans-serif" font-size="28" font-weight="800" fill="#1a2f6e">GTM</text><text x="450" y="432" text-anchor="middle" font-family="Onest,sans-serif" font-size="28" font-weight="800" fill="#1a2f6e">DIGITAL</text><text x="450" y="456" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="9.5" fill="#6070a0">DADOS + INTELIGÊNCIA</text><text x="450" y="470" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="9.5" fill="#6070a0">+ INTEGRAÇÃO</text><text text-anchor="middle" font-family="Onest,sans-serif" font-size="10" font-weight="700" fill="#ffffff" transform="rotate(90.0,274.0,420.0)"><tspan x="274.0" y="413.5">OFERTA E</tspan><tspan x="274.0" y="426.5">DISPONIBILIDADE</tspan></text><text text-anchor="middle" font-family="Onest,sans-serif" font-size="10" font-weight="700" fill="#fff8f0" transform="rotate(-90.0,626.0,420.0)"><tspan x="626.0" y="413.5">CONVERSÃO E</tspan><tspan x="626.0" y="426.5">RELACIONAMENTO</tspan></text><text text-anchor="middle" font-family="Onest,sans-serif" font-size="10.5" font-weight="700" fill="#ffffff" transform="rotate(360.0,450.0,596.0)"><tspan x="450.0" y="589.5">DEMANDA E</tspan><tspan x="450.0" y="602.5">EXPERIÊNCIA</tspan></text><text text-anchor="middle" font-family="Onest,sans-serif" fill="#ffffff" transform="rotate(270.0,193.0,420.0)"><tspan x="193.0" y="385.0" font-size="15" font-weight="700">NAVI</tspan><tspan x="193.0" y="399.0" font-size="8.5">Navegador de vendas</tspan><tspan x="193.0" y="413.0" font-size="8" font-style="italic">[ MáximaTech ]</tspan><tspan x="193.0" y="427.0" font-size="8" font-style="italic">[ Catálogo+ ]  [ Life Apps ]</tspan><tspan x="193.0" y="441.0" font-size="8" font-style="italic">[ Arena · easypoints ]</tspan><tspan x="193.0" y="455.0" font-size="8" font-style="italic">[ Ambassadors · Stringhini ]</tspan></text><text text-anchor="middle" font-family="Onest,sans-serif" fill="#ffffff" transform="rotate(-90.0,707.0,420.0)"><tspan x="707.0" y="378.0" font-size="15" font-weight="700">IMPULSO</tspan><tspan x="707.0" y="392.0" font-size="8.5">Plataforma de crescimento</tspan><tspan x="707.0" y="406.0" font-size="8">Portal B2B · TBD</tspan><tspan x="707.0" y="420.0" font-size="7.5" font-style="italic">[ ML Business ] [ Portal Ipiranga ]</tspan><tspan x="707.0" y="434.0" font-size="7.5" font-style="italic">[ Ultragaz ] [ Canal da Peça ] [ Agrofy ]</tspan><tspan x="707.0" y="448.0" font-size="8">WhatsApp Commerce · TBD</tspan><tspan x="707.0" y="462.0" font-size="8">+Parceiro · Alloyal</tspan></text><text text-anchor="middle" font-family="Onest,sans-serif" fill="#ffffff" transform="rotate(360.0,450.0,677.0)"><tspan x="450.0" y="642.0" font-size="15" font-weight="700">CONECTA</tspan><tspan x="450.0" y="656.0" font-size="8.5">Conexão com o consumidor final</tspan><tspan x="450.0" y="670.0" font-size="8.5" font-weight="700">Lojas online + last mile</tspan><tspan x="450.0" y="684.0" font-size="11" font-weight="700">Hubii</tspan><tspan x="450.0" y="698.0" font-size="7.5" font-style="italic">[ Shopee ] [ ML ] [ iFood ] [ Keeta ]</tspan><tspan x="450.0" y="712.0" font-size="8">ERP PDV · KMV Ipiranga</tspan></text></svg>
+    <div class="section-label">Estratégia de longo prazo — Iconic</div>
+    <div class="panel strategy-panel">
+      <div class="strategy-list">
+        <div class="strategy-item"><b>Sistema</b> MáximaTech como força de vendas comercial</div>
+        <div class="strategy-item"><b>Mix</b> 40% telemarketing / 60% field sales</div>
+        <div class="strategy-item"><b>Time</b> média de 500+ vendedores por distribuidor</div>
+        <div class="strategy-item"><b>Território</b> exclusividade territorial</div>
+        <div class="strategy-item"><b>DOH</b> giro de estoque de 45–60 dias no varejo de lubrificantes</div>
       </div>
-
-      <div class="mq-hubii-block">
-        <div class="conecta-detail">
-          <div class="cd-header">
-            <div class="cd-header-kicker">CONECTA · 3 · CLIENTE FINAL</div>
-            <div class="cd-header-title">Levar o produto até o consumidor</div>
-            <div class="cd-header-sub">Estoque conectado, entrega ao consumidor e demanda em plataformas B2C.</div>
-          </div>
-          <div class="cd-chips-row">
-            <span class="cd-chip hubii">Hubii · parceiro</span>
-            <span class="cd-chip active">Shopee · ativo</span>
-            <span class="cd-chip setup">iFood · set-up</span>
-            <span class="cd-chip setup">Mercado Livre · set-up</span>
-            <span class="cd-chip neutral">Keeta</span>
-            <span class="cd-chip neutral">Ipiranga · KMV</span>
-          </div>
-          <div class="cd-items">
-            <div class="cd-item">
-              <div class="cd-item-title">Lojas online com last mile (Hubii)</div>
-              <div class="cd-item-body">Loja digital, estoque conectado, entrega ao consumidor e remuneração da cadeia.</div>
-            </div>
-            <div class="cd-item">
-              <div class="cd-item-title">Anúncios em plataformas B2C</div>
-              <div class="cd-item-body">Demanda gerada em Shopee, Mercado Livre, iFood e Keeta.</div>
-            </div>
-            <div class="cd-item">
-              <div class="cd-item-title">ERP para PDV de serviço</div>
-              <div class="cd-item-body">Oficinas mecânicas, trocas de óleo, centros automotivos e gestão do atendimento.</div>
-            </div>
-            <div class="cd-item">
-              <div class="cd-item-title">KMV Ipiranga</div>
-              <div class="cd-item-body">Relacionamento, benefícios, fidelização e recorrência, conectado ao ecossistema Ipiranga.</div>
-            </div>
-          </div>
-          <div class="cd-risk">
-            <b>Risco de canal</b>
-            Peças vendem forte online, mas o mecânico costuma mandar o cliente comprar direto. Isso compete com o DA.
-          </div>
-        </div>
-
-        <div class="mq-hubii-eyebrow">Hubii × Iconic</div>
-        <h3 class="mq-hubii-title">Como a Hubii pode ajudar</h3>
-        <p class="mq-hubii-desc">A Hubii atua no bloco <strong>CONECTA</strong> — a frente de conexão com o consumidor final — sendo o parceiro responsável por digitalizar a distribuição de lubrificantes e levar os produtos da Iconic até os consumidores com estoque conectado, last mile e inteligência de dados.</p>
-
-        <div class="hubii-opp-list">
-          <div class="hubii-opp">
-            <div class="hubii-opp-icon">🛍</div>
-            <div>
-              <div class="hubii-opp-title">Lojas oficiais online</div>
-              <div class="hubii-opp-body">Loja digital com catálogo completo, conectada ao estoque do DA e com entrega ao consumidor final.</div>
-            </div>
-          </div>
-          <div class="hubii-opp">
-            <div class="hubii-opp-icon">📦</div>
-            <div>
-              <div class="hubii-opp-title">Estoque conectado ao DA</div>
-              <div class="hubii-opp-body">Visibilidade em tempo real do estoque por praça, com reposição orientada pelo sellout.</div>
-            </div>
-          </div>
-          <div class="hubii-opp">
-            <div class="hubii-opp-icon">🚚</div>
-            <div>
-              <div class="hubii-opp-title">Last mile integrado</div>
-              <div class="hubii-opp-body">Entrega ao consumidor via Shopee, iFood, Mercado Livre e outros canais ativos ou em set-up.</div>
-            </div>
-          </div>
-          <div class="hubii-opp">
-            <div class="hubii-opp-icon">📊</div>
-            <div>
-              <div class="hubii-opp-title">Inteligência de dados</div>
-              <div class="hubii-opp-body">Dashboard de resultados por praça e canal, com GMV, mix, eficiência e oportunidades de expansão.</div>
-            </div>
-          </div>
-          <div class="hubii-opp">
-            <div class="hubii-opp-icon">🔁</div>
-            <div>
-              <div class="hubii-opp-title">Remuneração da cadeia</div>
-              <div class="hubii-opp-body">Modelo que remunera o DA pelo sellout gerado online, sem canibalizar o canal físico.</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="hubii-opp-note">✏ Texto provisório — edite conforme a conversa com a Iconic avançar.</div>
-      </div>
-
     </div>
-
+  </div>
 
   <!-- PORTFÓLIO -->
   <div class="tab-panel" id="panel-portfolio">
