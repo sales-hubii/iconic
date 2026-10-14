@@ -1931,6 +1931,96 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
   .cd-grid4{ grid-template-columns:1fr; }
   .mq-foot{ grid-template-columns:1fr; }
 }
+
+/* VISÃO GERAL — status de praças e canais */
+.praca-dot.off{ background:#b9b5c9; box-shadow:0 0 0 4px #ecebf2; }
+.praca-tag.off-tag{ color:var(--ink-soft); background:#ecebf2; }
+.channel-chip.active{ color:#fff; background:var(--purple); border-color:var(--purple); }
+.channel-chip.setup{ color:var(--purple-deep); background:#fff; border:1px dashed var(--purple); font-weight:500; }
+.cd-chips span.st-on{ background:var(--purple); border-color:var(--purple); color:#fff; font-weight:700; }
+.cd-chips span.st-set{ border-style:dashed; color:#5d5690; border-color:#bdb5ec; }
+.vg-title{ margin-top:24px; }
+.vg-title h2{ font-size:20px; font-weight:800; color:var(--ink); margin:0 0 4px; text-transform:uppercase; }
+.vg-title p{ font-size:13px; color:var(--ink-soft); margin:0 0 16px; max-width:none; line-height:1.5; }
+
+/* ROADMAP — cabeçalho em linhas separadas, barras pendentes em cinza */
+.rm-head{ display:block; margin-bottom:6px; }
+.rm-hrow{ display:grid; grid-template-columns:var(--lbl) 1fr; align-items:center; }
+.rm-phases{ height:24px; }
+.rm-ph-seg{ line-height:24px; font-size:11px; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; padding:0 4px; }
+.rm-todayrow{ height:18px; }
+.rm-tlabel{ position:absolute; top:1px; transform:translateX(-50%); white-space:nowrap; background:#e58a34; color:#fff; font-family:'IBM Plex Mono',monospace; font-size:10px; padding:1px 8px; border-radius:999px; }
+.rm-months{ height:14px; }
+.rm-weeks{ height:14px; margin-bottom:4px; }
+.rm-m{ top:0; height:14px; line-height:14px; font-size:10px; }
+.rm-w{ top:0; line-height:14px; font-size:9px; }
+.rm-bar.pend{ background:#d6d2e2; }
+.rm-d.pend{ color:#8b86a2; }
+.rm-d.in.pend{ color:#4a4560; }
+.rm-sw.pend{ background:#d6d2e2; }
+.vg-resumo{ align-items:start !important; }
+.vg-resumo > div{ display:flex; flex-direction:column; min-width:0; }
+.vg-resumo .section-label{ margin:0 0 10px; }
+.vg-resumo .panel{ flex:1; padding:12px; margin:0; display:flex; flex-direction:column; justify-content:flex-start; gap:8px; }
+.vg-resumo .praca-foco{ margin:0; }
+.vg-resumo .potencial-list, .vg-resumo .channel-list{ align-content:flex-start; }
+@media (max-width:1000px){ .vg-resumo{ grid-template-columns:1fr !important; } }
+
+/* VISÃO GERAL — bloco único de praças em duas colunas */
+.vg-resumo .vg-pairwrap{ display:flex; flex-direction:column; }
+.vg-pair{ display:grid !important; grid-template-columns:1fr 1fr; gap:18px; padding:14px !important; }
+.vg-col{ display:flex; flex-direction:column; gap:8px; min-width:0; }
+.vg-col .section-label{ margin:0 0 6px; }
+.vg-col .praca-foco{ margin:0; }
+.vg-canais{ display:flex; flex-direction:column; gap:10px; padding:14px !important; }
+.vg-canais .section-label{ margin:0 0 4px; }
+.vg-canais-wrap{ display:flex; flex-direction:column; }
+.vg-canais .potencial-list{ align-content:flex-start; }
+.praca-dot.active-dot{ background:var(--purple); box-shadow:0 0 0 4px var(--hubii-bg); }
+.praca-tag.setup-tag{ color:var(--purple); background:var(--hubii-bg); border:1px dashed var(--purple); }
+.vg-canais .praca-foco{ margin:0; }
+.praca-dot.setup-dot{ background:var(--purple-glow); box-shadow:0 0 0 4px var(--hubii-bg); }
+
+/* MANDALA CÍRCULO + BLOCO HUBII */
+.mq-layout{ display:grid; grid-template-columns:60% 40%; gap:0; align-items:start; background:#fff; border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; margin-bottom:18px; }
+.mq-circle-wrap{ padding:20px 16px 16px; background:var(--paper); display:flex; flex-direction:column; align-items:center; }
+.mq-circle-title{ font-size:16px; font-weight:800; color:var(--purple-deep); text-align:center; letter-spacing:.01em; }
+.mq-circle-sub{ font-size:11px; color:var(--ink-soft); text-align:center; margin:4px 0 10px; max-width:400px; line-height:1.4; }
+.manda-circle{ width:100%; height:auto; display:block; }
+.mq-hubii-block{ padding:28px 24px; border-left:1px solid var(--line); display:flex; flex-direction:column; gap:14px; }
+.mq-hubii-eyebrow{ font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.1em; color:var(--purple); text-transform:uppercase; }
+.mq-hubii-title{ font-size:20px; font-weight:800; color:var(--ink); margin:0; line-height:1.2; }
+.mq-hubii-desc{ font-size:13px; color:var(--ink-soft); line-height:1.55; margin:0; }
+.hubii-opp-list{ display:flex; flex-direction:column; gap:12px; }
+.hubii-opp{ display:flex; gap:12px; align-items:flex-start; }
+.hubii-opp-icon{ font-size:20px; flex:none; margin-top:1px; }
+.hubii-opp-title{ font-size:13px; font-weight:700; color:var(--ink); margin-bottom:2px; }
+.hubii-opp-body{ font-size:12px; color:var(--ink-soft); line-height:1.45; }
+.hubii-opp-note{ font-size:11px; color:var(--potencial); font-style:italic; padding:8px 12px; background:var(--potencial-bg); border-radius:8px; margin-top:4px; }
+@media (max-width:1000px){ .mq-layout{ grid-template-columns:1fr; } .mq-hubii-block{ border-left:none; border-top:1px solid var(--line); } }
+
+/* PILAR CONECTA — detalhe no lado direito */
+.conecta-detail{ background:#6348e5; border-radius:14px; padding:18px 20px; color:#fff; margin-bottom:14px; }
+.cd-header-kicker{ font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.1em; opacity:.85; margin-bottom:8px; }
+.cd-header-title{ font-size:18px; font-weight:800; line-height:1.15; margin-bottom:6px; }
+.cd-header-sub{ font-size:12.5px; opacity:.9; line-height:1.4; margin-bottom:14px; }
+.cd-chips-row{ display:flex; flex-wrap:wrap; gap:6px; margin-bottom:14px; }
+.cd-chip{ font-size:11px; font-weight:600; padding:4px 10px; border-radius:999px; border:1px solid rgba(255,255,255,.35); background:rgba(255,255,255,.12); color:#fff; }
+.cd-chip.hubii{ background:#fff; color:#6348e5; border-color:#fff; font-weight:700; }
+.cd-chip.active{ background:rgba(255,255,255,.25); border-color:#fff; }
+.cd-chip.setup{ border-style:dashed; }
+.cd-chip.neutral{ opacity:.7; }
+.cd-items{ display:flex; flex-direction:column; gap:10px; margin-bottom:14px; }
+.cd-item-title{ font-size:13px; font-weight:700; margin-bottom:2px; }
+.cd-item-body{ font-size:12px; opacity:.88; line-height:1.4; }
+.cd-risk{ background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.25); border-radius:10px; padding:10px 12px; font-size:12px; line-height:1.45; opacity:.95; }
+.cd-risk b{ display:block; margin-bottom:3px; font-size:12.5px; }
+
+/* RESUMO EXECUTIVO — esquerda empilhada, direita canais */
+.vg-resumo-outer{ display:grid; grid-template-columns:1fr 1fr; gap:14px; align-items:start; margin-bottom:0; }
+.vg-left-stack{ display:flex; flex-direction:column; gap:14px; }
+.vg-right-col{ display:flex; flex-direction:column; }
+@media (max-width:900px){ .vg-resumo-outer{ grid-template-columns:1fr; } }
 </style>
 </head>
 <body>
@@ -1945,8 +2035,7 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
   </div>
 
   <div class="tabs">
-    <button class="tab-btn active" data-tab="escopo">Overview</button>
-    <button class="tab-btn" data-tab="oportunidades">Oportunidades</button>
+    <button class="tab-btn active" data-tab="escopo">Visão geral</button>
     <button class="tab-btn" data-tab="portfolio">Portfólio</button>
     <button class="tab-btn" data-tab="resultados">Resultados</button>
     <button class="tab-btn" data-tab="rede-revendas">Revendas</button>
@@ -1956,316 +2045,229 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
 
   <!-- ESCOPO -->
   <div class="tab-panel active" id="panel-escopo">
-    <div class="grid">
-      <div>
-        <div class="section-label first">Praças foco</div>
-        <div class="panel">
+    <div class="vg-resumo-outer">
+      <div class="vg-left-stack">
+        <div class="panel vg-canais">
+          <div class="section-label">Praças foco</div>
           <div class="praca-foco">
-            <div class="praca-dot"></div>
-            <div class="praca-info">
-              <div class="praca-city">São Paulo</div>
-              <div class="praca-partner">Parceiro: TreviLub</div>
+              <div class="praca-dot"></div>
+              <div class="praca-info">
+                <div class="praca-city">São Paulo</div>
+                <div class="praca-partner">Parceiro: TreviLub</div>
+              </div>
+              <div class="praca-tag">Foco</div>
             </div>
-            <div class="praca-tag">Foco</div>
-          </div>
           <div class="praca-foco">
-            <div class="praca-dot"></div>
-            <div class="praca-info">
-              <div class="praca-city">Porto Alegre</div>
-              <div class="praca-partner">Parceiro: Makena</div>
+              <div class="praca-dotoff"></div>
+              <div class="praca-info">
+                <div class="praca-city">Porto Alegre</div>
+                <div class="praca-partner">Parceiro: Makena</div>
+              </div>
+              <div class="praca-tag off-tag">Inativa · a plugar</div>
             </div>
-            <div class="praca-tag">Foco</div>
-          </div>
           <div class="praca-foco">
-            <div class="praca-dot"></div>
-            <div class="praca-info">
-              <div class="praca-city">Belo Horizonte</div>
-              <div class="praca-partner">Parceiro: BelLub</div>
-            </div>
-            <div class="praca-tag">Foco</div>
-          </div>
-        </div>
-
-        <div class="section-label">Outras praças potenciais</div>
-        <div class="panel">
-          <div class="potencial-list">
-            <div class="potencial-chip"><b>RJ</b> · RioLub</div>
-            <div class="potencial-chip">Curitiba</div>
-            <div class="potencial-chip">Fortaleza</div>
-            <div class="potencial-chip">Goiânia</div>
-          </div>
-        </div>
-      </div>
-
-      <div>
-        <div class="section-label first">Canais do projeto</div>
-        <div class="panel">
-          <div class="potencial-list">
-            <div class="channel-chip">Shopee</div>
-            <div class="channel-chip">Mercado Livre</div>
-            <div class="channel-chip">Shopee Turbo</div>
-            <div class="channel-chip">iFood</div>
-            <div class="channel-chip negotiating">99 · em negociação</div>
-            <div class="channel-chip integrating">Magalu Delivery · em integração</div>
-            <div class="channel-chip integrating">Temu · em integração</div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </div>
-
-  <!-- OPORTUNIDADES -->
-  <div class="tab-panel" id="panel-oportunidades">
-
-    <div class="gtm-hero">
-      <div class="gtm-hero-text">
-        <div class="eyebrow">Ecossistema digital go-to-market · Iconic</div>
-        <h2>Do distribuidor ao consumidor final, numa jornada conectada</h2>
-        <p>Três frentes sustentam a estratégia: vender mais com o DA (NAVI), dar ao PDV mais formas de comprar (IMPULSO) e chegar ao consumidor final com a Hubii (CONECTA).</p>
-      </div>
-      <div class="gtm-core">
-        <b>GTM DIGITAL</b>
-        <small>Dados + inteligência + integração</small>
-      </div>
-    </div>
-
-    <div class="section-label">Mandala GTM Digital</div>
-    <div class="mq">
-      <div class="mq-title">ECOSSISTEMA DIGITAL GO TO MARKET</div>
-      <div class="mq-sub">Conectando Distribuidores Autorizados, Pontos de Venda e Clientes Finais em uma jornada omnicanal integrada.</div>
-
-      <div class="mq-grid">
-
-        <div class="mq-tri">
-          <svg viewBox="0 0 400 340" class="tri-svg" role="img" aria-label="GTM Digital">
-            <polygon points="200,14 22,326 200,222" class="tri-f-navi"/>
-            <polygon points="200,14 378,326 200,222" class="tri-f-impulso"/>
-            <polygon points="22,326 378,326 200,222" class="tri-f-conecta"/>
-            <polygon points="200,134.6 125.2,265.7 274.8,265.7" class="tri-core"/>
-            <text class="tri-t-w" transform="translate(150 192) rotate(-60)" text-anchor="middle" font-size="10.5" font-weight="700"><tspan x="0" dy="0">OFERTA E</tspan><tspan x="0" dy="12">DISPONIBILIDADE</tspan></text>
-            <text class="tri-t-i" transform="translate(250 192) rotate(60)" text-anchor="middle" font-size="10.5" font-weight="700"><tspan x="0" dy="0">CONVERSÃO E</tspan><tspan x="0" dy="12">RELACIONAMENTO</tspan></text>
-            <text class="tri-t-w" x="200" y="300" text-anchor="middle" font-size="13" font-weight="700"><tspan x="200" dy="0">DEMANDA E</tspan><tspan x="200" dy="15">EXPERIÊNCIA</tspan></text>
-            <text class="tri-c-t" x="200" y="192" text-anchor="middle" font-size="17" font-weight="800">GTM</text>
-            <text class="tri-c-t" x="200" y="212" text-anchor="middle" font-size="17" font-weight="800">DIGITAL</text>
-            <text class="tri-c-s" x="200" y="229" text-anchor="middle" font-size="6.5">DADOS + INTELIGÊNCIA</text>
-            <text class="tri-c-s" x="200" y="239" text-anchor="middle" font-size="6.5">+ INTEGRAÇÃO</text>
-          </svg>
-        </div>
-
-        <section class="pl pl-navi">
-          <div class="pl-head">
-            <div class="pl-title">NAVI</div>
-            <div class="pl-sub">NAVEGADOR DE VENDAS INTELIGENTE</div>
-            <div class="pl-tag"><span class="pl-num">1</span> Distribuidor autorizado · Ajudar o DA a vender</div>
-          </div>
-          <div class="cd cd-3">
-            <div class="cd-logo"><b>MáximaTech</b><small>FORÇA DE VENDAS EXTERNA</small></div>
-            <div class="cd-logo"><b>Catálogo+</b><small>CATÁLOGOS DIGITAIS E DOCUMENTOS</small></div>
-            <div class="cd-logo"><b>Life Apps</b><small>VENDAS INTERNAS E CRM</small></div>
-          </div>
-          <div class="cd">
-            <div class="cd-txt">
-              <h4>Arena</h4>
-              <ul><li>Campanhas de vendas</li><li>Metas e rankings</li><li>Performance comercial</li><li>Pontos e premiações</li><li>Resgate de benefícios</li></ul>
-            </div>
-            <div class="cd-par"><small>Programa de fidelidade</small><small>Parceiro:</small><b>easypoints</b></div>
-          </div>
-          <div class="cd">
-            <div class="cd-txt">
-              <h4>Ambassadors Varejo</h4>
-              <ul><li>Guia de execução</li><li>Visita estruturada</li><li>Checklist no PDV</li><li>Captura de informações</li><li>Dashboard de execução</li><li>Identificação de oportunidades</li></ul>
-            </div>
-            <div class="cd-par"><small>Parceiro:</small><b>stringhini</b><small>varejo inteligente</small></div>
-          </div>
-        </section>
-
-        <section class="pl pl-impulso">
-          <div class="pl-head">
-            <div class="pl-title">IMPULSO</div>
-            <div class="pl-sub">PLATAFORMA DE CRESCIMENTO COMERCIAL</div>
-            <div class="pl-tag"><span class="pl-num">2</span> Ponto de venda · Ajudar o PDV a comprar e vender</div>
-          </div>
-          <div class="cd">
-            <div class="cd-txt">
-              <h4>Portal de compras B2B</h4>
-              <ul><li>Catálogo e busca</li><li>Preços e condições</li><li>Status dos pedidos</li></ul>
-            </div>
-            <div class="cd-par tbd"><small>Parceiro:</small><b>TBD</b></div>
-          </div>
-          <div class="cd">
-            <div class="cd-txt">
-              <h4>Hub de e-commerce e marketplaces B2B</h4>
-              <div class="cd-chips"><span>Mercado Livre Business</span><span>Portal Ipiranga</span><span>ultragaz</span><span>Canal da Peça</span><span>agrofy</span></div>
-            </div>
-            <div class="cd-par tbd"><small>Parceiro:</small><b>TBD</b></div>
-          </div>
-          <div class="cd">
-            <div class="cd-txt">
-              <h4>WhatsApp Commerce</h4>
-              <ul><li>Consulta e cotação</li><li>Pedido assistido</li><li>Acompanhamento</li></ul>
-            </div>
-            <div class="cd-par tbd"><small>Parceiro:</small><b>TBD</b></div>
-          </div>
-          <div class="cd">
-            <div class="cd-txt">
-              <h4>Programa de fidelidade</h4>
-              <ul><li>Acúmulo de pontos</li><li>Benefícios</li><li>Resgate</li></ul>
-            </div>
-            <div class="cd-par"><small>Parceiro:</small><b>Alloyal</b></div>
-          </div>
-        </section>
-
-        <section class="pl pl-conecta">
-          <div class="pl-head">
-            <div class="pl-title">CONECTA</div>
-            <div class="pl-sub">CONEXÃO COM O CONSUMIDOR FINAL</div>
-            <div class="pl-tag"><span class="pl-num">3</span> Cliente final · Gerar demanda e recorrência</div>
-          </div>
-          <div class="cd-grid4">
-            <div class="cd">
-              <div class="cd-txt">
-                <h4>Lojas online de produtos com last mile</h4>
-                <ul><li>Loja digital</li><li>Estoque conectado</li><li>Entrega ao consumidor</li><li>Remuneração da cadeia</li></ul>
+              <div class="praca-dotoff"></div>
+              <div class="praca-info">
+                <div class="praca-city">Belo Horizonte</div>
+                <div class="praca-partner">Parceiro: BelLub</div>
               </div>
-              <div class="cd-par hubii"><small>Parceiro:</small><b>hubii</b></div>
+              <div class="praca-tag off-tag">Inativa · a plugar</div>
             </div>
-            <div class="cd">
-              <div class="cd-txt">
-                <h4>Anúncios em plataformas B2C</h4>
-                <div class="cd-chips"><span>Shopee</span><span>Mercado Livre</span><span>iFood</span><span>Keeta</span></div>
+        </div>
+        <div class="panel vg-canais">
+          <div class="section-label">Outras praças potenciais</div>
+          <div class="praca-foco">
+              <div class="praca-dot off"></div>
+              <div class="praca-info">
+                <div class="praca-city">Rio de Janeiro</div>
+                <div class="praca-partner">Parceiro: RioLub</div>
               </div>
+              <div class="praca-tag off-tag">Potencial</div>
             </div>
-            <div class="cd">
-              <div class="cd-txt">
-                <h4>ERP para PDV de serviço</h4>
-                <ul><li>Oficinas mecânicas</li><li>Trocas de óleo</li><li>Centros automotivos</li><li>Gestão do atendimento</li></ul>
+          <div class="praca-foco">
+              <div class="praca-dot off"></div>
+              <div class="praca-info">
+                <div class="praca-city">Curitiba</div>
+                <div class="praca-partner">Parceiro:</div>
               </div>
+              <div class="praca-tag off-tag">Potencial</div>
             </div>
-            <div class="cd">
-              <div class="cd-txt">
-                <h4>KMV Ipiranga</h4>
-                <ul><li>Relacionamento</li><li>Benefícios</li><li>Fidelização</li><li>Recorrência</li><li>Conexão com o ecossistema Ipiranga</li></ul>
+          <div class="praca-foco">
+              <div class="praca-dot off"></div>
+              <div class="praca-info">
+                <div class="praca-city">Goiânia</div>
+                <div class="praca-partner">Parceiro:</div>
               </div>
-              <div class="cd-par"><small>Parceiro:</small><b>Ipiranga</b></div>
+              <div class="praca-tag off-tag">Potencial</div>
+            </div>
+        </div>
+      </div>
+      <div class="vg-right-col">
+        <div class="panel vg-canais">
+          <div class="section-label">Canais do projeto</div>
+          <div class="praca-foco">
+              <div class="praca-dot active-dot"></div>
+              <div class="praca-info">
+                <div class="praca-city">Shopee</div>
+                <div class="praca-partner">shopee.com.br</div>
+              </div>
+              <div class="praca-tag">Ativo</div>
+            </div>
+          <div class="praca-foco">
+              <div class="praca-dot setup-dot"></div>
+              <div class="praca-info">
+                <div class="praca-city">iFood</div>
+                <div class="praca-partner">set-up em andamento</div>
+              </div>
+              <div class="praca-tag setup-tag">Set-up</div>
+            </div>
+          <div class="praca-foco">
+              <div class="praca-dot setup-dot"></div>
+              <div class="praca-info">
+                <div class="praca-city">Shopee Turbo</div>
+                <div class="praca-partner">set-up em andamento</div>
+              </div>
+              <div class="praca-tag setup-tag">Set-up</div>
+            </div>
+          <div class="praca-foco">
+              <div class="praca-dot setup-dot"></div>
+              <div class="praca-info">
+                <div class="praca-city">Mercado Livre</div>
+                <div class="praca-partner">set-up em andamento</div>
+              </div>
+              <div class="praca-tag setup-tag">Set-up</div>
+            </div>
+          <div class="praca-foco">
+              <div class="praca-dot off"></div>
+              <div class="praca-info">
+                <div class="praca-city">99</div>
+                <div class="praca-partner">em negociação</div>
+              </div>
+              <div class="praca-tag off-tag">Em negociação</div>
+            </div>
+          <div class="praca-foco">
+              <div class="praca-dot off"></div>
+              <div class="praca-info">
+                <div class="praca-city">Magalu Delivery</div>
+                <div class="praca-partner">em integração</div>
+              </div>
+              <div class="praca-tag off-tag">Em integração</div>
+            </div>
+          <div class="praca-foco">
+              <div class="praca-dot off"></div>
+              <div class="praca-info">
+                <div class="praca-city">Temu</div>
+                <div class="praca-partner">em integração</div>
+              </div>
+              <div class="praca-tag off-tag">Em integração</div>
+            </div>
+        </div>
+      </div>
+    </div>
+
+  <!-- OPORTUNIDADES (mesclada na Visão geral) -->
+  <div class="vg-merge">
+
+    <div class="vg-title">
+      <h2>Do distribuidor ao consumidor final, numa jornada conectada</h2>
+      <p>Três frentes sustentam a estratégia: vender mais com o DA (NAVI), dar ao PDV mais formas de comprar (IMPULSO) e chegar ao consumidor final com a Hubii (CONECTA).</p>
+    </div>
+
+    <div class="section-label">Mandala GTM Digital · Onde a Hubii atua</div>
+    <div class="mq-layout">
+
+      <div class="mq-circle-wrap">
+        <div class="mq-circle-title">ECOSSISTEMA DIGITAL GO TO MARKET</div>
+        <div class="mq-circle-sub">Conectando Distribuidores Autorizados, Pontos de Venda e Clientes Finais em uma jornada omnicanal integrada.</div>
+        <svg class="manda-circle" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 840"><defs><filter id="sh"><feDropShadow dx="0" dy="2" stdDeviation="5" flood-opacity="0.10"/></filter></defs><rect width="900" height="840" fill="#f8f9fc"/><circle cx="450" cy="420" r="328" fill="none" stroke="#d8dff0" stroke-width="1" stroke-dasharray="5 8"/><path fill="#1a2f6e" stroke="#f0f4fa" stroke-width="6" stroke-linejoin="round" filter="url(#sh)" d="M369.8,120.6 A310,310 0 0 0 369.8,719.4 L396.9,618.0 A205,205 0 0 1 396.9,222.0 Z"/><path fill="#f07b1d" stroke="#f0f4fa" stroke-width="6" stroke-linejoin="round" filter="url(#sh)" d="M530.2,719.4 A310,310 0 0 0 530.2,120.6 L503.1,222.0 A205,205 0 0 1 503.1,618.0 Z"/><path fill="#1a6fbe" stroke="#f0f4fa" stroke-width="6" stroke-linejoin="round" filter="url(#sh)" d="M150.6,500.2 A310,310 0 0 0 749.4,500.2 L648.0,473.1 A205,205 0 0 1 252.0,473.1 Z"/><path fill="#2a4090" stroke="#f0f4fa" stroke-width="5" stroke-linejoin="round" d="M396.9,222.0 A205,205 0 0 0 396.9,618.0 L411.7,563.0 A148,148 0 0 1 411.7,277.0 Z"/><path fill="#f5a050" stroke="#f0f4fa" stroke-width="5" stroke-linejoin="round" d="M503.1,618.0 A205,205 0 0 0 503.1,222.0 L488.3,277.0 A148,148 0 0 1 488.3,563.0 Z"/><path fill="#2a90e0" stroke="#f0f4fa" stroke-width="5" stroke-linejoin="round" d="M252.0,473.1 A205,205 0 0 0 648.0,473.1 L593.0,458.3 A148,148 0 0 1 307.0,458.3 Z"/><circle cx="450" cy="420" r="105" fill="#ffffff" stroke="#c8d4ee" stroke-width="1.5"/><text x="450" y="398" text-anchor="middle" font-family="Onest,sans-serif" font-size="28" font-weight="800" fill="#1a2f6e">GTM</text><text x="450" y="432" text-anchor="middle" font-family="Onest,sans-serif" font-size="28" font-weight="800" fill="#1a2f6e">DIGITAL</text><text x="450" y="456" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="9.5" fill="#6070a0">DADOS + INTELIGÊNCIA</text><text x="450" y="470" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="9.5" fill="#6070a0">+ INTEGRAÇÃO</text><text text-anchor="middle" font-family="Onest,sans-serif" font-size="10" font-weight="700" fill="#ffffff" transform="rotate(90.0,274.0,420.0)"><tspan x="274.0" y="413.5">OFERTA E</tspan><tspan x="274.0" y="426.5">DISPONIBILIDADE</tspan></text><text text-anchor="middle" font-family="Onest,sans-serif" font-size="10" font-weight="700" fill="#fff8f0" transform="rotate(-90.0,626.0,420.0)"><tspan x="626.0" y="413.5">CONVERSÃO E</tspan><tspan x="626.0" y="426.5">RELACIONAMENTO</tspan></text><text text-anchor="middle" font-family="Onest,sans-serif" font-size="10.5" font-weight="700" fill="#ffffff" transform="rotate(360.0,450.0,596.0)"><tspan x="450.0" y="589.5">DEMANDA E</tspan><tspan x="450.0" y="602.5">EXPERIÊNCIA</tspan></text><text text-anchor="middle" font-family="Onest,sans-serif" fill="#ffffff" transform="rotate(270.0,193.0,420.0)"><tspan x="193.0" y="385.0" font-size="15" font-weight="700">NAVI</tspan><tspan x="193.0" y="399.0" font-size="8.5">Navegador de vendas</tspan><tspan x="193.0" y="413.0" font-size="8" font-style="italic">[ MáximaTech ]</tspan><tspan x="193.0" y="427.0" font-size="8" font-style="italic">[ Catálogo+ ]  [ Life Apps ]</tspan><tspan x="193.0" y="441.0" font-size="8" font-style="italic">[ Arena · easypoints ]</tspan><tspan x="193.0" y="455.0" font-size="8" font-style="italic">[ Ambassadors · Stringhini ]</tspan></text><text text-anchor="middle" font-family="Onest,sans-serif" fill="#ffffff" transform="rotate(-90.0,707.0,420.0)"><tspan x="707.0" y="378.0" font-size="15" font-weight="700">IMPULSO</tspan><tspan x="707.0" y="392.0" font-size="8.5">Plataforma de crescimento</tspan><tspan x="707.0" y="406.0" font-size="8">Portal B2B · TBD</tspan><tspan x="707.0" y="420.0" font-size="7.5" font-style="italic">[ ML Business ] [ Portal Ipiranga ]</tspan><tspan x="707.0" y="434.0" font-size="7.5" font-style="italic">[ Ultragaz ] [ Canal da Peça ] [ Agrofy ]</tspan><tspan x="707.0" y="448.0" font-size="8">WhatsApp Commerce · TBD</tspan><tspan x="707.0" y="462.0" font-size="8">+Parceiro · Alloyal</tspan></text><text text-anchor="middle" font-family="Onest,sans-serif" fill="#ffffff" transform="rotate(360.0,450.0,677.0)"><tspan x="450.0" y="642.0" font-size="15" font-weight="700">CONECTA</tspan><tspan x="450.0" y="656.0" font-size="8.5">Conexão com o consumidor final</tspan><tspan x="450.0" y="670.0" font-size="8.5" font-weight="700">Lojas online + last mile</tspan><tspan x="450.0" y="684.0" font-size="11" font-weight="700">Hubii</tspan><tspan x="450.0" y="698.0" font-size="7.5" font-style="italic">[ Shopee ] [ ML ] [ iFood ] [ Keeta ]</tspan><tspan x="450.0" y="712.0" font-size="8">ERP PDV · KMV Ipiranga</tspan></text></svg>
+      </div>
+
+      <div class="mq-hubii-block">
+        <div class="conecta-detail">
+          <div class="cd-header">
+            <div class="cd-header-kicker">CONECTA · 3 · CLIENTE FINAL</div>
+            <div class="cd-header-title">Levar o produto até o consumidor</div>
+            <div class="cd-header-sub">Estoque conectado, entrega ao consumidor e demanda em plataformas B2C.</div>
+          </div>
+          <div class="cd-chips-row">
+            <span class="cd-chip hubii">Hubii · parceiro</span>
+            <span class="cd-chip active">Shopee · ativo</span>
+            <span class="cd-chip setup">iFood · set-up</span>
+            <span class="cd-chip setup">Mercado Livre · set-up</span>
+            <span class="cd-chip neutral">Keeta</span>
+            <span class="cd-chip neutral">Ipiranga · KMV</span>
+          </div>
+          <div class="cd-items">
+            <div class="cd-item">
+              <div class="cd-item-title">Lojas online com last mile (Hubii)</div>
+              <div class="cd-item-body">Loja digital, estoque conectado, entrega ao consumidor e remuneração da cadeia.</div>
+            </div>
+            <div class="cd-item">
+              <div class="cd-item-title">Anúncios em plataformas B2C</div>
+              <div class="cd-item-body">Demanda gerada em Shopee, Mercado Livre, iFood e Keeta.</div>
+            </div>
+            <div class="cd-item">
+              <div class="cd-item-title">ERP para PDV de serviço</div>
+              <div class="cd-item-body">Oficinas mecânicas, trocas de óleo, centros automotivos e gestão do atendimento.</div>
+            </div>
+            <div class="cd-item">
+              <div class="cd-item-title">KMV Ipiranga</div>
+              <div class="cd-item-body">Relacionamento, benefícios, fidelização e recorrência, conectado ao ecossistema Ipiranga.</div>
             </div>
           </div>
-        </section>
+          <div class="cd-risk">
+            <b>Risco de canal</b>
+            Peças vendem forte online, mas o mecânico costuma mandar o cliente comprar direto. Isso compete com o DA.
+          </div>
+        </div>
 
-      </div>
+        <div class="mq-hubii-eyebrow">Hubii × Iconic</div>
+        <h3 class="mq-hubii-title">Como a Hubii pode ajudar</h3>
+        <p class="mq-hubii-desc">A Hubii atua no bloco <strong>CONECTA</strong> — a frente de conexão com o consumidor final — sendo o parceiro responsável por digitalizar a distribuição de lubrificantes e levar os produtos da Iconic até os consumidores com estoque conectado, last mile e inteligência de dados.</p>
 
-      <div class="mq-foot">
-        <div><b>DADOS CENTRALIZADOS</b><span>Visão única do cliente, produto e vendas</span></div>
-        <div><b>INTELIGÊNCIA DE NEGÓCIO</b><span>Insights para decisões mais rápidas e assertivas</span></div>
-        <div><b>INTEGRAÇÃO OMNICANAL</b><span>Experiência conectada em todos os elos da cadeia</span></div>
-        <div><b>MAIS RESULTADOS</b><span>Crescimento sustentável para toda a cadeia</span></div>
-      </div>
-    </div>
+        <div class="hubii-opp-list">
+          <div class="hubii-opp">
+            <div class="hubii-opp-icon">🛍</div>
+            <div>
+              <div class="hubii-opp-title">Lojas oficiais online</div>
+              <div class="hubii-opp-body">Loja digital com catálogo completo, conectada ao estoque do DA e com entrega ao consumidor final.</div>
+            </div>
+          </div>
+          <div class="hubii-opp">
+            <div class="hubii-opp-icon">📦</div>
+            <div>
+              <div class="hubii-opp-title">Estoque conectado ao DA</div>
+              <div class="hubii-opp-body">Visibilidade em tempo real do estoque por praça, com reposição orientada pelo sellout.</div>
+            </div>
+          </div>
+          <div class="hubii-opp">
+            <div class="hubii-opp-icon">🚚</div>
+            <div>
+              <div class="hubii-opp-title">Last mile integrado</div>
+              <div class="hubii-opp-body">Entrega ao consumidor via Shopee, iFood, Mercado Livre e outros canais ativos ou em set-up.</div>
+            </div>
+          </div>
+          <div class="hubii-opp">
+            <div class="hubii-opp-icon">📊</div>
+            <div>
+              <div class="hubii-opp-title">Inteligência de dados</div>
+              <div class="hubii-opp-body">Dashboard de resultados por praça e canal, com GMV, mix, eficiência e oportunidades de expansão.</div>
+            </div>
+          </div>
+          <div class="hubii-opp">
+            <div class="hubii-opp-icon">🔁</div>
+            <div>
+              <div class="hubii-opp-title">Remuneração da cadeia</div>
+              <div class="hubii-opp-body">Modelo que remunera o DA pelo sellout gerado online, sem canibalizar o canal físico.</div>
+            </div>
+          </div>
+        </div>
 
-    <div class="stat-row">
-      <div class="stat"><div class="stat-num">7</div><div class="stat-lbl">ERPs em operação</div></div>
-      <div class="stat"><div class="stat-num">19</div><div class="stat-lbl">Integrações ativas</div></div>
-      <div class="stat"><div class="stat-num">100k</div><div class="stat-lbl">PDVs atendidos</div></div>
-      <div class="stat"><div class="stat-num">R$800mi</div><div class="stat-lbl">Faturamento/ano por DA</div></div>
-      <div class="stat"><div class="stat-num">22k</div><div class="stat-lbl">Varejistas no +Parceiro</div></div>
-    </div>
-
-    <div class="section-label">As três frentes</div>
-    <div class="gtm-grid">
-
-      <div class="pillar pillar-navi">
-        <div class="pillar-top">
-          <div class="pillar-kicker">NAVI · 1 · Distribuidor</div>
-          <div class="pillar-title">Vender mais com quem vende</div>
-          <div class="pillar-promise">Força de vendas, campanhas e execução no PDV, num só navegador comercial.</div>
-        </div>
-        <div class="pillar-partners">
-          <span class="chip">MáximaTech</span>
-          <span class="chip">Catálogo+</span>
-          <span class="chip">Life Apps</span>
-          <span class="chip">Arena · easypoints</span>
-          <span class="chip">Ambassadors · Stringhini</span>
-        </div>
-        <div class="pillar-body">
-          <div class="opp-item"><b>Força de vendas externa</b><span>MáximaTech como sistema comercial. Mix de 40% telemarketing e 60% field sales, com 500+ vendedores por DA.</span></div>
-          <div class="opp-item"><b>Gamificação que move a meta</b><span>Campanhas, metas, rankings e resgate de benefícios no programa Arena.</span></div>
-          <div class="opp-item"><b>Catálogo e CRM na mão do vendedor</b><span>Catálogo digital e documentos (Catálogo+) somados a vendas internas e CRM (Life Apps).</span></div>
-          <div class="opp-item"><b>Execução no PDV</b><span>Visita estruturada, checklist, captura de informações e identificação de oportunidades com o Ambassadors Varejo.</span></div>
-          <div class="tension"><b>Premissas de operação</b>Exclusividade territorial. Giro de estoque de 45 a 60 dias (DOH) no varejo de lubrificantes.</div>
-        </div>
-      </div>
-
-      <div class="pillar pillar-impulso">
-        <div class="pillar-top">
-          <div class="pillar-kicker">IMPULSO · 2 · Ponto de venda</div>
-          <div class="pillar-title">Mais formas de o PDV comprar</div>
-          <div class="pillar-promise">Pedido B2B, marketplaces, WhatsApp e fidelidade para o varejista.</div>
-        </div>
-        <div class="pillar-partners">
-          <span class="chip tbd">Portal B2B · TBD</span>
-          <span class="chip">Mercado Livre Business</span>
-          <span class="chip">Portal Ipiranga</span>
-          <span class="chip">Ultragaz</span>
-          <span class="chip">Canal da Peça</span>
-          <span class="chip">Agrofy</span>
-          <span class="chip tbd">WhatsApp · TBD</span>
-          <span class="chip tbd">Alloyal · TBD</span>
-        </div>
-        <div class="pillar-body">
-          <div class="opp-item"><b>Portal de compras B2B</b><span>Catálogo, preços e condições e status dos pedidos. Oportunidade: um portal nos moldes do BEES para o varejo comprar do DA.</span></div>
-          <div class="opp-item"><b>WhatsApp como porta de entrada</b><span>Consulta, cotação, pedido assistido e acompanhamento. É um canal que o varejo já usa muito.</span></div>
-          <div class="opp-item"><b>+Parceiro: fidelidade do varejista</b><span>22 mil varejistas segmentados em diamante, ouro, prata e bronze, com foco em ativar a venda online. O sellout volta ao DA para orientar a reposição.</span></div>
-          <div class="opp-item"><b>Hub de e-commerce e marketplaces</b><span>Cinco canais B2B já desenhados na estratégia master.</span></div>
-          <div class="tension"><b>Tensão em aberto</b>O dashboard registra e-commerce como "sem estratégia", enquanto a master mostra o hub estruturado. Alinhar antes de circular.</div>
-        </div>
-      </div>
-
-      <div class="pillar pillar-conecta">
-        <div class="pillar-top">
-          <div class="pillar-kicker">CONECTA · 3 · Cliente final</div>
-          <div class="pillar-title">Levar o produto até o consumidor</div>
-          <div class="pillar-promise">Estoque conectado, entrega ao consumidor e demanda em plataformas B2C.</div>
-        </div>
-        <div class="pillar-partners">
-          <span class="chip hubii">Hubii · parceiro</span>
-          <span class="chip">Shopee</span>
-          <span class="chip">Mercado Livre</span>
-          <span class="chip">iFood</span>
-          <span class="chip">Keeta</span>
-          <span class="chip">Ipiranga · KMV</span>
-        </div>
-        <div class="pillar-body">
-          <div class="opp-item"><b>Lojas online com last mile (Hubii)</b><span>Loja digital, estoque conectado, entrega ao consumidor e remuneração da cadeia.</span></div>
-          <div class="opp-item"><b>Anúncios em plataformas B2C</b><span>Demanda gerada em Shopee, Mercado Livre, iFood e Keeta.</span></div>
-          <div class="opp-item"><b>ERP para PDV de serviço</b><span>Oficinas mecânicas, trocas de óleo, centros automotivos e gestão do atendimento.</span></div>
-          <div class="opp-item"><b>KMV Ipiranga</b><span>Relacionamento, benefícios, fidelização e recorrência, conectado ao ecossistema Ipiranga.</span></div>
-          <div class="tension"><b>Risco de canal</b>Peças vendem forte online, mas o mecânico costuma mandar o cliente comprar direto. Isso compete com o DA.</div>
-        </div>
+        <div class="hubii-opp-note">✏ Texto provisório — edite conforme a conversa com a Iconic avançar.</div>
       </div>
 
     </div>
 
-    <div class="section-label">Decisões em aberto</div>
-    <div class="opp-grid">
-      <div class="opp-card flag">
-        <div class="opp-head"><div class="opp-icon">⚑</div><div class="opp-title">Marca e mix nas lojas oficiais</div></div>
-        <ul><li>Lojas oficiais <b>não deveriam ser Texaco ou Ipiranga</b>, para não restringir o mix. Decisão de negócio ainda aberta.</li></ul>
-      </div>
-      <div class="opp-card flag">
-        <div class="opp-head"><div class="opp-icon">⚑</div><div class="opp-title">E-commerce: estratégia a definir</div></div>
-        <ul><li>Hoje está <b>"em demolição"</b> e sem direção. Alinhar com a master antes de qualquer comunicação externa.</li></ul>
-      </div>
-      <div class="opp-card">
-        <div class="opp-head"><div class="opp-icon">$</div><div class="opp-title">Modelo de valor para o DA</div></div>
-        <ul><li>O diferencial passa a ser <b>dado</b>, não incentivo comercial. A margem está no varejo e o DA não vai subsidiar.</li></ul>
-      </div>
-      <div class="opp-card">
-        <div class="opp-head"><div class="opp-icon">⚙</div><div class="opp-title">Partners sem confirmação</div></div>
-        <ul><li>Portal B2B, WhatsApp Commerce e fidelidade (Alloyal) ainda aparecem como <b>TBD</b> na master.</li></ul>
-      </div>
-    </div>
-
-  </div>
 
   <!-- PORTFÓLIO -->
   <div class="tab-panel" id="panel-portfolio">
@@ -4122,7 +4124,7 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
       <span><i class="rm-sw fast"></i>até 15 dias</span>
       <span><i class="rm-sw mid"></i>16 a 40 dias</span>
       <span><i class="rm-sw slow"></i>acima de 40 dias</span>
-      <span><i class="rm-sw na"></i>não disponível</span>
+      <span><i class="rm-sw na"></i>não disponível</span><span><i class="rm-sw pend"></i>praça não iniciada</span>
     </div>
     <div class="panel rm-panel"><div class="rm-scroll"><div id="rm-root"></div></div></div>
   </div>
@@ -6071,10 +6073,16 @@ const IC = {
       const l = Math.max(0, pct(p.s)), r = Math.min(100, pct(p.e));
       ph += '<div class="rm-ph-seg ' + p.c + '" style="left:' + l.toFixed(3) + '%;width:' + (r-l).toFixed(3) + '%">' + p.n + '</div>';
     });
+    // rótulo de hoje (linha própria, fora das fases)
+    const now = new Date(); let tl = '';
+    if(now >= START && now <= END){
+      tl = '<span class="rm-tlabel" style="left:' + pct(now).toFixed(3) + '%">hoje · ' + fmtD(now) + '</span>';
+    }
     return '<div class="rm-head">' +
-      '<div class="rm-lbl-cell">Fases</div><div class="rm-trk rm-phases">' + ph + '</div>' +
-      '<div></div><div class="rm-trk rm-months">' + months + '</div>' +
-      '<div></div><div class="rm-trk rm-weeks">' + weeks + '</div>' +
+      '<div class="rm-hrow"><div class="rm-lbl-cell">Fases</div><div class="rm-trk rm-phases">' + ph + '</div></div>' +
+      '<div class="rm-hrow"><div></div><div class="rm-trk rm-todayrow">' + tl + '</div></div>' +
+      '<div class="rm-hrow"><div></div><div class="rm-trk rm-months">' + months + '</div></div>' +
+      '<div class="rm-hrow"><div></div><div class="rm-trk rm-weeks">' + weeks + '</div></div>' +
       '</div>';
   }
   function group(p){
@@ -6085,9 +6093,9 @@ const IC = {
         return;
       }
       const l = pct(p.ativa), end = addD(p.ativa, dias), r = Math.min(100, pct(end));
-      const w = r - l, inside = dias > 40;
-      const bar = '<i class="rm-bar ' + cat(dias) + '" style="left:' + l.toFixed(3) + '%;width:' + w.toFixed(3) + '%"></i>';
-      const lab = '<span class="rm-d' + (inside ? ' in' : '') + '" style="' + (inside ? 'right:8px' : 'left:calc(' + r.toFixed(3) + '% + 6px)') + '">' + dias + ' dias</span>';
+      const w = r - l, inside = dias > 40, pend = p.ativa > new Date();
+      const bar = '<i class="rm-bar ' + cat(dias) + (pend ? ' pend' : '') + '" style="left:' + l.toFixed(3) + '%;width:' + w.toFixed(3) + '%"></i>';
+      const lab = '<span class="rm-d' + (inside ? ' in' : '') + (pend ? ' pend' : '') + '" style="' + (inside ? 'left:calc(' + l.toFixed(3) + '% + 8px)' : 'left:calc(' + r.toFixed(3) + '% + 6px)') + '">' + dias + ' dias</span>';
       rows += '<div class="rm-row"><div class="rm-lbl">' + nome + '</div><div class="rm-track">' + weekLines() + bar + lab + '</div></div>';
     });
     return '<div class="rm-group"><div class="rm-gh"><span class="uf-tag ' + p.cls + '" style="width:26px;height:26px;font-size:10px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-weight:800">' + p.uf + '</span><b>' + p.nome + '</b><em>ativa em ' + MON_LONG[p.ativa.getMonth()] + '</em></div>' + rows + '</div>';
@@ -6096,7 +6104,7 @@ const IC = {
     const now = new Date();
     if(now < START || now > END) return '';
     const p = pct(now);
-    return '<div class="rm-today" style="left:calc(var(--lbl) + (100% - var(--lbl)) * ' + (p/100).toFixed(5) + ')"><span>hoje · ' + fmtD(now) + '</span></div>';
+    return '<div class="rm-today" style="left:calc(var(--lbl) + (100% - var(--lbl)) * ' + (p/100).toFixed(5) + ')"></div>';
   }
   function render(){
     root.innerHTML = header() + PRACAS.map(group).join('') + today() +
