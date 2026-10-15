@@ -18,7 +18,7 @@ const CARDS = {
   mensal:  { id: 3609, cols: ['mes','gmv_valido','gmv_todos_status','gmv_cancelado','pedidos','unidades'] },
   produto: { id: 3610, cols: ['produto','gmv_valido','pct_gmv','pct_acumulado','unidades','pedidos_validos','hubs_que_venderam'] },
   da:      { id: 3611, cols: ['mes','da','gmv_valido','pedidos_validos','hubs_ativos','pct_gmv_no_periodo'] },
-  hub:     { id: 3612, cols: ['hub_nome','cidade','uf','da','gmv_valido','pct_gmv','ticket_medio','transacoes','unidades','consumidores','mix_skus','cancelados','pct_cancelamento','recusas_ruptura','recusas_preco','recusas_fora_portfolio','primeira_compra','ultima_compra','intervalo_medio_dias','transacoes_por_semana','rank_geral'] },
+  hub:     { id: 3612, cols: ['mes','hub_nome','cidade','uf','da','gmv_valido','pct_gmv','ticket_medio','transacoes','unidades','consumidores','mix_skus','cancelados','pct_cancelamento','recusas_ruptura','recusas_preco','recusas_fora_portfolio','primeira_compra','ultima_compra','intervalo_medio_dias','transacoes_por_semana','rank_geral'] },
   sla:     { id: 3613, cols: ['hub','da','pedidos','gmv_valido','gmv_cancelado','cancelados','pct_cancelamento','pct_aceite','pct_recusa','pct_ignorado','pct_no_prazo','min_medio_ate_aceite','min_medio_ate_despacho','recusas_ruptura','recusas_preco','recusas_fora_portfolio','broadcasts_recebidos','pct_reencaminhados'] },
 };
 
