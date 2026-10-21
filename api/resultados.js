@@ -9,6 +9,7 @@
 //   METABASE_API_KEY                  chave de API do Metabase (somente leitura)
 //   METABASE_CARD_OPS_SEMANA          (opcional) ID da pergunta "Iconic-Hubs-Ops" (padrão: 3630)
 //   METABASE_CARD_OPS_RECUSA_PRODUTO  (opcional) ID da pergunta "Iconic-Hubs-Recusas" (padrão: 3631)
+//   METABASE_CARD_PRECO_DE            (opcional) ID da pergunta de "Preço de" do Portfólio (colunas: ean, preco_de)
 //
 // Se METABASE_URL/KEY não existirem, responde 503 e o dashboard usa o snapshot
 // versionado em /resultados-data.json. As perguntas de Supply Ops são opcionais:
@@ -94,6 +95,13 @@ module.exports = async function handler(req, res) {
     ]);
     const errs = [sem, rec].filter((x) => x.status === 'rejected').map((x) => x.reason.message);
     if (errs.length) { console.error('[resultados] ops', errs.join(' | ')); out.opsError = errs.join(' | '); }
+    // Portfólio · "Preço de" (opcional): só busca se o ID estiver configurado; falha aqui não derruba a aba
+    const precoId = parseInt(cleanEnv(process.env.METABASE_CARD_PRECO_DE), 10);
+    if (precoId) {
+      try { out.preco_de = await fetchCard(base, key, precoId, ['ean', 'preco_de']); }
+      catch (e) { console.error('[resultados] preco_de', e.message); out.precoDeError = e.message; }
+    }
+
     if (sem.status === 'fulfilled' || rec.status === 'fulfilled') {
       out.ops = {
         live: true,

@@ -1728,7 +1728,9 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
 
 /* PORTFÓLIO · lista unificada (ativos e inativos com índice de competitividade) */
 .pf-main{padding:18px 20px}
-.pf-listhead,.pf-item summary{display:grid;grid-template-columns:10px 44px minmax(0,1fr) 116px 90px 100px 100px 150px 14px;gap:14px;align-items:center}
+.pf-listhead,.pf-item summary{display:grid;grid-template-columns:10px 44px minmax(0,1fr) 116px 90px 92px 100px 100px 150px 14px;gap:14px;align-items:center}
+.pf-item .pf-prede{color:var(--ink-soft);text-decoration:line-through;text-decoration-color:rgba(0,0,0,.25)}
+.pf-item .pf-prede.nd{text-decoration:none;color:var(--potencial)}
 .pf-listhead{padding:0 4px 8px;border-bottom:1px solid var(--line-2);font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--potencial);margin-top:16px}
 .pf-listhead .pf-price{text-align:right;font-size:10.5px;font-weight:500;color:var(--potencial);font-family:'IBM Plex Mono',monospace;letter-spacing:.06em;text-transform:uppercase}
 .pf-item{border-bottom:1px solid var(--line)}
@@ -1746,7 +1748,7 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
 .pf-list2 .ic-group::after{content:'';flex:1;height:1px;background:var(--line)}
 @media (max-width:1100px){
   .pf-listhead,.pf-item summary{grid-template-columns:10px 44px minmax(0,1fr) 90px 100px 14px}
-  .pf-listhead span:nth-child(4),.pf-listhead span:nth-child(5),.pf-item .ic-ean,.pf-item .pf-brand{display:none}
+  .pf-listhead span:nth-child(4),.pf-listhead span:nth-child(5),.pf-listhead span:nth-child(6),.pf-item .ic-ean,.pf-item .pf-brand,.pf-prede{display:none}
 }
 @media (max-width:640px){
   .pf-listhead,.pf-item summary{grid-template-columns:10px 40px minmax(0,1fr) auto 14px}
@@ -1973,7 +1975,7 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
         <div class="pf-stat"><b>set–out/26</b><span>período (out parcial)</span></div>
       </div>
       <div class="pf-listhead">
-        <span></span><span></span><span>Produto</span><span>EAN</span><span>Marca</span><span class="pf-price">Preço médio</span><span class="pf-price">Repasse</span><span>Competitividade</span><span></span>
+        <span></span><span></span><span>Produto</span><span>EAN</span><span>Marca</span><span class="pf-price pf-prede-h">Preço de</span><span class="pf-price">Preço médio</span><span class="pf-price">Repasse</span><span>Competitividade</span><span></span>
       </div>
       <div class="pf-list2">
         <div class="ic-group">Ativos · ordenados pelos mais vendidos</div>
@@ -1984,6 +1986,7 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
               <span class="ic-name">Óleo Lubrificante Ipiranga F1 Master Performance 15W40 API SL 1L</span>
               <span class="ic-ean">7896587310211</span>
               <span class="pf-brand">Ipiranga</span>
+              <span class="pf-price pf-prede nd" title="aguardando consulta do Metabase">—</span>
               <span class="pf-price">R$ 29,90</span>
               <span class="pf-price">R$ 28,90</span>
               <span class="ic-verdict nd">Sem benchmark</span>
@@ -2015,6 +2018,7 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
               <span class="ic-name">Óleo Lubrificante Ipiranga F1 Master Protection 20W50 API SL 1L</span>
               <span class="ic-ean">7896587310419</span>
               <span class="pf-brand">Ipiranga</span>
+              <span class="pf-price pf-prede nd" title="aguardando consulta do Metabase">—</span>
               <span class="pf-price">R$ 27,37</span>
               <span class="pf-price">R$ 26,39</span>
               <span class="ic-verdict nd">Sem benchmark</span>
@@ -2046,6 +2050,7 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
               <span class="ic-name">Óleo Ipiranga 5w30 Api Sq F1 Master Sintético 1lt Original</span>
               <span class="ic-ean">7891165012914</span>
               <span class="pf-brand">Ipiranga</span>
+              <span class="pf-price pf-prede nd" title="aguardando consulta do Metabase">—</span>
               <span class="pf-price">R$ 34,71</span>
               <span class="pf-price">R$ 34,13</span>
               <span class="ic-verdict nd">Sem benchmark</span>
@@ -2077,6 +2082,7 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
               <span class="ic-name">Óleo Lubrificante Ipiranga F1 Master Sintético 5W40 API SP 1L</span>
               <span class="ic-ean">7896587320852</span>
               <span class="pf-brand">Ipiranga</span>
+              <span class="pf-price pf-prede nd" title="aguardando consulta do Metabase">—</span>
               <span class="pf-price">R$ 45,68</span>
               <span class="pf-price">R$ 46,79</span>
               <span class="ic-verdict nd">Sem benchmark</span>
@@ -2108,6 +2114,7 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
               <span class="ic-name">Óleo Lubrificante Ipiranga Moto Performance 10w30 SL 1L</span>
               <span class="ic-ean">7896587324034</span>
               <span class="pf-brand">Ipiranga</span>
+              <span class="pf-price pf-prede nd" title="aguardando consulta do Metabase">—</span>
               <span class="pf-price">R$ 38,27</span>
               <span class="pf-price">R$ 37,19</span>
               <span class="ic-verdict nd">Sem benchmark</span>
@@ -2139,6 +2146,7 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
               <span class="ic-name">Óleo Lubrificante de Motor Texaco Havoline Superior SL 20W50 1L</span>
               <span class="ic-ean">7891165007613</span>
               <span class="pf-brand">Texaco</span>
+              <span class="pf-price pf-prede nd" title="aguardando consulta do Metabase">—</span>
               <span class="pf-price">R$ 29,27</span>
               <span class="pf-price">R$ 26,99</span>
               <span class="ic-verdict nd">Sem benchmark</span>
@@ -2162,6 +2170,7 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
               <span class="ic-name">Óleo Lubrificante Ipiranga Moto Protection 20w50 SL 1L</span>
               <span class="ic-ean">7896587325628</span>
               <span class="pf-brand">Ipiranga</span>
+              <span class="pf-price pf-prede nd" title="aguardando consulta do Metabase">—</span>
               <span class="pf-price">R$ 32,86</span>
               <span class="pf-price">R$ 31,40</span>
               <span class="ic-verdict nd">Sem benchmark</span>
@@ -2193,6 +2202,7 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
               <span class="ic-name">Óleo Lubrificante Ipiranga F1 Master Performance 10w40 SP 1L</span>
               <span class="ic-ean">7891165011689</span>
               <span class="pf-brand">Ipiranga</span>
+              <span class="pf-price pf-prede nd" title="aguardando consulta do Metabase">—</span>
               <span class="pf-price">R$ 38,41</span>
               <span class="pf-price">R$ 39,99</span>
               <span class="ic-verdict nd">Sem benchmark</span>
@@ -2216,6 +2226,7 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
               <span class="ic-name">Óleo Lubrificante Ipiranga F1 Sintético 0w20 SP 1L</span>
               <span class="ic-ean">7896587325901</span>
               <span class="pf-brand">Ipiranga</span>
+              <span class="pf-price pf-prede nd" title="aguardando consulta do Metabase">—</span>
               <span class="pf-price">R$ 46,26</span>
               <span class="pf-price">R$ 44,90</span>
               <span class="ic-verdict nd">Sem benchmark</span>
@@ -2247,6 +2258,7 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
               <span class="ic-name">Aditivo para Radiador Ipiranga 1L</span>
               <span class="ic-ean">7891165009730</span>
               <span class="pf-brand">Ipiranga</span>
+              <span class="pf-price pf-prede nd" title="aguardando consulta do Metabase">—</span>
               <span class="pf-price">R$ 20,65</span>
               <span class="pf-price">R$ 18,59</span>
               <span class="ic-verdict nd">Sem benchmark</span>
@@ -2270,6 +2282,7 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
               <span class="ic-name">Óleo Lubrificante Ipiranga F1 Master Sintético 10w40 SP 1L</span>
               <span class="ic-ean">7891165012150</span>
               <span class="pf-brand">Ipiranga</span>
+              <span class="pf-price pf-prede nd" title="aguardando consulta do Metabase">—</span>
               <span class="pf-price">R$ 50,34</span>
               <span class="pf-price">R$ 56,00</span>
               <span class="ic-verdict nd">Sem benchmark</span>
@@ -2293,6 +2306,7 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
               <span class="ic-name">Aditivo para Radiador Ipiranga Verde 1L</span>
               <span class="ic-ean">7891165011788</span>
               <span class="pf-brand">Ipiranga</span>
+              <span class="pf-price pf-prede nd" title="aguardando consulta do Metabase">—</span>
               <span class="pf-price">R$ 19,55</span>
               <span class="pf-price">R$ 17,18</span>
               <span class="ic-verdict nd">Sem benchmark</span>
@@ -2316,6 +2330,7 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
               <span class="ic-name">Óleo de Motor Texaco Havoline 5W30 SQ Sintético Dexos1 1L</span>
               <span class="ic-ean">7891165012600</span>
               <span class="pf-brand">Texaco</span>
+              <span class="pf-price pf-prede nd" title="aguardando consulta do Metabase">—</span>
               <span class="pf-price">R$ 44,25</span>
               <span class="pf-price">R$ 39,90</span>
               <span class="ic-verdict nd">Sem benchmark</span>
@@ -2339,6 +2354,7 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
               <span class="ic-name">Óleo de Motor Texaco Havoline 15W40 SL Semissintético 1L</span>
               <span class="ic-ean">7891165007453</span>
               <span class="pf-brand">Texaco</span>
+              <span class="pf-price pf-prede nd" title="aguardando consulta do Metabase">—</span>
               <span class="pf-price">R$ 58,78</span>
               <span class="pf-price">R$ 29,49</span>
               <span class="ic-verdict nd">Sem benchmark</span>
@@ -2364,6 +2380,7 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
               <span class="ic-name">Aditivo Fluido para Radiador de Carro Verde Ipiranga 1L</span>
               <span class="ic-ean">7891165011214</span>
               <span class="pf-brand">Ipiranga</span>
+              <span class="pf-price pf-prede nd" title="aguardando consulta do Metabase">—</span>
               <span class="pf-price">—</span>
               <span class="pf-price">R$ 18,59</span>
               <span class="ic-verdict nd">Sem benchmark</span>
@@ -2387,6 +2404,7 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
               <span class="ic-name">Óleo Diesel Ipiranga Brutus AP 15W40 CI-4 20L</span>
               <span class="ic-ean">7896587307464</span>
               <span class="pf-brand">Ipiranga</span>
+              <span class="pf-price pf-prede nd" title="aguardando consulta do Metabase">—</span>
               <span class="pf-price">—</span>
               <span class="pf-price">R$ 586,58</span>
               <span class="ic-verdict nd">Sem benchmark</span>
@@ -2418,6 +2436,7 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
               <span class="ic-name">Óleo Diesel Ipiranga Brutus AP 15W40 CI-4 4L</span>
               <span class="ic-ean">7896587326502</span>
               <span class="pf-brand">Ipiranga</span>
+              <span class="pf-price pf-prede nd" title="aguardando consulta do Metabase">—</span>
               <span class="pf-price">—</span>
               <span class="pf-price">R$ 201,06</span>
               <span class="ic-verdict nd">Sem benchmark</span>
@@ -2441,6 +2460,7 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
               <span class="ic-name">Óleo Diesel Ipiranga Brutus Performance CI 15W40 20L</span>
               <span class="ic-ean">7891165010026</span>
               <span class="pf-brand">Ipiranga</span>
+              <span class="pf-price pf-prede nd" title="aguardando consulta do Metabase">—</span>
               <span class="pf-price">—</span>
               <span class="pf-price">R$ 670,39</span>
               <span class="ic-verdict nd">Sem benchmark</span>
@@ -2472,6 +2492,7 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
               <span class="ic-name">Óleo Diesel Ipiranga Brutus Performance CI 15W40 4L</span>
               <span class="ic-ean">7891165011207</span>
               <span class="pf-brand">Ipiranga</span>
+              <span class="pf-price pf-prede nd" title="aguardando consulta do Metabase">—</span>
               <span class="pf-price">—</span>
               <span class="pf-price">R$ 142,39</span>
               <span class="ic-verdict nd">Sem benchmark</span>
@@ -2495,6 +2516,7 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
               <span class="ic-name">Óleo Diesel Ipiranga Brutus Proteção T5 15W40 CH-4 20L</span>
               <span class="ic-ean">7896587325505</span>
               <span class="pf-brand">Ipiranga</span>
+              <span class="pf-price pf-prede nd" title="aguardando consulta do Metabase">—</span>
               <span class="pf-price">—</span>
               <span class="pf-price">R$ 418,96</span>
               <span class="ic-verdict nd">Sem benchmark</span>
@@ -2526,6 +2548,7 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
               <span class="ic-name">Óleo Diesel Ipiranga Brutus Proteção T5 15W40 CH-4 4L</span>
               <span class="ic-ean">7896587326496</span>
               <span class="pf-brand">Ipiranga</span>
+              <span class="pf-price pf-prede nd" title="aguardando consulta do Metabase">—</span>
               <span class="pf-price">—</span>
               <span class="pf-price">R$ 150,77</span>
               <span class="ic-verdict nd">Sem benchmark</span>
@@ -2549,6 +2572,7 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
               <span class="ic-name">Óleo Diesel Ursa Premium TDS SAE 15W-40 20L</span>
               <span class="ic-ean">7891165010088</span>
               <span class="pf-brand">Texaco</span>
+              <span class="pf-price pf-prede nd" title="aguardando consulta do Metabase">—</span>
               <span class="pf-price">—</span>
               <span class="pf-price">R$ 402,20</span>
               <span class="ic-verdict nd">Sem benchmark</span>
@@ -2572,6 +2596,7 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
               <span class="ic-name">Óleo Diesel Ursa Premium TDX SAE 15W-40 1L</span>
               <span class="ic-ean">7891165153242</span>
               <span class="pf-brand">Texaco</span>
+              <span class="pf-price pf-prede nd" title="aguardando consulta do Metabase">—</span>
               <span class="pf-price">—</span>
               <span class="pf-price">R$ 43,50</span>
               <span class="ic-verdict nd">Sem benchmark</span>
@@ -2595,6 +2620,7 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
               <span class="ic-name">Óleo Diesel Ursa Premium TDX SAE 15W-40 20L</span>
               <span class="ic-ean">7891165153013</span>
               <span class="pf-brand">Texaco</span>
+              <span class="pf-price pf-prede nd" title="aguardando consulta do Metabase">—</span>
               <span class="pf-price">—</span>
               <span class="pf-price">R$ 477,63</span>
               <span class="ic-verdict nd">Sem benchmark</span>
@@ -2618,6 +2644,7 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
               <span class="ic-name">Óleo Diesel Ursa Premium TDX SAE 15W-40 4L</span>
               <span class="ic-ean">7891165004179</span>
               <span class="pf-brand">Texaco</span>
+              <span class="pf-price pf-prede nd" title="aguardando consulta do Metabase">—</span>
               <span class="pf-price">—</span>
               <span class="pf-price">R$ 150,77</span>
               <span class="ic-verdict nd">Sem benchmark</span>
@@ -2641,6 +2668,7 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
               <span class="ic-name">Óleo Diesel Ursa Super TD SAE 15W-40 CH-4 1L</span>
               <span class="ic-ean">7891165007705</span>
               <span class="pf-brand">Texaco</span>
+              <span class="pf-price pf-prede nd" title="aguardando consulta do Metabase">—</span>
               <span class="pf-price">—</span>
               <span class="pf-price">R$ 41,82</span>
               <span class="ic-verdict nd">Sem benchmark</span>
@@ -2664,6 +2692,7 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
               <span class="ic-name">Óleo Diesel Ursa Super TD SAE 15W-40 CH-4 20L</span>
               <span class="ic-ean">7891165007675</span>
               <span class="pf-brand">Texaco</span>
+              <span class="pf-price pf-prede nd" title="aguardando consulta do Metabase">—</span>
               <span class="pf-price">—</span>
               <span class="pf-price">R$ 586,58</span>
               <span class="ic-verdict nd">Sem benchmark</span>
@@ -2687,6 +2716,7 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
               <span class="ic-name">Óleo Diesel Ursa Super TD SAE 15W-40 CH-4 4L</span>
               <span class="ic-ean">7891165007682</span>
               <span class="pf-brand">Texaco</span>
+              <span class="pf-price pf-prede nd" title="aguardando consulta do Metabase">—</span>
               <span class="pf-price">—</span>
               <span class="pf-price">R$ 125,63</span>
               <span class="ic-verdict nd">Sem benchmark</span>
@@ -2710,6 +2740,7 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
               <span class="ic-name">Óleo Lubrificante Ipiranga F1 Master Sintético 5W30 API SP 1L</span>
               <span class="ic-ean">7896587320838</span>
               <span class="pf-brand">Ipiranga</span>
+              <span class="pf-price pf-prede nd" title="aguardando consulta do Metabase">—</span>
               <span class="pf-price">—</span>
               <span class="pf-price">R$ 34,13</span>
               <span class="ic-verdict nd">Sem benchmark</span>
@@ -2733,6 +2764,7 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
               <span class="ic-name">Óleo Motor Havoline 4T SAE 20W-50 1L</span>
               <span class="ic-ean">7891165007439</span>
               <span class="pf-brand">Texaco</span>
+              <span class="pf-price pf-prede nd" title="aguardando consulta do Metabase">—</span>
               <span class="pf-price">—</span>
               <span class="pf-price">R$ 27,67</span>
               <span class="ic-verdict nd">Sem benchmark</span>
@@ -2756,6 +2788,7 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
               <span class="ic-name">Óleo Motor Havoline 4T Semissintético 10W30 1L</span>
               <span class="ic-ean">7891165006142</span>
               <span class="pf-brand">Texaco</span>
+              <span class="pf-price pf-prede nd" title="aguardando consulta do Metabase">—</span>
               <span class="pf-price">—</span>
               <span class="pf-price">R$ 40,98</span>
               <span class="ic-verdict nd">Sem benchmark</span>
@@ -2779,6 +2812,7 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
               <span class="ic-name">Óleo Motor Havoline ProDS Full Synthetic SQ 0W20 1L</span>
               <span class="ic-ean">7891165012655</span>
               <span class="pf-brand">Texaco</span>
+              <span class="pf-price pf-prede nd" title="aguardando consulta do Metabase">—</span>
               <span class="pf-price">—</span>
               <span class="pf-price">R$ 58,58</span>
               <span class="ic-verdict nd">Sem benchmark</span>
@@ -2802,6 +2836,7 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
               <span class="ic-name">Óleo Motor Havoline ProDS Full Synthetic SQ 5W30 4L</span>
               <span class="ic-ean">7891165012631</span>
               <span class="pf-brand">Texaco</span>
+              <span class="pf-price pf-prede nd" title="aguardando consulta do Metabase">—</span>
               <span class="pf-price">—</span>
               <span class="pf-price">R$ 234,58</span>
               <span class="ic-verdict nd">Sem benchmark</span>
@@ -2825,6 +2860,7 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
               <span class="ic-name">Óleo Motor Havoline ProDS V SAE 0W-30 1L</span>
               <span class="ic-ean">7891165012242</span>
               <span class="pf-brand">Texaco</span>
+              <span class="pf-price pf-prede nd" title="aguardando consulta do Metabase">—</span>
               <span class="pf-price">—</span>
               <span class="pf-price">R$ 40,98</span>
               <span class="ic-verdict nd">Sem benchmark</span>
@@ -2848,6 +2884,7 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
               <span class="ic-name">Óleo Motor Havoline ProDS V SAE 0W-30 4L</span>
               <span class="ic-ean">7891165011849</span>
               <span class="pf-brand">Texaco</span>
+              <span class="pf-price pf-prede nd" title="aguardando consulta do Metabase">—</span>
               <span class="pf-price">—</span>
               <span class="pf-price">R$ 335,15</span>
               <span class="ic-verdict nd">Sem benchmark</span>
@@ -2871,6 +2908,7 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
               <span class="ic-name">Óleo Motor Havoline Semissintético SL 15W40 4L</span>
               <span class="ic-ean">7891165011115</span>
               <span class="pf-brand">Texaco</span>
+              <span class="pf-price pf-prede nd" title="aguardando consulta do Metabase">—</span>
               <span class="pf-price">—</span>
               <span class="pf-price">R$ 108,87</span>
               <span class="ic-verdict nd">Sem benchmark</span>
@@ -2894,6 +2932,7 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
               <span class="ic-name">Óleo Motor Havoline Superior SL SAE 20W50 4L</span>
               <span class="ic-ean">7891165011108</span>
               <span class="pf-brand">Texaco</span>
+              <span class="pf-price pf-prede nd" title="aguardando consulta do Metabase">—</span>
               <span class="pf-price">—</span>
               <span class="pf-price">R$ 125,63</span>
               <span class="ic-verdict nd">Sem benchmark</span>
@@ -2917,6 +2956,7 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
               <span class="ic-name">Óleo Motor Ipiranga 2T STL 500ML</span>
               <span class="ic-ean">7891165011993</span>
               <span class="pf-brand">Ipiranga</span>
+              <span class="pf-price pf-prede nd" title="aguardando consulta do Metabase">—</span>
               <span class="pf-price">—</span>
               <span class="pf-price">R$ 38,47</span>
               <span class="ic-verdict nd">Sem benchmark</span>
@@ -2940,6 +2980,7 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
               <span class="ic-name">Óleo Motor Ipiranga F1 Master Performance 15W40 SL 4L</span>
               <span class="ic-ean">7891165011122</span>
               <span class="pf-brand">Ipiranga</span>
+              <span class="pf-price pf-prede nd" title="aguardando consulta do Metabase">—</span>
               <span class="pf-price">—</span>
               <span class="pf-price">R$ 150,77</span>
               <span class="ic-verdict nd">Sem benchmark</span>
@@ -2963,6 +3004,7 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
               <span class="ic-name">Óleo Motor Ipiranga F1 Master Proteção 20W50 SL 4L</span>
               <span class="ic-ean">7891165011092</span>
               <span class="pf-brand">Ipiranga</span>
+              <span class="pf-price pf-prede nd" title="aguardando consulta do Metabase">—</span>
               <span class="pf-price">—</span>
               <span class="pf-price">R$ 142,39</span>
               <span class="ic-verdict nd">Sem benchmark</span>
@@ -2986,6 +3028,7 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
               <span class="ic-name">Óleo Motor Ipiranga F1 Master Sintético 0W20 SQ 1L</span>
               <span class="ic-ean">7891165012945</span>
               <span class="pf-brand">Ipiranga</span>
+              <span class="pf-price pf-prede nd" title="aguardando consulta do Metabase">—</span>
               <span class="pf-price">—</span>
               <span class="pf-price">R$ 50,20</span>
               <span class="ic-verdict nd">Sem benchmark</span>
@@ -3009,6 +3052,7 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
               <span class="ic-name">Óleo Motor Ipiranga F1 Master Sintético 5W30 SQ 4L</span>
               <span class="ic-ean">7891165012921</span>
               <span class="pf-brand">Ipiranga</span>
+              <span class="pf-price pf-prede nd" title="aguardando consulta do Metabase">—</span>
               <span class="pf-price">—</span>
               <span class="pf-price">R$ 226,20</span>
               <span class="ic-verdict nd">Sem benchmark</span>
@@ -3032,6 +3076,7 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
               <span class="ic-name">Óleo Motor Ipiranga F1 Master Sintético C2 0W30 1L</span>
               <span class="ic-ean">7891165011764</span>
               <span class="pf-brand">Ipiranga</span>
+              <span class="pf-price pf-prede nd" title="aguardando consulta do Metabase">—</span>
               <span class="pf-price">—</span>
               <span class="pf-price">R$ 66,96</span>
               <span class="ic-verdict nd">Sem benchmark</span>
@@ -3063,6 +3108,7 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
               <span class="ic-name">Óleo Motor Marítimo Ipiranga Marina 2T Plus 1L</span>
               <span class="ic-ean">7896587320975</span>
               <span class="pf-brand">Ipiranga</span>
+              <span class="pf-price pf-prede nd" title="aguardando consulta do Metabase">—</span>
               <span class="pf-price">—</span>
               <span class="pf-price">R$ 38,47</span>
               <span class="ic-verdict nd">Sem benchmark</span>
@@ -4102,6 +4148,17 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
     const DA_LABEL = { 'TreviLub': 'TreviLub' };
     const dn = da => DA_LABEL[da] || da;
     const DA_COLOR = { 'TreviLub': '#6348e5', 'Makena': '#746bff', 'BelLub': '#9a9a9a' };
+    // Visão ICONIC = sem hubs Jet-Oil (qualquer hub com "Jet Oil", "JetOil" ou "Jet-Oil" no nome). ADD JET-OIL = visão total.
+    const JET_RE = /jet[\s-]*oil/i;
+    const isJet = n => JET_RE.test(String(n || ''));
+    // volume por unidade (litros) lido do nome do produto: "1L", "1lt", "20L", "500ml"...
+    function volL(name){
+      const t = String(name || '');
+      let m = t.match(/(\d+(?:[.,]\d+)?)\s*ml\b/i); if(m) return parseFloat(m[1].replace(',', '.')) / 1000;
+      m = t.match(/(\d+(?:[.,]\d+)?)\s*(?:l|lt|lts|litros?)\b/i); return m ? parseFloat(m[1].replace(',', '.')) : null;
+    }
+    const isAditivo = n => /^aditivo/i.test(String(n || '').trim());
+    const volTxt = v => v == null ? '?' : nf1.format(v) + ' L';
 
     // ---------- formatação (pt-BR) ----------
     const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -4194,7 +4251,9 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
 
     let S = null, S0 = null;
     const sinceLbl = () => (S && S.meses && S.meses.length) ? mesLabel(S.meses[0].mes) : 'jul/26';
-    const ui = { view: 'geral', da: 'all', mes: 'all', hub: null, cmp: [null, null], detail: false, win: '4', scope: 'ativa', q: {}, sort: {} };
+    // jet: 'add' = visão total (com Jet-Oil, padrão de hoje) · 'iconic' = sem hubs Jet-Oil
+    const ui = { view: 'geral', da: 'all', mes: 'all', hub: null, cmp: [null, null], detail: false, win: '4', scope: 'ativa', q: {}, sort: {}, jet: 'add' };
+    let RAW = null;
     // com mês selecionado, a janela de 4 semanas não se aplica: vale o mês inteiro
     const winEff = () => ui.mes !== 'all' ? 'all' : ui.win;
     const mesOf = w => String(w || '').slice(0, 7);
@@ -4229,6 +4288,20 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
       });
     }
     function refreshAll(){ applyFilters(); renderRail(); renderBar(); renderView(); }
+    // litros: exatos por mês/hub só quando todos os SKUs vendidos têm o mesmo volume (hoje: tudo 1 L).
+    // Com mix 1 L + 20 L, mês e hub precisam de uma consulta produto × mês × hub.
+    function volUnico(){
+      const v = [...new Set(S0.produtos.filter(p => p.unidades > 0).map(p => p.volume_l))];
+      return v.length === 1 && v[0] != null ? v[0] : null;
+    }
+    function litrosDe(r){ const v = volUnico(); return v == null || r == null || r.unidades == null ? null : r.unidades * v; }
+    function litrosTotal(){
+      const v = volUnico();
+      if(v != null) return S.total.unidades * v;
+      // mix de volumes: só a visão total, período inteiro (produtos não têm quebra por mês nem por hub)
+      if(ui.jet === 'iconic' || ui.mes !== 'all') return null;
+      return S.produtos.reduce((s, p) => s + (p.litros || 0), 0);
+    }
 
     // avisos honestos: o que não tem quebra por mês/hub nesta consulta
     function filterNote(view){
@@ -4236,7 +4309,9 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
       if(ui.mes !== 'all' && view === 'produtos') out.push('Produtos não têm quebra mensal nesta consulta: mostram o período inteiro.');
       if(S0.semMes && (view === 'hubs' || view === 'geral')) out.push('Os dados de hubs vieram sem quebra mensal: a API (api/resultados.js) precisa ser atualizada para o filtro de mês funcionar.');
       if(ui.hub && (view === 'geral' || view === 'produtos')) out.push('O filtro de hub vale para Hubs e Supply Ops; esta visão segue no total.');
-      return out.map(t => `<p class="note">${esc(t)}</p>`).join('');
+      if(ui.jet === 'iconic' && view === 'produtos') out.push('Visão ICONIC: a consulta de produtos (3610) não tem quebra por hub, então esta aba ainda inclui as vendas dos hubs Jet-Oil. Para separar, é preciso uma pergunta produto × hub no Metabase.');
+      if(view === 'produtos' && S0.produtos.some(p => p.volume_l == null)) out.push('Há SKUs sem volume identificável no nome (marcados com "?"): ficam fora do total de litros.');
+      return out.map(t => `<p class="note">${esc(t)}</p>`).join('') + jetNote();
     }
 
     // comparação lado a lado de dois hubs (taxas, não volumes absolutos)
@@ -4288,6 +4363,85 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
     }
 
     const OUT_OF_SCOPE = new Set(['Sem hub alocado', 'Fora do escopo']);
+
+    // ---------- visão ICONIC: tira os hubs Jet-Oil de todas as consultas que têm quebra por hub ----------
+    function stripJet(d){
+      const o = JSON.parse(JSON.stringify(d));
+      const idx = t => Object.fromEntries(t.c.map((k, i) => [k, i]));
+      const meta = { jetMeses: [], hubDesde: null, jetSemanaDesde: null, produtoSemHub: true };
+      // hub (3612): guarda o que sai por mês e remove as linhas
+      const jetHub = {};
+      if(o.hub && o.hub.r){
+        const I = idx(o.hub);
+        const meses = o.hub.r.map(a => a[I.mes]).filter(m => m && m !== 'TOTAL').sort();
+        meta.hubDesde = meses[0] || null;
+        o.hub.r = o.hub.r.filter(a => {
+          if(!isJet(a[I.hub_nome])) return true;
+          const k = a[I.mes] || 'TOTAL', j = jetHub[k] || (jetHub[k] = { gmv: 0, ped: 0, un: 0, canc: 0, da: a[I.da], ativo: 0 });
+          j.gmv += a[I.gmv_valido] || 0; j.ped += a[I.transacoes] || 0; j.un += a[I.unidades] || 0; j.canc += a[I.cancelados] || 0;
+          if((a[I.gmv_valido] || 0) > 0) j.ativo++;
+          return false;
+        });
+      }
+      // sla (3613): remove os hubs e recalcula só os totais (">>> TOTAL DA") que tinham Jet-Oil dentro
+      const jetSla = {};
+      if(o.sla && o.sla.r){
+        const I = idx(o.sla), per = a => (I.periodo != null ? a[I.periodo] : null) || 'TOTAL';
+        const hit = new Set();
+        o.sla.r.forEach(a => { if(isJet(a[I.hub])){ const p = per(a); hit.add(p + '|' + (a[I.da] || '')); hit.add(p + '|');
+          const j = jetSla[p] || (jetSla[p] = { gmv: 0, canc: 0, ped: 0 }); j.gmv += a[I.gmv_valido] || 0; j.canc += a[I.gmv_cancelado] || 0; j.ped += a[I.pedidos] || 0; } });
+        const rows = o.sla.r.filter(a => !isJet(a[I.hub]));
+        const hubsOf = (p, da) => rows.filter(a => per(a) === p && !String(a[I.hub]).startsWith('>>>') && (da === '' || (a[I.da] || '') === da));
+        const sum = (L, k) => L.reduce((s, a) => s + (a[I[k]] || 0), 0);
+        const wavg = (L, k, w) => { let n = 0, t = 0; L.forEach(a => { if(a[I[k]] != null && a[I[w]]){ n += a[I[w]]; t += a[I[k]] * a[I[w]]; } }); return n ? Math.round(100 * t / n) / 100 : null; };
+        rows.forEach(a => {
+          if(!String(a[I.hub]).startsWith('>>>')) return;
+          const key = per(a) + '|' + (a[I.da] || ''); if(!hit.has(key)) return;
+          const L = hubsOf(per(a), a[I.da] || '');
+          ['gmv_valido', 'gmv_cancelado', 'pedidos', 'cancelados', 'broadcasts_recebidos', 'recusas_ruptura', 'recusas_fora_portfolio', 'recusas_preco'].forEach(k => { if(I[k] != null) a[I[k]] = sum(L, k); });
+          const ped = a[I.pedidos];
+          if(I.pct_cancelamento != null) a[I.pct_cancelamento] = ped ? Math.round(10000 * a[I.cancelados] / ped) / 100 : null;
+          ['pct_aceite', 'pct_recusa', 'pct_ignorado'].forEach(k => { if(I[k] != null) a[I[k]] = wavg(L, k, 'broadcasts_recebidos'); });
+          ['pct_no_prazo', 'pct_reencaminhados', 'min_medio_ate_aceite', 'min_medio_ate_despacho'].forEach(k => { if(I[k] != null) a[I[k]] = wavg(L, k, 'pedidos'); });
+        });
+        o.sla.r = rows;
+      }
+      // mensal: desconta o Jet-Oil de cada mês com quebra por hub
+      if(o.mensal && o.mensal.r){
+        const I = idx(o.mensal);
+        o.mensal.r.forEach(a => {
+          const k = a[I.mes], h = jetHub[k], q = jetSla[k]; if(!h && !q) return;
+          const gmv = q ? q.gmv : h.gmv, canc = q ? q.canc : 0, ped = q ? q.ped : (h.ped + h.canc);
+          a[I.gmv_valido] -= gmv; a[I.gmv_cancelado] -= canc; a[I.gmv_todos_status] -= gmv + canc; a[I.pedidos] -= ped; a[I.unidades] -= h ? h.un : 0;
+          if(k !== 'TOTAL') meta.jetMeses.push(k);
+        });
+      }
+      // DA (3611): desconta GMV, pedidos válidos e o hub ativo
+      if(o.da && o.da.r){
+        const I = idx(o.da);
+        o.da.r.forEach(a => { const h = jetHub[a[I.mes]]; if(!h || h.da !== a[I.da]) return;
+          a[I.gmv_valido] -= h.gmv; a[I.pedidos_validos] -= h.ped; a[I.hubs_ativos] = Math.max(0, (a[I.hubs_ativos] || 0) - h.ativo); });
+      }
+      // Supply Ops: série semanal e recusas por produto
+      if(o.ops){
+        if(o.ops.semana && o.ops.semana.r){ const I = idx(o.ops.semana);
+          const ws = o.ops.semana.r.filter(a => isJet(a[I.hub_nome])).map(a => a[I.semana]).sort(); meta.jetSemanaDesde = ws[0] || null;
+          o.ops.semana.r = o.ops.semana.r.filter(a => !isJet(a[I.hub_nome])); }
+        if(o.ops.recusa_produto && o.ops.recusa_produto.r){ const I = idx(o.ops.recusa_produto); o.ops.recusa_produto.r = o.ops.recusa_produto.r.filter(a => !isJet(a[I.hub_nome])); }
+      }
+      o.__jet = meta;
+      return o;
+    }
+    const prepView = () => { S0 = prep(ui.jet === 'iconic' ? stripJet(RAW.d) : RAW.d, RAW.live); };
+    const jetNote = () => {
+      if(ui.jet !== 'iconic' || !S0 || !S0.jetMeta) return '';
+      const m = S0.jetMeta, out = [];
+      if(m.hubDesde && S0.meses.length && S0.meses[0].mes < m.hubDesde){
+        const w = m.jetSemanaDesde && m.jetSemanaDesde < m.hubDesde + '-01' ? ` A série semanal mostra Jet-Oil vendendo desde a semana de ${dateBR(m.jetSemanaDesde)}, então ${esc(mesLabel(m.jetSemanaDesde.slice(0, 7)))} ainda carrega parte desse volume.` : '';
+        out.push(`Visão ICONIC: a base só tem quebra por hub a partir de ${esc(mesLabel(m.hubDesde))}. Os meses anteriores aparecem sem dedução de Jet-Oil.${w}`);
+      }
+      return out.map(t => `<p class="note">${t}</p>`).join('');
+    };
     function prep(d, live){
       // GMV sem hub alocado é tirado do total de cada mês (valido e bruto), para o total bater com a soma das DAs
       const unalMes = {};
@@ -4329,7 +4483,8 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
         live, ref, partial, meses, daTotal, daByMes, hubs, hubsByMes, semMes: !hasMes, slaTotalsBy, slaAllBy, slaHubsBy, slaHasPer, slaTotals, slaAll,
         complete: partial ? meses.slice(0, -1) : meses,
         total: mensalAll.find(r => r.mes === 'TOTAL'),
-        produtos: toRows(d.produto).sort((a, b) => b.gmv_valido - a.gmv_valido),
+        produtos: toRows(d.produto).map(r => { const v = volL(r.produto); return Object.assign(r, { volume_l: v, litros: v == null ? null : r.unidades * v, aditivo: isAditivo(r.produto) }); }).sort((a, b) => b.gmv_valido - a.gmv_valido),
+        jetMeta: d.__jet || null,
         slaHubs: sla.filter(r => !String(r.hub).startsWith('>>>')),
         hubInfo: Object.fromEntries(hubs.map(h => [norm(h.hub_nome), h])),
         pedidosValidos: Object.values(daTotal).reduce((s, r) => s + (r.pedidos_validos || 0), 0),
@@ -4393,7 +4548,7 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
             <div class="r"><span>GMV bruto</span><span>${brl(p.gmv_todos_status)}</span></div>
             <div class="r"><span>Cancelado</span><span>${brl(p.gmv_cancelado)}</span></div>
             <div class="r"><span>Pedidos</span><span>${num(p.pedidos)}</span></div>
-            <div class="r"><span>Unidades</span><span>${num(p.unidades)}</span></div>`, c.clientX, c.clientY);
+            <div class="r"><span>Unidades</span><span>${num(p.unidades)}</span></div>${litrosDe(p) != null ? `<div class="r"><span>Litros</span><span>${num(litrosDe(p))} L</span></div>` : ''}`, c.clientX, c.clientY);
         };
         r.addEventListener('mousemove', show); r.addEventListener('touchstart', show, { passive: true });
         r.addEventListener('mouseleave', hideTip); r.addEventListener('touchend', hideTip);
@@ -4416,6 +4571,11 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
         ${kpi({ k: 'Pedidos', v: num(t.pedidos), sub: vs('pedidos') || `<span>${num(t.unidades)} unidades</span>`, spark: spark(S.meses.map(m => m.pedidos), S.partial) })}
         ${kpi({ k: 'Ticket médio', v: brl(ticket), sub: '<span>GMV válido ÷ pedidos válidos</span>', spark: spark(ticketSeries, S.partial) })}
         ${kpi({ k: 'GMV cancelado', v: brlK(t.gmv_cancelado), sub: `<span class="chip warn">${pct(cancelPct)} do bruto</span><span>todos os status</span>`, spark: spark(S.meses.map(m => m.gmv_cancelado), S.partial) })}
+        ${(() => {
+          const L = litrosTotal(), lm = m => litrosDe(m);
+          const sub = (last && prev && lm(last) != null) ? chipVar(lm(last), lm(prev)) + `<span>${esc(mesLabel(last.mes))} vs ${esc(mesLabel(prev.mes))}</span>` : `<span>${L == null ? 'precisa da consulta produto × mês × hub' : 'unidades × volume do SKU'}</span>`;
+          return kpi({ k: 'Litros vendidos', v: L == null ? '—' : nf0.format(L) + ' L', sub, spark: volUnico() != null ? spark(S.meses.map(lm), S.partial) : '' });
+        })()}
       </div>`;
     }
 
@@ -4431,7 +4591,7 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
       return `<div class="rail-wrap"><div class="rail-h"><h2 class="sect" style="margin:0">Distribuidores autorizados (DA)</h2></div><div class="rail">${cards.join('')}</div></div>`;
     }
 
-    const TABS = [['geral', 'Visão geral'], ['produtos', 'Produtos'], ['hubs', 'Hubs'], ['supply', 'Supply Ops']];
+    const TABS = [['geral', 'Visão geral'], ['produtos', 'Produtos'], ['hubs', 'Hubs'], ['supply', 'Supply Ops'], ['incentivos', 'Incentivos promocionais']];
     function barHtml(){
       const first = S.meses[0], last = S.meses[S.meses.length - 1];
       const names = new Map();
@@ -4439,12 +4599,13 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
       S0.hubs.filter(h => h.gmv_valido > 0).forEach(h => names.set(norm(h.hub_nome), norm(h.hub_nome)));
       const hubOpts = '<option value="">Todos os hubs</option>' + [...names.values()].sort((a, b) => a.localeCompare(b, 'pt-BR')).map(n => `<option value="${esc(n)}"${ui.hub === n ? ' selected' : ''}>${esc(n)}</option>`).join('');
       const monthOpts = '<option value="all">Todos os meses</option>' + S0.meses.map((m, i) => `<option value="${esc(m.mes)}"${ui.mes === m.mes ? ' selected' : ''}>${esc(mesLabel(m.mes))}${S0.partial && i === S0.meses.length - 1 ? ' (parcial)' : ''}</option>`).join('');
-      const filters = `<label class="flt"><span>Mês</span><select class="fsel" data-filter="mes" aria-label="Filtrar por mês">${monthOpts}</select></label><label class="flt"><span>Hub</span><select class="fsel" data-filter="hub" aria-label="Filtrar por hub">${hubOpts}</select></label>`;
+      const jetSeg = `<label class="flt"><span>Visão</span><div class="seg jetseg" role="group" aria-label="Considerar hubs Jet-Oil"><button type="button" data-act="jet" data-v="iconic" aria-pressed="${ui.jet === 'iconic'}" title="Desconsidera todos os hubs com Jet-Oil no nome">ICONIC</button><button type="button" data-act="jet" data-v="add" aria-pressed="${ui.jet === 'add'}" title="Visão total, com os hubs Jet-Oil">ADD JET-OIL</button></div></label>`;
+      const filters = jetSeg + `<label class="flt"><span>Mês</span><select class="fsel" data-filter="mes" aria-label="Filtrar por mês">${monthOpts}</select></label><label class="flt"><span>Hub</span><select class="fsel" data-filter="hub" aria-label="Filtrar por hub">${hubOpts}</select></label>`;
       const chips = ui.da !== 'all'
         ? `<span class="lbl">Filtros</span><button type="button" class="fchip" data-act="da" data-da="all" aria-label="Remover filtro de DA"><span>DA: <b>${esc(dn(ui.da))}</b></span><span class="x">✕</span></button><button type="button" class="linkbtn" data-act="da" data-da="all">Limpar</button>`
         : '';
       return `<nav class="stabs" role="tablist" aria-label="Seções de resultados">${TABS.map(([v, l]) => `<a href="#" role="tab" data-act="view" data-v="${v}" ${ui.view === v ? 'aria-current="page"' : ''}>${l}</a>`).join('')}</nav>
-        <div class="period-line">${esc(mesLabel(first.mes))} a ${esc(mesLabel(last.mes))}${S.partial ? ' (mês em curso, parcial)' : ''}<span style="margin:0 6px">·</span>última compra registrada em ${dateBR(S.lastBuy)}</div>
+        <div class="period-line">${esc(mesLabel(first.mes))} a ${esc(mesLabel(last.mes))}${S.partial ? ' (mês em curso, parcial)' : ''}<span style="margin:0 6px">·</span>última compra registrada em ${dateBR(S.lastBuy)}${ui.jet === 'iconic' ? '<span style="margin:0 6px">·</span><b>visão ICONIC, sem hubs Jet-Oil</b>' : ''}</div>
         <div class="active">${filters}${chips}</div>`;
     }
 
@@ -4496,6 +4657,20 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
         </div>${insightsHtml()}${filterNote('geral')}</div>`;
     }
 
+    // ----- incentivos promocionais (estrutura; as visões entram quando as consultas existirem) -----
+    function viewIncentivos(){
+      const kp = l => `<div class="kpi"><div class="k"><span>${l}</span></div><div class="v">—</div><div class="sub"><span>aguardando consulta</span></div></div>`;
+      const box = (h, hint, txt) => `<section class="panel"><div class="ph"><h2>${h}</h2><span class="hint">${hint}</span></div><div class="empty">${txt}</div></section>`;
+      return `<div class="stack">
+        <div class="grid g-kpi">${kp('Verba investida pela marca')}${kp('Verba utilizada')}${kp('GMV com incentivo')}${kp('Retorno sobre a verba')}</div>
+        <div class="grid g-2e top">
+          ${box('Campanhas', 'período, canal e mecânica', 'Sem campanhas carregadas ainda.')}
+          ${box('Promoções', 'SKU, desconto e vigência', 'Sem promoções carregadas ainda.')}
+        </div>
+        ${box('Uso da verba', 'investido × utilizado, por campanha e por mês', 'Sem dados de verba ainda.')}
+        <p class="note">Estrutura da sub-aba pronta; os números entram quando as consultas de campanhas, promoções e verba estiverem no Metabase.</p></div>`;
+    }
+
     // ----- ranking em barras -----
     function barRows(items){
       const max = Math.max(...items.map(i => i.value), 1);
@@ -4513,9 +4688,9 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
       prod: () => ({
         file: 'produtos', def: { k: 'gmv_valido', dir: -1 }, search: r => r.produto, ph: 'Buscar produto…',
         cols: [
-          { k: 'produto', l: 'Produto', left: 1, name: 1, f: v => esc(v), raw: v => v },
+          { k: 'produto', l: 'Produto', left: 1, name: 1, f: (v, r) => `<span class="chip ${r.volume_l == null ? 'warn' : 'flat'}" title="volume por unidade, lido do nome do SKU" style="margin-right:6px">${volTxt(r.volume_l)}</span>${esc(v)}`, raw: v => v },
           { k: 'gmv_valido', l: 'GMV válido', f: brl }, { k: 'pct_gmv', l: '% GMV', f: pct }, { k: 'pct_acumulado', l: '% acum.', f: pct },
-          { k: 'unidades', l: 'Unid.', f: num }, { k: 'pedidos_validos', l: 'Pedidos', f: num }, { k: 'hubs_que_venderam', l: 'Hubs', f: num },
+          { k: 'unidades', l: 'Unid.', f: num }, { k: 'litros', l: 'Litros', f: v => v == null ? '—' : num(v) + ' L', raw: v => v }, { k: 'pedidos_validos', l: 'Pedidos', f: num }, { k: 'hubs_que_venderam', l: 'Hubs', f: num },
         ],
         rows: S.produtos,
       }),
@@ -4525,10 +4700,10 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
           { k: 'hub_nome', l: 'Hub', left: 1, name: 1, f: v => esc(v), raw: v => v },
           { k: 'loc', l: 'Cidade/UF', left: 1, f: v => esc(v), raw: v => v }, { k: 'da', l: 'DA', left: 1, f: v => esc(dn(v)), raw: v => dn(v) },
           { k: 'gmv_valido', l: 'GMV válido', f: brl }, { k: 'pct_gmv', l: '% GMV', f: pct }, { k: 'ticket_medio', l: 'Ticket médio', f: brl },
-          { k: 'transacoes', l: 'Transações', f: num }, { k: 'consumidores', l: 'Consumidores', f: num }, { k: 'mix_skus', l: 'Mix SKUs', f: num },
+          { k: 'transacoes', l: 'Transações', f: num }, { k: 'litros', l: 'Litros', f: v => v == null ? '—' : num(v) + ' L', raw: v => v }, { k: 'consumidores', l: 'Consumidores', f: num }, { k: 'mix_skus', l: 'Mix SKUs', f: num },
           { k: 'ultima_compra', l: 'Última compra', f: dateBR, raw: v => v }, { k: 'pct_cancelamento', l: 'Cancel.', f: pct },
         ],
-        rows: S.hubs.filter(h => (ui.da === 'all' || h.da === ui.da) && (!ui.hub || norm(h.hub_nome) === ui.hub)).map(h => ({ ...h, loc: h.cidade + '/' + h.uf, key: norm(h.hub_nome) })),
+        rows: S.hubs.filter(h => (ui.da === 'all' || h.da === ui.da) && (!ui.hub || norm(h.hub_nome) === ui.hub)).map(h => ({ ...h, loc: h.cidade + '/' + h.uf, key: norm(h.hub_nome), litros: litrosDe(h) })),
       }),
       sla: () => ({
         file: 'supply-ops', def: { k: 'score', dir: -1, k2: 'gmv_valido' }, search: r => r.nome, click: true, ph: 'Buscar hub…',
@@ -4583,10 +4758,11 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
 
     // ----- produtos -----
     function viewProdutos(){
-      const top = S.produtos.slice(0, 8).map(p => ({ label: p.produto, sub: `${num(p.unidades)} un. · ${num(p.hubs_que_venderam)} hub(s)`, value: p.gmv_valido, share: p.pct_gmv }));
+      const top = S.produtos.slice(0, 8).map(p => ({ label: p.produto, sub: `${volTxt(p.volume_l)} · ${num(p.unidades)} un.${p.litros != null ? ' · ' + num(p.litros) + ' L' : ''} · ${num(p.hubs_que_venderam)} hub(s)`, value: p.gmv_valido, share: p.pct_gmv }));
       const cum = n => (S.produtos[n - 1] || S.produtos[S.produtos.length - 1] || {}).pct_acumulado;
       const meter = (l, v) => `<div class="mrow"><div class="mh"><span>${l}</span><b>${pct(v)}</b></div><div class="meter"><i style="width:${Math.min(100, v || 0)}%"></i></div></div>`;
-      return `<div class="stack"><div class="grid g-2 top">
+      const warn = ui.jet === 'iconic' ? '<p class="note" style="margin:0"><b>Atenção:</b> esta aba ainda soma os hubs Jet-Oil (a consulta de produtos não tem quebra por hub).</p>' : '';
+      return `<div class="stack">${warn}<div class="grid g-2 top">
         <section class="panel"><div class="ph"><h2>Ranking de produtos</h2><span class="hint">GMV válido · % do total</span></div>${S.produtos.length ? barRows(top) : '<div class="empty">Sem vendas por produto no período.</div>'}</section>
         <section class="panel"><div class="ph"><h2>Concentração do portfólio</h2><span class="hint">% acumulado do GMV</span></div>${meter('Top 1 produto', cum(1))}${meter('Top 3 produtos', cum(3))}${meter('Top 5 produtos', cum(5))}
           <p class="note">${num(S.produtos.length)} produtos com venda no período.</p></section></div>
@@ -4902,8 +5078,8 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
     function modalMensal(){
       const rows = S.meses.concat([S.total]);
       openRes('Resultados · IPIRANGA', 'GMV por mês', 'GMV válido exclui pedidos cancelados; GMV bruto inclui todos os status', `
-        <div class="tbl-wrap"><table><thead><tr><th class="l">Mês</th><th>GMV válido</th><th>GMV bruto</th><th>Cancelado</th><th>% cancel.</th><th>Pedidos</th><th>Unidades</th></tr></thead>
-        <tbody>${rows.map((r, i) => `<tr><td class="l">${esc(mesLabel(r.mes))}${S.partial && i === S.meses.length - 1 ? '*' : ''}</td><td>${brl(r.gmv_valido)}</td><td>${brl(r.gmv_todos_status)}</td><td>${brl(r.gmv_cancelado)}</td><td>${r.gmv_todos_status ? pct(100 * r.gmv_cancelado / r.gmv_todos_status) : '—'}</td><td>${num(r.pedidos)}</td><td>${num(r.unidades)}</td></tr>`).join('')}</tbody></table></div>
+        <div class="tbl-wrap"><table><thead><tr><th class="l">Mês</th><th>GMV válido</th><th>GMV bruto</th><th>Cancelado</th><th>% cancel.</th><th>Pedidos</th><th>Unidades</th><th>Litros</th></tr></thead>
+        <tbody>${rows.map((r, i) => `<tr><td class="l">${esc(mesLabel(r.mes))}${S.partial && i === S.meses.length - 1 ? '*' : ''}</td><td>${brl(r.gmv_valido)}</td><td>${brl(r.gmv_todos_status)}</td><td>${brl(r.gmv_cancelado)}</td><td>${r.gmv_todos_status ? pct(100 * r.gmv_cancelado / r.gmv_todos_status) : '—'}</td><td>${num(r.pedidos)}</td><td>${num(r.unidades)}</td><td>${litrosDe(r) == null ? '—' : num(litrosDe(r)) + ' L'}</td></tr>`).join('')}</tbody></table></div>
         ${S.partial ? '<p class="note">* Mês em curso, parcial.</p>' : ''}`, true);
     }
     function modalHub(key){
@@ -4961,13 +5137,13 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
     }
     function footerHtml(){
       return `<footer><p><b>Fonte:</b> Hubii Data Lake (Redshift). ${S.live ? 'Dados lidos ao vivo.' : 'Dados do snapshot' + (S.generatedAt ? ' de ' + dateBR(S.generatedAt) : '') + '.'}</p>
-        <p><b>Regras:</b> GMV válido exclui pedidos cancelados; GMV bruto inclui todos os status. Ticket médio = GMV válido ÷ pedidos válidos. ${S.partial ? 'O mês em curso é parcial (*). ' : ''}A DA é definida pela UF do hub (SP → TreviLub, RS → Makena, MG → BelLub). Pedidos ainda sem hub alocado não entram nas visões por DA.</p></footer>`;
+        <p><b>Regras:</b> GMV válido exclui pedidos cancelados; GMV bruto inclui todos os status. Ticket médio = GMV válido ÷ pedidos válidos. ${S.partial ? 'O mês em curso é parcial (*). ' : ''}A DA é definida pela UF do hub (SP → TreviLub, RS → Makena, MG → BelLub). Pedidos ainda sem hub alocado não entram nas visões por DA. Litros = unidades × volume do SKU (lido do nome). Visão ICONIC = sem hubs com Jet-Oil no nome; ADD JET-OIL = visão total.</p></footer>`;
     }
     function renderRail(){ const el = document.getElementById('hxRail'); if(el) el.innerHTML = railHtml(); }
     function renderBar(){ const el = document.getElementById('hxBar'); if(el) el.innerHTML = barHtml(); }
     function renderView(){
       const el = document.getElementById('hxView'); if(!el) return;
-      el.innerHTML = ui.view === 'produtos' ? viewProdutos() : ui.view === 'hubs' ? viewHubs() : ui.view === 'supply' ? viewSupply() : viewGeral();
+      el.innerHTML = ui.view === 'produtos' ? viewProdutos() : ui.view === 'hubs' ? viewHubs() : ui.view === 'supply' ? viewSupply() : ui.view === 'incentivos' ? viewIncentivos() : viewGeral();
       if(ui.view === 'geral') drawChart();
       if(ui.view === 'supply') fitCharts(el);
     }
@@ -4977,10 +5153,22 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
         <div id="hxRail"></div><div class="bar" id="hxBar"></div><div id="hxView"></div><div id="hxFoot">${footerHtml()}</div>`;
       renderRail(); renderBar(); renderView();
     }
+    // Portfólio · coluna "Preço de": vem da consulta do Metabase exposta na API como d.preco_de = { c: ['ean', 'preco_de', ...], r: [...] }
+    function fillPrecoDe(d){
+      if(!d || !d.preco_de || !d.preco_de.r) return;
+      const map = {};
+      toRows(d.preco_de).forEach(r => { if(r.ean != null && r.preco_de != null) map[String(r.ean).replace(/\D/g, '')] = +r.preco_de; });
+      document.querySelectorAll('.pf-item[data-ean]').forEach(it => {
+        const el = it.querySelector('.pf-prede'); if(!el) return;
+        const v = map[it.dataset.ean];
+        if(v == null || !isFinite(v)){ el.textContent = '—'; el.classList.add('nd'); el.title = 'sem preço de na consulta'; return; }
+        el.textContent = brl(v); el.classList.remove('nd'); el.title = 'preço de (referência antes do desconto)';
+      });
+    }
     const skeleton = () => { root.innerHTML = '<div class="grid g-kpi"><div class="skel"></div><div class="skel"></div><div class="skel"></div><div class="skel"></div></div><div class="grid g-2" style="margin-top:16px"><div class="skel" style="min-height:260px"></div><div class="skel" style="min-height:260px"></div></div>'; };
     function boot(withSkeleton){
       if(withSkeleton) skeleton();
-      return loadDataOps().then(({ d, live }) => { S0 = prep(d, live); applyFilters(); renderAll(); }).catch(err => {
+      return loadDataOps().then(({ d, live }) => { RAW = { d, live }; fillPrecoDe(d); prepView(); applyFilters(); renderAll(); }).catch(err => {
         console.error('[resultados]', err);
         root.innerHTML = '<div class="err">Não foi possível carregar os resultados agora. <button type="button" class="btn" data-act="reload" style="margin-left:8px">Tentar novamente</button></div>';
       });
@@ -4993,6 +5181,7 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
       if(act === 'reload'){ e.preventDefault(); boot(true); return; }
       if(!S) return;
       if(act === 'view'){ e.preventDefault(); ui.view = t.dataset.v; renderBar(); renderView(); }
+      else if(act === 'jet'){ if(ui.jet === t.dataset.v) return; ui.jet = t.dataset.v; if(ui.hub && isJet(ui.hub)) ui.hub = null; ui.cmp = ui.cmp.map(k => k && isJet(k) ? null : k); prepView(); if(ui.mes !== 'all' && !S0.meses.some(m => m.mes === ui.mes)) ui.mes = 'all'; refreshAll(); }
       else if(act === 'da'){ ui.da = t.dataset.da; renderRail(); renderBar(); renderView(); }
       else if(act === 'mensal') modalMensal();
       else if(act === 'hub') modalHub(t.dataset.key);
