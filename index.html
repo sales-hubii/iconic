@@ -501,6 +501,10 @@ textarea.f-input{ resize: vertical; }
 .hx .seg{ display:inline-flex; gap:2px; padding:3px; border-radius:var(--r-pill); background:var(--surface-2); }
 .hx .seg button{ border:0; background:none; padding:6px 14px; border-radius:var(--r-pill); cursor:pointer; color:#666; font-weight:600; font-size:13px; }
 .hx .seg button:hover{ color:var(--accent); }
+.hx .jetseg{ display:inline-flex; border:1px solid var(--line); border-radius:var(--r-pill); padding:2px; gap:2px; align-self:center; }
+.hx .jetseg button{ border:0; background:none; padding:3px 10px; border-radius:var(--r-pill); cursor:pointer; color:var(--muted); font:500 12px var(--f); letter-spacing:0; }
+.hx .jetseg button:hover{ color:var(--ink); }
+.hx .jetseg button[aria-pressed=true]{ background:var(--surface-2); color:var(--accent); font-weight:600; }
 .hx .seg button[aria-pressed=true]{ background:var(--accent); color:var(--accent-ink); box-shadow:0 4px 14px var(--glow-30); }
 
 /* gráficos */
@@ -4148,8 +4152,8 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
     const DA_LABEL = { 'TreviLub': 'TreviLub' };
     const dn = da => DA_LABEL[da] || da;
     const DA_COLOR = { 'TreviLub': '#6348e5', 'Makena': '#746bff', 'BelLub': '#9a9a9a' };
-    // Visão ICONIC = sem hubs Jet-Oil (qualquer hub com "Jet Oil", "JetOil" ou "Jet-Oil" no nome). ADD JET-OIL = visão total.
-    const JET_RE = /jet[\s-]*oil/i;
+    // Visão ICONIC = sem hubs Jet-Oil e AMPM (qualquer hub com "Jet Oil"/"JetOil"/"Jet-Oil" ou "AMPM" no nome). ADD JET-OIL + AMPM = visão total.
+    const JET_RE = /jet[\s-]*oil|\bam\s*\/?\s*pm\b/i;
     const isJet = n => JET_RE.test(String(n || ''));
     // volume por unidade (litros) lido do nome do produto: "1L", "1lt", "20L", "500ml"...
     function volL(name){
@@ -4309,7 +4313,7 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
       if(ui.mes !== 'all' && view === 'produtos') out.push('Produtos não têm quebra mensal nesta consulta: mostram o período inteiro.');
       if(S0.semMes && (view === 'hubs' || view === 'geral')) out.push('Os dados de hubs vieram sem quebra mensal: a API (api/resultados.js) precisa ser atualizada para o filtro de mês funcionar.');
       if(ui.hub && (view === 'geral' || view === 'produtos')) out.push('O filtro de hub vale para Hubs e Supply Ops; esta visão segue no total.');
-      if(ui.jet === 'iconic' && view === 'produtos') out.push('Visão ICONIC: a consulta de produtos (3610) não tem quebra por hub, então esta aba ainda inclui as vendas dos hubs Jet-Oil. Para separar, é preciso uma pergunta produto × hub no Metabase.');
+      if(ui.jet === 'iconic' && view === 'produtos') out.push('Visão ICONIC: a consulta de produtos (3610) não tem quebra por hub, então esta aba ainda inclui as vendas dos hubs Jet-Oil e AMPM. Para separar, é preciso uma pergunta produto × hub no Metabase.');
       if(view === 'produtos' && S0.produtos.some(p => p.volume_l == null)) out.push('Há SKUs sem volume identificável no nome (marcados com "?"): ficam fora do total de litros.');
       return out.map(t => `<p class="note">${esc(t)}</p>`).join('') + jetNote();
     }
@@ -4376,8 +4380,10 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
         const meses = o.hub.r.map(a => a[I.mes]).filter(m => m && m !== 'TOTAL').sort();
         meta.hubDesde = meses[0] || null;
         o.hub.r = o.hub.r.filter(a => {
-          if(!isJet(a[I.hub_nome])) return true;
-          const k = a[I.mes] || 'TOTAL', j = jetHub[k] || (jetHub[k] = { gmv: 0, ped: 0, un: 0, canc: 0, da: a[I.da], ativo: 0 });
+          if(!isJet(a[I.hub_nome]) || OUT_OF_SCOPE.has(a[I.da])) return true;
+          const mk = a[I.mes] || 'TOTAL', k = mk + '|' + a[I.da], j = jetHub[k] || (jetHub[k] = { gmv: 0, ped: 0, un: 0, canc: 0, da: a[I.da], ativo: 0 });
+          const t = jetHub[mk] || (jetHub[mk] = { gmv: 0, ped: 0, un: 0, canc: 0, ativo: 0 });
+          t.gmv += a[I.gmv_valido] || 0; t.ped += a[I.transacoes] || 0; t.un += a[I.unidades] || 0; t.canc += a[I.cancelados] || 0;
           j.gmv += a[I.gmv_valido] || 0; j.ped += a[I.transacoes] || 0; j.un += a[I.unidades] || 0; j.canc += a[I.cancelados] || 0;
           if((a[I.gmv_valido] || 0) > 0) j.ativo++;
           return false;
@@ -4419,7 +4425,7 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
       // DA (3611): desconta GMV, pedidos válidos e o hub ativo
       if(o.da && o.da.r){
         const I = idx(o.da);
-        o.da.r.forEach(a => { const h = jetHub[a[I.mes]]; if(!h || h.da !== a[I.da]) return;
+        o.da.r.forEach(a => { const h = jetHub[a[I.mes] + '|' + a[I.da]]; if(!h) return;
           a[I.gmv_valido] -= h.gmv; a[I.pedidos_validos] -= h.ped; a[I.hubs_ativos] = Math.max(0, (a[I.hubs_ativos] || 0) - h.ativo); });
       }
       // Supply Ops: série semanal e recusas por produto
@@ -4429,6 +4435,23 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
           o.ops.semana.r = o.ops.semana.r.filter(a => !isJet(a[I.hub_nome])); }
         if(o.ops.recusa_produto && o.ops.recusa_produto.r){ const I = idx(o.ops.recusa_produto); o.ops.recusa_produto.r = o.ops.recusa_produto.r.filter(a => !isJet(a[I.hub_nome])); }
       }
+      // a visão ICONIC começa no primeiro mês com quebra por hub: antes disso não dá para separar Jet-Oil/AMPM
+      if(meta.hubDesde){
+        const cut = meta.hubDesde, keep = m => m === 'TOTAL' || m >= cut;
+        if(o.mensal && o.mensal.r){
+          const I = idx(o.mensal), rows = o.mensal.r.filter(a => a[I.mes] !== 'TOTAL' && a[I.mes] >= cut);
+          meta.cortados = o.mensal.r.filter(a => a[I.mes] !== 'TOTAL' && a[I.mes] < cut).map(a => a[I.mes]);
+          const tot = o.mensal.c.map((k, i) => k === 'mes' ? 'TOTAL' : rows.reduce((s, a) => s + (a[i] || 0), 0));
+          o.mensal.r = rows.concat([tot]);
+        }
+        if(o.da && o.da.r){
+          const I = idx(o.da), rows = o.da.r.filter(a => a[I.mes] !== 'TOTAL' && a[I.mes] >= cut);
+          const hubAtivos = da => (o.hub && o.hub.r ? (() => { const H = idx(o.hub); return o.hub.r.filter(a => a[H.mes] === 'TOTAL' && a[H.da] === da && (a[H.gmv_valido] || 0) > 0).length; })() : 0);
+          const tots = [...new Set(rows.map(a => a[I.da]))].map(da => { const L = rows.filter(a => a[I.da] === da);
+            return o.da.c.map(k => k === 'mes' ? 'TOTAL' : k === 'da' ? da : k === 'hubs_ativos' ? hubAtivos(da) : k === 'pct_gmv_no_periodo' ? 0 : L.reduce((s, a) => s + (a[I[k]] || 0), 0)); });
+          o.da.r = rows.concat(tots);
+        }
+      }
       o.__jet = meta;
       return o;
     }
@@ -4436,10 +4459,7 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
     const jetNote = () => {
       if(ui.jet !== 'iconic' || !S0 || !S0.jetMeta) return '';
       const m = S0.jetMeta, out = [];
-      if(m.hubDesde && S0.meses.length && S0.meses[0].mes < m.hubDesde){
-        const w = m.jetSemanaDesde && m.jetSemanaDesde < m.hubDesde + '-01' ? ` A série semanal mostra Jet-Oil vendendo desde a semana de ${dateBR(m.jetSemanaDesde)}, então ${esc(mesLabel(m.jetSemanaDesde.slice(0, 7)))} ainda carrega parte desse volume.` : '';
-        out.push(`Visão ICONIC: a base só tem quebra por hub a partir de ${esc(mesLabel(m.hubDesde))}. Os meses anteriores aparecem sem dedução de Jet-Oil.${w}`);
-      }
+      if(m.cortados && m.cortados.length) out.push(`Visão ICONIC a partir de ${esc(mesLabel(m.hubDesde))}: antes disso a base não tem quebra por hub, então não dá para separar Jet-Oil e AMPM com segurança.`);
       return out.map(t => `<p class="note">${t}</p>`).join('');
     };
     function prep(d, live){
@@ -4599,13 +4619,13 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
       S0.hubs.filter(h => h.gmv_valido > 0).forEach(h => names.set(norm(h.hub_nome), norm(h.hub_nome)));
       const hubOpts = '<option value="">Todos os hubs</option>' + [...names.values()].sort((a, b) => a.localeCompare(b, 'pt-BR')).map(n => `<option value="${esc(n)}"${ui.hub === n ? ' selected' : ''}>${esc(n)}</option>`).join('');
       const monthOpts = '<option value="all">Todos os meses</option>' + S0.meses.map((m, i) => `<option value="${esc(m.mes)}"${ui.mes === m.mes ? ' selected' : ''}>${esc(mesLabel(m.mes))}${S0.partial && i === S0.meses.length - 1 ? ' (parcial)' : ''}</option>`).join('');
-      const jetSeg = `<label class="flt"><span>Visão</span><div class="seg jetseg" role="group" aria-label="Considerar hubs Jet-Oil"><button type="button" data-act="jet" data-v="iconic" aria-pressed="${ui.jet === 'iconic'}" title="Desconsidera todos os hubs com Jet-Oil no nome">ICONIC</button><button type="button" data-act="jet" data-v="add" aria-pressed="${ui.jet === 'add'}" title="Visão total, com os hubs Jet-Oil">ADD JET-OIL</button></div></label>`;
+      const jetSeg = `<div class="jetseg" role="group" aria-label="Considerar hubs Jet-Oil e AMPM"><button type="button" data-act="jet" data-v="iconic" aria-pressed="${ui.jet === 'iconic'}" title="Desconsidera os hubs com Jet-Oil ou AMPM no nome">Iconic</button><button type="button" data-act="jet" data-v="add" aria-pressed="${ui.jet === 'add'}" title="Visão total, com os hubs Jet-Oil e AMPM">+ Jet-Oil e AMPM</button></div>`;
       const filters = jetSeg + `<label class="flt"><span>Mês</span><select class="fsel" data-filter="mes" aria-label="Filtrar por mês">${monthOpts}</select></label><label class="flt"><span>Hub</span><select class="fsel" data-filter="hub" aria-label="Filtrar por hub">${hubOpts}</select></label>`;
       const chips = ui.da !== 'all'
         ? `<span class="lbl">Filtros</span><button type="button" class="fchip" data-act="da" data-da="all" aria-label="Remover filtro de DA"><span>DA: <b>${esc(dn(ui.da))}</b></span><span class="x">✕</span></button><button type="button" class="linkbtn" data-act="da" data-da="all">Limpar</button>`
         : '';
       return `<nav class="stabs" role="tablist" aria-label="Seções de resultados">${TABS.map(([v, l]) => `<a href="#" role="tab" data-act="view" data-v="${v}" ${ui.view === v ? 'aria-current="page"' : ''}>${l}</a>`).join('')}</nav>
-        <div class="period-line">${esc(mesLabel(first.mes))} a ${esc(mesLabel(last.mes))}${S.partial ? ' (mês em curso, parcial)' : ''}<span style="margin:0 6px">·</span>última compra registrada em ${dateBR(S.lastBuy)}${ui.jet === 'iconic' ? '<span style="margin:0 6px">·</span><b>visão ICONIC, sem hubs Jet-Oil</b>' : ''}</div>
+        <div class="period-line">${esc(mesLabel(first.mes))} a ${esc(mesLabel(last.mes))}${S.partial ? ' (mês em curso, parcial)' : ''}<span style="margin:0 6px">·</span>última compra registrada em ${dateBR(S.lastBuy)}${ui.jet === 'iconic' ? '<span style="margin:0 6px">·</span>visão ICONIC, sem hubs Jet-Oil e AMPM' : ''}</div>
         <div class="active">${filters}${chips}</div>`;
     }
 
@@ -4761,7 +4781,7 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
       const top = S.produtos.slice(0, 8).map(p => ({ label: p.produto, sub: `${volTxt(p.volume_l)} · ${num(p.unidades)} un.${p.litros != null ? ' · ' + num(p.litros) + ' L' : ''} · ${num(p.hubs_que_venderam)} hub(s)`, value: p.gmv_valido, share: p.pct_gmv }));
       const cum = n => (S.produtos[n - 1] || S.produtos[S.produtos.length - 1] || {}).pct_acumulado;
       const meter = (l, v) => `<div class="mrow"><div class="mh"><span>${l}</span><b>${pct(v)}</b></div><div class="meter"><i style="width:${Math.min(100, v || 0)}%"></i></div></div>`;
-      const warn = ui.jet === 'iconic' ? '<p class="note" style="margin:0"><b>Atenção:</b> esta aba ainda soma os hubs Jet-Oil (a consulta de produtos não tem quebra por hub).</p>' : '';
+      const warn = ui.jet === 'iconic' ? '<p class="note" style="margin:0"><b>Atenção:</b> esta aba ainda soma os hubs Jet-Oil e AMPM (a consulta de produtos não tem quebra por hub).</p>' : '';
       return `<div class="stack">${warn}<div class="grid g-2 top">
         <section class="panel"><div class="ph"><h2>Ranking de produtos</h2><span class="hint">GMV válido · % do total</span></div>${S.produtos.length ? barRows(top) : '<div class="empty">Sem vendas por produto no período.</div>'}</section>
         <section class="panel"><div class="ph"><h2>Concentração do portfólio</h2><span class="hint">% acumulado do GMV</span></div>${meter('Top 1 produto', cum(1))}${meter('Top 3 produtos', cum(3))}${meter('Top 5 produtos', cum(5))}
@@ -5137,7 +5157,7 @@ details.ata-old > summary{ cursor:pointer; list-style:none; font-size:14px; }
     }
     function footerHtml(){
       return `<footer><p><b>Fonte:</b> Hubii Data Lake (Redshift). ${S.live ? 'Dados lidos ao vivo.' : 'Dados do snapshot' + (S.generatedAt ? ' de ' + dateBR(S.generatedAt) : '') + '.'}</p>
-        <p><b>Regras:</b> GMV válido exclui pedidos cancelados; GMV bruto inclui todos os status. Ticket médio = GMV válido ÷ pedidos válidos. ${S.partial ? 'O mês em curso é parcial (*). ' : ''}A DA é definida pela UF do hub (SP → TreviLub, RS → Makena, MG → BelLub). Pedidos ainda sem hub alocado não entram nas visões por DA. Litros = unidades × volume do SKU (lido do nome). Visão ICONIC = sem hubs com Jet-Oil no nome; ADD JET-OIL = visão total.</p></footer>`;
+        <p><b>Regras:</b> GMV válido exclui pedidos cancelados; GMV bruto inclui todos os status. Ticket médio = GMV válido ÷ pedidos válidos. ${S.partial ? 'O mês em curso é parcial (*). ' : ''}A DA é definida pela UF do hub (SP → TreviLub, RS → Makena, MG → BelLub). Pedidos ainda sem hub alocado não entram nas visões por DA. Litros = unidades × volume do SKU (lido do nome). Visão ICONIC = sem hubs com Jet-Oil ou AMPM no nome; ADD JET-OIL + AMPM = visão total.</p></footer>`;
     }
     function renderRail(){ const el = document.getElementById('hxRail'); if(el) el.innerHTML = railHtml(); }
     function renderBar(){ const el = document.getElementById('hxBar'); if(el) el.innerHTML = barHtml(); }
